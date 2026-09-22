@@ -1217,6 +1217,28 @@ body.is-workspace.tab-open .ws-subnav{display:none !important}
 body.is-workspace.tab-open .ws-hint{display:none !important}
 body.is-workspace .ws-subnav{margin-bottom:4px}
 
+.milestone-toast{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-30px);
+  z-index:999;opacity:0;transition:opacity .35s ease,transform .35s ease;
+  pointer-events:none;
+}
+.milestone-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.milestone-inner{
+  background:linear-gradient(120deg,var(--brand-dark),var(--brand));
+  color:#fff;border-radius:16px;padding:14px 22px;
+  box-shadow:0 16px 34px rgba(18,60,44,.3);
+  display:flex;align-items:center;gap:10px;
+  font-family:'Fraunces',serif;white-space:nowrap;
+}
+.milestone-stars{font-size:20px}
+.milestone-inner strong{font-size:16px}
+.milestone-count{font-size:13px;opacity:.9;border-inline-start:1px solid rgba(255,255,255,.3);padding-inline-start:10px}
+@media(max-width:480px){
+  .milestone-inner{padding:11px 14px;gap:7px}
+  .milestone-inner strong{font-size:14px}
+  .milestone-count{font-size:11.5px}
+}
+
 </style>
 </head>
 <body>
@@ -1270,30 +1292,6 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
     <a class="cta" href="#homeClean" onclick="goHomeSection('homeClean');return false"><span data-en="Choose your desk" data-ar="اختَر مكتبك">Choose your desk</span></a>
   </div>
 </section>
-
-<div class="review-strip reveal home-view">
-  <div class="review-inner">
-    <div class="review-ring">
-      <svg viewBox="0 0 100 100" width="88" height="88">
-        <circle class="review-ring-track" cx="50" cy="50" r="42"></circle>
-        <circle class="review-ring-fill" id="reviewRingFill" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264"></circle>
-      </svg>
-      <div class="review-ring-label"><strong id="reviewRingPct">0%</strong><span data-en="Mastered" data-ar="إتقان">Mastered</span></div>
-    </div>
-    <div class="review-pills">
-      <div class="review-pill"><strong id="cmd-streak">—</strong><span data-en="Day streak" data-ar="أيام متتابعة">Day streak</span></div>
-      <div class="review-pill"><strong id="cmd-score">—</strong><span data-en="Points" data-ar="نقطة">Points</span></div>
-      <div class="review-pill"><strong id="reviewMasteredCount">0/6</strong><span data-en="Desks mastered" data-ar="مكاتب متقنة">Desks mastered</span></div>
-    </div>
-    <div class="review-msg">
-      <span class="lvl" id="cmd-level">—</span>
-      <span id="cmd-msg" style="display:block;margin-top:8px"></span>
-    </div>
-    <button type="button" class="btn" style="background:#fff;color:var(--brand-dark);border:0" onclick="openWorkspaceMenu('learn')"><span data-en="Open Learning Hub →" data-ar="افتح المركز التعليمي ←">Open Learning Hub →</span></button>
-  </div>
-</div>
-
-<div class="weak-list reveal home-view" id="weakAreasList"></div>
 
 <div class="focus-card reveal home-view" id="todaysFocusCard">
   <div class="focus-inner">
@@ -1418,16 +1416,16 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
       <small data-en="Investigate one real exception" data-ar="حقّق في استثناء حقيقي واحد">Investigate one real exception</small>
     </div>
     <div class="home-secondary home-secondary-single reveal">
-      <button type="button" onclick="showHomeExtra('problem')">
-        <strong data-en="Today’s case study" data-ar="حالة اليوم">Today’s case study</strong>
-        <span data-en="Customer says: we already paid this invoice" data-ar="العميل يقول: سددنا هذه الفاتورة بالفعل">Customer says: we already paid this invoice</span>
+      <button type="button" onclick="startRandomDailyCase()">
+        <strong data-en="Today's case study" data-ar="حالة اليوم">Today's case study</strong>
+        <span data-en="Jump straight into a random real-world exception to investigate." data-ar="ادخل مباشرة على استثناء واقعي عشوائي عشان تحقق فيه.">Jump straight into a random real-world exception to investigate.</span>
       </button>
     </div>
     <div class="home-secondary home-secondary-single reveal" style="margin-top:10px">
-      <button type="button" onclick="openEndToEndMission()">
+      <button type="button" onclick="startRandomE2ECase()">
         <strong data-en="End-to-End Accounting Mission" data-ar="مهمة محاسبية متكاملة">End-to-End Accounting Mission</strong>
         <span data-en="Sales invoice → customer receipt → bank reconciliation → GL → month-end close" data-ar="فاتورة بيع ← تحصيل العميل ← مطابقة البنك ← دفتر الأستاذ ← إقفال الشهر">Sales invoice → customer receipt → bank reconciliation → GL → month-end close</span>
-        <small style="display:block;margin-top:6px;color:var(--brand);font-weight:800" data-en="Start the connected case →" data-ar="ابدأ الحالة المترابطة ←">Start the connected case →</small><button type="button" onclick="openE2ECaseLibrary()" style="margin-top:9px;border:1px solid var(--line);background:var(--card);color:inherit;border-radius:9px;padding:7px 10px;font-weight:800;cursor:pointer" data-en="Explore more end-to-end cases →" data-ar="استكشف حالات متكاملة أخرى ←">Explore more end-to-end cases →</button>
+        <small style="display:block;margin-top:6px;color:var(--brand);font-weight:800" data-en="Start a random connected mission →" data-ar="ابدأ مهمة مترابطة عشوائية ←">Start a random connected mission →</small>
       </button>
     </div>
     <p class="home-note" data-en="Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs." data-ar="نصيحة: استخدم الشريط الجانبي للانتقال بين الأقسام المستقلة. لكل مكتب تبويباته الخاصة.">Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs.</p>
@@ -1436,13 +1434,26 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
 <div class="data-panel" id="overview">
     <h3><span data-en="Company Master Data" data-ar="البيانات الأساسية للشركة">Company Master Data</span></h3>
     <p class="panel-sub" data-en="The core setup every module in this workspace is built on." data-ar="الإعداد الأساسي الذي تُبنى عليه كل وحدة في هذا المعمل.">The core setup every module in this workspace is built on.</p>
-    <div class="data-grid">
-      <div class="data-card"><strong>Ayman Hegazy</strong><span>Company</span></div>
-      <div class="data-card"><strong>Mixed Activity</strong><span>Business Activity</span></div>
-      <div class="data-card"><strong>EGP</strong><span>Functional Currency</span></div>
-      <div class="data-card"><strong>January → December</strong><span>Fiscal Year</span></div>
-      <div class="data-card"><strong>4</strong><span>Bank Accounts</span></div>
-      <div class="data-card"><strong>8</strong><span>Departments</span></div>
+    <div class="form-grid">
+      <div class="field"><label for="cs-name" data-en="Company Name" data-ar="اسم الشركة">Company Name</label><input id="cs-name" oninput="companySettingsSave()" placeholder="e.g. Ayman Hegazy Trading Co."></div>
+      <div class="field"><label for="cs-activity" data-en="Business Activity" data-ar="النشاط التجاري">Business Activity</label>
+        <select id="cs-activity" onchange="companySettingsSave()">
+          <option value="Retail" data-en="Retail" data-ar="تجارة تجزئة">Retail</option>
+          <option value="Services" data-en="Services" data-ar="خدمات">Services</option>
+          <option value="Manufacturing" data-en="Manufacturing" data-ar="تصنيع">Manufacturing</option>
+          <option value="Healthcare Services" data-en="Healthcare Services" data-ar="خدمات صحية">Healthcare Services</option>
+          <option value="Trading" data-en="Trading" data-ar="تجارة">Trading</option>
+          <option value="Construction" data-en="Construction" data-ar="مقاولات">Construction</option>
+          <option value="Technology" data-en="Technology" data-ar="تقنية">Technology</option>
+          <option value="Mixed Activity" data-en="Mixed Activity" data-ar="نشاط مختلط">Mixed Activity</option>
+        </select>
+      </div>
+      <div class="field"><label data-en="Functional Currency" data-ar="العملة الوظيفية">Functional Currency</label><input value="EGP" disabled title="Changing the functional currency is not supported yet."></div>
+      <div class="field"><label for="cs-fiscal" data-en="Fiscal Year" data-ar="السنة المالية">Fiscal Year</label><input id="cs-fiscal" oninput="companySettingsSave()" placeholder="e.g. January → December"></div>
+    </div>
+    <div class="data-grid" style="margin-top:14px">
+      <div class="data-card"><strong>4</strong><span data-en="Bank Accounts" data-ar="حسابات بنكية">Bank Accounts</span></div>
+      <div class="data-card"><strong id="cs-dept-count">8</strong><span data-en="Departments" data-ar="أقسام">Departments</span></div>
     </div>
   </div>
 
@@ -1702,17 +1713,14 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
   </div>
 
   <div class="data-panel" id="departments">
-    <h3>Departments</h3>
-    <div class="data-grid">
-      <div class="data-card"><strong>Accounting</strong><span>حسابات</span></div>
-      <div class="data-card"><strong>HR</strong><span>شئون عاملين</span></div>
-      <div class="data-card"><strong>Legal</strong><span>الشؤون القانونية</span></div>
-      <div class="data-card"><strong>Maintenance</strong><span>صيانة</span></div>
-      <div class="data-card"><strong>Quality</strong><span>الجودة</span></div>
-      <div class="data-card"><strong>Sales</strong><span>مبيعات</span></div>
-      <div class="data-card"><strong>Customer Service</strong><span>خدمة عملاء</span></div>
-      <div class="data-card"><strong>General & Administrative</strong><span>إدارية وعمومية</span></div>
+    <h3 data-en="Departments" data-ar="الأقسام">Departments</h3>
+    <p class="panel-sub" data-en="Add, rename or remove departments — changes appear immediately in the New Employee form." data-ar="أضف أو أعد تسمية أو احذف الأقسام — التغييرات تظهر فورًا في نموذج موظف جديد.">Add, rename or remove departments — changes appear immediately in the New Employee form.</p>
+    <div class="data-grid" id="dept-grid"></div>
+    <div class="form-grid" style="margin-top:16px">
+      <div class="field"><label for="dept-new-en" data-en="New department (English)" data-ar="قسم جديد (إنجليزي)">New department (English)</label><input id="dept-new-en" placeholder="e.g. Marketing"></div>
+      <div class="field"><label for="dept-new-ar" data-en="New department (Arabic)" data-ar="قسم جديد (عربي)">New department (Arabic)</label><input id="dept-new-ar" placeholder="مثال: التسويق"></div>
     </div>
+    <button type="button" class="btn btn-primary" style="margin-top:10px" onclick="deptAdd()" data-en="+ Add Department" data-ar="+ إضافة قسم">+ Add Department</button>
   </div>
 
   <div class="data-panel" id="coa">
@@ -1762,31 +1770,25 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
     </div>
     <div class="table-wrap">
       <table class="data-table" id="table-coa">
-        <thead><tr><th>Code</th><th>Account</th><th><span data-en="Type" data-ar="النوع">Type</span></th><th><span data-en="Purpose" data-ar="الغرض">Purpose</span></th></tr></thead>
-        <tbody id="coa-tbody">
-        <tr class="coa-row"><td>110000</td><td>Cash & Banks</td><td><span class="type-pill type-Asset"><span data-en="Asset" data-ar="أصل">Asset</span></span></td><td>Treasury and bank balances</td></tr>
-        <tr class="coa-row"><td>120000</td><td>Accounts Receivable</td><td><span class="type-pill type-Asset">Asset</span></td><td>Customer balances</td></tr>
-        <tr class="coa-row"><td>130000</td><td>Inventory</td><td><span class="type-pill type-Asset">Asset</span></td><td>Inventory control</td></tr>
-        <tr class="coa-row"><td>210000</td><td>Accounts Payable</td><td><span class="type-pill type-Liability"><span data-en="Liability" data-ar="التزام">Liability</span></span></td><td>Supplier balances</td></tr>
-        <tr class="coa-row"><td>220000</td><td>Bank Loans & Overdrafts</td><td><span class="type-pill type-Liability">Liability</span></td><td>Borrowings and overdraft facilities</td></tr>
-        <tr class="coa-row"><td>230000</td><td>Accrued Expenses</td><td><span class="type-pill type-Liability">Liability</span></td><td>Month-end accruals</td></tr>
-        <tr class="coa-row"><td>240000</td><td>Taxes & Social Insurance Payable</td><td><span class="type-pill type-Liability">Liability</span></td><td>Statutory obligations and payroll deductions</td></tr>
-        <tr class="coa-row"><td>300000</td><td>Equity</td><td><span class="type-pill type-Equity">Equity</span></td><td>Owners’ residual interest in the company</td></tr>
-        <tr class="coa-row"><td>310000</td><td>Capital</td><td><span class="type-pill type-Equity">Equity</span></td><td>Issued share capital or owner capital contribution</td></tr>
-        <tr class="coa-row"><td>320000</td><td>Additional Paid-in Capital</td><td><span class="type-pill type-Equity">Equity</span></td><td>Amounts received above nominal share value</td></tr>
-        <tr class="coa-row"><td>330000</td><td>Legal Reserve</td><td><span class="type-pill type-Equity">Equity</span></td><td>Statutory reserve appropriated from profit</td></tr>
-        <tr class="coa-row"><td>340000</td><td>Other Reserves</td><td><span class="type-pill type-Equity">Equity</span></td><td>Board-designated or regulatory reserves</td></tr>
-        <tr class="coa-row"><td>350000</td><td>Retained Earnings — Current Year</td><td><span class="type-pill type-Equity">Equity</span></td><td>Current-year profit or loss pending closing</td></tr>
-        <tr class="coa-row"><td>360000</td><td>Previous Years’ Earnings</td><td><span class="type-pill type-Equity">Equity</span></td><td>Accumulated prior-year profits or losses</td></tr>
-        <tr class="coa-row"><td>370000</td><td>Dividends Declared / Owner Drawings</td><td><span class="type-pill type-Equity">Equity</span></td><td>Distributions to shareholders or owners; contra-equity</td></tr>
-        <tr class="coa-row"><td>380000</td><td>Treasury Shares</td><td><span class="type-pill type-Equity">Equity</span></td><td>Repurchased shares; contra-equity where applicable</td></tr>
-        <tr class="coa-row"><td>410000</td><td>Sales Revenue</td><td><span class="type-pill type-Revenue">Revenue</span></td><td>Sales transactions</td></tr>
-        <tr class="coa-row"><td>510000</td><td>Cost of Goods Sold</td><td><span class="type-pill type-Expense">Expense</span></td><td>COGS</td></tr>
-        <tr class="coa-row"><td>520000</td><td>Salaries & Wages</td><td><span class="type-pill type-Expense">Expense</span></td><td>Payroll expense</td></tr>
-        <tr class="coa-row"><td>530000</td><td>Operating Expenses</td><td><span class="type-pill type-Expense">Expense</span></td><td>Rent, utilities, office and other operating costs</td></tr>
-        <tr class="coa-row"><td>540000</td><td>Depreciation & Amortization</td><td><span class="type-pill type-Expense">Expense</span></td><td>Periodic allocation of long-term asset cost</td></tr>        </tbody>
+        <thead><tr><th>Code</th><th>Account</th><th><span data-en="Type" data-ar="النوع">Type</span></th><th><span data-en="Purpose" data-ar="الغرض">Purpose</span></th><th></th></tr></thead>
+        <tbody id="coa-tbody"></tbody>
       </table>
     </div>
+    <div class="form-grid" style="margin-top:16px">
+      <div class="field"><label for="coa-new-code" data-en="Code" data-ar="الكود">Code</label><input id="coa-new-code" placeholder="e.g. 550000"></div>
+      <div class="field"><label for="coa-new-name" data-en="Account Name" data-ar="اسم الحساب">Account Name</label><input id="coa-new-name" placeholder="e.g. Marketing Expenses"></div>
+      <div class="field"><label for="coa-new-type" data-en="Type" data-ar="النوع">Type</label>
+        <select id="coa-new-type">
+          <option value="Asset">Asset</option>
+          <option value="Liability">Liability</option>
+          <option value="Equity">Equity</option>
+          <option value="Revenue">Revenue</option>
+          <option value="Expense">Expense</option>
+        </select>
+      </div>
+      <div class="field"><label for="coa-new-purpose" data-en="Purpose" data-ar="الغرض">Purpose</label><input id="coa-new-purpose" placeholder="Short description"></div>
+    </div>
+    <button type="button" class="btn btn-primary" style="margin-top:10px" onclick="coaAdd()" data-en="+ Add Account" data-ar="+ إضافة حساب">+ Add Account</button>
   </div>
 
   <div class="data-panel" id="gl-trial-balance">
@@ -3769,7 +3771,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
   <div class="data-panel" id="hr-new-employee">
     <div class="module-head"><span class="module-tag" data-en="🧑‍💼 Payroll & HR" data-ar="🧑‍💼 الرواتب والموارد البشرية">🧑‍💼 Payroll & HR</span><h3 data-en="Transaction: Add New Employee" data-ar="حركة: إضافة موظف جديد">Transaction: Add New Employee</h3><p class="panel-sub" data-en="Create the employee master record with segregation between HR data entry and approval." data-ar="أنشئ سجل الموظف الأساسي مع الفصل بين إدخال بيانات الموارد البشرية والاعتماد.">Create the employee master record with segregation between HR data entry and approval.</p></div>
     <div class="sop-block"><h4 data-en="Standard Operating Procedure (SOP)" data-ar="إجراء العمل المعياري (SOP)">Standard Operating Procedure (SOP)</h4><div class="accounting-steps sop-steps"><div class="accounting-step active"><div class="step-number">01</div><div class="step-content"><strong data-en="HR Request" data-ar="طلب الموارد البشرية">HR Request</strong><span data-en="HR submits identity, department and employment details." data-ar="تقدم الموارد البشرية بيانات الهوية والقسم والتوظيف.">HR submits identity, department and employment details.</span></div></div><div class="step-connector"></div><div class="accounting-step"><div class="step-number">02</div><div class="step-content"><strong data-en="Payroll Review" data-ar="مراجعة الرواتب">Payroll Review</strong><span data-en="Payroll validates salary, cost center and start date." data-ar="تراجع الرواتب الأجر ومركز التكلفة وتاريخ البدء.">Payroll validates salary, cost center and start date.</span></div></div><div class="step-connector"></div><div class="accounting-step final-step"><div class="step-number">03</div><div class="step-content"><strong data-en="Approval & Activation" data-ar="الاعتماد والتفعيل">Approval & Activation</strong><span data-en="An employee code is generated and the employee becomes active." data-ar="يتولد كود للموظف ويصبح الموظف نشطًا.">An employee code is generated and the employee becomes active.</span></div></div></div></div>
-    <div class="form-block"><h4 data-en="Create Employee Master Record" data-ar="إنشاء السجل الأساسي للموظف">Create Employee Master Record</h4><form onsubmit="return false"><div class="form-grid"><div class="field"><label for="ef-name"><span class="req">*</span> <span data-en="Employee Name" data-ar="اسم الموظف">Employee Name</span></label><input id="ef-name" required placeholder="e.g. Ahmed Hassan"></div><div class="field"><label for="ef-dob"><span class="req">*</span> <span data-en="Date of Birth" data-ar="تاريخ الميلاد">Date of Birth</span></label><input id="ef-dob" type="date" required></div><div class="field"><label for="ef-national"><span class="req">*</span> <span data-en="National ID / ID Number" data-ar="الرقم القومي / رقم البطاقة">National ID / ID Number</span></label><input id="ef-national" required placeholder="e.g. 29001011234567"></div><div class="field"><label for="ef-insurance"><span class="req">*</span> <span data-en="Social Insurance Number" data-ar="رقم التأمينات الاجتماعية">Social Insurance Number</span></label><input id="ef-insurance" required placeholder="e.g. SI-12345678"></div><div class="field"><label for="ef-phone"><span class="req">*</span> <span data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</span></label><input id="ef-phone" type="tel" required placeholder="e.g. +20 10 1234 5678"></div><div class="field"><label for="ef-email"><span class="req">*</span> <span data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</span></label><input id="ef-email" type="email" required placeholder="e.g. ahmed@example.com"></div><div class="field"><label for="ef-dept"><span class="req">*</span> <span data-en="Department" data-ar="القسم">Department</span></label><select id="ef-dept" required><option value="">— Select —</option><option>Accounting</option><option>HR</option><option>Legal</option><option>Maintenance</option><option>Quality</option><option>Sales</option><option>Customer Service</option><option>General & Administrative</option></select></div><div class="field"><label for="ef-title" data-en="Job Title" data-ar="المسمى الوظيفي">Job Title</label><input id="ef-title" required placeholder="e.g. AP Accountant"></div><div class="field"><label for="ef-type" data-en="Employment Type" data-ar="نوع التوظيف">Employment Type</label><select id="ef-type"><option>Full-time</option><option>Part-time</option><option>Contract</option></select></div><div class="field"><label for="ef-paybasis"><span class="req">*</span> <span data-en="Pay Basis" data-ar="نظام الأجر">Pay Basis</span></label><select id="ef-paybasis" onchange="employeePayChanged()" required><option value="">— Select —</option><option value="Fixed">Fixed Salary</option><option value="HourlyShift">Hourly / Shift</option><option value="Both">Fixed Salary + Hourly / Shift</option></select></div><div class="field" id="ef-fixed-field"><label for="ef-fixed"><span class="req">*</span> <span data-en="Fixed Monthly Salary (EGP)" data-ar="الراتب الشهري الثابت (جنيه)">Fixed Monthly Salary (EGP)</span></label><input id="ef-fixed" type="number" min="0" step="100" placeholder="e.g. 18000"></div><div class="field" id="ef-hourly-field"><label for="ef-hourly"><span class="req">*</span> <span data-en="Hourly Rate (EGP)" data-ar="أجر الساعة (جنيه)">Hourly Rate (EGP)</span></label><input id="ef-hourly" type="number" min="0" step="1" placeholder="e.g. 120"></div><div class="field" id="ef-shift-field"><label for="ef-shift"><span class="req">*</span> <span data-en="Shift Rate (EGP)" data-ar="أجر الشفت (جنيه)">Shift Rate (EGP)</span></label><input id="ef-shift" type="number" min="0" step="1" placeholder="e.g. 900"></div><div class="field"><label for="ef-start" data-en="Hire Date" data-ar="تاريخ التعيين">Hire Date</label><input id="ef-start" type="date" required></div><div class="field"><label for="ef-address" data-en="Home Address" data-ar="عنوان السكن">Home Address</label><input id="ef-address" placeholder="e.g. Cairo, Egypt"></div><div class="field"><label for="ef-emergency" data-en="Emergency Contact" data-ar="جهة اتصال للطوارئ">Emergency Contact</label><input id="ef-emergency" placeholder="Name and phone number"></div><div class="field"><label for="ef-req" data-en="Requested By" data-ar="مقدّم الطلب">Requested By</label><input id="ef-req" placeholder="e.g. HR — Sara Adel"></div></div></form><div class="workflow-bar"><span class="status-pill status-draft" id="hr-status">Draft</span><button class="btn btn-primary" id="hr-btn-submit" onclick="masterSubmit('hr')" data-en="Submit for Approval" data-ar="إرسال للاعتماد">Submit for Approval</button><span class="approval-control"><label for="hr-approver" data-en="Approved By" data-ar="المعتمد">Approved By</label><select id="hr-approver" class="approver-select" aria-label="Approved By"><option value="">— Select employee —</option></select><button type="button" class="btn btn-ghost btn-add-ref" onclick="openAddNewEmployee()" data-en="Add New Employee" data-ar="إضافة موظف جديد">Add New Employee</button></span><button class="btn btn-approve" id="hr-btn-approve" onclick="masterApprove('hr')" style="display:none" data-en="Approve" data-ar="اعتماد">Approve</button><button class="btn btn-reject" id="hr-btn-reject" onclick="masterReject('hr')" style="display:none" data-en="Reject" data-ar="رفض">Reject</button><button class="btn btn-ghost" id="hr-btn-reset" onclick="masterReset('hr')" style="display:none" data-en="New Request" data-ar="طلب جديد">New Request</button></div><div id="hr-result" aria-live="polite"></div></div>
+    <div class="form-block"><h4 data-en="Create Employee Master Record" data-ar="إنشاء السجل الأساسي للموظف">Create Employee Master Record</h4><form onsubmit="return false"><div class="form-grid"><div class="field"><label for="ef-name"><span class="req">*</span> <span data-en="Employee Name" data-ar="اسم الموظف">Employee Name</span></label><input id="ef-name" required placeholder="e.g. Ahmed Hassan"></div><div class="field"><label for="ef-dob"><span class="req">*</span> <span data-en="Date of Birth" data-ar="تاريخ الميلاد">Date of Birth</span></label><input id="ef-dob" type="date" required></div><div class="field"><label for="ef-national"><span class="req">*</span> <span data-en="National ID / ID Number" data-ar="الرقم القومي / رقم البطاقة">National ID / ID Number</span></label><input id="ef-national" required placeholder="e.g. 29001011234567"></div><div class="field"><label for="ef-insurance"><span class="req">*</span> <span data-en="Social Insurance Number" data-ar="رقم التأمينات الاجتماعية">Social Insurance Number</span></label><input id="ef-insurance" required placeholder="e.g. SI-12345678"></div><div class="field"><label for="ef-phone"><span class="req">*</span> <span data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</span></label><input id="ef-phone" type="tel" required placeholder="e.g. +20 10 1234 5678"></div><div class="field"><label for="ef-email"><span class="req">*</span> <span data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</span></label><input id="ef-email" type="email" required placeholder="e.g. ahmed@example.com"></div><div class="field"><label for="ef-dept"><span class="req">*</span> <span data-en="Department" data-ar="القسم">Department</span></label><select id="ef-dept" required><option value="">— Select —</option></select></div><div class="field"><label for="ef-title" data-en="Job Title" data-ar="المسمى الوظيفي">Job Title</label><input id="ef-title" required placeholder="e.g. AP Accountant"></div><div class="field"><label for="ef-type" data-en="Employment Type" data-ar="نوع التوظيف">Employment Type</label><select id="ef-type"><option>Full-time</option><option>Part-time</option><option>Contract</option></select></div><div class="field"><label for="ef-paybasis"><span class="req">*</span> <span data-en="Pay Basis" data-ar="نظام الأجر">Pay Basis</span></label><select id="ef-paybasis" onchange="employeePayChanged()" required><option value="">— Select —</option><option value="Fixed">Fixed Salary</option><option value="HourlyShift">Hourly / Shift</option><option value="Both">Fixed Salary + Hourly / Shift</option></select></div><div class="field" id="ef-fixed-field"><label for="ef-fixed"><span class="req">*</span> <span data-en="Fixed Monthly Salary (EGP)" data-ar="الراتب الشهري الثابت (جنيه)">Fixed Monthly Salary (EGP)</span></label><input id="ef-fixed" type="number" min="0" step="100" placeholder="e.g. 18000"></div><div class="field" id="ef-hourly-field"><label for="ef-hourly"><span class="req">*</span> <span data-en="Hourly Rate (EGP)" data-ar="أجر الساعة (جنيه)">Hourly Rate (EGP)</span></label><input id="ef-hourly" type="number" min="0" step="1" placeholder="e.g. 120"></div><div class="field" id="ef-shift-field"><label for="ef-shift"><span class="req">*</span> <span data-en="Shift Rate (EGP)" data-ar="أجر الشفت (جنيه)">Shift Rate (EGP)</span></label><input id="ef-shift" type="number" min="0" step="1" placeholder="e.g. 900"></div><div class="field"><label for="ef-start" data-en="Hire Date" data-ar="تاريخ التعيين">Hire Date</label><input id="ef-start" type="date" required></div><div class="field"><label for="ef-address" data-en="Home Address" data-ar="عنوان السكن">Home Address</label><input id="ef-address" placeholder="e.g. Cairo, Egypt"></div><div class="field"><label for="ef-emergency" data-en="Emergency Contact" data-ar="جهة اتصال للطوارئ">Emergency Contact</label><input id="ef-emergency" placeholder="Name and phone number"></div><div class="field"><label for="ef-req" data-en="Requested By" data-ar="مقدّم الطلب">Requested By</label><input id="ef-req" placeholder="e.g. HR — Sara Adel"></div></div></form><div class="workflow-bar"><span class="status-pill status-draft" id="hr-status">Draft</span><button class="btn btn-primary" id="hr-btn-submit" onclick="masterSubmit('hr')" data-en="Submit for Approval" data-ar="إرسال للاعتماد">Submit for Approval</button><span class="approval-control"><label for="hr-approver" data-en="Approved By" data-ar="المعتمد">Approved By</label><select id="hr-approver" class="approver-select" aria-label="Approved By"><option value="">— Select employee —</option></select><button type="button" class="btn btn-ghost btn-add-ref" onclick="openAddNewEmployee()" data-en="Add New Employee" data-ar="إضافة موظف جديد">Add New Employee</button></span><button class="btn btn-approve" id="hr-btn-approve" onclick="masterApprove('hr')" style="display:none" data-en="Approve" data-ar="اعتماد">Approve</button><button class="btn btn-reject" id="hr-btn-reject" onclick="masterReject('hr')" style="display:none" data-en="Reject" data-ar="رفض">Reject</button><button class="btn btn-ghost" id="hr-btn-reset" onclick="masterReset('hr')" style="display:none" data-en="New Request" data-ar="طلب جديد">New Request</button></div><div id="hr-result" aria-live="polite"></div></div>
   </div>
 
   <div class="data-panel" id="hr-payroll-run">
@@ -4513,21 +4515,6 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
     <div class="stage"><div class="num">09</div><h3><span data-en="Financial Reporting" data-ar="التقارير المالية">Financial Reporting</span></h3><p>Adjusted trial balance, income statement, balance sheet, cash flow and analytical review.</p></div>
   </div>
 
-  <div class="case home-view" id="problem">
-    <div>
-      <div class="tag"><span data-en="Today's case study" data-ar="حالة اليوم">Today's case study</span>
-        <span id="dailyCaseNo" style="margin-inline-start:8px;opacity:.85;font-weight:600"></span>
-      </div>
-      <h2 id="dailyCaseTitle">—</h2>
-      <p id="dailyCaseLead">—</p>
-      <p id="dailyCaseDesk" style="margin:10px 0 0;font-size:12px;color:var(--muted)"></p>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:8px;align-items:stretch">
-      <button type="button" onclick="openCase()"><span data-en="Investigate case" data-ar="ابدأ التحقيق">Investigate case</span></button>
-      <button type="button" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.35);color:inherit" onclick="loadRandomDailyCase(true)"><span data-en="Another random case" data-ar="حالة عشوائية أخرى">Another random case</span></button>
-    </div>
-  </div>
-
   <div class="flow home-view">
     <div class="section-head" style="margin:0 0 18px">
       <h2 style="font-size:19px"><span data-en="The Accounting View" data-ar="منظور المحاسبة">The Accounting View</span></h2>
@@ -4864,6 +4851,9 @@ function showPanel(id, btn, isBack){
   document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
   const panel = document.getElementById(id);
   if(panel) panel.classList.add('open');
+  if(typeof companySettingsRender==='function') companySettingsRender();
+  if(typeof deptRender==='function') deptRender();
+  if(typeof coaRender==='function') coaRender();
 
   if(wsKey){
     document.body.classList.add('is-workspace');
@@ -7839,6 +7829,7 @@ function spotAnswerFor(desk, i){
   spotSessionStats[desk].answered++;
   if(chosen.ok){
     spotSessionStats[desk].correct++;
+    if(typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);
     resEl.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'صح!':'Correct!')+'</strong> '+chosen.why+'</div>';
     if(typeof learnAddScore==='function') learnAddScore(15);
     if(typeof learnMarkSpotSolved==='function') learnMarkSpotSolved();
@@ -8326,6 +8317,186 @@ const QUIZ_LABELS = {ar:['حسابات العملاء','Accounts Receivable'], a
 const QUIZ_KEY = 'ayman_quiz_progress_v1';
 var quizState = {};
 function quizLoad(){ try{ quizState = JSON.parse(localStorage.getItem(QUIZ_KEY)||'{}'); }catch(_){ quizState = {}; } }
+
+/* ===== Company Settings: profile, departments, chart of accounts ===== */
+const CS_PROFILE_KEY = 'ayman_company_profile_v1';
+const CS_DEPTS_KEY = 'ayman_departments_v1';
+const CS_COA_KEY = 'ayman_coa_v1';
+
+let companyProfile = {name:'', activity:'Mixed Activity', fiscalYear:'January → December'};
+let companyDepartments = [
+  {en:'Accounting', ar:'حسابات'},
+  {en:'HR', ar:'شئون عاملين'},
+  {en:'Legal', ar:'الشؤون القانونية'},
+  {en:'Maintenance', ar:'صيانة'},
+  {en:'Quality', ar:'الجودة'},
+  {en:'Sales', ar:'مبيعات'},
+  {en:'Customer Service', ar:'خدمة عملاء'},
+  {en:'General & Administrative', ar:'إدارية وعمومية'}
+];
+let companyCOA = [
+  {code:'110000', name:'Cash & Banks', type:'Asset', purpose:'Treasury and bank balances'},
+  {code:'120000', name:'Accounts Receivable', type:'Asset', purpose:'Customer balances'},
+  {code:'130000', name:'Inventory', type:'Asset', purpose:'Inventory control'},
+  {code:'210000', name:'Accounts Payable', type:'Liability', purpose:'Supplier balances'},
+  {code:'220000', name:'Bank Loans & Overdrafts', type:'Liability', purpose:'Borrowings and overdraft facilities'},
+  {code:'230000', name:'Accrued Expenses', type:'Liability', purpose:'Month-end accruals'},
+  {code:'240000', name:'Taxes & Social Insurance Payable', type:'Liability', purpose:'Statutory obligations and payroll deductions'},
+  {code:'300000', name:'Equity', type:'Equity', purpose:"Owners' residual interest in the company"},
+  {code:'310000', name:'Capital', type:'Equity', purpose:'Issued share capital or owner capital contribution'},
+  {code:'320000', name:'Additional Paid-in Capital', type:'Equity', purpose:'Amounts received above nominal share value'},
+  {code:'330000', name:'Legal Reserve', type:'Equity', purpose:'Statutory reserve appropriated from profit'},
+  {code:'340000', name:'Other Reserves', type:'Equity', purpose:'Board-designated or regulatory reserves'},
+  {code:'350000', name:'Retained Earnings — Current Year', type:'Equity', purpose:'Current-year profit or loss pending closing'},
+  {code:'360000', name:"Previous Years' Earnings", type:'Equity', purpose:'Accumulated prior-year profits or losses'},
+  {code:'370000', name:'Dividends Declared / Owner Drawings', type:'Equity', purpose:'Distributions to shareholders or owners; contra-equity'},
+  {code:'380000', name:'Treasury Shares', type:'Equity', purpose:'Repurchased shares; contra-equity where applicable'},
+  {code:'410000', name:'Sales Revenue', type:'Revenue', purpose:'Sales transactions'},
+  {code:'510000', name:'Cost of Goods Sold', type:'Expense', purpose:'COGS'},
+  {code:'520000', name:'Salaries & Wages', type:'Expense', purpose:'Payroll expense'},
+  {code:'530000', name:'Operating Expenses', type:'Expense', purpose:'Rent, utilities, office and other operating costs'},
+  {code:'540000', name:'Depreciation & Amortization', type:'Expense', purpose:'Periodic allocation of long-term asset cost'}
+];
+
+function learnRegisterCorrect(n){
+  if(typeof learnState === 'undefined') return;
+  n = n || 1;
+  const before = learnState.correctCount || 0;
+  learnState.correctCount = before + n;
+  if(typeof learnSave==='function') learnSave();
+  const beforeMilestones = Math.floor(before/30);
+  const afterMilestones = Math.floor(learnState.correctCount/30);
+  if(afterMilestones > beforeMilestones){
+    showCorrectMilestone(learnState.correctCount);
+  }
+}
+function showCorrectMilestone(total){
+  const ar = cycleAr();
+  const el = document.createElement('div');
+  el.className = 'milestone-toast';
+  el.innerHTML = `<div class="milestone-inner"><span class="milestone-stars">🌟🌟</span><strong>${ar?'أحسنت!':'Well done!'}</strong><span class="milestone-count">${total} ${ar?'إجابة صحيحة':'correct answers'}</span></div>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));
+  setTimeout(()=>{
+    el.classList.remove('show');
+    setTimeout(()=>el.remove(), 400);
+  }, 3200);
+}
+function csLoadAll(){
+  try{ const p = JSON.parse(localStorage.getItem(CS_PROFILE_KEY)); if(p) companyProfile = Object.assign(companyProfile, p); }catch(_){}
+  try{ const d = JSON.parse(localStorage.getItem(CS_DEPTS_KEY)); if(Array.isArray(d) && d.length) companyDepartments = d; }catch(_){}
+  try{ const c = JSON.parse(localStorage.getItem(CS_COA_KEY)); if(Array.isArray(c) && c.length) companyCOA = c; }catch(_){}
+}
+function csSaveProfile(){ try{ localStorage.setItem(CS_PROFILE_KEY, JSON.stringify(companyProfile)); }catch(_){} }
+function csSaveDepts(){ try{ localStorage.setItem(CS_DEPTS_KEY, JSON.stringify(companyDepartments)); }catch(_){} }
+function csSaveCOA(){ try{ localStorage.setItem(CS_COA_KEY, JSON.stringify(companyCOA)); }catch(_){} }
+
+function companySettingsRender(){
+  const nameEl = document.getElementById('cs-name'); if(nameEl) nameEl.value = companyProfile.name;
+  const actEl = document.getElementById('cs-activity'); if(actEl) actEl.value = companyProfile.activity;
+  const fyEl = document.getElementById('cs-fiscal'); if(fyEl) fyEl.value = companyProfile.fiscalYear;
+  const countEl = document.getElementById('cs-dept-count'); if(countEl) countEl.textContent = companyDepartments.length;
+}
+function companySettingsSave(){
+  const nameEl = document.getElementById('cs-name'); if(nameEl) companyProfile.name = nameEl.value;
+  const actEl = document.getElementById('cs-activity'); if(actEl) companyProfile.activity = actEl.value;
+  const fyEl = document.getElementById('cs-fiscal'); if(fyEl) companyProfile.fiscalYear = fyEl.value;
+  csSaveProfile();
+}
+
+function deptRender(){
+  const grid = document.getElementById('dept-grid'); if(!grid) return;
+  const ar = cycleAr();
+  grid.innerHTML = companyDepartments.map((d,i)=>
+    `<div class="data-card" style="position:relative">
+      <strong>${ar?d.ar:d.en}</strong><span>${ar?d.en:d.ar}</span>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <button type="button" class="btn btn-ghost" style="padding:4px 9px;font-size:11.5px" onclick="deptEdit(${i})">${ar?'✎ تعديل':'✎ Edit'}</button>
+        <button type="button" class="btn btn-ghost" style="padding:4px 9px;font-size:11.5px;color:var(--debit);border-color:var(--debit)" onclick="deptRemove(${i})">${ar?'✕ حذف':'✕ Remove'}</button>
+      </div>
+    </div>`
+  ).join('');
+  const countEl = document.getElementById('cs-dept-count'); if(countEl) countEl.textContent = companyDepartments.length;
+  deptRenderEmployeeOptions();
+}
+function deptRenderEmployeeOptions(){
+  const sel = document.getElementById('ef-dept'); if(!sel) return;
+  const ar = cycleAr();
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— Select —</option>' + companyDepartments.map(d=>`<option value="${d.en}">${ar?d.ar:d.en}</option>`).join('');
+  if(current) sel.value = current;
+}
+function deptAdd(){
+  const enEl = document.getElementById('dept-new-en'), arEl = document.getElementById('dept-new-ar');
+  const en = (enEl.value||'').trim(), ar = (arEl.value||'').trim();
+  if(!en){ alert(cycleAr()?'اكتب اسم القسم بالإنجليزي على الأقل.':'Enter at least the English department name.'); return; }
+  companyDepartments.push({en, ar: ar || en});
+  csSaveDepts();
+  enEl.value=''; arEl.value='';
+  deptRender();
+}
+function deptEdit(i){
+  const d = companyDepartments[i]; if(!d) return;
+  const ar = cycleAr();
+  const newEn = prompt(ar?'اسم القسم بالإنجليزي:':'Department name (English):', d.en);
+  if(newEn===null) return;
+  const newAr = prompt(ar?'اسم القسم بالعربي:':'Department name (Arabic):', d.ar);
+  if(newAr===null) return;
+  const oldEn = d.en;
+  d.en = newEn.trim() || d.en; d.ar = newAr.trim() || d.ar;
+  csSaveDepts();
+  deptRender();
+}
+function deptRemove(i){
+  const d = companyDepartments[i]; if(!d) return;
+  const ar = cycleAr();
+  if(!confirm((ar?'حذف قسم "':'Remove department "')+(ar?d.ar:d.en)+(ar?'"؟':'"?'))) return;
+  companyDepartments.splice(i,1);
+  csSaveDepts();
+  deptRender();
+}
+
+function coaRender(){
+  const tbody = document.getElementById('coa-tbody'); if(!tbody) return;
+  const ar = cycleAr();
+  tbody.innerHTML = companyCOA.map((a,i)=>
+    `<tr class="coa-row"><td>${a.code}</td><td>${a.name}</td><td><span class="type-pill type-${a.type}">${a.type}</span></td><td>${a.purpose||''}</td>
+      <td style="white-space:nowrap"><button type="button" class="btn btn-ghost" style="padding:3px 8px;font-size:11px" onclick="coaEdit(${i})">✎</button>
+      <button type="button" class="btn btn-ghost" style="padding:3px 8px;font-size:11px;color:var(--debit);border-color:var(--debit)" onclick="coaRemove(${i})">✕</button></td></tr>`
+  ).join('');
+}
+function coaAdd(){
+  const code = document.getElementById('coa-new-code').value.trim();
+  const name = document.getElementById('coa-new-name').value.trim();
+  const type = document.getElementById('coa-new-type').value;
+  const purpose = document.getElementById('coa-new-purpose').value.trim();
+  if(!code || !name){ alert(cycleAr()?'اكتب الكود واسم الحساب على الأقل.':'Enter at least the code and account name.'); return; }
+  companyCOA.push({code, name, type, purpose});
+  csSaveCOA();
+  document.getElementById('coa-new-code').value='';
+  document.getElementById('coa-new-name').value='';
+  document.getElementById('coa-new-purpose').value='';
+  coaRender();
+}
+function coaEdit(i){
+  const a = companyCOA[i]; if(!a) return;
+  const ar = cycleAr();
+  const newCode = prompt(ar?'الكود:':'Code:', a.code); if(newCode===null) return;
+  const newName = prompt(ar?'اسم الحساب:':'Account name:', a.name); if(newName===null) return;
+  const newPurpose = prompt(ar?'الغرض:':'Purpose:', a.purpose||''); if(newPurpose===null) return;
+  a.code = newCode.trim()||a.code; a.name = newName.trim()||a.name; a.purpose = newPurpose.trim();
+  csSaveCOA();
+  coaRender();
+}
+function coaRemove(i){
+  const a = companyCOA[i]; if(!a) return;
+  const ar = cycleAr();
+  if(!confirm((ar?'حذف الحساب "':'Remove account "')+a.name+(ar?'"؟':'"?'))) return;
+  companyCOA.splice(i,1);
+  csSaveCOA();
+  coaRender();
+}
+
 function qtoolRandomSpotError(){
   const desks = ['ar','ap','inv','treasury','hr','gl'];
   const d = desks[Math.floor(Math.random()*desks.length)];
@@ -8393,6 +8564,7 @@ function quizSubmit(station){
   if(correct > quizState[station].best) quizState[station].best = correct;
   if(passed) quizState[station].passed = true;
   quizSave();
+  if(correct > 0 && typeof learnRegisterCorrect==='function') learnRegisterCorrect(correct);
   const resEl = document.getElementById('quiz-result-'+station);
   resEl.innerHTML = `<div class="msg ${passed?'msg-success':'msg-error'}"><strong>${ar?'النتيجة: ':'Score: '}${correct}/${bank.length} (${pct}%)</strong> ${passed?('— 🏆 '+(ar?'مبروك، إتقان!':'Mastery earned!')):('— '+(ar?'محتاج 70% على الأقل — جرّب تاني.':'Need at least 70% — try again.'))}<div style="margin-top:8px">${feedback}</div></div>`;
   if(passed){
@@ -8402,6 +8574,7 @@ function quizSubmit(station){
   resEl.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 quizLoad();
+csLoadAll();
 ['ar','ap','inv','treasury','hr','gl'].forEach(quizRender);
 
 /* ================= Fraud Catcher: AR, AP, HR, GL, Treasury (Cash & Bank) ================= */
@@ -8706,8 +8879,8 @@ monthend:{title:'Closing — Accrual Review',subtitle:'A recurring service expen
 ['Reconcile','What should you review at close?',['Accrual schedule + support + reversal/settlement tracking','Only trial balance total','Only bank','Only sales'],0,'A controlled accrual needs support and follow-up.'],
 ['Resolve','How should the item be closed?',['Document basis, post accrual, track reversal/true-up','Leave it forever','Delete evidence','Move it to revenue'],0,'A controlled accrual has a basis, period, owner and follow-up.']]}};
 function openWorkday(id){const c=workdayCases[id];if(!c)return;window.currentWorkday={id,step:0,score:0,answered:false};const el=document.getElementById('accountingWorkbench');el.hidden=false;document.getElementById('wbTitle').textContent=c.title;document.getElementById('wbSubtitle').textContent=c.subtitle;renderWorkdayStep();el.scrollIntoView({behavior:'smooth',block:'start'})}
-function renderWorkdayStep(){const w=window.currentWorkday,c=workdayCases[w.id];document.querySelectorAll('#wbProgress .wb-step').forEach((x,i)=>{x.classList.toggle('active',i===w.step);x.classList.toggle('done',i<w.step)});if(w.step>=c.steps.length){document.getElementById('wbBody').innerHTML=`<div class="wb-score"><div><strong>Case completed ✓</strong><div class="wb-impact">Score: ${w.score}/${c.steps.length}. The goal is controlled accounting thinking, not speed.</div></div><div class="wb-complete"><button class="primary" onclick="finishWorkday('${w.id}')">Mark case complete</button><button onclick="closeWorkday()">Back to inbox</button></div></div>`;return}const st=c.steps[w.step];document.getElementById('wbBody').innerHTML=`<div class="wb-grid"><div class="wb-card"><h4>${st[0]} — make your move</h4><div class="wb-question">${st[1]}</div><div class="wb-options">${st[2].map((o,i)=>`<button class="wb-option" onclick="answerWorkday(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div id="wbFeedback"></div></div><div class="wb-card"><h4>Accountant's control lens</h4><div class="evidence-list"><div class="evidence"><b>Evidence</b><span>What proves the transaction?</span></div><div class="evidence"><b>Risk</b><span>What could go wrong?</span></div><div class="evidence"><b>Impact</b><span>Which ledger / statement changes?</span></div></div><p class="wb-impact" style="margin-top:12px">Rule of thumb: <b>don't post what you cannot explain.</b></p></div></div>`}
-function answerWorkday(i){const w=window.currentWorkday,c=workdayCases[w.id],st=c.steps[w.step];if(w.answered)return;w.answered=true;const ok=i===st[3];if(ok)w.score++;document.querySelectorAll('.wb-option').forEach((b,n)=>{b.disabled=true;if(n===st[3])b.classList.add('correct');if(n===i&&!ok)b.classList.add('wrong')});document.getElementById('wbFeedback').innerHTML=`<div class="wb-feedback"><b>${ok?'Good control decision.':'Not quite — trace the evidence.'}</b> ${st[4]}<div class="wb-next"><button onclick="nextWorkdayStep()">${w.step===c.steps.length-1?'Finish case':'Next →'}</button></div></div>`}
+function renderWorkdayStep(){const w=window.currentWorkday,c=workdayCases[w.id];document.querySelectorAll('#wbProgress .wb-step').forEach((x,i)=>{x.classList.toggle('active',i===w.step);x.classList.toggle('done',i<w.step)});if(w.step>=c.steps.length){document.getElementById('wbBody').innerHTML=`<div class="wb-score"><div><strong>Case completed ✓</strong><div class="wb-impact">Score: ${w.score}/${c.steps.length}. The goal is controlled accounting thinking, not speed.</div></div><div class="wb-complete"><button class="primary" onclick="finishWorkday('${w.id}')">Mark case complete</button><button onclick="closeWorkday()">Back to inbox</button></div></div>`;return}const st=c.steps[w.step];const order=st[2].map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}w.order=order;document.getElementById('wbBody').innerHTML=`<div class="wb-grid"><div class="wb-card"><h4>${st[0]} — make your move</h4><div class="wb-question">${st[1]}</div><div class="wb-options">${order.map((origIdx,pos)=>`<button class="wb-option" onclick="answerWorkday(${origIdx})">${String.fromCharCode(65+pos)}. ${st[2][origIdx]}</button>`).join('')}</div><div id="wbFeedback"></div></div><div class="wb-card"><h4>Accountant's control lens</h4><div class="evidence-list"><div class="evidence"><b>Evidence</b><span>What proves the transaction?</span></div><div class="evidence"><b>Risk</b><span>What could go wrong?</span></div><div class="evidence"><b>Impact</b><span>Which ledger / statement changes?</span></div></div><p class="wb-impact" style="margin-top:12px">Rule of thumb: <b>don't post what you cannot explain.</b></p></div></div>`}
+function answerWorkday(i){const w=window.currentWorkday,c=workdayCases[w.id],st=c.steps[w.step];if(w.answered)return;w.answered=true;const order=w.order||st[2].map((_,x)=>x);const ok=i===st[3];if(ok){w.score++;if(typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);}document.querySelectorAll('.wb-option').forEach((b,n)=>{b.disabled=true;if(order[n]===st[3])b.classList.add('correct');if(order[n]===i&&!ok)b.classList.add('wrong')});document.getElementById('wbFeedback').innerHTML=`<div class="wb-feedback"><b>${ok?'Good control decision.':'Not quite — trace the evidence.'}</b> ${st[4]}<div class="wb-next"><button onclick="nextWorkdayStep()">${w.step===c.steps.length-1?'Finish case':'Next →'}</button></div></div>`}
 function nextWorkdayStep(){window.currentWorkday.step++;window.currentWorkday.answered=false;renderWorkdayStep()}
 function finishWorkday(id){const state=getInboxState();state[id]=true;saveInboxState(state);updateAccountingInbox();closeWorkday()}
 function closeWorkday(){const el=document.getElementById('accountingWorkbench');if(el)el.hidden=true;window.currentWorkday=null}
@@ -8819,10 +8992,10 @@ const DAILY_CASES = [
     scenario:['Bank advice BR-2041 for EGP 85,000 arrived with no remittance. Customer C-110 claims invoice INV-900 was paid. INV-900 is still open; unapplied cash sits on another customer.','إشعار بنك BR-2041 بمبلغ 85,000 بدون إشعار تحويل. العميل C-110 يدّعي سداد INV-900. الفاتورة ما زالت مفتوحة؛ وتحصيل غير مخصص على عميل آخر.'],
     q:['What should you do first?','ما أول خطوة صحيحة؟'],
     options:[
-      ['Allocate to the oldest invoice immediately','خصّص فورًا لأقدم فاتورة'],
-      ['Obtain remittance / search receipts by amount & reference across customers','احصل على إشعار التحويل / ابحث عن التحصيل بالمبلغ والمرجع عبر العملاء'],
-      ['Write off the invoice','اشطب الفاتورة'],
-      ['Post the receipt to revenue','رحّل التحصيل للإيراد']
+      ['Allocate the cash to the oldest open invoice since something has to clear it','خصّص النقدية لأقدم فاتورة مفتوحة لأن لازم حاجة تتقفل بيها'],
+      ['Trace the bank reference and remittance, then reallocate with evidence','تتبّع مرجع البنك وإشعار التحويل، وبعدين أعد التخصيص بالمستند'],
+      ['Write off the invoice since the customer insists it was already paid','اشطب الفاتورة لأن العميل مصرّ إنها سُددت بالفعل'],
+      ['Post the receipt straight to revenue to close the item quickly','رحّل التحصيل مباشرة للإيراد عشان تقفل البند بسرعة']
     ],
     correct:1,
     explain:['Never allocate by guess. Trace bank reference and remittance, then reallocate with evidence.','لا تخصّص بالتخمين. تتبّع مرجع البنك وإشعار التحويل ثم أعد التخصيص بالمستند.']
@@ -8834,10 +9007,10 @@ const DAILY_CASES = [
     scenario:['EGP 42,500 credited. Sales cannot identify the payer yet. Month-end is in two days.','إضافة 42,500. المبيعات لا تعرف الدافع بعد. نهاية الشهر بعد يومين.'],
     q:['Correct treatment until identity is known?','المعالجة الصحيحة حتى تتضح الهوية؟'],
     options:[
-      ['Credit sales revenue','دائن إيراد مبيعات'],
-      ['Park in unapplied receipts / suspense; hand to AR with bank ref','ضعها في غير مخصص / وسيط؛ سلّم للعملاء مع مرجع البنك'],
-      ['Ignore until next month','تجاهل حتى الشهر القادم'],
-      ['Offset against any open debit','خصم من أي مدين مفتوح']
+      ['Credit sales revenue since the cash is already sitting in the bank','دائن إيراد مبيعات لأن النقدية موجودة في البنك بالفعل'],
+      ['Park it in unapplied receipts and hand it to AR with the bank reference','ضعها في غير مخصص وسلّمها للعملاء مع مرجع البنك'],
+      ['Ignore it until next month when the payer might identify themselves','تجاهلها لحد الشهر الجاي لما الدافع يمكن يتعرّف بنفسه'],
+      ['Offset it against any customer that has an open debit balance today','خصمها من أي عميل عليه رصيد مدين مفتوح النهاردة']
     ],
     correct:1,
     explain:['Unidentified cash is not revenue. Suspense/unapplied until allocation evidence exists.','النقدية المجهولة ليست إيرادًا. وسيط/غير مخصص حتى يوجد دليل تخصيص.']
@@ -8849,10 +9022,10 @@ const DAILY_CASES = [
     scenario:['Aging total 1,250,000. GL 120000 is 1,323,000. Unapplied receipts 85,000 and an open credit note 12,000 exist.','مجموع الأعمار 1,250,000. GL 120000 = 1,323,000. يوجد غير مخصص 85,000 وإشعار دائن 12,000.'],
     q:['Best next step?','أفضل خطوة تالية؟'],
     options:[
-      ['Post a plug journal to force equality','قيد أعمى لفرض التساوي'],
-      ['Build AR bridge: aging + unapplied − credits ± manual/FX vs GL','ابنِ جسر العملاء: أعمار + غير مخصص − إشعارات ± يدوي/عملة مقابل GL'],
-      ['Change the aging report only','عدّل تقرير الأعمار فقط'],
-      ['Write off the difference','اشطب الفرق']
+      ['Post a plug journal so the control account matches the aging report','رحّل قيد أعمى عشان حساب المراقبة يطابق تقرير الأعمار'],
+      ['Build an AR bridge: aging plus unapplied minus credits against GL','ابنِ جسر العملاء: أعمار + غير مخصص − إشعارات مقابل GL'],
+      ['Change the aging report until it agrees with the general ledger','عدّل تقرير الأعمار لحد ما يتفق مع دفتر الأستاذ'],
+      ['Write off the difference since reconciling it takes too long','اشطب الفرق لأن تسويته هتاخد وقت طويل']
     ],
     correct:1,
     explain:['Always explain the gap with a bridge. Never plug.','فسّر الفجوة بالجسر دائمًا. لا تسد بعمياء.']
@@ -8864,10 +9037,10 @@ const DAILY_CASES = [
     scenario:['Invoice 50,000; receipt 47,500. No debit note or claim attached.','فاتورة 50,000؛ تحصيل 47,500. لا إشعار مدين ولا مطالبة.'],
     q:['What do you post?','ماذا ترحّل؟'],
     options:[
-      ['Clear the full invoice and expense the shortfall','صفِّ كامل الفاتورة وحمّل العجز مصروفًا'],
-      ['Allocate 47,500; leave 2,500 open; request deduction proof','خصّص 47,500؛ اترك 2,500 مفتوحًا؛ اطلب إثبات الخصم'],
-      ['Reverse the invoice','اعكس الفاتورة'],
-      ['Post the shortfall to suspense permanently','ضع العجز في وسيط نهائيًا']
+      ['Clear the full invoice and post the shortfall straight to expense','صفِّ الفاتورة كاملة ورحّل العجز مباشرة كمصروف'],
+      ['Allocate the amount received and request proof for the deduction','خصّص المبلغ المستلم واطلب إثبات للخصم'],
+      ['Reverse the whole invoice since the payment does not match it','اعكس الفاتورة كلها لأن السداد مش مطابق ليها'],
+      ['Post the shortfall to suspense and leave it there permanently','ضع العجز في وسيط واسيبه هناك نهائيًا']
     ],
     correct:1,
     explain:['Partial allocate; keep balance open until evidence and approval for any write-off.','تخصيص جزئي؛ الرصيد يبقى مفتوحًا حتى الدليل والاعتماد لأي شطب.']
@@ -8879,10 +9052,10 @@ const DAILY_CASES = [
     scenario:['Supplier pressure to pay before month-end. PO exists; GRN does not.','ضغط المورد للسداد قبل نهاية الشهر. أمر الشراء موجود؛ إذن الاستلام غير موجود.'],
     q:['Correct control response?','الاستجابة الرقابية الصحيحة؟'],
     options:[
-      ['Post and pay to keep the supplier happy','رحّل وادفع لإرضاء المورد'],
-      ['Hold invoice; request GRN or service confirmation; do not pay on pressure alone','أوقف الفاتورة؛ اطلب إذن الاستلام أو تأكيد الخدمة؛ لا تدفع بالضغط وحده'],
-      ['Post to expense without AP','رحّل مصروفًا بدون موردين'],
-      ['Delete the PO','احذف أمر الشراء']
+      ['Post and pay quickly since the supplier is pressuring for the funds','رحّل وادفع بسرعة لأن المورد بيضغط عشان الفلوس'],
+      ['Hold the invoice and request GRN or service confirmation first','أوقف الفاتورة واطلب إذن الاستلام أو تأكيد الخدمة الأول'],
+      ['Post it to expense directly without routing it through payables','رحّلها كمصروف مباشرة من غير ما تمر بحساب الموردين'],
+      ['Delete the purchase order so the mismatch disappears from view','احذف أمر الشراء عشان عدم التطابق يختفي من الشاشة']
     ],
     correct:1,
     explain:['Three-way match protects the company. No GRN → hold.','المطابقة الثلاثية تحمي الشركة. بلا GRN → إيقاف.']
@@ -8894,10 +9067,10 @@ const DAILY_CASES = [
     scenario:['GRN-118 for materials already in stock. Finance is closing the month.','GRN-118 لمواد داخل المخزون. المالية تقفل الشهر.'],
     q:['Month-end treatment?','معالجة نهاية الشهر؟'],
     options:[
-      ['Do nothing until the invoice arrives','لا تفعل شيئًا حتى تصل الفاتورة'],
-      ['Accrue inventory/expense and GRNI liability; reverse when invoice posts','استحق مخزون/مصروف والتزام GRNI؛ اعكس عند ترحيل الفاتورة'],
-      ['Reduce sales','خفّض المبيعات'],
-      ['Post to suspense only with no inventory','رحّل لوسيط فقط بلا مخزون']
+      ['Do nothing and wait until the supplier invoice eventually arrives','ما تعملش حاجة واستنى لحد ما فاتورة المورد توصل في الآخر'],
+      ['Accrue inventory and a GRNI liability, then reverse when it posts','استحق مخزون والتزام GRNI، واعكسه لما الفاتورة ترحّل'],
+      ['Reduce recorded sales to offset the missing supplier invoice','قلّل المبيعات المسجلة عشان تعوّض فاتورة المورد الناقصة'],
+      ['Post it to suspense only, leaving the inventory account untouched','رحّلها لوسيط بس، وسيب حساب المخزون زي ما هو']
     ],
     correct:1,
     explain:['Match recognition to receipt period via GRNI accrual.','طابق الاعتراف بفترة الاستلام عبر استحقاق GRNI.']
@@ -8909,10 +9082,10 @@ const DAILY_CASES = [
     scenario:['Two scans of INV-5540 for EGP 18,200. One may already be paid.','صورتان لـ INV-5540 بمبلغ 18,200. إحداهما قد تكون مدفوعة.'],
     q:['What should AP do?','ماذا يفعل حساب الموردين؟'],
     options:[
-      ['Post both to be safe','رحّل الاثنين للاحتياط'],
-      ['Block duplicate; verify open items and payment history before any post/pay','أوقف المكرر؛ تحقق من المفتوح وتاريخ السداد قبل أي ترحيل/صرف'],
-      ['Pay the higher amount only','ادفع الأعلى فقط'],
-      ['Merge suppliers','ادمج الموردين']
+      ['Post both copies now and sort out any duplicate payment later','رحّل النسختين دلوقتي واحل مشكلة السداد المزدوج بعدين'],
+      ['Block the duplicate and verify open items before posting or paying','أوقف المكرر وتحقق من البنود المفتوحة قبل الترحيل أو السداد'],
+      ['Pay only the larger of the two amounts to stay on the safe side','ادفع بس المبلغ الأكبر من الاتنين عشان تكون في الأمان'],
+      ['Merge the two supplier records so the duplicate disappears','ادمج سجلي المورد عشان التكرار يختفي']
     ],
     correct:1,
     explain:['Duplicate invoice number is a classic double-pay risk.','تكرار رقم الفاتورة خطر سداد مزدوج كلاسيكي.']
@@ -8924,10 +9097,10 @@ const DAILY_CASES = [
     scenario:['Aging 980,000; GRNI 45,000; advances 20,000; GL 210000 = 1,005,000.','أعمار 980,000؛ GRNI 45,000؛ مقدمات 20,000؛ GL = 1,005,000.'],
     q:['How do you explain it?','كيف تفسّرها؟'],
     options:[
-      ['Ignore GRNI','تجاهل GRNI'],
-      ['Bridge: open AP + GRNI − advances ± manual = GL','الجسر: مفتوح + GRNI − مقدمات ± يدوي = GL'],
-      ['Force with a balancing entry to expense','افرض بقيد على المصروف'],
-      ['Change only the statement','عدّل الكشف فقط']
+      ['Ignore the GRNI balance since it usually clears itself over time','تجاهل رصيد GRNI لأنه عادة بيتصفّى لوحده مع الوقت'],
+      ['Build the AP bridge: open items plus GRNI minus advances against GL','ابنِ جسر الموردين: مفتوح + GRNI − مقدمات مقابل GL'],
+      ['Force a balancing entry straight into a general expense account','افرض قيد موازنة مباشرة على حساب مصروف عام'],
+      ['Change only the supplier statement until the numbers line up','عدّل بس كشف حساب المورد لحد ما الأرقام تتظبط']
     ],
     correct:1,
     explain:['Use the AP bridge; clear each reconciling item with evidence.','استخدم جسر الموردين؛ صفِّ كل بند بالمستند.']
@@ -8939,10 +9112,10 @@ const DAILY_CASES = [
     scenario:['System 500 units; count 470. Recent issues may be unposted.','النظام 500؛ الجرد 470. قد يكون هناك صرف غير مرحّل.'],
     q:['First action?','أول إجراء؟'],
     options:[
-      ['Write off 30 units immediately','اشطب 30 وحدة فورًا'],
-      ['Investigate unposted movements first; then adjust with approval','حقّق في الحركات غير المرحّلة أولًا؛ ثم سوِّ باعتماد'],
-      ['Change the count sheet to match system','عدّل ورقة الجرد لتطابق النظام'],
-      ['Ignore until year-end','تجاهل حتى نهاية السنة']
+      ['Write off the 30 missing units immediately to close the count','اشطب الـ30 وحدة الناقصة فورًا عشان تقفل الجرد'],
+      ['Investigate unposted movements first, then adjust with approval','حقّق في الحركات غير المرحّلة أولًا، وبعدين سوِّ باعتماد'],
+      ['Change the count sheet so it matches what the system shows','عدّل ورقة الجرد عشان تطابق اللي النظام بيوضحه'],
+      ['Ignore the gap until the year-end count comes around again','تجاهل الفرق لحد ما جرد نهاية السنة يجي تاني']
     ],
     correct:1,
     explain:['Never silent write-off. Trace documents, then approve variance.','لا شطب صامت. تتبّع المستندات ثم اعتمد الفرق.']
@@ -8954,10 +9127,10 @@ const DAILY_CASES = [
     scenario:['Issue for 20 units when on-hand is 5. Production is waiting.','صرف 20 بينما المتاح 5. الإنتاج في انتظار.'],
     q:['Control response?','الاستجابة الرقابية؟'],
     options:[
-      ['Allow negative and fix later','اسمح بالسالب وأصلح لاحقًا'],
-      ['Block negative issue; post missing receipt or reverse wrong issue','امنع الصرف السالب؛ رحّل الاستلام الناقص أو اعكس صرفًا خطأ'],
-      ['Post COGS only','رحّل تكلفة البضاعة فقط'],
-      ['Delete the item master','احذف الصنف']
+      ['Allow the negative balance and plan to fix it sometime later','اسمح بالرصيد السالب وخطط تصلحه في وقت لاحق'],
+      ['Block the negative issue and post the missing receipt or reversal','امنع الصرف السالب ورحّل الاستلام الناقص أو اعكس الخطأ'],
+      ['Post the cost of goods sold entry and leave inventory as is','رحّل قيد تكلفة البضاعة المباعة وسيب المخزون زي ما هو'],
+      ['Delete the item master so the negative balance disappears','احذف بطاقة الصنف عشان الرصيد السالب يختفي']
     ],
     correct:1,
     explain:['Negative stock hides broken process. Block and fix source documents.','الرصيد السالب يخفي إجراءً مكسورًا. امنع وأصلح المستند المصدر.']
@@ -8969,10 +9142,10 @@ const DAILY_CASES = [
     scenario:['Statement 520,000; books 505,500. Outstanding cheques and unposted bank charges exist.','الكشف 520,000؛ الدفاتر 505,500. شيكات معلّقة ورسوم غير مرحّلة.'],
     q:['What tool do you use?','أي أداة تستخدم؟'],
     options:[
-      ['Delete outstanding cheques','احذف الشيكات المعلّقة'],
-      ['Bank bridge: statement + deposits in transit − outstanding − charges + interest =? books','جسر البنك: كشف + إيداعات − معلّق − رسوم + فوائد =؟ الدفاتر'],
-      ['Post the whole difference to cash variance','رحّل كامل الفرق لفروق نقدية'],
-      ['Use last month’s rec','استخدم مطابقة الشهر الماضي']
+      ['Delete the outstanding cheques so the two balances agree today','احذف الشيكات المعلّقة عشان الرصيدين يتفقوا النهاردة'],
+      ['Build a bank bridge for deposits, outstanding items and charges','ابنِ جسر بنك للإيداعات والبنود المعلّقة والرسوم'],
+      ['Post the whole difference to a generic cash variance account','رحّل الفرق كله على حساب فروق نقدية عام'],
+      ['Reuse last month\'s reconciliation since the accounts are similar','استخدم مطابقة الشهر الماضي لأن الحسابات متشابهة']
     ],
     correct:1,
     explain:['Formal bank bridge explains timing and missing postings.','جسر البنك الرسمي يفسّر التوقيت والترحيلات الناقصة.']
@@ -8984,10 +9157,10 @@ const DAILY_CASES = [
     scenario:['EGP 95,000 paid. Supplier master was changed without dual approval.','دُفع 95,000. بيانات المورد تغيّرت بلا اعتماد مزدوج.'],
     q:['Immediate action?','الإجراء الفوري؟'],
     options:[
-      ['Wait and see','انتظر'],
-      ['Contact bank for recall/stop; strengthen maker-checker on bank master data','تواصل مع البنك للاسترجاع/الإيقاف؛ قوِّ الصانع-المراجع على بيانات البنك'],
-      ['Post to employee receivables','رحّل لذمم الموظفين'],
-      ['Book as donation','سجّل كتبرع']
+      ['Wait and see whether the beneficiary notices and returns the funds','استنى وشوف هل المستفيد هيلاحظ ويرجّع الفلوس'],
+      ['Contact the bank for recall and tighten approval on bank master data','تواصل مع البنك للاسترجاع وقوِّ الاعتماد على بيانات البنك'],
+      ['Post the amount to employee receivables until it is explained','رحّل المبلغ لذمم الموظفين لحد ما يتفسّر'],
+      ['Book the payment as a donation since recovery seems unlikely','سجّل الدفعة كتبرع لأن الاسترداد شكله مستبعد']
     ],
     correct:1,
     explain:['Speed matters for recall. Then fix access and approval on master data.','السرعة مهمة للاسترجاع. ثم أصلح الصلاحيات والاعتماد على البيانات.']
@@ -8999,10 +9172,10 @@ const DAILY_CASES = [
     scenario:['Approved OT 160 hours; payroll input 172. Run is about to be released.','المعتمد 160؛ المدخل 172. التشغيل على وشك الصرف.'],
     q:['What do you do?','ماذا تفعل؟'],
     options:[
-      ['Pay 172 to avoid conflict','ادفع 172 لتجنب الخلاف'],
-      ['Stop the run; correct to approved hours with HR evidence; recalculate','أوقف التشغيل؛ صحّح للمعتمد بدليل HR؛ أعد الحساب'],
-      ['Split the difference','اقسم الفرق'],
-      ['Post the extra to bonus silently','رحّل الزيادة كبونص بصمت']
+      ['Pay the higher figure now to avoid conflict with the employees','ادفع الرقم الأعلى دلوقتي عشان تتجنب خلاف مع الموظفين'],
+      ['Stop the run and correct hours to the approved HR record','أوقف التشغيل وصحّح الساعات للسجل المعتمد من HR'],
+      ['Split the difference between approved and submitted hours','اقسم الفرق بين الساعات المعتمدة والمدخلة'],
+      ['Post the extra hours quietly as a discretionary bonus payment','رحّل الساعات الزيادة بصمت كبونص تقديري']
     ],
     correct:1,
     explain:['Payroll must match approved inputs. Stop, fix, then run.','الرواتب يجب أن تطابق المدخلات المعتمدة. أوقف، صحّح، ثم شغّل.']
@@ -9014,10 +9187,10 @@ const DAILY_CASES = [
     scenario:['Net pay paid; tax/insurance lines may be mis-coded on the payment journal.','صافي الراتب دُفع؛ بنود الضريبة/التأمين قد تكون مرمّزة خطأ في قيد الصرف.'],
     q:['How to investigate?','كيف تحقق؟'],
     options:[
-      ['Write off the liability','اشطب الالتزام'],
-      ['Match payment batch coding to each liability account (register → liability → bank)','طابق ترميز دفعة الصرف مع كل حساب التزام (سجل → التزام → بنك)'],
-      ['Reverse the entire payroll','اعكس الرواتب بالكامل'],
-      ['Move balance to suspense permanently','انقل الرصيد لوسيط نهائيًا']
+      ['Write off the liability since the bank payment already went out','اشطب الالتزام لأن دفعة البنك خرجت بالفعل'],
+      ['Match the payment coding to each liability account in the chain','طابق ترميز الدفعة مع كل حساب التزام في السلسلة'],
+      ['Reverse the entire payroll run and start the process again','اعكس تشغيل الرواتب كله وابدأ العملية تاني'],
+      ['Move the balance to suspense and leave it there permanently','انقل الرصيد لوسيط واسيبه هناك نهائيًا']
     ],
     correct:1,
     explain:['Clearing failures are usually coding or partial-pay issues — reconciling the chain fixes them.','فشل التصفية غالبًا ترميز أو سداد جزئي — مطابقة السلسلة تصلحه.']
@@ -9029,10 +9202,10 @@ const DAILY_CASES = [
     scenario:['Amount material; contract rate known; management wants correct March P&L.','المبلغ جوهري؛ سعر العقد معروف؛ الإدارة تريد قائمة دخل مارس صحيحة.'],
     q:['Correct March entry?','قيد مارس الصحيح؟'],
     options:[
-      ['Do nothing until April invoice','لا شيء حتى فاتورة أبريل'],
-      ['Dr Expense / Cr Accrued expenses; reverse or true-up when invoice posts','مدين مصروف / دائن مصروفات مستحقة؛ اعكس أو سوِّ عند الفاتورة'],
-      ['Dr Prepaid / Cr Bank','مدين مقدم / دائن بنك'],
-      ['Dr Equity / Cr Revenue','مدين حقوق ملكية / دائن إيراد']
+      ['Do nothing until the invoice actually arrives next month','ما تعملش حاجة لحد ما الفاتورة توصل فعليًا الشهر الجاي'],
+      ['Accrue the expense now and true it up when the invoice posts','استحق المصروف دلوقتي وسوِّه لما الفاتورة ترحّل'],
+      ['Treat the amount as a prepaid asset paid out of the bank','عامل المبلغ كأصل مقدم اتدفع من البنك'],
+      ['Post the amount directly against equity instead of expense','رحّل المبلغ مباشرة على حقوق الملكية بدل المصروف']
     ],
     correct:1,
     explain:['Accrue when consumed with reliable estimate; true-up later.','استحق عند الاستهلاك بتقدير موثوق؛ سوِّ لاحقًا.']
@@ -9044,10 +9217,10 @@ const DAILY_CASES = [
     scenario:['Full payment hit expense in month 1. CFO asks if P&L is distorted.','كامل الدفعة رُحّلت مصروفًا في الشهر الأول. المدير المالي يسأل إن كانت قائمة الدخل مشوّهة.'],
     q:['Correct approach?','الأسلوب الصحيح؟'],
     options:[
-      ['Leave all in month-1 expense','اترك الكل مصروف الشهر الأول'],
-      ['Prepaid asset; amortize monthly to expense over the benefit period','أصل مقدم؛ توزيع شهري على المصروف طوال فترة الانتفاع'],
-      ['Capitalize as fixed asset and depreciate over 5 years','رسمل كأصل ثابت وأهلك على 5 سنوات'],
-      ['Charge to retained earnings','حمّل على الأرباح المحتجزة']
+      ['Leave the full amount in month-one expense since it was paid','سيب المبلغ كامل مصروف الشهر الأول لأنه اتدفع'],
+      ['Record a prepaid asset and amortize it over the coverage period','سجّل أصل مقدم ووزّعه على فترة التغطية'],
+      ['Capitalize it as a fixed asset and depreciate it for five years','رسمله كأصل ثابت وأهلكه على 5 سنين'],
+      ['Charge the whole payment directly to retained earnings','حمّل الدفعة كلها مباشرة على الأرباح المحتجزة']
     ],
     correct:1,
     explain:['Match expense to periods of coverage via prepaid amortization.','طابق المصروف بفترات التغطية عبر توزيع المقدم.']
@@ -9059,10 +9232,10 @@ const DAILY_CASES = [
     scenario:['Several unidentified items older than 30 days. Close pack is being signed.','عدة بنود مجهولة أقدم من 30 يومًا. حزمة الإقفال تُعتمد.'],
     q:['What should GL insist on?','بماذا يصرّ دفتر الأستاذ؟'],
     options:[
-      ['Sign close anyway','اعتمد الإقفال على أي حال'],
-      ['Age every line; clear with evidence to the correct account before sign-off','عمّر كل سطر؛ صفِّ بالمستند للحساب الصحيح قبل الاعتماد'],
-      ['Move all suspense to revenue','انقل كل الوسيط للإيراد'],
-      ['Net suspense to zero with one journal','صفّر الوسيط بقيد واحد']
+      ['Sign the close anyway since the amount is not that large','اعتمد الإقفال على أي حال لأن المبلغ مش كبير أوي'],
+      ['Age every line and clear each one with evidence before sign-off','عمّر كل سطر وصفّيه بالمستند قبل الاعتماد'],
+      ['Move all suspense balances straight into revenue for now','انقل كل أرصدة الوسيط مباشرة للإيراد دلوقتي'],
+      ['Net the whole suspense account to zero with one journal','صفّر حساب الوسيط كله بقيد واحد']
     ],
     correct:1,
     explain:['Material uncleared suspense weakens the statements — clear with owners and evidence.','الوسيط الجوهري غير المصفّى يضعف القوائم — صفِّ بمالكين ومستندات.']
@@ -9074,10 +9247,10 @@ const DAILY_CASES = [
     scenario:['Large reclass may have posted expense to a balance-sheet account (or vice versa).','قد يكون إعادة تصنيف كبيرة رحّلت مصروفًا إلى الميزانية (أو العكس).'],
     q:['What does a balanced TB prove?','ماذا يثبت ميزان متوازن؟'],
     options:[
-      ['Financial statements are correct','القوائم صحيحة'],
-      ['Only that debits = credits — still review analytics, cut-off, classification','فقط أن المدين = الدائن — ما زلت تراجع التحليل وقطع الفترة والتصنيف'],
-      ['No need for bank recs','لا حاجة لمطابقة بنك'],
-      ['Sub-ledgers are automatically correct','الدفاتر المساعدة صحيحة تلقائيًا']
+      ['Financial statements must be correct once debits equal credits','القوائم المالية لازم تكون صحيحة طالما المدين = الدائن'],
+      ['Only that debits equal credits — still review classification','بس إن المدين = الدائن — لسه لازم تراجع التصنيف'],
+      ['There is no further need for any bank reconciliations','مفيش حاجة لأي مطابقات بنكية تانية'],
+      ['Sub-ledgers are automatically correct once the TB balances','الدفاتر المساعدة تبقى صحيحة أوتوماتيك بمجرد توازن الميزان']
     ],
     correct:1,
     explain:['Balanced TB is necessary but not sufficient for reliable statements.','توازن الميزان ضروري لكنه غير كافٍ لقوائم موثوقة.']
@@ -9089,10 +9262,10 @@ const DAILY_CASES = [
     scenario:['Ticket open: BR-2041 EGP 85,000. Close checklist waits on AR bridge.','تذكرة مفتوحة: BR-2041 بمبلغ 85,000. قائمة الإقفال تنتظر جسر العملاء.'],
     q:['Healthy cross-desk behaviour?','السلوك الصحي بين المكاتب؟'],
     options:[
-      ['Treasury posts to revenue to close the ticket','الخزينة ترحّل للإيراد لإغلاق التذكرة'],
-      ['Keep in unapplied; AR allocates with remittance; both desks update the ticket','يبقى غير مخصص؛ العملاء يخصّصون بإشعار التحويل؛ المكتبان يحدّثان التذكرة'],
-      ['Delete the bank receipt','احذف إشعار البنك'],
-      ['AR writes off an unrelated invoice','العملاء يشطبون فاتورة بلا علاقة']
+      ['Treasury posts it to revenue just to close the open ticket','الخزينة ترحّلها للإيراد بس عشان تقفل التذكرة المفتوحة'],
+      ['Keep it unapplied while AR allocates it with the remittance','خليها غير مخصصة لحد ما العملاء يخصّصوها بإشعار التحويل'],
+      ['Delete the bank receipt so the ticket disappears from view','احذف إشعار البنك عشان التذكرة تختفي من الشاشة'],
+      ['AR writes off an unrelated invoice to balance the numbers','العملاء يشطبوا فاتورة مالهاش علاقة عشان الأرقام تتوازن']
     ],
     correct:1,
     explain:['Cross-desk tickets carry evidence and ownership — not shortcuts to revenue.','التذاكر بين المكاتب تنقل الدليل والملكية — لا اختصارات للإيراد.']
@@ -9104,10 +9277,10 @@ const DAILY_CASES = [
     scenario:['PO rate 100; invoice rate 115 for 200 units. Procurement not yet informed.','سعر الأمر 100؛ الفاتورة 115 لـ 200 وحدة. المشتريات لم تُبلَّغ بعد.'],
     q:['What do you post?','ماذا ترحّل؟'],
     options:[
-      ['Full invoice amount silently','كامل مبلغ الفاتورة بصمت'],
-      ['Post only matched PO price/qty; route variance to procurement; hold the rest','رحّل سعر/كمية الأمر فقط؛ حوّل الفرق للمشتريات؛ أوقف الباقي'],
-      ['Cancel the GRN','ألغِ إذن الاستلام'],
-      ['Pay then dispute','ادفع ثم نازع']
+      ['Post the full invoice amount quietly without flagging anything','رحّل مبلغ الفاتورة كامل بصمت من غير ما ترصد أي حاجة'],
+      ['Post only the matched price and route the variance to procurement','رحّل السعر المطابق بس وحوّل الفرق للمشتريات'],
+      ['Cancel the goods receipt so the mismatch no longer shows','ألغِ إذن الاستلام عشان عدم التطابق مايبانش'],
+      ['Pay the full amount now and raise a dispute afterward','ادفع المبلغ كامل دلوقتي وارفع نزاع بعدين']
     ],
     correct:1,
     explain:['Do not accept price variances without procurement approval.','لا تقبل فرق السعر بلا اعتماد المشتريات.']
@@ -9145,6 +9318,10 @@ function loadRandomDailyCase(forceNew){
   try{ localStorage.setItem('ah_daily_case_idx', String(idx)); }catch(e){}
 }
 
+function startRandomDailyCase(){
+  loadRandomDailyCase(true);
+  openCase();
+}
 function openCase(){
   if(!window._dailyCase) loadRandomDailyCase(false);
   const {c, idx} = window._dailyCase;
@@ -9157,8 +9334,11 @@ function openCase(){
   document.getElementById('result').innerHTML = '';
   const box = document.getElementById('modal-options');
   const letters = ['A','B','C','D'];
-  box.innerHTML = c.options.map((opt,i)=>
-    `<button type="button" class="option" onclick="answerDaily(${i})">${letters[i]}. ${t2(opt)}</button>`
+  const order = c.options.map((_,i)=>i);
+  for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  window._dailyOptionOrder = order;
+  box.innerHTML = order.map((origIdx,pos)=>
+    `<button type="button" class="option" onclick="answerDaily(${origIdx})">${letters[pos]}. ${t2(c.options[origIdx])}</button>`
   ).join('');
   modal.classList.add('open');
   modal.style.display = 'flex';
@@ -9173,12 +9353,14 @@ function answerDaily(i){
   if(window._dailyAnswered || !window._dailyCase) return;
   window._dailyAnswered = true;
   const c = window._dailyCase.c;
+  const order = window._dailyOptionOrder || c.options.map((_,x)=>x);
   const ok = i === c.correct;
+  if(ok && typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);
   const buttons = document.querySelectorAll('#modal-options .option');
   buttons.forEach((b,n)=>{
     b.disabled = true;
-    if(n === c.correct) b.classList.add('correct');
-    if(n === i && !ok) b.classList.add('wrong');
+    if(order[n] === c.correct) b.classList.add('correct');
+    if(order[n] === i && !ok) b.classList.add('wrong');
   });
   const res = document.getElementById('result');
   res.innerHTML = ok
@@ -9548,6 +9730,12 @@ function renderE2ECaseLibrary(){
  const ar=document.documentElement.lang==='ar';
  document.getElementById('e2eCaseGrid').innerHTML=E2E_CASES.map(c=>`<article class="e2e-case-card"><div class="e2e-case-top"><span class="e2e-case-no">${c.no}</span><span>4 decisions</span></div><h3>${ar?c.ar:c.title}</h3><p>${ar?c.arDesc:c.desc}</p><div class="e2e-flow">${c.flow.map(x=>`<span>${x}</span>`).join('')}</div><button type="button" onclick="startE2ECase('${c.id}')">${ar?'ابدأ الحالة ←':'Work this mission →'}</button></article>`).join('');
 }
+function startRandomE2ECase(){
+  const ids = E2E_CASES.map(c=>c.id);
+  const id = ids[Math.floor(Math.random()*ids.length)];
+  if(typeof openE2ECaseLibrary==='function') openE2ECaseLibrary();
+  startE2ECase(id);
+}
 function startE2ECase(id){
  const c=E2E_CASES.find(x=>x.id===id); if(!c)return;
  e2eCaseState.id=id;e2eCaseState.step=0;e2eCaseState.score=0;
@@ -9568,6 +9756,7 @@ function answerE2ECase(){
  if(v===undefined){m.textContent=ar?'اختر قرارًا أولًا.':'Choose a decision first.';return}
  if(Number(v)===s[5]){
    e2eCaseState.score+=10;
+   if(typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);
    m.innerHTML=`<strong>✓ ${ar?'صحيح.':'Correct.'}</strong> ${s[6]}`;
    setTimeout(()=>{if(e2eCaseState.step<c.steps.length-1){e2eCaseState.step++;renderE2ECaseRunner()}else{m.innerHTML=`<strong>✓ ${ar?'اكتملت المهمة.':'Mission complete.'}</strong> ${ar?'النتيجة: '+e2eCaseState.score+'/40':'Final score: '+e2eCaseState.score+'/40'}`;document.getElementById('e2eCaseBody').insertAdjacentHTML('beforeend',`<div class="e2e-case-actions"><button type="button" onclick="startE2ECase('${c.id}')">${ar?'إعادة الحالة':'Run again'}</button></div>`)}},500);
  }else{
