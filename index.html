@@ -54,8 +54,8 @@
   --glow:0 0 0 4px rgba(13,143,99,.18);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);background-image:radial-gradient(ellipse 120% 80% at 0% -20%,rgba(13,143,99,.07),transparent 50%),radial-gradient(ellipse 90% 60% at 100% 0%,rgba(201,146,20,.06),transparent 45%);color:var(--ink);font-family:"IBM Plex Sans",Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;overflow-x:hidden;background:var(--paper);background-image:radial-gradient(ellipse 120% 80% at 0% -20%,rgba(13,143,99,.07),transparent 50%),radial-gradient(ellipse 90% 60% at 100% 0%,rgba(201,146,20,.06),transparent 45%);color:var(--ink);font-family:"IBM Plex Sans",Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:"Fraunces",Georgia,serif;color:var(--brand-dark)}
 ::selection{background:var(--gold-soft)}
 
@@ -342,6 +342,7 @@ footer strong{color:var(--brand-dark)}
   }
   .sidebar.open{transform:translateX(0) !important}
   .page{margin-inline-start:0}
+  .e2e-shell,.e2e-library{margin-inline-start:0 !important;margin-inline-end:0 !important}
   .menu-toggle{
     display:flex !important;
     align-items:center;
@@ -1096,6 +1097,126 @@ header{position:relative}
   display:inline-block;
 }
 
+/* ============================================================
+   MAGAZINE COVER REDESIGN — bold editorial home floor
+   ============================================================ */
+.hero{
+  background:radial-gradient(ellipse 130% 90% at 15% -20%,#155a41 0%,var(--brand-dark) 55%,#082c20 100%) !important;
+  padding:60px 20px 40px !important;
+  margin-bottom:0 !important;
+}
+.hero:before,.hero:after{display:none !important}
+.hero .eyebrow{
+  background:none !important;border:none !important;padding:0 !important;
+  font-family:'Fraunces',serif !important;font-style:italic;font-weight:600;
+  color:var(--gold) !important;font-size:16px !important;letter-spacing:.03em;
+}
+.hero .eyebrow::before{background:var(--gold) !important}
+.hero h1{
+  background:none !important;-webkit-text-fill-color:unset !important;
+  color:#fff !important;
+  font-size:clamp(46px,7.2vw,94px) !important;
+  line-height:.95 !important;
+  letter-spacing:-.03em !important;
+  margin:14px 0 18px !important;
+}
+.hero p{color:rgba(255,255,255,.72) !important;font-size:19px !important;max-width:560px}
+.hero .cta{background:var(--gold) !important;color:#26200a !important;font-weight:800 !important;box-shadow:0 10px 24px rgba(0,0,0,.25) !important}
+.hero .cta:hover{background:#e0aa2a !important}
+
+/* Command stats become an integrated cover strip, not a floating green box */
+.command-card{margin-top:0 !important;padding:0 20px !important}
+.command-inner{
+  background:var(--brand-dark) !important;
+  background-image:radial-gradient(ellipse 130% 90% at 15% -20%,#155a41 0%,var(--brand-dark) 55%,#082c20 100%) !important;
+  box-shadow:none !important;border-radius:0 0 18px 18px !important;
+  padding:0 0 26px !important;gap:0 !important;justify-content:space-between !important;
+  border-top:1px solid rgba(255,255,255,.16);
+}
+.command-stat{padding-inline-end:26px;border-inline-end:1px solid rgba(255,255,255,.2);padding-top:18px}
+.command-stat:nth-of-type(3){border-inline-end:none}
+.command-stat strong{font-size:36px !important}
+.command-divider{display:none !important}
+.command-level{background:rgba(255,255,255,.14) !important}
+
+/* Departments — bold colorful card grid, each desk gets its own color identity */
+.home-depts{display:grid !important;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;background:none !important;margin:14px 0 0 !important}
+.home-dept{
+  display:flex !important;flex-direction:column;align-items:flex-start;gap:10px;
+  border:1px solid var(--line) !important;border-radius:16px !important;
+  background:var(--card) !important;box-shadow:0 3px 10px rgba(20,30,25,.05) !important;
+  padding:20px !important;position:relative;overflow:hidden;
+  border-top:4px solid var(--dept-color,var(--brand)) !important;
+}
+.home-dept:hover{transform:translateY(-4px) !important;box-shadow:0 14px 28px rgba(20,30,25,.14) !important}
+.home-dept .hd-stage{position:absolute !important;top:14px;inset-inline-end:16px;font-family:'Fraunces',serif !important;font-weight:700 !important;font-size:26px !important;color:var(--dept-soft,var(--brand-soft)) !important;line-height:1}
+.home-dept .hd-icon{
+  width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:var(--dept-soft,var(--brand-soft)) !important;font-size:22px;box-shadow:none !important;
+}
+.home-dept strong{font-size:17px;font-family:'Fraunces',serif}
+.home-dept .hd-desk{color:var(--dept-color,var(--gold));font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em}
+.home-dept > span:not(.hd-stage):not(.hd-icon):not(.hd-desk):not(.hd-go):not(.hd-visited-badge){color:var(--ink-soft);font-size:13px;line-height:1.5}
+.home-dept .hd-go{font-weight:700;color:var(--dept-color,var(--brand)) !important;font-size:13.5px;margin-top:2px}
+.home-dept .hd-visited-badge{top:14px;inset-inline-end:16px;display:none !important;background:var(--dept-color,var(--brand)) !important}
+.home-dept.is-visited .hd-visited-badge,.home-dept.is-mastered .hd-visited-badge{display:flex !important}
+.home-dept.is-visited .hd-stage,.home-dept.is-mastered .hd-stage{display:none}
+.home-dept[data-station="ar"]{--dept-color:#2563eb;--dept-soft:#eaf1fd}
+.home-dept[data-station="ap"]{--dept-color:#ea580c;--dept-soft:#fdf1e8}
+.home-dept[data-station="inv"]{--dept-color:#a8600a;--dept-soft:#fbf0dd}
+.home-dept[data-station="treasury"]{--dept-color:#4338ca;--dept-soft:#ecebfa}
+.home-dept[data-station="hr"]{--dept-color:#be185d;--dept-soft:#fbe9f1}
+.home-dept[data-station="gl"]{--dept-color:#0f766e;--dept-soft:#e6f5f3}
+.home-dept[data-station="learn"]{--dept-color:#7c3aed;--dept-soft:#f1ebfd}
+@media(max-width:640px){
+  .home-depts{grid-template-columns:1fr}
+}
+
+/* Review strip: circular progress + colorful stat pills, replacing the plain green bar */
+.review-strip{max-width:1180px;margin:18px auto 0;padding:0 20px}
+.review-inner{
+  background:linear-gradient(135deg,#0b3f2e,#0f5940);border-radius:18px;padding:22px 24px;
+  display:flex;align-items:center;gap:26px;flex-wrap:wrap;color:#fff;box-shadow:0 14px 30px rgba(15,89,64,.25);
+}
+.review-ring{position:relative;width:88px;height:88px;flex-shrink:0}
+.review-ring svg{transform:rotate(-90deg)}
+.review-ring-track{fill:none;stroke:rgba(255,255,255,.16);stroke-width:8}
+.review-ring-fill{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.review-ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.review-ring-label strong{font-size:20px;font-family:'Fraunces',serif}
+.review-ring-label span{font-size:9.5px;opacity:.75;text-transform:uppercase}
+.review-pills{display:flex;gap:10px;flex-wrap:wrap}
+.review-pill{background:rgba(255,255,255,.1);border-radius:12px;padding:10px 16px;min-width:88px}
+.review-pill strong{display:block;font-size:22px;font-family:'Fraunces',serif}
+.review-pill span{font-size:11px;opacity:.75}
+.review-msg{flex:1;min-width:180px}
+.review-msg .lvl{background:rgba(255,255,255,.14);padding:4px 12px;border-radius:999px;font-size:11.5px;font-weight:700}
+
+/* Weak-areas / focus list */
+.weak-list{max-width:1180px;margin:16px auto 0;padding:0 20px}
+.weak-item{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-inline-start:4px solid var(--dept-color,var(--brand));border-radius:12px;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.weak-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(20,30,25,.1)}
+.weak-item .wi-icon{width:34px;height:34px;border-radius:9px;background:var(--dept-soft,var(--brand-soft));display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.weak-item .wi-body{flex:1;min-width:0}
+.weak-item .wi-body strong{display:block;font-size:14.5px}
+.weak-item .wi-body span{font-size:12px;color:var(--muted)}
+.weak-item .wi-cta{font-size:12.5px;font-weight:700;color:var(--dept-color,var(--brand));white-space:nowrap}
+
+/* Quick tools grid (Learning Hub shortcuts) */
+.qtools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;max-width:1180px;margin:14px auto 0;padding:0 20px}
+.qtool{display:flex;flex-direction:column;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.qtool:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(20,30,25,.1)}
+.qtool .qt-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px}
+.qtool strong{font-size:13.5px}
+
+/* Daily challenge banner replacing the plain focus card */
+.focus-card{background:linear-gradient(120deg,#fef3c7,#fde3a7) !important;border:1px solid rgba(201,146,20,.35) !important}
+.focus-badge{background:var(--gold) !important;color:#3a2c05 !important}
+body.is-workspace:not(.tab-open) .data-panel.open{display:none !important}
+body.is-workspace.tab-open .ws-subnav{display:none !important}
+body.is-workspace.tab-open .ws-hint{display:none !important}
+body.is-workspace .ws-subnav{margin-bottom:4px}
+
 </style>
 </head>
 <body>
@@ -1111,13 +1232,14 @@ header{position:relative}
   </button>
 
   <div class="module-nav" aria-label="Accounting modules">
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ar-home" onclick="showPanel('ar-home',this)"><span data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ap-home" onclick="showPanel('ap-home',this)"><span data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="inv-home" onclick="showPanel('inv-home',this)"><span data-en="📦 Inventory & Warehouse" data-ar="📦 المخزون والمخازن">📦 Inventory & Warehouse</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="treasury-home" onclick="showPanel('treasury-home',this)"><span data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="hr-home" onclick="showPanel('hr-home',this)"><span data-en="🧑‍💼 Payroll & HR" data-ar="🧑‍💼 الرواتب والموارد البشرية">🧑‍💼 Payroll & HR</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="gl-home" onclick="showPanel('gl-home',this)"><span data-en="📚 General Ledger & Closing" data-ar="📚 دفتر الأستاذ والإقفال">📚 General Ledger & Closing</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="learn-home" onclick="showPanel('learn-home',this)"><span data-en="🎓 Learning Hub" data-ar="🎓 المركز التعليمي">🎓 Learning Hub</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ar-home" onclick="openWorkspaceMenu('ar')"><span data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ap-home" onclick="openWorkspaceMenu('ap')"><span data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="inv-home" onclick="openWorkspaceMenu('inv')"><span data-en="📦 Inventory & Warehouse" data-ar="📦 المخزون والمخازن">📦 Inventory & Warehouse</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="treasury-home" onclick="openWorkspaceMenu('treasury')"><span data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="hr-home" onclick="openWorkspaceMenu('hr')"><span data-en="🧑‍💼 Payroll & HR" data-ar="🧑‍💼 الرواتب والموارد البشرية">🧑‍💼 Payroll & HR</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="gl-home" onclick="openWorkspaceMenu('gl')"><span data-en="📚 General Ledger & Closing" data-ar="📚 دفتر الأستاذ والإقفال">📚 General Ledger & Closing</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="learn-home" onclick="openWorkspaceMenu('learn')"><span data-en="🎓 Learning Hub" data-ar="🎓 المركز التعليمي">🎓 Learning Hub</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="overview" onclick="openWorkspaceMenu('settings')"><span data-en="⚙️ Settings" data-ar="⚙️ الإعدادات">⚙️ Settings</span></button>
   </div>
 
 </aside>
@@ -1149,21 +1271,31 @@ header{position:relative}
   </div>
 </section>
 
-<div class="command-card reveal">
-  <div class="command-inner">
-    <div class="command-stat"><strong id="cmd-streak">—</strong><span data-en="Day streak" data-ar="أيام متتابعة">Day streak</span></div>
-    <div class="command-divider"></div>
-    <div class="command-stat"><strong id="cmd-score">—</strong><span data-en="Points" data-ar="نقطة">Points</span></div>
-    <div class="command-divider"></div>
-    <div class="command-msg">
-      <span class="command-level" id="cmd-level">—</span>
+<div class="review-strip reveal home-view">
+  <div class="review-inner">
+    <div class="review-ring">
+      <svg viewBox="0 0 100 100" width="88" height="88">
+        <circle class="review-ring-track" cx="50" cy="50" r="42"></circle>
+        <circle class="review-ring-fill" id="reviewRingFill" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264"></circle>
+      </svg>
+      <div class="review-ring-label"><strong id="reviewRingPct">0%</strong><span data-en="Mastered" data-ar="إتقان">Mastered</span></div>
+    </div>
+    <div class="review-pills">
+      <div class="review-pill"><strong id="cmd-streak">—</strong><span data-en="Day streak" data-ar="أيام متتابعة">Day streak</span></div>
+      <div class="review-pill"><strong id="cmd-score">—</strong><span data-en="Points" data-ar="نقطة">Points</span></div>
+      <div class="review-pill"><strong id="reviewMasteredCount">0/6</strong><span data-en="Desks mastered" data-ar="مكاتب متقنة">Desks mastered</span></div>
+    </div>
+    <div class="review-msg">
+      <span class="lvl" id="cmd-level">—</span>
       <span id="cmd-msg" style="display:block;margin-top:8px"></span>
     </div>
-    <button type="button" class="btn" style="background:#fff;color:var(--brand-dark);border:0" onclick="showPanel('learn-home')"><span data-en="Open Learning Hub →" data-ar="افتح المركز التعليمي ←">Open Learning Hub →</span></button>
+    <button type="button" class="btn" style="background:#fff;color:var(--brand-dark);border:0" onclick="openWorkspaceMenu('learn')"><span data-en="Open Learning Hub →" data-ar="افتح المركز التعليمي ←">Open Learning Hub →</span></button>
   </div>
 </div>
 
-<div class="focus-card reveal" id="todaysFocusCard">
+<div class="weak-list reveal home-view" id="weakAreasList"></div>
+
+<div class="focus-card reveal home-view" id="todaysFocusCard">
   <div class="focus-inner">
     <span class="focus-badge" data-en="TODAY'S FOCUS" data-ar="تركيز اليوم">TODAY'S FOCUS</span>
     <div class="focus-text"><strong id="focus-title">—</strong><span id="focus-desc"></span></div>
@@ -1190,7 +1322,7 @@ header{position:relative}
         <h2 id="wsTitle">Module</h2>
         <p id="wsSubtitle">Work this desk independently — use the tabs below.</p>
       </div>
-      <button type="button" class="ws-back" onclick="goBack()" data-en="← Back" data-ar="→ رجوع">← Back</button>
+      <button type="button" class="ws-back" onclick="wsBackClick()" data-en="← Back" data-ar="→ رجوع">← Back</button>
     </div>
     <nav class="ws-subnav" id="wsSubnav" aria-label="Section tabs"></nav>
     <p class="ws-hint" id="wsHint" data-en="Each tab opens only what belongs to this desk. Nothing else from other departments is mixed in." data-ar="كل تبويب يفتح ما يخص هذا المكتب فقط. لا يختلط معه شيء من أقسام أخرى.">Each tab opens only what belongs to this desk. Nothing else from other departments is mixed in.</p>
@@ -1203,7 +1335,7 @@ header{position:relative}
       <small data-en="Act as each accountant — open a desk and work real cases" data-ar="اشتغل كمحاسب في كل دور — افتح المكتب واعمل حالات حقيقية">Act as each accountant — open a desk and work real cases</small>
     </div>
     <div class="home-depts">
-      <button type="button" class="home-dept" data-station="ar" onclick="showPanel('ar-home')">
+      <button type="button" class="home-dept" data-station="ar" onclick="openWorkspaceMenu('ar')">
         <span class="hd-visited-badge">✓</span>
         <span class="hd-stage" aria-hidden="true">01</span>
         <span class="hd-icon">👥</span>
@@ -1212,7 +1344,7 @@ header{position:relative}
         <span data-en="Invoices, receipts, allocations, aging, disputes and reconciliation." data-ar="فواتير، تحصيل، تخصيص، أعمار، نزاعات ومطابقة.">Invoices, receipts, allocations, aging, disputes and reconciliation.</span>
         <span class="hd-go" data-en="Open AR desk →" data-ar="افتح مكتب العملاء ←">Open AR desk →</span>
       </button>
-      <button type="button" class="home-dept" data-station="ap" onclick="showPanel('ap-home')">
+      <button type="button" class="home-dept" data-station="ap" onclick="openWorkspaceMenu('ap')">
         <span class="hd-visited-badge">✓</span>
         <span class="hd-stage" aria-hidden="true">02</span>
         <span class="hd-icon">🚚</span>
@@ -1221,7 +1353,7 @@ header{position:relative}
         <span data-en="PO, GRN, invoices, 3-way matching, payments and accruals." data-ar="أوامر شراء، استلام، فواتير، مطابقة ثلاثية، سداد واستحقاقات.">PO, GRN, invoices, 3-way matching, payments and accruals.</span>
         <span class="hd-go" data-en="Open AP desk →" data-ar="افتح مكتب الموردين ←">Open AP desk →</span>
       </button>
-      <button type="button" class="home-dept" data-station="inv" onclick="showPanel('inv-home')">
+      <button type="button" class="home-dept" data-station="inv" onclick="openWorkspaceMenu('inv')">
         <span class="hd-visited-badge">✓</span>
         <span class="hd-stage" aria-hidden="true">03</span>
         <span class="hd-icon">📦</span>
@@ -1230,7 +1362,7 @@ header{position:relative}
         <span data-en="Receiving, movements, counts, adjustments, valuation and COGS." data-ar="استلام، حركات، جرد، تسويات، تقييم وتكلفة البضاعة.">Receiving, movements, counts, adjustments, valuation and COGS.</span>
         <span class="hd-go" data-en="Open inventory desk →" data-ar="افتح مكتب المخزون ←">Open inventory desk →</span>
       </button>
-      <button type="button" class="home-dept" data-station="treasury" onclick="showPanel('treasury-home')">
+      <button type="button" class="home-dept" data-station="treasury" onclick="openWorkspaceMenu('treasury')">
         <span class="hd-visited-badge">✓</span>
         <span class="hd-stage" aria-hidden="true">04</span>
         <span class="hd-icon">🏦</span>
@@ -1239,7 +1371,7 @@ header{position:relative}
         <span data-en="Cash, banks, transfers, payments, receipts and reconciliation." data-ar="نقدية، بنوك، تحويلات، مدفوعات، مقبوضات ومطابقة.">Cash, banks, transfers, payments, receipts and reconciliation.</span>
         <span class="hd-go" data-en="Open treasury desk →" data-ar="افتح مكتب الخزينة ←">Open treasury desk →</span>
       </button>
-      <button type="button" class="home-dept" data-station="hr" onclick="showPanel('hr-home')">
+      <button type="button" class="home-dept" data-station="hr" onclick="openWorkspaceMenu('hr')">
         <span class="hd-visited-badge">✓</span>
         <span class="hd-stage" aria-hidden="true">05</span>
         <span class="hd-icon">🧑‍💼</span>
@@ -1248,7 +1380,7 @@ header{position:relative}
         <span data-en="Salary, hourly pay, overtime, deductions, payroll journal." data-ar="راتب، ساعة، إضافي، استقطاعات، قيد رواتب.">Salary, hourly pay, overtime, deductions, payroll journal.</span>
         <span class="hd-go" data-en="Open payroll desk →" data-ar="افتح مكتب الرواتب ←">Open payroll desk →</span>
       </button>
-      <button type="button" class="home-dept" data-station="gl" onclick="showPanel('gl-home')">
+      <button type="button" class="home-dept" data-station="gl" onclick="openWorkspaceMenu('gl')">
         <span class="hd-visited-badge">✓</span>
         <span class="hd-stage" aria-hidden="true">06</span>
         <span class="hd-icon">📚</span>
@@ -1257,7 +1389,7 @@ header{position:relative}
         <span data-en="Adjustments, trial balance, accruals, closing and statements." data-ar="تسويات، ميزان مراجعة، مستحقات، إقفال وقوائم.">Adjustments, trial balance, accruals, closing and statements.</span>
         <span class="hd-go" data-en="Open GL desk →" data-ar="افتح مكتب دفتر الأستاذ ←">Open GL desk →</span>
       </button>
-      <button type="button" class="home-dept" data-station="learn" onclick="showPanel('learn-home')" style="border-inline-start-color:var(--gold)">
+      <button type="button" class="home-dept" data-station="learn" onclick="openWorkspaceMenu('learn')" style="border-inline-start-color:var(--gold)">
         <span class="hd-visited-badge">✓</span>
         <span class="hd-stage" aria-hidden="true">07</span>
         <span class="hd-icon">🎓</span>
@@ -1269,22 +1401,16 @@ header{position:relative}
     </div>
 
     <div class="home-section-label">
-      <span data-en="Company reference" data-ar="مرجع الشركة">Company reference</span>
-      <small data-en="Master data every desk depends on" data-ar="بيانات أساسية تعتمد عليها كل المكاتب">Master data every desk depends on</small>
+      <span data-en="Quick tools" data-ar="أدوات سريعة">Quick tools</span>
+      <small data-en="Fast revision essentials" data-ar="أساسيات مراجعة سريعة">Fast revision essentials</small>
     </div>
-    <div class="home-secondary reveal">
-      <button type="button" onclick="showPanel('overview')">
-        <strong data-en="Company Overview" data-ar="نظرة عامة على الشركة">Company Overview</strong>
-        <span data-en="Activity, currency, fiscal year" data-ar="النشاط، العملة، السنة المالية">Activity, currency, fiscal year</span>
-      </button>
-      <button type="button" onclick="showPanel('coa')">
-        <strong data-en="Chart of Accounts" data-ar="دليل الحسابات">Chart of Accounts</strong>
-        <span data-en="Every account code this company uses" data-ar="كل أكواد الحسابات اللي الشركة بتستخدمها">Every account code this company uses</span>
-      </button>
-      <button type="button" onclick="showPanel('departments')">
-        <strong data-en="Departments" data-ar="الأقسام">Departments</strong>
-        <span data-en="Cost centers used across payroll and reporting" data-ar="مراكز التكلفة المستخدمة في الرواتب والتقارير">Cost centers used across payroll and reporting</span>
-      </button>
+    <div class="qtools-grid">
+      <button type="button" class="qtool" onclick="showPanel('learn-glossary')"><span class="qt-icon" style="background:#f1ebfd">📖</span><strong data-en="Glossary" data-ar="قاموس المصطلحات">Glossary</strong></button>
+      <button type="button" class="qtool" onclick="showPanel('learn-tax')"><span class="qt-icon" style="background:#fdf1e8">💰</span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمينات">Tax &amp; Insurance</strong></button>
+      <button type="button" class="qtool" onclick="showPanel('learn-interview')"><span class="qt-icon" style="background:#eaf1fd">🗣️</span><strong data-en="Interview Prep" data-ar="تحضير المقابلات">Interview Prep</strong></button>
+      <button type="button" class="qtool" onclick="showPanel('learn-comms')"><span class="qt-icon" style="background:#e6f5f3">💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong></button>
+      <button type="button" class="qtool" onclick="qtoolRandomSpotError()"><span class="qt-icon" style="background:#fbe9f1">🔍</span><strong data-en="Spot the Error" data-ar="اكتشف الغلط">Spot the Error</strong></button>
+      <button type="button" class="qtool" onclick="qtoolRandomFraudCatcher()"><span class="qt-icon" style="background:#fbf0dd">🕵️</span><strong data-en="Fraud Catcher" data-ar="صائد الاحتيال">Fraud Catcher</strong></button>
     </div>
 
     <div class="home-section-label">
@@ -1340,17 +1466,17 @@ header{position:relative}
           <small data-en="3 open · jump to the right desk" data-ar="3 مهام · انتقل للمكتب المناسب">3 open · jump to the right desk</small>
         </div>
         <div class="task-list">
-          <button class="day-task" type="button" onclick="showPanel('ar-home')">
+          <button class="day-task" type="button" onclick="openWorkspaceMenu('ar')">
             <span class="task-top"><i class="task-dot"></i><strong>AR — Unallocated Receipt</strong></span>
             <p data-en="Cash hit the bank, but the customer allocation is still unclear." data-ar="النقدية وصلت البنك، لكن تخصيص العميل لسه غير واضح.">Cash hit the bank, but the customer allocation is still unclear.</p>
             <span class="task-meta" data-en="Open AR desk →" data-ar="افتح مكتب العملاء ←">Open AR desk →</span>
           </button>
-          <button class="day-task" type="button" onclick="showPanel('ap-home')">
+          <button class="day-task" type="button" onclick="openWorkspaceMenu('ap')">
             <span class="task-top"><i class="task-dot"></i><strong>AP — Invoice Without Support</strong></span>
             <p data-en="Review the PO / GRN trail before the invoice is posted." data-ar="راجع مسار أمر الشراء وإذن الاستلام قبل ترحيل الفاتورة.">Review the PO / GRN trail before the invoice is posted.</p>
             <span class="task-meta" data-en="Open AP desk →" data-ar="افتح مكتب الموردين ←">Open AP desk →</span>
           </button>
-          <button class="day-task" type="button" onclick="showPanel('hr-home')">
+          <button class="day-task" type="button" onclick="openWorkspaceMenu('hr')">
             <span class="task-top"><i class="task-dot"></i><strong>Payroll — Attendance Exception</strong></span>
             <p data-en="Approved hours and payroll input do not agree." data-ar="الساعات المعتمدة ومدخلات الرواتب غير متطابقة.">Approved hours and payroll input do not agree.</p>
             <span class="task-meta" data-en="Open people desk →" data-ar="افتح مكتب الأفراد ←">Open people desk →</span>
@@ -1867,6 +1993,12 @@ header{position:relative}
     <div class="cycle-stage">
       <h4 data-en="What should I learn next?" data-ar="أتعلم إيه بعد كده؟">What should I learn next?</h4>
       <p id="learn-next-suggestion" class="stage-note"></p>
+    </div>
+
+    <div class="cycle-stage" style="border-inline-start-color:var(--debit)">
+      <h4 data-en="Reset all progress" data-ar="إعادة ضبط كل التقدّم">Reset all progress</h4>
+      <p class="stage-note" data-en="Clears your streak, points, level, visited desks, mastery quiz results and Spot-the-Error progress — everything starts fresh." data-ar="بيمسح الستريك والنقاط والمستوى والمكاتب اللي اتزارت ونتائج اختبارات الإتقان وتقدّم اكتشف الغلط — كل حاجة تبدأ من جديد.">Clears your streak, points, level, visited desks, mastery quiz results and Spot-the-Error progress — everything starts fresh.</p>
+      <button type="button" class="btn btn-ghost" style="border-color:var(--debit);color:var(--debit)" onclick="resetAllProgress()" data-en="Reset All Progress" data-ar="إعادة ضبط كل التقدّم">Reset All Progress</button>
     </div>
   </div>
 
@@ -3805,17 +3937,20 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
       </div>
       <div class="close-list" id="closeList">
         <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="1. Freeze sub-ledgers cut-off (AR / AP / Inventory / Payroll)" data-ar="1. تجميد قطع الدفاتر المساعدة (عملاء / موردين / مخزون / رواتب)">1. Freeze sub-ledgers cut-off (AR / AP / Inventory / Payroll)</strong><span data-en="No backdated invoices, GRNs or payroll after freeze without approval." data-ar="لا فواتير أو أذون أو رواتب بتاريخ سابق بعد التجميد بدون اعتماد.">No backdated invoices, GRNs or payroll after freeze without approval.</span></div><span class="ci-tag">Cut-off</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="2. Bank reconciliations complete &amp; differences explained" data-ar="2. مطابقة البنوك مكتملة والفروق مفسَّرة">2. Bank reconciliations complete &amp; differences explained</strong><span data-en="Use the bank bridge; post fees/interest; age outstanding items." data-ar="استخدم جسر البنك؛ رحّل الرسوم/الفوائد؛ عمّر البنود المعلّقة.">Use the bank bridge; post fees/interest; age outstanding items.</span></div><span class="ci-tag">Treasury</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="3. AR control vs aging bridge signed" data-ar="3. جسر مراقبة العملاء مقابل الأعمار معتمد">3. AR control vs aging bridge signed</strong><span data-en="Clear unapplied cash; no plug entries." data-ar="صفِّ غير المخصص؛ بلا قيود عمياء.">Clear unapplied cash; no plug entries.</span></div><span class="ci-tag">AR</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="4. AP control vs aging + GRNI + statements" data-ar="4. مراقبة الموردين مقابل الأعمار + GRNI + الكشوف">4. AP control vs aging + GRNI + statements</strong><span data-en="Accrue missing invoices; match top supplier statements." data-ar="استحق الفواتير الناقصة؛ طابق كشوف كبار الموردين.">Accrue missing invoices; match top supplier statements.</span></div><span class="ci-tag">AP</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="5. Inventory count / valuation vs GL" data-ar="5. جرد / تقييم المخزون مقابل GL">5. Inventory count / valuation vs GL</strong><span data-en="Post adjustments; review COGS cut-off." data-ar="رحّل التسويات؛ راجع قطع تكلفة البضاعة.">Post adjustments; review COGS cut-off.</span></div><span class="ci-tag">Inventory</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="6. Payroll posted; liabilities agree to payment schedule" data-ar="6. ترحيل الرواتب؛ الالتزامات تطابق جدول السداد">6. Payroll posted; liabilities agree to payment schedule</strong><span data-en="Hours approved; tax/insurance liability reconciled." data-ar="الساعات معتمدة؛ التزام الضريبة/التأمينات مطابق.">Hours approved; tax/insurance liability reconciled.</span></div><span class="ci-tag">Payroll</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="7. Accruals (services received, not invoiced)" data-ar="7. المستحقات (خدمات استُلمت ولم تُفوتر)">7. Accruals (services received, not invoiced)</strong><span data-en="Evidence + estimate; reverse next period / on invoice." data-ar="دليل + تقدير؛ اعكس الفترة التالية / عند الفاتورة.">Evidence + estimate; reverse next period / on invoice.</span></div><span class="ci-tag">Accrual</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="8. Prepayments amortized for the period" data-ar="8. توزيع المصروفات المقدمة للفترة">8. Prepayments amortized for the period</strong><span data-en="Insurance, rent, retainers — expense the consumed portion only." data-ar="تأمين، إيجار، عقود — حمّل فقط الجزء المستهلك مصروفًا.">Insurance, rent, retainers — expense the consumed portion only.</span></div><span class="ci-tag">Prepaid</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="9. Depreciation / fixed asset movements" data-ar="9. الإهلاك / حركات الأصول الثابتة">9. Depreciation / fixed asset movements</strong><span data-en="Run period depreciation; check additions and disposals cut-off." data-ar="شغّل إهلاك الفترة؛ افحص قطع الإضافات والاستبعادات.">Run period depreciation; check additions and disposals cut-off.</span></div><span class="ci-tag">Assets</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="10. Clear material suspense accounts" data-ar="10. تصفية حسابات الوسيط الجوهرية">10. Clear material suspense accounts</strong><span data-en="Every open suspense line needs owner, evidence and target account." data-ar="كل سطر وسيط مفتوح يحتاج مالكًا ومستندًا وحسابًا مستهدفًا.">Every open suspense line needs owner, evidence and target account.</span></div><span class="ci-tag">Suspense</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="11. Trial balance review &amp; flux analysis" data-ar="11. مراجعة ميزان المراجعة وتحليل التغير">11. Trial balance review &amp; flux analysis</strong><span data-en="TB can balance and still be wrong — review odd movements." data-ar="الميزان قد يتوازن ويظل خاطئًا — راجع الحركات الشاذة.">TB can balance and still be wrong — review odd movements.</span></div><span class="ci-tag">Review</span></label>
-        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="12. Draft P&amp;L and Balance Sheet + close pack filed" data-ar="12. مسودة قائمة الدخل والميزانية + حفظ حزمة الإقفال">12. Draft P&amp;L and Balance Sheet + close pack filed</strong><span data-en="Bridges, accruals listing, bank recs and checklist signed." data-ar="الجسور وكشف المستحقات ومطابقات البنك والقائمة معتمدة.">Bridges, accruals listing, bank recs and checklist signed.</span></div><span class="ci-tag">Report</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="2. Revenue recognition reviewed (cut-off &amp; deferred revenue)" data-ar="2. مراجعة الاعتراف بالإيراد (القطع والإيراد المؤجل)">2. Revenue recognition reviewed (cut-off &amp; deferred revenue)</strong><span data-en="Confirm revenue booked this period was actually earned; roll forward unearned/deferred revenue." data-ar="تأكد إن الإيراد المسجل هذه الفترة مستحق فعليًا؛ راجع حركة الإيراد غير المكتسب/المؤجل.">Confirm revenue booked this period was actually earned; roll forward unearned/deferred revenue.</span></div><span class="ci-tag">Revenue</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="3. Bank reconciliations complete &amp; differences explained" data-ar="3. مطابقة البنوك مكتملة والفروق مفسَّرة">3. Bank reconciliations complete &amp; differences explained</strong><span data-en="Use the bank bridge; post fees/interest; age outstanding items." data-ar="استخدم جسر البنك؛ رحّل الرسوم/الفوائد؛ عمّر البنود المعلّقة.">Use the bank bridge; post fees/interest; age outstanding items.</span></div><span class="ci-tag">Treasury</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="4. AR control vs aging bridge signed" data-ar="4. جسر مراقبة العملاء مقابل الأعمار معتمد">4. AR control vs aging bridge signed</strong><span data-en="Clear unapplied cash; no plug entries." data-ar="صفِّ غير المخصص؛ بلا قيود عمياء.">Clear unapplied cash; no plug entries.</span></div><span class="ci-tag">AR</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="5. AP control vs aging + GRNI + statements" data-ar="5. مراقبة الموردين مقابل الأعمار + GRNI + الكشوف">5. AP control vs aging + GRNI + statements</strong><span data-en="Accrue missing invoices; match top supplier statements." data-ar="استحق الفواتير الناقصة؛ طابق كشوف كبار الموردين.">Accrue missing invoices; match top supplier statements.</span></div><span class="ci-tag">AP</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="6. Inventory count / valuation vs GL" data-ar="6. جرد / تقييم المخزون مقابل GL">6. Inventory count / valuation vs GL</strong><span data-en="Post adjustments; review COGS cut-off." data-ar="رحّل التسويات؛ راجع قطع تكلفة البضاعة.">Post adjustments; review COGS cut-off.</span></div><span class="ci-tag">Inventory</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="7. Payroll posted; liabilities agree to payment schedule" data-ar="7. ترحيل الرواتب؛ الالتزامات تطابق جدول السداد">7. Payroll posted; liabilities agree to payment schedule</strong><span data-en="Hours approved; tax/insurance liability reconciled." data-ar="الساعات معتمدة؛ التزام الضريبة/التأمينات مطابق.">Hours approved; tax/insurance liability reconciled.</span></div><span class="ci-tag">Payroll</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="8. Other liabilities confirmed &amp; reconciled (loans, taxes, other payables)" data-ar="8. تأكيد ومطابقة باقي الالتزامات (قروض، ضرائب، دائنون آخرون)">8. Other liabilities confirmed &amp; reconciled (loans, taxes, other payables)</strong><span data-en="Every liability account has a supporting schedule — no balance sits there just because it always has." data-ar="كل حساب التزام له جدول مؤيد — مفيش رصيد قاعد بس لأنه دايمًا كان قاعد.">Every liability account has a supporting schedule — no balance sits there just because it always has.</span></div><span class="ci-tag">Liabilities</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="9. Accruals (services received, not invoiced)" data-ar="9. المستحقات (خدمات استُلمت ولم تُفوتر)">9. Accruals (services received, not invoiced)</strong><span data-en="Evidence + estimate; reverse next period / on invoice." data-ar="دليل + تقدير؛ اعكس الفترة التالية / عند الفاتورة.">Evidence + estimate; reverse next period / on invoice.</span></div><span class="ci-tag">Accrual</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="10. Prepayments amortized for the period" data-ar="10. توزيع المصروفات المقدمة للفترة">10. Prepayments amortized for the period</strong><span data-en="Insurance, rent, retainers — expense the consumed portion only." data-ar="تأمين، إيجار، عقود — حمّل فقط الجزء المستهلك مصروفًا.">Insurance, rent, retainers — expense the consumed portion only.</span></div><span class="ci-tag">Prepaid</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="11. Depreciation / fixed asset movements" data-ar="11. الإهلاك / حركات الأصول الثابتة">11. Depreciation / fixed asset movements</strong><span data-en="Run period depreciation; check additions and disposals cut-off." data-ar="شغّل إهلاك الفترة؛ افحص قطع الإضافات والاستبعادات.">Run period depreciation; check additions and disposals cut-off.</span></div><span class="ci-tag">Assets</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="12. Clear material suspense accounts" data-ar="12. تصفية حسابات الوسيط الجوهرية">12. Clear material suspense accounts</strong><span data-en="Every open suspense line needs owner, evidence and target account." data-ar="كل سطر وسيط مفتوح يحتاج مالكًا ومستندًا وحسابًا مستهدفًا.">Every open suspense line needs owner, evidence and target account.</span></div><span class="ci-tag">Suspense</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="13. Trial balance review &amp; flux analysis" data-ar="13. مراجعة ميزان المراجعة وتحليل التغير">13. Trial balance review &amp; flux analysis</strong><span data-en="TB can balance and still be wrong — review odd movements." data-ar="الميزان قد يتوازن ويظل خاطئًا — راجع الحركات الشاذة.">TB can balance and still be wrong — review odd movements.</span></div><span class="ci-tag">Review</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="14. Draft P&amp;L and Balance Sheet + close pack filed" data-ar="14. مسودة قائمة الدخل والميزانية + حفظ حزمة الإقفال">14. Draft P&amp;L and Balance Sheet + close pack filed</strong><span data-en="Bridges, accruals listing, bank recs and checklist signed." data-ar="الجسور وكشف المستحقات ومطابقات البنك والقائمة معتمدة.">Bridges, accruals listing, bank recs and checklist signed.</span></div><span class="ci-tag">Report</span></label>
+        <label class="close-item"><input type="checkbox" data-close onchange="updateCloseCal()"><div class="ci-body"><strong data-en="15. Financial data backed up &amp; period locked down" data-ar="15. نسخ احتياطي للبيانات المالية وتأمين الفترة المقفولة">15. Financial data backed up &amp; period locked down</strong><span data-en="Back up the closed period's data and confirm access controls before moving on." data-ar="اعمل نسخة احتياطية لبيانات الفترة المقفولة وتأكد من ضوابط الوصول قبل الانتقال للفترة الجاية.">Back up the closed period's data and confirm access controls before moving on.</span></div><span class="ci-tag">Security</span></label>
       </div>
       <p class="panel-sub" style="margin-top:14px" data-en="Tip: open AR / AP / Bank bridges from those desks while you tick steps 2–4." data-ar="نصيحة: افتح جسور العملاء/الموردين/البنك من مكاتبها أثناء تعليم الخطوات 2–4.">Tip: open AR / AP / Bank bridges from those desks while you tick steps 2–4.</p>
       <div class="bridge-actions">
@@ -3848,7 +3983,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
         </div>
         <div class="tk-actions">
           <button type="button" class="btn" onclick="showPanel('ar-bridge')"><span data-en="Open AR bridge" data-ar="جسر العملاء">Open AR bridge</span></button>
-          <button type="button" class="btn" onclick="showPanel('ar-home')"><span data-en="AR daily desk" data-ar="مكتب العملاء">AR daily desk</span></button>
+          <button type="button" class="btn" onclick="openWorkspaceMenu('ar')"><span data-en="AR daily desk" data-ar="مكتب العملاء">AR daily desk</span></button>
           <button type="button" class="btn" onclick="closeTicket('t1')"><span data-en="Mark done" data-ar="تم الإنجاز">Mark done</span></button>
         </div>
       </div>
@@ -3865,7 +4000,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
         </div>
         <div class="tk-actions">
           <button type="button" class="btn" onclick="showPanel('ap-bridge')"><span data-en="Open AP bridge" data-ar="جسر الموردين">Open AP bridge</span></button>
-          <button type="button" class="btn" onclick="showPanel('ap-home')"><span data-en="AP daily desk" data-ar="مكتب الموردين">AP daily desk</span></button>
+          <button type="button" class="btn" onclick="openWorkspaceMenu('ap')"><span data-en="AP daily desk" data-ar="مكتب الموردين">AP daily desk</span></button>
           <button type="button" class="btn" onclick="closeTicket('t2')"><span data-en="Mark done" data-ar="تم الإنجاز">Mark done</span></button>
         </div>
       </div>
@@ -3882,7 +4017,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
         </div>
         <div class="tk-actions">
           <button type="button" class="btn" onclick="showPanel('gl-close')"><span data-en="Close calendar" data-ar="تقويم الإقفال">Close calendar</span></button>
-          <button type="button" class="btn" onclick="showPanel('hr-home')"><span data-en="Payroll desk" data-ar="مكتب الرواتب">Payroll desk</span></button>
+          <button type="button" class="btn" onclick="openWorkspaceMenu('hr')"><span data-en="Payroll desk" data-ar="مكتب الرواتب">Payroll desk</span></button>
           <button type="button" class="btn" onclick="closeTicket('t3')"><span data-en="Mark done" data-ar="تم الإنجاز">Mark done</span></button>
         </div>
       </div>
@@ -4474,6 +4609,16 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
 
 /* ===== Workspace map: each department is independent ===== */
 const WORKSPACES = {
+  settings: {
+    kicker: ['SETTINGS', 'الإعدادات'],
+    title: ['Company Settings', 'إعدادات الشركة'],
+    subtitle: ['Master data every desk depends on: company profile, chart of accounts, departments.', 'بيانات أساسية تعتمد عليها كل المكاتب: ملف الشركة، دليل الحسابات، الأقسام.'],
+    tabs: [
+      {id:'overview', en:'Company Overview', ar:'نظرة عامة على الشركة'},
+      {id:'coa', en:'Chart of Accounts', ar:'دليل الحسابات'},
+      {id:'departments', en:'Departments', ar:'الأقسام'}
+    ]
+  },
   ar: {
     kicker: ['ACCOUNTS RECEIVABLE', 'حسابات العملاء'],
     title: ['AR Accountant workspace', 'مساحة عمل محاسب العملاء'],
@@ -4567,7 +4712,6 @@ const WORKSPACES = {
       {id:'employees', en:'Employees', ar:'الموظفون'},
       {id:'hr-new-employee', en:'New employee', ar:'موظف جديد'},
       {id:'hr-payroll-run', en:'Payroll Run', ar:'تشغيل الرواتب'},
-      {id:'departments', en:'Departments', ar:'الأقسام'},
       {id:'hr-role', en:'Role & procedures', ar:'الدور والإجراءات'},
       {id:'hr-cases', en:'Cases & problems', ar:'حالات ومشكلات'},
       {id:'hr-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة'},
@@ -4611,6 +4755,7 @@ const WORKSPACES = {
 };
 
 const PANEL_TO_WS = {
+  overview:'settings', coa:'settings', departments:'settings',
   'gl-home':'gl', 'gl-role':'gl', 'gl-cases':'gl', 'gl-close':'gl', 'gl-trial-balance':'gl', 'gl-financials':'gl', 'gl-fixed-assets':'gl', 'gl-cashflow':'gl', 'gl-entries':'gl', 'gl-spot-error':'gl', 'gl-quiz':'gl', 'gl-fraud':'gl',
   'learn-home':'learn', 'learn-glossary':'learn', 'learn-tax':'learn', 'learn-interview':'learn', 'learn-comms':'learn',
   'ar-home':'ar', customers:'ar', 'ar-new-customer':'ar', 'ar-cycle':'ar', 'ar-entries':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'ar-statement':'ar', 'ar-aging':'ar', 'ar-workflow':'ar', 'ar-role':'ar', 'ar-cases':'ar', 'ar-bridge':'ar', 'cross-tickets':'ar',
@@ -4647,11 +4792,14 @@ function goHomeSection(id){
 }
 
 function goHome(isBack){
+  if(typeof closeE2ECaseLibrary==='function') closeE2ECaseLibrary();
+  const m=document.getElementById('e2eMission'); if(m && m.classList.contains('is-open')) m.classList.remove('is-open');
   if(!isBack && currentPanelId && currentPanelId !== '__home__'){
     navHistory.push(currentPanelId);
   }
   currentPanelId = '__home__';
   document.body.classList.remove('is-workspace');
+  document.body.classList.remove('tab-open');
   document.body.dataset.ws = '';
   document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
   document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute('aria-selected','false'));
@@ -4662,6 +4810,20 @@ function goBack(){
   if(navHistory.length === 0){ goHome(true); return; }
   const prev = navHistory.pop();
   if(prev === '__home__'){ goHome(true); }
+  else if(typeof prev === 'string' && prev.indexOf('__menu__:')===0){
+    const wsKey = prev.slice('__menu__:'.length);
+    document.body.classList.add('is-workspace');
+    document.body.classList.remove('tab-open');
+    document.body.dataset.ws = wsKey;
+    document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
+    renderWorkspaceChrome(wsKey, null);
+    document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute('aria-selected','false'));
+    const parentBtn = document.querySelector('[role="tab"][aria-controls="'+wsKey+'-home"]');
+    if(parentBtn) parentBtn.setAttribute('aria-selected','true');
+    currentPanelId = prev;
+    const chrome = document.getElementById('workspaceChrome');
+    if(chrome) chrome.scrollIntoView({behavior:'smooth', block:'start'});
+  }
   else { showPanel(prev, null, true); }
 }
 
@@ -4689,6 +4851,8 @@ function renderWorkspaceChrome(wsKey, activeId){
 let navHistory = [];
 let currentPanelId = null;
 function showPanel(id, btn, isBack){
+  if(typeof closeEndToEndMission==='function'){ const m=document.getElementById('e2eMission'); if(m && m.classList.contains('is-open')) m.classList.remove('is-open'); }
+  if(typeof closeE2ECaseLibrary==='function') closeE2ECaseLibrary();
   if(!isBack && currentPanelId && currentPanelId !== id){
     navHistory.push(currentPanelId);
   }
@@ -4703,10 +4867,12 @@ function showPanel(id, btn, isBack){
 
   if(wsKey){
     document.body.classList.add('is-workspace');
+    document.body.classList.add('tab-open');
     document.body.dataset.ws = wsKey;
     renderWorkspaceChrome(wsKey, id);
   } else {
     document.body.classList.remove('is-workspace');
+    document.body.classList.remove('tab-open');
   }
 
   if(!btn){ btn = document.querySelector('[role="tab"][aria-controls="'+id+'"]'); }
@@ -4742,6 +4908,48 @@ function showPanel(id, btn, isBack){
   }
 }
 
+function openWorkspaceMenu(wsKey){
+  if(typeof closeEndToEndMission==='function'){ const m=document.getElementById('e2eMission'); if(m && m.classList.contains('is-open')) m.classList.remove('is-open'); }
+  if(typeof closeE2ECaseLibrary==='function') closeE2ECaseLibrary();
+  const menuId = '__menu__:'+wsKey;
+  if(currentPanelId && currentPanelId !== menuId){
+    navHistory.push(currentPanelId);
+  }
+  currentPanelId = menuId;
+  document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
+  document.body.classList.add('is-workspace');
+  document.body.classList.remove('tab-open');
+  document.body.dataset.ws = wsKey;
+  renderWorkspaceChrome(wsKey, null);
+  document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute('aria-selected','false'));
+  const parentBtn = document.querySelector('[role="tab"][aria-controls="'+wsKey+'-home"]');
+  if(parentBtn) parentBtn.setAttribute('aria-selected','true');
+  document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-selected','false'));
+  if(window.innerWidth<=800 && typeof closeSidebar==='function'){ closeSidebar(); }
+  const chrome = document.getElementById('workspaceChrome');
+  if(chrome) chrome.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function backToTabList(){
+  const wsKey = document.body.dataset.ws;
+  if(!wsKey){ goBack(); return; }
+  const menuId = '__menu__:'+wsKey;
+  if(navHistory.length && navHistory[navHistory.length-1] === menuId){
+    navHistory.pop();
+  }
+  document.body.classList.remove('tab-open');
+  document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
+  renderWorkspaceChrome(wsKey, null);
+  document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute('aria-selected','false'));
+  const parentBtn = document.querySelector('[role="tab"][aria-controls="'+wsKey+'-home"]');
+  if(parentBtn) parentBtn.setAttribute('aria-selected','true');
+  currentPanelId = menuId;
+  const chrome = document.getElementById('workspaceChrome');
+  if(chrome) chrome.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function wsBackClick(){
+  if(document.body.classList.contains('tab-open')) backToTabList();
+  else goBack();
+}
 function jumpChip(id, chip){
   document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-selected','false'));
   if(chip) chip.setAttribute('aria-selected','true');
@@ -6509,6 +6717,35 @@ function learnRenderTax(){
       + '<strong>مثال:</strong> فاتورة خدمات بنسبة 3% وقيمتها 10,000 جنيه (بدون ضريبة القيمة المضافة) ← بيتخصم منها 300 جنيه وتتورد لمصلحة الضرائب؛ المورد بياخد 9,700 جنيه بالإضافة للضريبة المضافة.<br><br>'
       + '<strong style="color:var(--brand-dark)">الإعفاء:</strong> لا يتم خصم ضريبة استقطاع لو قيمة الفاتورة الواحدة أقل من 300 جنيه.'
     ]},
+    {t:['Withholding Tax on Individuals & Unregistered Freelancers','ضريبة الخصم والإضافة على مستحقات الأفراد والمهن الحرة غير المسجلين'], b:[
+      'Under Egyptian Income Tax Law No. 91 of 2005 and its amendments, when paying an individual or an unregistered independent service provider (freelancer / non-commercially-registered free profession), the withholding rate depends on the nature of the document and the activity itself — not the general sector table above.<br><br>'
+      + '<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:12.5px">'
+      + '<tr><td style="padding:3px 6px;border-bottom:1px solid var(--line)">Services, legal work & free professions</td><td style="padding:3px 6px;border-bottom:1px solid var(--line);text-align:end">5%</td></tr>'
+      + '<tr><td style="padding:3px 6px;border-bottom:1px solid var(--line)">Supply of goods/merchandise (not a service)</td><td style="padding:3px 6px;border-bottom:1px solid var(--line);text-align:end">1%</td></tr>'
+      + '<tr><td style="padding:3px 6px">Agency commission & brokerage</td><td style="padding:3px 6px;text-align:end">2.5%</td></tr>'
+      + '</table><br>'
+      + '<strong>Services, legal work & free professions (5%):</strong> Applies to fees or the value of services from individuals and free-profession practitioners — e.g. consulting, legal work, accounting, design, programming, and technical/professional services.<br>'
+      + '<strong>Supply of goods (1%):</strong> Applies when the dealing with the individual is a supply of goods, a sale, or a delivery — not the provision of a service.<br>'
+      + '<strong>Agency & brokerage (2.5%):</strong> Applies when commissions or brokerage fees are due to individuals.<br><br>'
+      + '<strong style="color:var(--brand-dark)">Exemption threshold:</strong> The paying entity must withhold once the value of a single invoice/transaction reaches 300 EGP or more.<br><br>'
+      + '<strong>Tax registration number:</strong><br>'
+      + '• If the individual holds a tax card (a tax registration number): withhold at the stated rate (5% for services), remit it under their tax number, and hand them a withholding notice (Form 41).<br>'
+      + '• If the individual has no tax registration, or is treated as a temporary-contract/wage-earning worker: the amounts may instead fall under salary/similar tax (income tax on wages / non-commercial professions) at a flat rate or per the wage-tax schedule, depending on the nature of the engagement.',
+
+      'وفقًا لقانون الضريبة على الدخل المصري رقم 91 لسنة 2005 وتعديلاته، فإن نسبة ضريبة الخصم والإضافة تحت حساب الضريبة التي يتم استقطاعها من مستحقات الفرد أو المؤدي المستقل للخدمة (فري لانسر / مهن حرة غير مسجل بشركة) تتحدد حسب طبيعة المستند المقدم وطبيعة النشاط نفسه — مش جدول القطاعات العام اللي فوق.<br><br>'
+      + '<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:12.5px">'
+      + '<tr><td style="padding:3px 6px;border-bottom:1px solid var(--line)">الخدمات والمحاماة والمهن الحرة</td><td style="padding:3px 6px;border-bottom:1px solid var(--line);text-align:end">5%</td></tr>'
+      + '<tr><td style="padding:3px 6px;border-bottom:1px solid var(--line)">توريد سلع/بضائع (مش خدمة)</td><td style="padding:3px 6px;border-bottom:1px solid var(--line);text-align:end">1%</td></tr>'
+      + '<tr><td style="padding:3px 6px">الوكالة بالعمولة والسمسرة</td><td style="padding:3px 6px;text-align:end">2.5%</td></tr>'
+      + '</table><br>'
+      + '<strong>الخدمات والمحاماة والمهن الحرة (5%):</strong> تُطبّق على أتعاب أو قيمة الخدمات المقدمة من الأفراد وممارسي المهن الحرة — زي الاستشارات وأعمال المحاماة والمحاسبة والتصميم والبرمجة والخدمات الفنية والمهنية.<br>'
+      + '<strong>توريد السلع (1%):</strong> تُطبّق لو التعامل مع الفرد عبارة عن توريد سلع أو بيع أو تسليم — مش تقديم خدمة.<br>'
+      + '<strong>الوكالة والسمسرة (2.5%):</strong> تُطبّق في حالة استحقاق عمولات أو سمسرة لأفراد.<br><br>'
+      + '<strong style="color:var(--brand-dark)">حد الإعفاء من الخصم:</strong> تلتزم الجهة المشترة/المستفيدة بالخصم إذا بلغت قيمة التعامل (الفاتورة أو المعاملة) 300 جنيه مصري فأكثر.<br><br>'
+      + '<strong>رقم التسجيل الضريبي:</strong><br>'
+      + '• لو الفرد معاه بطاقة ضريبية (رقم تسجيل ضريبي): يتم استقطاع النسبة المحددة (5% للخدمات) وتوريدها للضرائب برقمه الضريبي، وتسليمه إشعار خصم (نموذج 41).<br>'
+      + '• لو الفرد غير مسجل ضريبيًا ولا يمتلك بطاقة ضريبية، أو بيتعامل كعامل بعقد مؤقت/كسب عمل: فقد تخضع المبالغ للضريبة على المرتبات وما في حكمها (ضريبة كسب العمل / المهن غير التجارية) بنسبة مقطوعة أو وفقًا لجدول كسب العمل حسب طبيعة التعاقد.'
+    ]},
     {t:['Filing Rhythm','إيقاع التقديم'], b:['VAT returns: typically monthly.<br>Payroll tax and social insurance: typically monthly remittance with periodic reconciliation/reporting.','إقرارات ضريبة القيمة المضافة: عادة شهرية.<br>ضريبة كسب العمل والتأمينات: توريد شهري عادة مع مطابقة وتقارير دورية.']}
   ];
   list.innerHTML = cards.map(c=>`<div class="data-card" style="border-inline-start:3px solid var(--liability)">
@@ -6837,20 +7074,759 @@ const LEARN_SPOT_SCENARIOS = [
    ar:{title:'قيد استنفاد مصروف مقدّم آخر الشهر', desc:'12,000 جنيه تأمين سنوي اتسدد مقدمًا في يناير؛ دلوقتي آخر فبراير.',
     opts:[{t:'مدين مصروف تأمين 1,000 / دائن تأمين مقدّم 1,000', ok:true, why:'صح — 12,000 ÷ 12 شهر = 1,000 جنيه اتستهلكوا الشهر ده، انتقلوا من أصل لمصروف.'},
           {t:'مدين تأمين مقدّم 1,000 / دائن مصروف تأمين 1,000', ok:false, why:'مقلوب — ده هيزوّد الأصل ويقلل المصروف بدل ما يستهلك المدفوع مقدمًا.'},
-          {t:'مدين مصروف تأمين 12,000 / دائن تأمين مقدّم 12,000', ok:false, why:'ده بيحمّل السنة كلها مرة واحدة في فبراير، وده بيبالغ جدًا في تكلفة الشهر ده.'}]}}
+          {t:'مدين مصروف تأمين 12,000 / دائن تأمين مقدّم 12,000', ok:false, why:'ده بيحمّل السنة كلها مرة واحدة في فبراير، وده بيبالغ جدًا في تكلفة الشهر ده.'}]}},
+  {en:{title:'A customer pays by check — which account first?', desc:'A customer hands over a check for 15,000 EGP to settle their invoice.',
+    opts:[{t:'Dr Cash 15,000 / Cr Accounts Receivable 15,000', ok:false, why:'A check is not cash yet — it has not cleared.'},
+          {t:'Dr Checks Under Collection 15,000 / Cr Accounts Receivable 15,000', ok:true, why:'Correct — it only becomes cash once it actually clears the bank.'},
+          {t:'Dr Bank 15,000 / Cr Accounts Receivable 15,000', ok:false, why:'The bank balance should not move until the check clears.'}]},
+   ar:{title:'عميل دفع بشيك — أنهي حساب الأول؟', desc:'عميل قدّم شيك بـ15,000 جنيه لسداد فاتورته.',
+    opts:[{t:'مدين الخزينة 15,000 / دائن عملاء 15,000', ok:false, why:'الشيك لسه مش نقدية — لسه ما اتحصّلش.'},
+          {t:'مدين شيكات تحت التحصيل 15,000 / دائن عملاء 15,000', ok:true, why:'صح — بيبقى نقدية فعلية بس لما يتحصّل من البنك فعليًا.'},
+          {t:'مدين البنك 15,000 / دائن عملاء 15,000', ok:false, why:'رصيد البنك مايتحركش لحد ما الشيك يتحصّل فعليًا.'}]}},
+  {en:{title:'Invoice raised, goods still in the warehouse', desc:'A customer is invoiced for 30 units, but the goods are still sitting in the seller\'s own warehouse with no shipping confirmation.',
+    opts:[{t:'Recognize the sale immediately since the invoice was issued.', ok:false, why:'Revenue needs control to actually transfer — an invoice alone is not enough.'},
+          {t:'Hold revenue recognition until dispatch is confirmed, or strict bill-and-hold conditions are met.', ok:true, why:'Correct — control has not transferred while goods sit in the seller\'s own warehouse.'},
+          {t:'Record it as a customer advance instead.', ok:false, why:'It is not framed as a deposit — this hides the real issue instead of fixing it.'}]},
+   ar:{title:'الفاتورة صدرت، والبضاعة لسه في المخزن', desc:'اتفوتر عميل بـ30 وحدة، لكن البضاعة لسه في مخزن البائع نفسه من غير تأكيد شحن.',
+    opts:[{t:'اعترف بالبيع فورًا لأن الفاتورة صدرت.', ok:false, why:'الإيراد محتاج انتقال سيطرة فعلي — الفاتورة لوحدها مش كفاية.'},
+          {t:'أجّل الاعتراف بالإيراد لحد ما الشحن يتأكد، أو تستوفي شروط الاحتفاظ بالبضاعة الصارمة.', ok:true, why:'صح — السيطرة ما انتقلتش لسه والبضاعة في مخزن البائع.'},
+          {t:'سجّلها كدفعة مقدمة من العميل بدل كده.', ok:false, why:'الاتفاق مش موصوف كعربون — ده بيخبي المشكلة الحقيقية بدل ما يحلها.'}]}},
+  {en:{title:'A credit note is requested with no manager approval', desc:'A sales rep asks accounting to issue a 5,000 EGP credit note for a customer complaint, with no supervisor sign-off.',
+    opts:[{t:'Issue it — the sales rep deals with the customer directly.', ok:false, why:'Credit notes reduce revenue and receivables; they need independent approval.'},
+          {t:'Request supervisor approval and supporting evidence before issuing the credit note.', ok:true, why:'Correct — a credit note needs the same control rigor as an invoice.'},
+          {t:'Issue it, but at half the requested value.', ok:false, why:'Splitting the amount does not fix the missing approval control.'}]},
+   ar:{title:'إشعار دائن مطلوب من غير اعتماد مدير', desc:'مندوب مبيعات طلب من الحسابات إصدار إشعار دائن بـ5,000 جنيه لشكوى عميل، من غير اعتماد مشرف.',
+    opts:[{t:'أصدره — مندوب المبيعات هو اللي بيتعامل مع العميل مباشرة.', ok:false, why:'الإشعارات الدائنة بتقلل الإيراد ورصيد العميل؛ محتاجة اعتماد مستقل.'},
+          {t:'اطلب اعتماد مشرف ومستندات مؤيدة قبل إصدار الإشعار الدائن.', ok:true, why:'صح — الإشعار الدائن محتاج نفس صرامة ضوابط الفاتورة.'},
+          {t:'أصدره لكن بنص القيمة المطلوبة.', ok:false, why:'تنصيف المبلغ مابيصلحش مشكلة الاعتماد الناقص.'}]}},
+  {en:{title:'Writing off a balance with no supporting evidence', desc:'A manager asks to write off a 12,000 EGP customer balance with just a verbal note, no collection history or legal correspondence attached.',
+    opts:[{t:'Write it off — the manager\'s instruction is enough authorization.', ok:false, why:'A write-off needs documented evidence that collection was genuinely pursued and failed.'},
+          {t:'Request the collection history and formal approval before writing anything off.', ok:true, why:'Correct — a write-off is a real accounting event and needs a real audit trail.'},
+          {t:'Reduce the balance by half instead of writing it all off.', ok:false, why:'This still lacks the evidence that any write-off requires.'}]},
+   ar:{title:'إعدام رصيد من غير أي مستند مؤيد', desc:'مدير طلب إعدام رصيد عميل بـ12,000 جنيه بس بملاحظة شفهية، من غير تاريخ تحصيل أو مراسلات قانونية مرفقة.',
+    opts:[{t:'اعدمه — تعليمات المدير كفاية كاعتماد.', ok:false, why:'الإعدام محتاج مستندات موثّقة إن التحصيل اتبع فعليًا وفشل.'},
+          {t:'اطلب تاريخ التحصيل والاعتماد الرسمي قبل ما تعدم أي حاجة.', ok:true, why:'صح — الإعدام حدث محاسبي حقيقي ومحتاج مسار تدقيق حقيقي.'},
+          {t:'قلل الرصيد بالنص بدل ما تعدمه بالكامل.', ok:false, why:'ده لسه ناقصه المستند اللي أي إعدام محتاجه.'}]}},
+  {en:{title:'Recording revenue before delivery is confirmed', desc:'An order for 60,000 EGP is entered in the system, and revenue is booked the same day even though the delivery note has not been signed yet.',
+    opts:[{t:'This is fine since the order is confirmed and paid in advance.', ok:false, why:'Revenue recognition depends on delivery/control transfer, not order entry.'},
+          {t:'Wait for a signed delivery note before recognizing revenue.', ok:true, why:'Correct — revenue should follow the point where control actually transfers.'},
+          {t:'Book half the revenue now and half on delivery.', ok:false, why:'Revenue recognition is not something to split arbitrarily like this.'}]},
+   ar:{title:'تسجيل الإيراد قبل تأكيد التسليم', desc:'أمر بيع بـ60,000 جنيه اتسجل في النظام، والإيراد اتسجل في نفس اليوم رغم إن إذن التسليم لسه ما اتوقعش.',
+    opts:[{t:'ده تمام لأن الأمر مؤكد ومدفوع مقدمًا.', ok:false, why:'الاعتراف بالإيراد بيعتمد على التسليم/انتقال السيطرة، مش إدخال الأمر.'},
+          {t:'استنى إذن تسليم موقّع قبل ما تعترف بالإيراد.', ok:true, why:'صح — الإيراد لازم يتبع النقطة اللي السيطرة بتتنقل فيها فعليًا.'},
+          {t:'سجّل نص الإيراد دلوقتي ونص عند التسليم.', ok:false, why:'الاعتراف بالإيراد مش حاجة تتقسم عشوائيًا كده.'}]}},
+  {en:{title:'A receipt is applied to the wrong customer', desc:'Cash of 8,000 EGP from Customer A is mistakenly applied against Customer B\'s account, and both balances now look wrong.',
+    opts:[{t:'Leave it — both customers belong to the same sub-ledger anyway.', ok:false, why:'A misapplied receipt distorts both customers\' true balances and any collection follow-up.'},
+          {t:'Reverse the misapplication and reallocate the receipt to the correct customer.', ok:true, why:'Correct — every receipt must be traced to the actual paying customer.'},
+          {t:'Net the two balances against each other to make it simpler.', ok:false, why:'Netting two unrelated customer accounts is not a valid fix.'}]},
+   ar:{title:'تحصيل اتخصص على عميل غلط', desc:'نقدية 8,000 جنيه من العميل (أ) اتخصصت غلط على حساب العميل (ب)، ودلوقتي الرصيدين شكلهم غلط.',
+    opts:[{t:'سيبها — العميلين أصلًا في نفس الدفتر الفرعي.', ok:false, why:'التخصيص الغلط بيشوّه الرصيد الحقيقي للعميلين وأي متابعة تحصيل.'},
+          {t:'اعكس التخصيص الغلط وأعد تخصيص التحصيل للعميل الصحيح.', ok:true, why:'صح — أي تحصيل لازم يتتبّع للعميل اللي فعلًا دفعه.'},
+          {t:'اعمل مقاصة بين الرصيدين عشان يبسّط الموضوع.', ok:false, why:'مقاصة حسابين عميلين مالهمش علاقة مش حل صحيح.'}]}},
+  {en:{title:'A sales order exceeds the customer\'s credit limit', desc:'Customer C-090 has a credit limit of 50,000 EGP and an outstanding balance of 45,000 EGP. A new order for 20,000 EGP is submitted for approval.',
+    opts:[{t:'Approve it — the customer has always paid eventually.', ok:false, why:'Past payment behavior does not override a defined credit limit control.'},
+          {t:'Flag it for credit review since it would push exposure to 65,000 EGP, above the limit.', ok:true, why:'Correct — the credit limit exists specifically to catch this before it happens.'},
+          {t:'Approve it but reduce the credit limit afterward.', ok:false, why:'Changing the limit after the fact does not fix the control breakdown.'}]},
+   ar:{title:'أمر بيع بيتخطى حد الائتمان للعميل', desc:'العميل C-090 حد ائتمانه 50,000 جنيه ورصيده الحالي 45,000 جنيه. أمر جديد بـ20,000 جنيه اتقدم للاعتماد.',
+    opts:[{t:'اعتمده — العميل ده دايمًا بيسدد في الآخر.', ok:false, why:'سلوك السداد السابق مايلغيش ضابط حد الائتمان المحدد.'},
+          {t:'ارفعه لمراجعة ائتمانية لأنه هيوصل بالتعرض لـ65,000 جنيه، فوق الحد المسموح.', ok:true, why:'صح — حد الائتمان موجود بالظبط عشان يصطاد الحالة دي قبل ما تحصل.'},
+          {t:'اعتمده وقلل حد الائتمان بعدين.', ok:false, why:'تغيير الحد بعد ما الموضوع حصل مابيصلحش انهيار الضابط.'}]}},
+  {en:{title:'An old customer balance disappears from the aging report', desc:'A 90,000 EGP balance that was clearly overdue last month is not showing up anywhere on this month\'s AR aging report.',
+    opts:[{t:'This is fine — maybe the customer finally paid.', ok:false, why:'A disappearance needs verification, not an assumption of good news.'},
+          {t:'Investigate whether the balance was reclassified out of the main AR control account.', ok:true, why:'Correct — a balance vanishing from aging without a receipt is a red flag for reclassification.'},
+          {t:'Ignore it since the aging report only matters at year-end.', ok:false, why:'Aging control matters every period, not only at year-end.'}]},
+   ar:{title:'رصيد عميل قديم بيختفي من تقرير الأعمار', desc:'رصيد 90,000 جنيه كان واضح إنه متأخر الشهر اللي فات مش ظاهر خالص في تقرير أعمار الشهر ده.',
+    opts:[{t:'ده تمام — يمكن العميل سدد أخيرًا.', ok:false, why:'الاختفاء محتاج تحقق، مش افتراض إن الخبر كويس.'},
+          {t:'حقق هل الرصيد اتنقل بره حساب العملاء الرئيسي.', ok:true, why:'صح — اختفاء رصيد من الأعمار من غير سداد فعلي علامة خطر لإعادة تصنيف.'},
+          {t:'تجاهله لأن تقرير الأعمار مهم بس آخر السنة.', ok:false, why:'مراقبة الأعمار مهمة كل فترة مش آخر السنة بس.'}]}},
+  {en:{title:'VAT missing on a taxable sale', desc:'A sales invoice for 25,000 EGP of taxable goods is posted with no output VAT line at all.',
+    opts:[{t:'It is fine — VAT can be added later during the monthly return.', ok:false, why:'VAT belongs on the invoice itself, not patched in afterward.'},
+          {t:'Correct the invoice to include output VAT before it is finalized.', ok:true, why:'Correct — every taxable sale needs VAT calculated and shown on the invoice.'},
+          {t:'Only add VAT if the customer specifically asks for a tax invoice.', ok:false, why:'VAT obligation does not depend on whether the customer asks.'}]},
+   ar:{title:'ضريبة مبيعات ناقصة في فاتورة خاضعة', desc:'فاتورة بيع بـ25,000 جنيه لبضاعة خاضعة للضريبة اترحّلت من غير أي بند ضريبة مبيعات خالص.',
+    opts:[{t:'ده تمام — الضريبة ممكن تتضاف بعدين وقت الإقرار الشهري.', ok:false, why:'الضريبة مكانها الفاتورة نفسها، مش تتلحق بعدين.'},
+          {t:'صحّح الفاتورة عشان تتضمن ضريبة المبيعات قبل ما تتقفل.', ok:true, why:'صح — أي بيع خاضع محتاج ضريبة محسوبة وموضّحة في الفاتورة.'},
+          {t:'ضيف الضريبة بس لو العميل طلب فاتورة ضريبية تحديدًا.', ok:false, why:'الالتزام بالضريبة مايعتمدش على طلب العميل.'}]}},
+  {en:{title:'A sales return posted without confirming the goods came back', desc:'Accounting posts a 6,000 EGP sales return based only on the customer\'s phone call, with no warehouse confirmation of physical receipt.',
+    opts:[{t:'Post it — the customer\'s word is enough for a small amount.', ok:false, why:'A physical return needs physical confirmation, regardless of amount.'},
+          {t:'Wait for warehouse confirmation of physical receipt before posting the return.', ok:true, why:'Correct — the return entry should follow real, confirmed physical evidence.'},
+          {t:'Post it as a credit note instead of a return to avoid the issue.', ok:false, why:'Relabeling the entry does not solve the missing physical confirmation.'}]},
+   ar:{title:'مردود مبيعات اترحّل من غير تأكيد رجوع البضاعة', desc:'المحاسب رحّل مردود مبيعات بـ6,000 جنيه بناءً على مكالمة تليفونية من العميل بس، من غير تأكيد استلام فعلي من المخزن.',
+    opts:[{t:'رحّله — كلام العميل كفاية لمبلغ صغير.', ok:false, why:'المردود الفعلي محتاج تأكيد فعلي، بغض النظر عن المبلغ.'},
+          {t:'استنى تأكيد استلام فعلي من المخزن قبل ما ترحّل المردود.', ok:true, why:'صح — قيد المردود لازم يتبع دليل فعلي ومؤكد.'},
+          {t:'رحّله كإشعار دائن بدل مردود عشان تتفادى المشكلة.', ok:false, why:'تغيير اسم القيد مابيحلّش مشكلة التأكيد الفعلي الناقص.'}]}},
+  {en:{title:'Improper offsetting between a customer and a supplier', desc:'The same company is both a customer (owes 40,000 EGP) and a supplier (owed 40,000 EGP), and someone nets both balances to zero with no signed agreement.',
+    opts:[{t:'This is efficient — the balances cancel out neatly.', ok:false, why:'Netting without a legal right to offset hides the true gross exposure.'},
+          {t:'Keep both balances separate unless a signed offset agreement exists.', ok:true, why:'Correct — offsetting needs a real, documented legal right, not just convenience.'},
+          {t:'Only net the difference, not the full amounts.', ok:false, why:'Any netting without an agreement is improper, regardless of the amount.'}]},
+   ar:{title:'مقاصة غير سليمة بين عميل ومورد', desc:'نفس الجهة عميل (مديون بـ40,000 جنيه) ومورد (له 40,000 جنيه)، وحد عمل مقاصة للرصيدين لصفر من غير اتفاقية موقّعة.',
+    opts:[{t:'ده كفاءة — الرصيدين بيتقفلوا مرتب.', ok:false, why:'المقاصة من غير حق قانوني بتخبي التعرض الإجمالي الحقيقي.'},
+          {t:'خلّي الرصيدين منفصلين إلا لو فيه اتفاقية مقاصة موقّعة.', ok:true, why:'صح — المقاصة محتاجة حق قانوني موثّق حقيقي، مش مجرد راحة.'},
+          {t:'اعمل مقاصة للفرق بس، مش المبلغين الكاملين.', ok:false, why:'أي مقاصة من غير اتفاقية غير سليمة، بغض النظر عن المبلغ.'}]}},
+  {en:{title:'Early-payment discount given despite a late payment', desc:'A customer pays 12 days after the invoice date, but the accountant still applies the 2% early-payment discount that only applies within 10 days.',
+    opts:[{t:'Apply it anyway — 2 days late is not a big deal.', ok:false, why:'The discount terms exist for a reason and should be applied consistently.'},
+          {t:'Do not apply the discount since the payment window has passed.', ok:true, why:'Correct — discount terms should be enforced exactly as agreed.'},
+          {t:'Apply half the discount as a compromise.', ok:false, why:'There is no basis for inventing a partial discount outside the agreed terms.'}]},
+   ar:{title:'خصم تعجيل سداد اتديله للعميل رغم إنه سدد متأخر', desc:'عميل سدد بعد 12 يوم من تاريخ الفاتورة، لكن المحاسب لسه طبّق خصم تعجيل السداد 2% اللي بينطبق بس لو السداد خلال 10 أيام.',
+    opts:[{t:'طبّقه على أي حال — يومين تأخير مش حاجة كبيرة.', ok:false, why:'شروط الخصم موجودة لسبب ولازم تتطبق بثبات.'},
+          {t:'متطبقش الخصم لأن مهلة السداد فاتت.', ok:true, why:'صح — شروط الخصم لازم تتطبق بالظبط زي ما اتفق عليها.'},
+          {t:'طبّق نص الخصم كحل وسط.', ok:false, why:'مفيش أساس لاختراع خصم جزئي بره الشروط المتفق عليها.'}]}},
+  {en:{title:'An invoice is posted with the wrong customer code', desc:'A 9,000 EGP invoice meant for Customer C-045 is accidentally posted under Customer C-054, a completely different account.',
+    opts:[{t:'Leave it since both are valid customer codes in the system.', ok:false, why:'A wrong customer code means the wrong party is billed and tracked.'},
+          {t:'Reverse the entry and repost it against the correct customer code.', ok:true, why:'Correct — the invoice must sit against the customer who actually ordered the goods.'},
+          {t:'Just add a note in the description field explaining the mix-up.', ok:false, why:'A note does not fix the underlying balance being on the wrong account.'}]},
+   ar:{title:'فاتورة اترحّلت بكود عميل غلط', desc:'فاتورة بـ9,000 جنيه المفروض للعميل C-045 اترحّلت غلط تحت العميل C-054، حساب مختلف تمامًا.',
+    opts:[{t:'سيبها لأن الاتنين أكواد عملاء صحيحة في النظام.', ok:false, why:'كود العميل الغلط معناه إن الطرف الغلط اللي بيتحاسب وبيتتبع.'},
+          {t:'اعكس القيد وأعد ترحيله على كود العميل الصحيح.', ok:true, why:'صح — الفاتورة لازم تكون على العميل اللي فعلًا طلب البضاعة.'},
+          {t:'ضيف بس ملاحظة في خانة الوصف بتشرح الغلطة.', ok:false, why:'الملاحظة مابتصلحش الرصيد اللي قاعد على الحساب الغلط.'}]}},
+  {en:{title:'Write-off approved without reconciling the customer statement first', desc:'A 22,000 EGP balance is written off based on an old aging report, without first reconciling it against the customer\'s own statement.',
+    opts:[{t:'Proceed — the aging report is enough basis for a write-off.', ok:false, why:'An aging report alone can be outdated or miss recent payments.'},
+          {t:'Reconcile the customer statement first to confirm the balance is genuinely uncollectible.', ok:true, why:'Correct — a write-off should be based on the most current, reconciled position.'},
+          {t:'Write off only 50% to be cautious.', ok:false, why:'This is still guessing rather than reconciling the real balance first.'}]},
+   ar:{title:'إعدام اتاعتمد من غير ما يتراجع كشف حساب العميل الأول', desc:'رصيد 22,000 جنيه اتعدم بناءً على تقرير أعمار قديم، من غير ما يتراجع مقابل كشف حساب العميل نفسه الأول.',
+    opts:[{t:'كمّل — تقرير الأعمار كفاية كأساس للإعدام.', ok:false, why:'تقرير الأعمار لوحده ممكن يكون قديم أو فاته سداد حديث.'},
+          {t:'طابق كشف حساب العميل الأول للتأكد إن الرصيد فعلًا مش قابل للتحصيل.', ok:true, why:'صح — الإعدام لازم يتبني على أحدث وضع متطابق.'},
+          {t:'اعدم بس 50% كحيطة واحتياط.', ok:false, why:'ده لسه تخمين بدل ما يتراجع الرصيد الحقيقي الأول.'}]}},
+  {en:{title:'Goods received note posted with no matching purchase order', desc:'A GRN for 40 units is posted into the system, but there is no approved purchase order behind it anywhere.',
+    opts:[{t:'Post it anyway — the goods physically arrived.', ok:false, why:'Physical arrival alone does not confirm the purchase was ever properly authorized.'},
+          {t:'Hold the GRN until a valid, approved PO is found or created.', ok:true, why:'Correct — every receipt should trace back to an approved purchase order.'},
+          {t:'Create a PO afterward with today\'s date to match it.', ok:false, why:'Backdating or after-the-fact PO creation defeats the purpose of the control.'}]},
+   ar:{title:'إذن استلام اترحّل من غير أمر شراء مقابل', desc:'إذن استلام لـ40 وحدة اترحّل في النظام، لكن مفيش أمر شراء معتمد وراه خالص.',
+    opts:[{t:'رحّله على أي حال — البضاعة وصلت فعليًا.', ok:false, why:'الوصول الفعلي لوحده مايأكدش إن الشراء اتوافق عليه أصلًا.'},
+          {t:'امسك إذن الاستلام لحد ما يتلاقى أو يتعمل أمر شراء معتمد.', ok:true, why:'صح — أي استلام لازم يترجع لأمر شراء معتمد.'},
+          {t:'اعمل أمر شراء بعدين بتاريخ النهاردة عشان يتطابق.', ok:false, why:'عمل الأمر بعد الحدث بيلغي الغرض من الضابط نفسه.'}]}},
+  {en:{title:'The same supplier invoice is posted twice', desc:'Invoice INV-7741 for 18,000 EGP is entered into the system once by mistake, and again by a different employee a week later.',
+    opts:[{t:'Pay both since they are both showing in the system.', ok:false, why:'Paying the same invoice twice is a direct overpayment.'},
+          {t:'Run a duplicate check by invoice number, amount and vendor before paying.', ok:true, why:'Correct — duplicate invoices should be caught and reversed before payment.'},
+          {t:'Pay one now and the other next month.', ok:false, why:'There should only be one real payment for one real invoice — not two, ever.'}]},
+   ar:{title:'نفس فاتورة المورد اترحّلت مرتين', desc:'فاتورة INV-7741 بـ18,000 جنيه اتسجلت في النظام مرة غلط، ومرة تانية موظف مختلف بعد أسبوع.',
+    opts:[{t:'اسدد الاتنين لأنهم ظاهرين في النظام.', ok:false, why:'سداد نفس الفاتورة مرتين سداد زايد مباشر.'},
+          {t:'اعمل فحص تكرار بالرقم والمبلغ والمورد قبل ما تسدد.', ok:true, why:'صح — الفواتير المكررة لازم تتصاد وتتعكس قبل السداد.'},
+          {t:'اسدد واحدة دلوقتي والتانية الشهر الجاي.', ok:false, why:'المفروض سداد حقيقي واحد بس لفاتورة حقيقية واحدة — مش اتنين أبدًا.'}]}},
+  {en:{title:'Payment released before three-way match is complete', desc:'A supplier payment of 55,000 EGP is authorized even though the invoice has not yet been matched against the PO and GRN.',
+    opts:[{t:'Release it — the supplier is trusted and has been reliable before.', ok:false, why:'Trust does not replace the three-way match control that catches real errors.'},
+          {t:'Hold the payment until PO, GRN and invoice are confirmed to agree.', ok:true, why:'Correct — three-way match exists precisely to prevent payment on unsupported invoices.'},
+          {t:'Release it and match the documents afterward.', ok:false, why:'Matching after payment defeats the entire purpose of the control.'}]},
+   ar:{title:'السداد اتصرف قبل ما المطابقة الثلاثية تكتمل', desc:'سداد لمورد بـ55,000 جنيه اتاعتمد رغم إن الفاتورة لسه ما اتطابقتش مع أمر الشراء وإذن الاستلام.',
+    opts:[{t:'اصرفه — المورد موثوق فيه وكان دايمًا محترم.', ok:false, why:'الثقة مابتعوضش عن ضابط المطابقة الثلاثية اللي بيصطاد أخطاء حقيقية.'},
+          {t:'امسك السداد لحد ما أمر الشراء والاستلام والفاتورة يتأكدوا إنهم متطابقين.', ok:true, why:'صح — المطابقة الثلاثية موجودة بالظبط عشان تمنع سداد فاتورة غير مؤيدة.'},
+          {t:'اصرفه وطابق المستندات بعدين.', ok:false, why:'المطابقة بعد السداد بتلغي الغرض من الضابط بالكامل.'}]}},
+  {en:{title:'A price variance is waved through without review', desc:'A supplier invoice shows a unit price 20% higher than the approved purchase order, and the accountant posts it without flagging anything.',
+    opts:[{t:'Post it — small percentage differences are normal.', ok:false, why:'A 20% variance is significant and needs explanation, not silent posting.'},
+          {t:'Flag the variance and get it explained and approved before posting.', ok:true, why:'Correct — price variances above a threshold need documented review.'},
+          {t:'Adjust the PO after the fact to match the invoice.', ok:false, why:'Changing the PO retroactively erases the evidence of the variance.'}]},
+   ar:{title:'فرق سعر اتعدّى من غير مراجعة', desc:'فاتورة مورد بتوضح سعر وحدة أعلى بـ20% من أمر الشراء المعتمد، والمحاسب رحّلها من غير ما يرصد أي حاجة.',
+    opts:[{t:'رحّلها — الفروق البسيطة في النسبة طبيعية.', ok:false, why:'فرق 20% كبير ومحتاج تفسير، مش ترحيل صامت.'},
+          {t:'ارصد الفرق واحصل على تفسير واعتماد قبل الترحيل.', ok:true, why:'صح — فروق الأسعار فوق حد معين محتاجة مراجعة موثّقة.'},
+          {t:'عدّل أمر الشراء بعد كده عشان يتطابق مع الفاتورة.', ok:false, why:'تعديل أمر الشراء بأثر رجعي بيمحي دليل الفرق.'}]}},
+  {en:{title:'A purchase return recorded without physical goods leaving', desc:'Accounting records a 7,000 EGP purchase return to a supplier based on an email exchange, without the warehouse confirming goods were actually shipped back.',
+    opts:[{t:'Record it — the email is clear enough evidence.', ok:false, why:'A physical return needs physical confirmation, not just correspondence.'},
+          {t:'Confirm with the warehouse that goods were physically shipped back before posting.', ok:true, why:'Correct — the return entry should match a real, physical movement of goods.'},
+          {t:'Post it now and check with the warehouse later.', ok:false, why:'Posting before confirming means the books can be wrong in the meantime.'}]},
+   ar:{title:'مردود مشتريات اتسجل من غير خروج فعلي للبضاعة', desc:'الحسابات سجلت مردود مشتريات بـ7,000 جنيه لمورد بناءً على تبادل إيميلات، من غير ما المخزن يأكد إن البضاعة فعلًا اترجعت.',
+    opts:[{t:'سجّله — الإيميل دليل واضح كفاية.', ok:false, why:'المردود الفعلي محتاج تأكيد فعلي، مش مجرد مراسلات.'},
+          {t:'أكّد من المخزن إن البضاعة فعليًا اترجعت قبل الترحيل.', ok:true, why:'صح — قيد المردود لازم يطابق حركة فعلية حقيقية للبضاعة.'},
+          {t:'رحّله دلوقتي وتأكد من المخزن بعدين.', ok:false, why:'الترحيل قبل التأكيد معناه إن الدفاتر ممكن تكون غلط في الوقت ده.'}]}},
+  {en:{title:'A supplier\'s bank details changed with no verification', desc:'An email requests a change to a supplier\'s bank account details right before a large payment is due, and finance updates it immediately.',
+    opts:[{t:'Update it — the email came from the supplier\'s usual contact address.', ok:false, why:'Email alone is not enough; bank-detail changes are a classic fraud vector.'},
+          {t:'Verify the change by phone using a previously known number before updating anything.', ok:true, why:'Correct — bank detail changes need independent verification, not just an email.'},
+          {t:'Update it but only pay half the amount to reduce risk.', ok:false, why:'Partially paying to a possibly fraudulent account is still a real loss.'}]},
+   ar:{title:'بيانات حساب مورد بنكي اتغيرت من غير تحقق', desc:'إيميل طلب تغيير بيانات حساب مورد بنكي قبل سداد كبير مباشرة، والمالية حدّثته فورًا.',
+    opts:[{t:'حدّثه — الإيميل جه من عنوان تواصل المورد المعتاد.', ok:false, why:'الإيميل لوحده مش كفاية؛ تغيير البيانات البنكية وسيلة احتيال معروفة.'},
+          {t:'تأكد من التغيير تليفونيًا برقم معروف مسبقًا قبل ما تحدّث أي حاجة.', ok:true, why:'صح — تغيير البيانات البنكية محتاج تحقق مستقل، مش إيميل بس.'},
+          {t:'حدّثه لكن اسدد نص المبلغ بس لتقليل المخاطرة.', ok:false, why:'سداد جزء لحساب ممكن يكون احتياليًا لسه خسارة حقيقية.'}]}},
+  {en:{title:'GRNI balance left unresolved for months', desc:'A 33,000 EGP balance has been sitting in the Goods Received Not Invoiced account for four months with no supplier invoice ever matched to it.',
+    opts:[{t:'Leave it — GRNI balances naturally take time to clear.', ok:false, why:'Four months without any invoice is well beyond a normal clearing window.'},
+          {t:'Investigate why no invoice has arrived and follow up with the supplier.', ok:true, why:'Correct — an aged GRNI balance signals either a missing invoice or a receiving error.'},
+          {t:'Clear it directly into a general expense account.', ok:false, why:'Dumping it into an unrelated expense account hides the real issue.'}]},
+   ar:{title:'رصيد بضاعة غير مفوترة فاضل من غير حل لشهور', desc:'رصيد 33,000 جنيه قاعد في حساب "بضاعة مستلمة غير مفوترة" لمدة 4 شهور من غير أي فاتورة مورد اتطابقت معاه.',
+    opts:[{t:'سيبه — أرصدة البضاعة غير المفوترة طبيعي تاخد وقت تتقفل.', ok:false, why:'4 شهور من غير أي فاتورة أكتر بكتير من مدة التصفية الطبيعية.'},
+          {t:'حقق ليه الفاتورة ما وصلتش وتابع مع المورد.', ok:true, why:'صح — رصيد قديم في الحساب ده علامة إما فاتورة ناقصة أو خطأ استلام.'},
+          {t:'اقفله مباشرة على حساب مصروف عام.', ok:false, why:'رمي الرصيد على حساب مصروف مالوش علاقة بيخبي المشكلة الحقيقية.'}]}},
+  {en:{title:'Early-payment discount taken without qualifying', desc:'The accountant deducts a 3% early-payment discount from a supplier payment, even though payment was made 25 days after the invoice — well past the 10-day discount window.',
+    opts:[{t:'Take the discount anyway to save money.', ok:false, why:'Taking an unearned discount just shorts the supplier what they are actually owed.'},
+          {t:'Pay the full amount since the discount window has passed.', ok:true, why:'Correct — discount terms should only apply within the agreed window.'},
+          {t:'Split the difference and take half the discount.', ok:false, why:'There is no agreed basis for inventing a partial discount.'}]},
+   ar:{title:'خصم تعجيل سداد اتاخد من غير استحقاق', desc:'المحاسب خصم 3% تعجيل سداد من دفعة مورد، رغم إن السداد حصل بعد 25 يوم من الفاتورة — بعد مهلة الـ10 أيام بكتير.',
+    opts:[{t:'خد الخصم على أي حال عشان توفّر فلوس.', ok:false, why:'أخد خصم مش مستحق معناه المورد بياخد أقل من حقه الفعلي.'},
+          {t:'اسدد المبلغ كامل لأن مهلة الخصم فاتت.', ok:true, why:'صح — شروط الخصم لازم تتطبق بس جوه المهلة المتفق عليها.'},
+          {t:'اقسم الفرق وخد نص الخصم.', ok:false, why:'مفيش أساس متفق عليه لاختراع خصم جزئي.'}]}},
+  {en:{title:'One large purchase split into several small invoices', desc:'A 90,000 EGP purchase from one supplier is broken into three invoices of 30,000 EGP each, each staying just under the approval threshold.',
+    opts:[{t:'Process each invoice separately since each one is under the limit.', ok:false, why:'Splitting to dodge an approval limit defeats the whole purpose of the control.'},
+          {t:'Aggregate same-supplier invoices within the period and apply the approval limit to the total.', ok:true, why:'Correct — the real approval limit should apply to the true total spend.'},
+          {t:'Approve the smallest one and reject the other two.', ok:false, why:'This does not address why the purchase was split in the first place.'}]},
+   ar:{title:'مشترى كبير اتقسّم لعدة فواتير صغيرة', desc:'مشترى بـ90,000 جنيه من مورد واحد اتقسّم لـ3 فواتير كل واحدة 30,000 جنيه، كل واحدة فاضلة بس تحت حد الاعتماد.',
+    opts:[{t:'عالج كل فاتورة لوحدها لأن كل واحدة تحت الحد.', ok:false, why:'التقسيم للتهرب من حد الاعتماد بيلغي الغرض من الضابط بالكامل.'},
+          {t:'اجمع فواتير نفس المورد خلال الفترة وطبّق حد الاعتماد على الإجمالي.', ok:true, why:'صح — حد الاعتماد الحقيقي المفروض يتطبق على إجمالي الإنفاق الفعلي.'},
+          {t:'اعتمد أصغر واحدة وارفض التانيتين.', ok:false, why:'ده مابيعالجش سبب تقسيم المشترى من الأساس.'}]}},
+  {en:{title:'Payment released with no invoice on file', desc:'Finance is asked to pay a supplier 25,000 EGP based only on a verbal request, with no invoice ever received or attached.',
+    opts:[{t:'Pay it — the supplier relationship is long-standing and trusted.', ok:false, why:'Every payment needs a real invoice behind it, regardless of relationship history.'},
+          {t:'Request the actual invoice before releasing any payment.', ok:true, why:'Correct — a payment without a supporting invoice has no real basis.'},
+          {t:'Pay it and ask for the invoice afterward.', ok:false, why:'Paying first removes any real leverage to ever get the supporting invoice.'}]},
+   ar:{title:'سداد اتصرف من غير فاتورة موجودة', desc:'المالية اتطلب منها تسدد لمورد 25,000 جنيه بناءً على طلب شفهي بس، من غير أي فاتورة اتستلمت أو اترفقت.',
+    opts:[{t:'اسدد — العلاقة مع المورد قديمة وموثوقة.', ok:false, why:'أي سداد محتاج فاتورة حقيقية وراه، بغض النظر عن تاريخ العلاقة.'},
+          {t:'اطلب الفاتورة الفعلية قبل ما تصرف أي سداد.', ok:true, why:'صح — سداد من غير فاتورة مؤيدة مالوش أساس حقيقي.'},
+          {t:'اسدد واطلب الفاتورة بعدين.', ok:false, why:'السداد الأول بيشيل أي ضغط حقيقي للحصول على الفاتورة المؤيدة فعلًا.'}]}},
+  {en:{title:'A debit note issued without supplier agreement', desc:'Accounting issues a 4,500 EGP debit note against a supplier for a quality complaint, without any written agreement or acknowledgment from the supplier.',
+    opts:[{t:'Issue it — the complaint is clearly valid internally.', ok:false, why:'A debit note affecting a supplier\'s balance needs their acknowledgment, not just internal opinion.'},
+          {t:'Get the supplier\'s written agreement before posting the debit note.', ok:true, why:'Correct — a one-sided debit note can create a dispute instead of resolving one.'},
+          {t:'Post it and inform the supplier afterward.', ok:false, why:'Posting first turns a simple issue into an avoidable dispute.'}]},
+   ar:{title:'إشعار مدين اتصدر من غير اتفاق المورد', desc:'الحسابات أصدرت إشعار مدين بـ4,500 جنيه على مورد بسبب شكوى جودة، من غير أي اتفاق أو إقرار كتابي من المورد.',
+    opts:[{t:'أصدره — الشكوى واضح إنها صحيحة داخليًا.', ok:false, why:'إشعار المدين اللي بيأثر على رصيد المورد محتاج إقراره هو، مش رأي داخلي بس.'},
+          {t:'احصل على اتفاق المورد كتابيًا قبل ترحيل الإشعار المدين.', ok:true, why:'صح — إشعار مدين من طرف واحد ممكن يخلق نزاع بدل ما يحله.'},
+          {t:'رحّله وبلّغ المورد بعدين.', ok:false, why:'الترحيل الأول بيحوّل مشكلة بسيطة لنزاع ممكن تتجنبه.'}]}},
+  {en:{title:'Wrong VAT treatment on an import purchase', desc:'An imported machine\'s invoice is posted with standard local input VAT, without checking whether import VAT/customs rules apply differently.',
+    opts:[{t:'Post it the same way as a local purchase — VAT is VAT.', ok:false, why:'Import transactions often have different VAT and customs treatment than local purchases.'},
+          {t:'Check the specific import VAT/customs treatment before posting.', ok:true, why:'Correct — import purchases can have rules that differ from ordinary local invoices.'},
+          {t:'Skip VAT entirely since it is an import.', ok:false, why:'Skipping VAT altogether is not a valid default without checking the actual rule.'}]},
+   ar:{title:'معالجة ضريبية غلط لمشترى استيراد', desc:'فاتورة ماكينة مستوردة اترحّلت بضريبة مدخلات محلية عادية، من غير فحص هل قواعد ضريبة/جمارك الاستيراد مختلفة.',
+    opts:[{t:'رحّلها زي أي مشترى محلي — الضريبة ضريبة.', ok:false, why:'معاملات الاستيراد غالبًا ليها معاملة ضريبية وجمركية مختلفة عن المحلي.'},
+          {t:'افحص المعاملة الضريبية والجمركية الخاصة بالاستيراد قبل الترحيل.', ok:true, why:'صح — مشتريات الاستيراد ممكن يكون ليها قواعد مختلفة عن الفاتورة المحلية العادية.'},
+          {t:'اتجاهل الضريبة تمامًا لأنه استيراد.', ok:false, why:'تجاهل الضريبة تمامًا مش افتراض صحيح من غير فحص القاعدة الفعلية.'}]}},
+  {en:{title:'Approving an invoice from an unverified new supplier', desc:'A first-time supplier\'s invoice is approved for payment without ever verifying their legal registration or business existence.',
+    opts:[{t:'Approve it — the invoice looks professionally formatted.', ok:false, why:'A professional-looking invoice does not confirm the supplier is real or legitimate.'},
+          {t:'Verify the supplier\'s legal registration and existence before the first payment.', ok:true, why:'Correct — new vendor verification is a basic control against fictitious suppliers.'},
+          {t:'Approve it but flag the supplier for review next quarter.', ok:false, why:'Reviewing after paying is too late if the supplier turns out to be fictitious.'}]},
+   ar:{title:'اعتماد فاتورة من مورد جديد غير موثّق', desc:'فاتورة مورد لأول مرة اتاعتمدت للسداد من غير أي تحقق من تسجيله القانوني أو وجوده الفعلي.',
+    opts:[{t:'اعتمدها — الفاتورة شكلها احترافي.', ok:false, why:'شكل الفاتورة الاحترافي مايأكدش إن المورد حقيقي أو شرعي.'},
+          {t:'تحقق من التسجيل القانوني والوجود الفعلي للمورد قبل أول سداد.', ok:true, why:'صح — التحقق من المورد الجديد ضابط أساسي ضد الموردين الوهميين.'},
+          {t:'اعتمدها وارصد المورد للمراجعة الربع الجاي.', ok:false, why:'المراجعة بعد السداد متأخرة جدًا لو اتضح إن المورد وهمي.'}]}},
+  {en:{title:'Netting a supplier balance against an unrelated customer balance', desc:'A supplier balance of 18,000 EGP owed is netted against an unrelated customer receivable of 18,000 EGP, just because the totals happen to match.',
+    opts:[{t:'Net them — the amounts line up perfectly.', ok:false, why:'A coincidental match in amount is not a legal right to offset two unrelated parties.'},
+          {t:'Keep both balances separate unless there is a signed, legally enforceable offset agreement.', ok:true, why:'Correct — offsetting always needs a real legal right, never just a coincidence.'},
+          {t:'Net them but document it internally for reference.', ok:false, why:'Internal documentation does not create a legal right to offset that does not exist.'}]},
+   ar:{title:'مقاصة رصيد مورد مع رصيد عميل مالوش علاقة', desc:'رصيد مورد مستحق 18,000 جنيه اتعمله مقاصة مع رصيد عميل مالوش علاقة بـ18,000 جنيه، بس لأن المبلغين اتفقوا بالصدفة.',
+    opts:[{t:'اعمل المقاصة — المبالغ متطابقة تمامًا.', ok:false, why:'تطابق المبلغ بالصدفة مش حق قانوني للمقاصة بين طرفين مالهمش علاقة.'},
+          {t:'خلّي الرصيدين منفصلين إلا لو فيه اتفاقية مقاصة موقّعة وقابلة للتنفيذ قانونيًا.', ok:true, why:'صح — المقاصة دايمًا محتاجة حق قانوني حقيقي، مش صدفة بس.'},
+          {t:'اعمل المقاصة لكن وثّقها داخليًا للمرجعية.', ok:false, why:'التوثيق الداخلي مابيخلقش حق مقاصة قانوني مش موجود أصلًا.'}]}},
+  {en:{title:'An expense posted to the wrong cost center', desc:'A 14,000 EGP maintenance invoice for the sales department is posted to the general administration cost center instead.',
+    opts:[{t:'Leave it — both are internal cost centers anyway.', ok:false, why:'Wrong cost centers distort departmental cost reporting and accountability.'},
+          {t:'Reclassify the expense to the correct cost center that actually incurred it.', ok:true, why:'Correct — costs should sit with the department that actually used the service.'},
+          {t:'Split it 50/50 between the two cost centers.', ok:false, why:'There is no basis for arbitrarily splitting a cost that belongs to one department.'}]},
+   ar:{title:'مصروف اترحّل على مركز تكلفة غلط', desc:'فاتورة صيانة بـ14,000 جنيه لقسم المبيعات اترحّلت على مركز تكلفة الإدارة العامة بدل كده.',
+    opts:[{t:'سيبها — الاتنين مراكز تكلفة داخلية أصلًا.', ok:false, why:'مراكز التكلفة الغلط بتشوّه تقارير تكلفة الأقسام والمساءلة.'},
+          {t:'أعد تصنيف المصروف لمركز التكلفة الصحيح اللي فعلًا استخدم الخدمة.', ok:true, why:'صح — التكلفة لازم تقعد عند القسم اللي فعلًا استخدمها.'},
+          {t:'اقسمها 50/50 بين المركزين.', ok:false, why:'مفيش أساس لتقسيم تكلفة تخص قسم واحد بشكل عشوائي.'}]}},
+  {en:{title:'Physical count differs from system with no investigation', desc:'The system shows 200 units on hand, but the physical count finds only 180, and the accountant adjusts the system down immediately with no further check.',
+    opts:[{t:'Adjust immediately — the physical count is always right.', ok:false, why:'A variance needs a root-cause check before adjusting, not an automatic write-down.'},
+          {t:'Investigate count sheets, recent movements and cut-off before posting any adjustment.', ok:true, why:'Correct — a shortage needs an explanation before the books are changed.'},
+          {t:'Split the difference and adjust by 10 units only.', ok:false, why:'Splitting a variance arbitrarily is not a real resolution.'}]},
+   ar:{title:'الجرد الفعلي مختلف عن النظام من غير تحقيق', desc:'النظام بيوضح 200 وحدة، لكن الجرد الفعلي لقى 180 بس، والمحاسب عدّل النظام لتحت فورًا من غير أي فحص.',
+    opts:[{t:'عدّل فورًا — الجرد الفعلي دايمًا الصح.', ok:false, why:'أي فرق محتاج فحص سبب قبل التعديل، مش شطب أوتوماتيكي.'},
+          {t:'حقق في كشوف الجرد والحركات الأخيرة وقطع الفترة قبل ترحيل أي تسوية.', ok:true, why:'صح — العجز محتاج تفسير قبل ما الدفاتر تتغير.'},
+          {t:'اقسم الفرق وعدّل 10 وحدات بس.', ok:false, why:'تقسيم الفرق عشوائيًا مش حل حقيقي.'}]}},
+  {en:{title:'GRN posted for goods that never physically arrived', desc:'A goods receipt of 100 units is posted into the system, but the warehouse has no physical record of anything being unloaded that day.',
+    opts:[{t:'Post it — the supplier confirmed shipment by email.', ok:false, why:'An email confirmation is not the same as physical receipt at the warehouse.'},
+          {t:'Require independent physical confirmation of receipt before posting the GRN.', ok:true, why:'Correct — a GRN should reflect goods that genuinely, physically arrived.'},
+          {t:'Post half the quantity to be safe.', ok:false, why:'Guessing a partial quantity is not a substitute for real confirmation.'}]},
+   ar:{title:'إذن استلام اترحّل لبضاعة ما وصلتش فعليًا', desc:'إذن استلام لـ100 وحدة اترحّل في النظام، لكن المخزن مالوش أي سجل فعلي لأي حاجة اتفرغت في اليوم ده.',
+    opts:[{t:'رحّله — المورد أكّد الشحن بالإيميل.', ok:false, why:'تأكيد الإيميل مش زي الاستلام الفعلي في المخزن.'},
+          {t:'اشترط تأكيد فعلي مستقل للاستلام قبل ترحيل إذن الاستلام.', ok:true, why:'صح — إذن الاستلام لازم يعكس بضاعة وصلت فعليًا وحقيقي.'},
+          {t:'رحّل نص الكمية عشان تكون في الأمان.', ok:false, why:'تخمين كمية جزئية مش بديل عن التأكيد الحقيقي.'}]}},
+  {en:{title:'Standard cost changed with no basis', desc:'An item\'s standard cost is raised from 50 EGP to 75 EGP with no supporting purchase invoice showing that increase.',
+    opts:[{t:'Accept it — someone in purchasing must know something.', ok:false, why:'A standard cost change needs a documented basis, not just trust.'},
+          {t:'Require the recent supplier invoice supporting the new cost before updating it.', ok:true, why:'Correct — standard costs should be updated against real, verifiable purchase data.'},
+          {t:'Split the difference and set it at 62.50 EGP.', ok:false, why:'Averaging an unverified change does not make it verified.'}]},
+   ar:{title:'التكلفة المعيارية اتغيرت من غير أساس', desc:'التكلفة المعيارية لصنف اترفعت من 50 جنيه لـ75 جنيه من غير أي فاتورة شراء مؤيدة للزيادة دي.',
+    opts:[{t:'اقبلها — حد في المشتريات لازم يكون عارف حاجة.', ok:false, why:'تغيير التكلفة المعيارية محتاج أساس موثّق، مش ثقة بس.'},
+          {t:'اطلب فاتورة المورد الحديثة المؤيدة للتكلفة الجديدة قبل تحديثها.', ok:true, why:'صح — التكلفة المعيارية لازم تتحدث مقابل بيانات شراء حقيقية وقابلة للتحقق.'},
+          {t:'اقسم الفرق وثبّتها على 62.50 جنيه.', ok:false, why:'حساب متوسط لتغيير مش متحقق منه مايخليهوش متحقق منه.'}]}},
+  {en:{title:'Obsolete stock kept at full value', desc:'Items with zero sales for over 18 months are still valued in the system at their original full purchase cost.',
+    opts:[{t:'Leave it — the items were genuinely purchased at that cost once.', ok:false, why:'Historical cost does not reflect current realizable value for dead stock.'},
+          {t:'Assess and record a write-down provision for the slow-moving stock.', ok:true, why:'Correct — stock with no movement for a long time needs valuation review.'},
+          {t:'Just relabel the category name to something less obvious.', ok:false, why:'Relabeling hides the issue instead of accounting for it properly.'}]},
+   ar:{title:'بضاعة راكدة متقيّمة بالكامل', desc:'أصناف مفيهاش أي بيع لأكتر من 18 شهر، لسه متقيّمة في النظام بتكلفة الشراء الأصلية الكاملة.',
+    opts:[{t:'سيبها — الأصناف اتشرت فعلًا بالتكلفة دي مرة.', ok:false, why:'التكلفة التاريخية مابتعكسش القيمة القابلة للتحقق الحالية للبضاعة الراكدة.'},
+          {t:'قيّم واعمل مخصص هبوط أسعار للبضاعة الراكدة.', ok:true, why:'صح — بضاعة من غير حركة لمدة طويلة محتاجة مراجعة تقييم.'},
+          {t:'غيّر اسم الفئة بس لحاجة أقل وضوحًا.', ok:false, why:'تغيير الاسم بيخبي المشكلة بدل ما يعالجها صح.'}]}},
+  {en:{title:'Inter-warehouse transfer with no documentation', desc:'Stock moves from Warehouse A to Warehouse B based on a phone call, with no transfer document logged in the system.',
+    opts:[{t:'It is fine — both warehouses belong to the same company.', ok:false, why:'Undocumented transfers make it impossible to reconcile stock at either location.'},
+          {t:'Require a documented, system-logged transfer before moving any stock.', ok:true, why:'Correct — every physical stock movement needs a matching system record.'},
+          {t:'Log it only if the quantity is large.', ok:false, why:'Every transfer needs documentation, not just the ones that seem significant.'}]},
+   ar:{title:'تحويل بين مخازن من غير أي مستند', desc:'مخزون اتنقل من مخزن (أ) لمخزن (ب) بناءً على مكالمة تليفونية، من غير أي مستند تحويل مسجل في النظام.',
+    opts:[{t:'ده تمام — المخزنين ملك نفس الشركة.', ok:false, why:'التحويلات غير الموثّقة بتخلي مطابقة المخزون في أي موقع مستحيلة.'},
+          {t:'اشترط مستند تحويل موثّق ومسجل في النظام قبل نقل أي مخزون.', ok:true, why:'صح — أي حركة مخزون فعلية محتاجة سجل نظام مقابل.'},
+          {t:'سجّله بس لو الكمية كبيرة.', ok:false, why:'كل تحويل محتاج توثيق، مش بس اللي شكله مهم.'}]}},
+  {en:{title:'COGS calculated with the wrong quantity', desc:'A delivery of 15 units is recorded, but the COGS entry is posted for 50 units by mistake, based on a typo in the delivery note.',
+    opts:[{t:'Post it as entered — the delivery note is the source document.', ok:false, why:'A clear data-entry error should be corrected, not posted as-is.'},
+          {t:'Verify the actual delivered quantity and correct the COGS entry before it stays in the books.', ok:true, why:'Correct — COGS should match the real quantity that physically left the warehouse.'},
+          {t:'Leave it and adjust inventory instead to compensate.', ok:false, why:'Patching one number with another error is not a real correction.'}]},
+   ar:{title:'تكلفة البضاعة المباعة اتحسبت بكمية غلط', desc:'تسليم 15 وحدة اتسجل، لكن قيد تكلفة البضاعة المباعة اترحّل لـ50 وحدة غلط، بسبب خطأ كتابي في إذن التسليم.',
+    opts:[{t:'رحّله زي ما اتكتب — إذن التسليم هو المستند المصدر.', ok:false, why:'خطأ إدخال واضح لازم يتصحح، مش يترحّل زي ما هو.'},
+          {t:'تأكد من الكمية المسلّمة الفعلية وصحّح قيد تكلفة البضاعة قبل ما يفضل في الدفاتر.', ok:true, why:'صح — تكلفة البضاعة المباعة لازم تطابق الكمية الحقيقية اللي خرجت فعليًا.'},
+          {t:'سيبه وعدّل المخزون بدل كده للتعويض.', ok:false, why:'تصحيح رقم بغلطة تانية مش تصحيح حقيقي.'}]}},
+  {en:{title:'Consignment stock counted as owned inventory', desc:'Goods held on consignment for a customer — still legally owned by the company — get counted as the customer\'s stock and removed from the books.',
+    opts:[{t:'Remove it — the goods are physically at the customer\'s location.', ok:false, why:'Physical location does not determine ownership for consignment stock.'},
+          {t:'Keep it in the company\'s own inventory until the customer actually sells it.', ok:true, why:'Correct — consigned goods remain the owner\'s inventory until final sale.'},
+          {t:'Split it 50/50 between both parties\' books.', ok:false, why:'Ownership of consigned stock is not something to arbitrarily split.'}]},
+   ar:{title:'بضاعة أمانة اتحسبت كأنها مخزون مملوك', desc:'بضاعة أمانة عند عميل — لسه ملك الشركة قانونيًا — اتحسبت كمخزون العميل واتشالت من الدفاتر.',
+    opts:[{t:'شيلها — البضاعة موجودة فعليًا في موقع العميل.', ok:false, why:'الموقع الفعلي مايحددش الملكية بالنسبة لبضاعة الأمانة.'},
+          {t:'خليها في مخزون الشركة لحد ما العميل يبيعها فعليًا.', ok:true, why:'صح — بضاعة الأمانة تفضل مخزون المالك لحد البيع النهائي.'},
+          {t:'اقسمها 50/50 بين دفاتر الطرفين.', ok:false, why:'ملكية بضاعة الأمانة مش حاجة تتقسم عشوائيًا.'}]}},
+  {en:{title:'Damaged goods kept at full value', desc:'A shipment arrives with visible water damage on 20 units, but they are still recorded in the system at their full original cost.',
+    opts:[{t:'Keep the full value — the goods were purchased at that price.', ok:false, why:'Visible damage means the goods are no longer worth their original cost.'},
+          {t:'Move the damaged units to a separate category and write down their value.', ok:true, why:'Correct — damaged stock should reflect its real, reduced realizable value.'},
+          {t:'Ignore it since it is only 20 units out of a large shipment.', ok:false, why:'Quantity size does not change the need to reflect real value accurately.'}]},
+   ar:{title:'بضاعة تالفة متقيّمة بالكامل', desc:'شحنة وصلت وفيها تلف مياه واضح في 20 وحدة، لكن لسه متسجلة في النظام بتكلفتها الأصلية الكاملة.',
+    opts:[{t:'خلّي القيمة كاملة — البضاعة اتشرت بالسعر ده.', ok:false, why:'التلف الواضح معناه إن البضاعة مابقتش تساوي تكلفتها الأصلية.'},
+          {t:'انقل الوحدات التالفة لفئة منفصلة واخفض قيمتها.', ok:true, why:'صح — البضاعة التالفة لازم تعكس قيمتها الحقيقية المنخفضة القابلة للتحقق.'},
+          {t:'اتجاهلها لأنها بس 20 وحدة من شحنة كبيرة.', ok:false, why:'حجم الكمية مايغيّرش الحاجة لعكس القيمة الحقيقية بدقة.'}]}},
+  {en:{title:'Negative inventory allowed with no investigation', desc:'The system shows -5 units on hand for an item after a delivery, and no one questions how inventory could go below zero.',
+    opts:[{t:'Leave it — the system will sort itself out eventually.', ok:false, why:'Negative inventory is a red flag for a receiving error or an unauthorized delivery.'},
+          {t:'Investigate immediately — negative inventory always signals a real recording error somewhere.', ok:true, why:'Correct — physical stock can never truly be negative; the books must be wrong.'},
+          {t:'Just reset the balance to zero without checking why.', ok:false, why:'Resetting to zero without investigation hides the real underlying error.'}]},
+   ar:{title:'مخزون سالب مسموح من غير تحقيق', desc:'النظام بيوضح -5 وحدات لصنف بعد تسليم، ومحدش سأل إزاي المخزون ممكن ينزل تحت الصفر.',
+    opts:[{t:'سيبه — النظام هيظبط نفسه في الآخر.', ok:false, why:'المخزون السالب علامة خطر على خطأ استلام أو تسليم غير مصرح بيه.'},
+          {t:'حقق فورًا — المخزون السالب دايمًا علامة على خطأ تسجيل حقيقي في مكان ما.', ok:true, why:'صح — المخزون الفعلي مستحيل يكون سالب فعليًا؛ الدفاتر لازم تكون غلط.'},
+          {t:'صفّر الرصيد بس من غير ما تفحص السبب.', ok:false, why:'التصفير من غير تحقيق بيخبي الخطأ الحقيقي اللي وراه.'}]}},
+  {en:{title:'Freight cost expensed instead of capitalized into inventory', desc:'A 6,000 EGP shipping cost for imported raw materials is posted straight to a general freight expense account instead of the inventory cost.',
+    opts:[{t:'It is fine — freight is always an expense.', ok:false, why:'Freight directly attributable to bringing inventory to its location can form part of its cost.'},
+          {t:'Capitalize the freight cost into the inventory value per the company\'s costing policy.', ok:true, why:'Correct — directly attributable costs belong in the inventory valuation, not a blanket expense.'},
+          {t:'Split it 50/50 between expense and inventory.', ok:false, why:'There is no basis for an arbitrary 50/50 split without a costing policy behind it.'}]},
+   ar:{title:'تكلفة شحن اتحمّلت كمصروف بدل ما ترسمل على المخزون', desc:'تكلفة شحن 6,000 جنيه لمواد خام مستوردة اترحّلت مباشرة على حساب مصروف شحن عام بدل تكلفة المخزون.',
+    opts:[{t:'ده تمام — الشحن دايمًا مصروف.', ok:false, why:'الشحن المرتبط مباشرة بجلب المخزون لموقعه ممكن يكون جزء من تكلفته.'},
+          {t:'رسمل تكلفة الشحن على قيمة المخزون حسب سياسة التكلفة بتاعة الشركة.', ok:true, why:'صح — التكاليف المرتبطة مباشرة مكانها تقييم المخزون، مش مصروف عام.'},
+          {t:'اقسمها 50/50 بين المصروف والمخزون.', ok:false, why:'مفيش أساس لتقسيم عشوائي 50/50 من غير سياسة تكلفة وراه.'}]}},
+  {en:{title:'Inventory write-off approved with no independent witness', desc:'A manager alone signs off on writing off 25,000 EGP of "damaged" stock, with no independent physical verification or witness.',
+    opts:[{t:'Approve it — one manager\'s signature is standard.', ok:false, why:'A single, unwitnessed approval is exactly the control gap that enables theft.'},
+          {t:'Require independent physical verification and a witness before approving any write-off.', ok:true, why:'Correct — write-offs need independent confirmation, not one person\'s word.'},
+          {t:'Approve half now and half after further review.', ok:false, why:'Splitting the approval does not add the missing independent verification.'}]},
+   ar:{title:'شطب مخزون اتاعتمد من غير شاهد مستقل', desc:'مدير لوحده وقّع على شطب 25,000 جنيه بضاعة "تالفة"، من غير أي تحقق فعلي مستقل أو شاهد.',
+    opts:[{t:'اعتمده — توقيع مدير واحد إجراء معتاد.', ok:false, why:'اعتماد فردي من غير شاهد بالظبط الثغرة اللي بتسمح بالسرقة.'},
+          {t:'اشترط تحقق فعلي مستقل وشاهد قبل اعتماد أي عملية شطب.', ok:true, why:'صح — الشطب محتاج تأكيد مستقل، مش كلام شخص واحد.'},
+          {t:'اعتمد النص دلوقتي والباقي بعد مراجعة إضافية.', ok:false, why:'تقسيم الاعتماد مابيضيفش التحقق المستقل الناقص.'}]}},
+  {en:{title:'Costing method changed mid-period without disclosure', desc:'The company switches from weighted average to FIFO halfway through the quarter, with no disclosure or documented reason.',
+    opts:[{t:'It is fine as long as the numbers look reasonable.', ok:false, why:'An undisclosed mid-period change can be used to manipulate reported margins.'},
+          {t:'Require documented justification and disclosure before changing the costing method.', ok:true, why:'Correct — a costing method change needs a real reason and proper disclosure.'},
+          {t:'Switch back at year-end so it evens out.', ok:false, why:'Switching back and forth does not fix the lack of a documented basis.'}]},
+   ar:{title:'طريقة التقييم اتغيرت نص الفترة من غير إفصاح', desc:'الشركة بدّلت من المتوسط المرجح للوارد أولًا صادر أولًا في نص الربع، من غير إفصاح أو سبب موثّق.',
+    opts:[{t:'ده تمام طالما الأرقام شكلها معقول.', ok:false, why:'تغيير نص الفترة بدون إفصاح ممكن يتستخدم للتلاعب في الهامش المُعلن.'},
+          {t:'اشترط تبرير موثّق وإفصاح قبل تغيير طريقة التقييم.', ok:true, why:'صح — تغيير طريقة التقييم محتاج سبب حقيقي وإفصاح صحيح.'},
+          {t:'ارجع للطريقة القديمة آخر السنة عشان يتعادل.', ok:false, why:'التبديل ذهابًا وإيابًا مابيصلحش غياب الأساس الموثّق.'}]}},
+  {en:{title:'Sales delivery posted despite insufficient stock', desc:'A delivery note for 40 units is posted even though the system shows only 25 units actually available.',
+    opts:[{t:'Post it — the customer needs the goods urgently.', ok:false, why:'Posting a delivery beyond available stock creates a false, negative inventory position.'},
+          {t:'Block the delivery until stock is confirmed sufficient, or split the order.', ok:true, why:'Correct — deliveries should never exceed what is genuinely available.'},
+          {t:'Post it and adjust inventory downward artificially to cover it.', ok:false, why:'Manufacturing an artificial adjustment just hides the real shortage.'}]},
+   ar:{title:'تسليم بيع اترحّل رغم عدم كفاية المخزون', desc:'إذن تسليم لـ40 وحدة اترحّل رغم إن النظام بيوضح إن المتاح فعليًا 25 وحدة بس.',
+    opts:[{t:'رحّله — العميل محتاج البضاعة بشكل عاجل.', ok:false, why:'ترحيل تسليم أكبر من المتاح بيخلق وضع مخزون سالب وهمي.'},
+          {t:'امنع التسليم لحد ما المخزون يتأكد إنه كافي، أو قسّم الأمر.', ok:true, why:'صح — التسليمات المفروض أبدًا متتخطاش اللي متاح فعليًا.'},
+          {t:'رحّله وعدّل المخزون لتحت بشكل مصطنع عشان يغطيه.', ok:false, why:'تسوية مصطنعة بس بتخبي العجز الحقيقي.'}]}},
+  {en:{title:'Reorder quantities inflated with no basis', desc:'A purchase requisition asks for triple the usual reorder quantity for a slow-moving item, with no change in sales trend to justify it.',
+    opts:[{t:'Approve it — more stock is generally safer.', ok:false, why:'An unjustified spike in order quantity can hide a kickback arrangement with a supplier.'},
+          {t:'Question the basis for the increased quantity against actual sales velocity before approving.', ok:true, why:'Correct — reorder quantities should be justified by real demand data.'},
+          {t:'Approve half of the requested increase as a compromise.', ok:false, why:'A compromise quantity still lacks the missing justification.'}]},
+   ar:{title:'كميات إعادة الطلب اتضخمت من غير أساس', desc:'طلب شراء طالب بثلاثة أضعاف كمية إعادة الطلب المعتادة لصنف راكد، من غير أي تغيير في اتجاه المبيعات يبرر ده.',
+    opts:[{t:'اعتمده — مخزون أكتر أأمن بشكل عام.', ok:false, why:'قفزة غير مبررة في الكمية ممكن تخبي اتفاق عمولة سرية مع مورد.'},
+          {t:'اسأل عن أساس زيادة الكمية مقابل سرعة البيع الفعلية قبل الاعتماد.', ok:true, why:'صح — كميات إعادة الطلب لازم تتبرر ببيانات طلب حقيقية.'},
+          {t:'اعتمد نص الزيادة المطلوبة كحل وسط.', ok:false, why:'كمية وسط لسه ناقصها التبرير الغايب.'}]}},
+  {en:{title:'Return to supplier not reducing inventory', desc:'Goods worth 9,000 EGP are physically shipped back to a supplier, but the inventory system still shows them as on hand.',
+    opts:[{t:'Leave the system as-is — the paperwork will catch up eventually.', ok:false, why:'Inventory should reflect physical reality at all times, not "eventually."'},
+          {t:'Post the purchase return promptly so inventory reflects the goods no longer being on hand.', ok:true, why:'Correct — inventory records should match physical reality immediately.'},
+          {t:'Wait until the next physical count to fix it.', ok:false, why:'Waiting for the next count leaves the books wrong for potentially a long time.'}]},
+   ar:{title:'مردود لمورد ما قللش المخزون', desc:'بضاعة بقيمة 9,000 جنيه اترجعت فعليًا لمورد، لكن نظام المخزون لسه بيوضحها كموجودة.',
+    opts:[{t:'سيب النظام زي ما هو — الأوراق هتلحق بعدين.', ok:false, why:'المخزون لازم يعكس الواقع الفعلي في كل وقت، مش "بعدين".'},
+          {t:'رحّل مردود المشتريات بسرعة عشان المخزون يعكس إن البضاعة مابقتش موجودة.', ok:true, why:'صح — سجلات المخزون لازم تطابق الواقع الفعلي فورًا.'},
+          {t:'استنى لحد الجرد الفعلي الجاي عشان تصلحها.', ok:false, why:'انتظار الجرد الجاي بيسيب الدفاتر غلط لمدة طويلة محتملة.'}]}},
+  {en:{title:'Customer return not increasing inventory back', desc:'A customer physically returns 10 damaged units, but the inventory system is never updated to reflect their return to the warehouse.',
+    opts:[{t:'Leave it — damaged returns often get scrapped anyway.', ok:false, why:'Even damaged returns need to be recorded, at minimum in a separate damaged-goods category.'},
+          {t:'Record the physical return into inventory, valued appropriately given its condition.', ok:true, why:'Correct — any physical return should be reflected in the inventory system.'},
+          {t:'Only record it if the customer asks for a replacement.', ok:false, why:'The recording requirement does not depend on whether a replacement is requested.'}]},
+   ar:{title:'مردود عميل ما زودش المخزون تاني', desc:'عميل رجّع فعليًا 10 وحدات تالفة، لكن نظام المخزون أبدًا ما اتحدّثش عشان يعكس رجوعها للمخزن.',
+    opts:[{t:'سيبها — المردودات التالفة غالبًا بتتشطب على أي حال.', ok:false, why:'حتى المردودات التالفة لازم تتسجل، على الأقل في فئة بضاعة تالفة منفصلة.'},
+          {t:'سجّل المردود الفعلي في المخزون، بقيمة مناسبة حسب حالته.', ok:true, why:'صح — أي مردود فعلي لازم يتعكس في نظام المخزون.'},
+          {t:'سجّله بس لو العميل طلب استبدال.', ok:false, why:'شرط التسجيل مايعتمدش على طلب الاستبدال من عدمه.'}]}},
+  {en:{title:'Count sheets altered after the physical count', desc:'Quantities on a physical count sheet are erased and rewritten after counting was finished, with no explanation logged.',
+    opts:[{t:'It is fine — small corrections happen during any count.', ok:false, why:'Erasures after the fact are exactly how phantom inventory gets created.'},
+          {t:'Use pre-numbered, ink-only count sheets collected immediately by an independent controller.', ok:true, why:'Correct — count sheets should be tamper-resistant once counting is done.'},
+          {t:'Allow corrections as long as the counter initials them.', ok:false, why:'Self-initialed corrections do not provide real independent control.'}]},
+   ar:{title:'كشوف الجرد اتعدلت بعد الجرد الفعلي', desc:'كميات في كشف جرد فعلي اتمسحت واتكتبت تاني بعد ما الجرد خلص، من غير أي تفسير مسجل.',
+    opts:[{t:'ده تمام — تصحيحات بسيطة بتحصل في أي جرد.', ok:false, why:'المسح بعد الحدث بالظبط الطريقة اللي بيتكون بيها مخزون وهمي.'},
+          {t:'استخدم كشوف جرد مرقّمة مسبقًا وبالحبر بس، تُجمع فورًا من مراقب مستقل.', ok:true, why:'صح — كشوف الجرد لازم تكون مقاومة للتلاعب بعد ما الجرد يخلص.'},
+          {t:'اسمح بالتصحيحات طالما العدّاد وقّع عليها بأحرفه.', ok:false, why:'التصحيحات الموقّعة من نفس الشخص مش ضابط مستقل حقيقي.'}]}},
+  {en:{title:'Same batch counted at two different locations', desc:'The same batch number shows a full physical count at both the main warehouse and a branch location on the same date.',
+    opts:[{t:'Accept both counts — maybe the batch was split.', ok:false, why:'A genuine split would show partial quantities at each location, not two full counts.'},
+          {t:'Investigate and reconcile counts by item and batch number across all locations before finalizing.', ok:true, why:'Correct — the same batch cannot be fully present in two places at once.'},
+          {t:'Just keep the higher of the two counts.', ok:false, why:'Picking the higher number arbitrarily inflates total inventory without basis.'}]},
+   ar:{title:'نفس الدفعة اتحسبت في موقعين مختلفين', desc:'نفس رقم الدفعة بيوضح جرد كامل في المخزن الرئيسي وفرع في نفس التاريخ.',
+    opts:[{t:'اقبل الجردين — يمكن الدفعة اتقسمت.', ok:false, why:'التقسيم الحقيقي كان هيوضح كميات جزئية في كل موقع، مش جردين كاملين.'},
+          {t:'حقق وطابق الجرد حسب الصنف ورقم الدفعة عبر كل المواقع قبل الاعتماد النهائي.', ok:true, why:'صح — نفس الدفعة مستحيل تكون موجودة بالكامل في مكانين في نفس الوقت.'},
+          {t:'خد الأعلى من الجردين بس.', ok:false, why:'اختيار الرقم الأعلى عشوائيًا بيضخّم إجمالي المخزون من غير أساس.'}]}},
+  {en:{title:'Overhead over-allocated into inventory value', desc:'General office rent and marketing costs, unrelated to production, are included in the overhead rate applied to inventory valuation.',
+    opts:[{t:'It is fine — overhead is overhead regardless of source.', ok:false, why:'Only production-related overhead should be absorbed into inventory cost.'},
+          {t:'Review the overhead allocation rate and remove costs unrelated to production.', ok:true, why:'Correct — inventory should only absorb genuinely production-related overhead.'},
+          {t:'Reduce the allocation rate by a rough estimate without reviewing it.', ok:false, why:'A rough guess is not a substitute for reviewing what actually belongs in the rate.'}]},
+   ar:{title:'تحميل تكاليف غير مباشرة زايدة على قيمة المخزون', desc:'إيجار المكتب العام وتكاليف التسويق، اللي مالهاش علاقة بالإنتاج، متضمنة في نسبة التكاليف غير المباشرة المطبقة على تقييم المخزون.',
+    opts:[{t:'ده تمام — التكلفة غير المباشرة تكلفة غير مباشرة بغض النظر عن مصدرها.', ok:false, why:'بس التكاليف المرتبطة بالإنتاج المفروض تتحمّل على تكلفة المخزون.'},
+          {t:'راجع نسبة تحميل التكاليف غير المباشرة وشيل التكاليف اللي مالهاش علاقة بالإنتاج.', ok:true, why:'صح — المخزون المفروض يحمل بس تكاليف غير مباشرة مرتبطة بالإنتاج فعليًا.'},
+          {t:'قلل نسبة التحميل بتقدير تقريبي من غير مراجعة.', ok:false, why:'التخمين التقريبي مش بديل عن مراجعة اللي فعلًا المفروض يكون في النسبة.'}]}},
+  {en:{title:'Cash collected but not banked the same day', desc:'A cashier collects 12,000 EGP from customers during the day but only deposits it at the bank three days later.',
+    opts:[{t:'This is fine as long as it eventually gets deposited.', ok:false, why:'Delayed banking is a classic setup for using cash personally before covering it.'},
+          {t:'Require same-day banking of all cash collected, reconciled against the deposit date.', ok:true, why:'Correct — delay between collection and deposit is a real red flag.'},
+          {t:'Only worry about it if the delay is more than a week.', ok:false, why:'Even a few days of delay is enough for cash to be misused.'}]},
+   ar:{title:'نقدية اتحصّلت من غير إيداع في نفس اليوم', desc:'أمين خزينة حصّل 12,000 جنيه من عملاء خلال اليوم لكن أودعها في البنك بعد 3 أيام بس.',
+    opts:[{t:'ده تمام طالما هتتحصّل في الآخر.', ok:false, why:'تأخير الإيداع طريقة كلاسيكية لاستخدام النقدية شخصيًا قبل تغطيتها.'},
+          {t:'اشترط إيداع بنكي في نفس اليوم لكل نقدية محصّلة، ويتطابق مع تاريخ الإيداع.', ok:true, why:'صح — الفرق بين التحصيل والإيداع علامة خطر حقيقية.'},
+          {t:'اقلق بس لو التأخير أكتر من أسبوع.', ok:false, why:'حتى كام يوم تأخير كفاية إن النقدية تتساء استخدامها.'}]}},
+  {en:{title:'Petty cash reimbursed with no original receipts', desc:'A petty cash reimbursement request for 2,500 EGP is approved based on a handwritten list, with no original receipts attached.',
+    opts:[{t:'Approve it — the person requesting it is trusted.', ok:false, why:'Trust does not replace the need for original supporting documentation.'},
+          {t:'Require original, itemized receipts before reimbursing any petty cash.', ok:true, why:'Correct — every petty cash expense needs a real receipt behind it.'},
+          {t:'Approve half the amount without receipts as a compromise.', ok:false, why:'A partial approval still lacks the missing supporting evidence.'}]},
+   ar:{title:'استعاضة عهدة نثرية من غير إيصالات أصلية', desc:'طلب استعاضة عهدة نثرية بـ2,500 جنيه اتاعتمد بناءً على قايمة مكتوبة باليد، من غير أي إيصالات أصلية مرفقة.',
+    opts:[{t:'اعتمده — الشخص اللي طالب موثوق فيه.', ok:false, why:'الثقة مابتعوضش عن الحاجة لمستندات مؤيدة أصلية.'},
+          {t:'اشترط إيصالات أصلية ومفصّلة قبل استعاضة أي عهدة نثرية.', ok:true, why:'صح — أي مصروف عهدة نثرية محتاج إيصال حقيقي وراه.'},
+          {t:'اعتمد نص المبلغ من غير إيصالات كحل وسط.', ok:false, why:'الاعتماد الجزئي لسه ناقصه الدليل المؤيد الغايب.'}]}},
+  {en:{title:'Bank reconciliation differences ignored', desc:'A monthly bank reconciliation shows an unexplained 4,000 EGP difference, and the accountant just closes the reconciliation without resolving it.',
+    opts:[{t:'Close it — small differences are normal.', ok:false, why:'Any unexplained difference should be investigated before closing, regardless of size.'},
+          {t:'Investigate the difference and resolve it before finalizing the reconciliation.', ok:true, why:'Correct — the goal of a reconciliation is to explain differences, not ignore them.'},
+          {t:'Post it directly to bank charges expense to make it balance.', ok:false, why:'Dumping an unexplained difference into an expense account hides the real issue.'}]},
+   ar:{title:'فروق المطابقة البنكية اتجاهلت', desc:'مطابقة بنكية شهرية بتوضح فرق 4,000 جنيه غير مفسّر، والمحاسب قفل المطابقة من غير ما يحله.',
+    opts:[{t:'اقفلها — الفروق البسيطة طبيعية.', ok:false, why:'أي فرق غير مفسّر لازم يتحقق فيه قبل الإقفال، بغض النظر عن حجمه.'},
+          {t:'حقق في الفرق وحله قبل ما تقفل المطابقة.', ok:true, why:'صح — الهدف من المطابقة إنها تفسّر الفروق، مش تتجاهلها.'},
+          {t:'رحّله مباشرة على مصروف رسوم بنكية عشان يتوازن.', ok:false, why:'رمي فرق غير مفسّر على حساب مصروف بيخبي المشكلة الحقيقية.'}]}},
+  {en:{title:'A check is issued but held back from delivery', desc:'A check for 30,000 EGP is recorded as issued to a supplier to make the payable balance look settled, but it is physically held in a drawer for three weeks before being sent.',
+    opts:[{t:'This is fine — the check will reach the supplier eventually.', ok:false, why:'Recording a check as issued before it truly leaves the company misrepresents the balance.'},
+          {t:'Only record a check as issued once it has genuinely left the company.', ok:true, why:'Correct — the books should reflect reality, not a manufactured appearance of being settled.'},
+          {t:'Backdate the check to when it is actually delivered.', ok:false, why:'Backdating just creates a new inaccuracy instead of fixing the first one.'}]},
+   ar:{title:'شيك اتصدر لكن اتحجز من التسليم', desc:'شيك بـ30,000 جنيه اتسجل كصادر لمورد عشان رصيده يبان متسدد، لكنه اتحجز فعليًا في الدرج لمدة 3 أسابيع قبل ما يتبعت.',
+    opts:[{t:'ده تمام — الشيك هيوصل للمورد في الآخر.', ok:false, why:'تسجيل الشيك كصادر قبل ما يخرج فعليًا من الشركة بيشوّه الرصيد الحقيقي.'},
+          {t:'سجّل الشيك كصادر بس لما يخرج فعليًا من الشركة.', ok:true, why:'صح — الدفاتر لازم تعكس الواقع، مش مظهر مصطنع إنه متسدد.'},
+          {t:'أرّخ الشيك بتاريخ سابق لما فعلًا اتسلّم.', ok:false, why:'التأريخ السابق بيخلق عدم دقة جديدة بدل ما يصلح الأولى.'}]}},
+  {en:{title:'Foreign currency collected recorded at the wrong rate', desc:'A USD collection is recorded using an outdated exchange rate from a week earlier, instead of the actual rate on the collection date.',
+    opts:[{t:'It is fine — exchange rates do not move that much in a week.', ok:false, why:'Using a stale rate still misstates the transaction, regardless of how much rates moved.'},
+          {t:'Use the actual, verifiable exchange rate on the date of collection.', ok:true, why:'Correct — foreign currency transactions should use the rate genuinely in effect that day.'},
+          {t:'Average the old and new rates.', ok:false, why:'Averaging two rates is not a valid substitute for the actual rate.'}]},
+   ar:{title:'تحصيل بعملة أجنبية اتسجل بسعر صرف غلط', desc:'تحصيل بالدولار اتسجل بسعر صرف قديم من أسبوع فات، بدل السعر الفعلي في تاريخ التحصيل.',
+    opts:[{t:'ده تمام — أسعار الصرف مابتتحركش كتير في أسبوع.', ok:false, why:'استخدام سعر قديم لسه بيشوّه المعاملة، بغض النظر عن حجم الحركة.'},
+          {t:'استخدم سعر الصرف الفعلي والموثّق في تاريخ التحصيل.', ok:true, why:'صح — معاملات العملة الأجنبية لازم تستخدم السعر الساري فعليًا في نفس اليوم.'},
+          {t:'اعمل متوسط بين السعر القديم والجديد.', ok:false, why:'حساب متوسط بين سعرين مش بديل صحيح عن السعر الفعلي.'}]}},
+  {en:{title:'A voided receipt with no supervisor approval', desc:'A cashier voids a customer receipt worth 6,000 EGP on their own, with no supervisor sign-off or documented reason.',
+    opts:[{t:'It is fine — cashiers can correct their own mistakes.', ok:false, why:'A self-approved void is exactly the control gap that enables cash theft.'},
+          {t:'Require supervisor approval and a documented reason for every voided receipt.', ok:true, why:'Correct — voids need independent review, not self-approval.'},
+          {t:'Allow it but review all voids once a year.', ok:false, why:'An annual review is far too infrequent to catch or deter real-time misuse.'}]},
+   ar:{title:'إلغاء إيصال من غير اعتماد مشرف', desc:'أمين صندوق ألغى إيصال عميل بقيمة 6,000 جنيه لوحده، من غير اعتماد مشرف أو سبب موثّق.',
+    opts:[{t:'ده تمام — أمناء الصناديق ممكن يصححوا غلطاتهم بنفسهم.', ok:false, why:'الإلغاء المعتمد ذاتيًا بالظبط الثغرة اللي بتسمح بسرقة النقدية.'},
+          {t:'اشترط اعتماد مشرف وسبب موثّق لأي إيصال ملغي.', ok:true, why:'صح — الإلغاء محتاج مراجعة مستقلة، مش اعتماد ذاتي.'},
+          {t:'اسمح به لكن راجع كل الإلغاءات مرة في السنة.', ok:false, why:'المراجعة السنوية متباعدة جدًا عشان تصطاد أو تمنع سوء استخدام فوري.'}]}},
+  {en:{title:'Outstanding checks aging ignored for months', desc:'A supplier check issued five months ago still has not cleared the bank, and no one has followed up on it.',
+    opts:[{t:'Leave it — it will clear eventually.', ok:false, why:'A check outstanding for months needs investigation, not passive waiting.'},
+          {t:'Investigate why the check has not cleared and follow up with the supplier or bank.', ok:true, why:'Correct — long-outstanding checks can signal a lost check, a stale account, or worse.'},
+          {t:'Just cancel it and reissue a new one without asking why.', ok:false, why:'Reissuing without understanding why creates a real risk of double payment.'}]},
+   ar:{title:'أعمار الشيكات المعلّقة اتجاهلت لشهور', desc:'شيك مورد صادر من 5 شهور لسه ما اتحصّلش من البنك، ومحدش تابعه.',
+    opts:[{t:'سيبه — هيتحصّل في الآخر.', ok:false, why:'شيك معلّق لشهور محتاج تحقيق، مش انتظار سلبي.'},
+          {t:'حقق ليه الشيك ما اتحصّلش وتابع مع المورد أو البنك.', ok:true, why:'صح — الشيكات المعلّقة لمدة طويلة ممكن تكون علامة على شيك ضايع أو حساب خامل أو أسوأ.'},
+          {t:'لغّيه بس واصدر شيك جديد من غير ما تسأل ليه.', ok:false, why:'إعادة الإصدار من غير فهم السبب بتخلق خطر حقيقي لسداد مزدوج.'}]}},
+  {en:{title:'A bank charge posted with no matching statement line', desc:'A 500 EGP "bank charges" entry is posted, but no corresponding line exists anywhere in the actual bank statement.',
+    opts:[{t:'Post it — bank charges happen regularly.', ok:false, why:'Any posted bank charge should match an actual, verifiable line on the statement.'},
+          {t:'Match the charge to an actual bank statement line before posting it.', ok:true, why:'Correct — unmatched charges can be a way of covering up a real shortfall.'},
+          {t:'Reduce the amount to be safe and post it anyway.', ok:false, why:'Reducing an unverified amount is still posting something unverified.'}]},
+   ar:{title:'مصروف بنكي اترحّل من غير بند مقابل في الكشف', desc:'قيد "مصروف بنكي" بـ500 جنيه اترحّل، لكن مفيش أي بند مقابل خالص في كشف الحساب البنكي الفعلي.',
+    opts:[{t:'رحّله — الرسوم البنكية بتحصل بانتظام.', ok:false, why:'أي مصروف بنكي مترحّل لازم يطابق بند فعلي وموثّق في الكشف.'},
+          {t:'طابق المصروف مع بند فعلي في كشف الحساب قبل الترحيل.', ok:true, why:'صح — المصاريف غير المطابقة ممكن تكون طريقة لتغطية عجز حقيقي.'},
+          {t:'قلل المبلغ عشان تكون في الأمان ورحّله على أي حال.', ok:false, why:'تقليل مبلغ غير متحقق منه لسه ترحيل لحاجة غير متحقق منها.'}]}},
+  {en:{title:'Customer advance treated as revenue immediately', desc:'A 20,000 EGP customer advance for goods not yet delivered is recorded straight into Sales Revenue instead of a liability account.',
+    opts:[{t:'It is fine — the money is already in the bank.', ok:false, why:'Having the cash does not mean the revenue has actually been earned yet.'},
+          {t:'Record it as a customer advance (liability) until the goods are delivered.', ok:true, why:'Correct — an advance is unearned until the related goods or service is provided.'},
+          {t:'Record half as revenue and half as an advance.', ok:false, why:'There is no basis for splitting an advance that has zero delivery yet.'}]},
+   ar:{title:'دفعة مقدمة من عميل اتسجلت كإيراد فورًا', desc:'دفعة مقدمة من عميل بـ20,000 جنيه لبضاعة لسه ما اتسلمتش اتسجلت مباشرة كإيرادات مبيعات بدل حساب التزام.',
+    opts:[{t:'ده تمام — الفلوس أصلًا في البنك.', ok:false, why:'وجود النقدية مايعنيش إن الإيراد اتحقق فعليًا لسه.'},
+          {t:'سجّلها كدفعة مقدمة من عميل (التزام) لحد ما البضاعة تتسلّم.', ok:true, why:'صح — الدفعة المقدمة غير مكتسبة لحد ما البضاعة أو الخدمة تتقدم.'},
+          {t:'سجّل نصها إيراد ونصها دفعة مقدمة.', ok:false, why:'مفيش أساس لتقسيم دفعة مقدمة لسه مفيش تسليم خالص.'}]}},
+  {en:{title:'Petty cash box mixed with personal funds', desc:'The petty cash custodian keeps their own personal money inside the same drawer as the official petty cash float.',
+    opts:[{t:'It is fine as long as the custodian keeps track mentally.', ok:false, why:'Mixing funds makes it impossible to verify the true official balance during a count.'},
+          {t:'Strictly separate personal funds from the official petty cash at all times.', ok:true, why:'Correct — official cash and personal cash must never be mixed in the same drawer.'},
+          {t:'Allow it but ask the custodian to write down their personal balance.', ok:false, why:'A self-reported note does not provide any real independent verification.'}]},
+   ar:{title:'خزينة نثرية مخلوطة بفلوس شخصية', desc:'أمين العهدة النثرية بيحتفظ بفلوسه الشخصية في نفس درج العهدة النثرية الرسمية.',
+    opts:[{t:'ده تمام طالما الأمين متابع ذهنيًا.', ok:false, why:'خلط الفلوس بيخلي التحقق من الرصيد الرسمي الحقيقي مستحيل وقت الجرد.'},
+          {t:'افصل الفلوس الشخصية عن العهدة النثرية الرسمية بصرامة في كل وقت.', ok:true, why:'صح — النقدية الرسمية والشخصية أبدًا مايتخلطوش في نفس الدرج.'},
+          {t:'اسمح بيها لكن اطلب من الأمين يكتب رصيده الشخصي.', ok:false, why:'ملاحظة ذاتية مابتوفرش أي تحقق مستقل حقيقي.'}]}},
+  {en:{title:'A cash shortage recorded as a general expense', desc:'A confirmed 3,000 EGP cash shortage is posted straight to "general expenses" instead of a cash shortage account tied to the responsible cashier.',
+    opts:[{t:'It is fine — an expense is an expense.', ok:false, why:'Burying a shortage in general expenses removes accountability from whoever is responsible.'},
+          {t:'Post it to a specific cash shortage account tied to the responsible cashier.', ok:true, why:'Correct — a shortage should be traceable to who is accountable for it.'},
+          {t:'Split it evenly across several expense accounts.', ok:false, why:'Spreading it across accounts just obscures the shortage further.'}]},
+   ar:{title:'عجز نقدية اتسجل كمصروف عام', desc:'عجز نقدية مؤكد بـ3,000 جنيه اترحّل مباشرة على "مصروفات عامة" بدل حساب عجز خزينة مربوط بأمين الصندوق المسؤول.',
+    opts:[{t:'ده تمام — المصروف مصروف.', ok:false, why:'دفن العجز في مصروفات عامة بيشيل المساءلة عن المسؤول.'},
+          {t:'رحّله على حساب عجز خزينة محدد مربوط بأمين الصندوق المسؤول.', ok:true, why:'صح — العجز لازم يكون قابل للتتبع لمين المسؤول عنه.'},
+          {t:'اقسمه بالتساوي على كذا حساب مصروف.', ok:false, why:'توزيعه على حسابات كتير بيخبيه أكتر.'}]}},
+  {en:{title:'A post-dated check cashed before its due date', desc:'A post-dated check due in 30 days is deposited and cleared immediately, without waiting for the agreed date.',
+    opts:[{t:'It is fine — the money is available now.', ok:false, why:'Cashing a post-dated check early breaks the agreed terms with the customer.'},
+          {t:'Hold the check until its stated due date, as agreed.', ok:true, why:'Correct — a post-dated check is meant to be honored on its actual due date.'},
+          {t:'Ask the customer for permission after the fact.', ok:false, why:'Asking after already cashing it does not undo the broken agreement.'}]},
+   ar:{title:'شيك آجل اتحصّل قبل ميعاد استحقاقه', desc:'شيك آجل مستحق بعد 30 يوم اتودّع وتحصّل فورًا، من غير انتظار التاريخ المتفق عليه.',
+    opts:[{t:'ده تمام — الفلوس متاحة دلوقتي.', ok:false, why:'تحصيل الشيك الآجل بدري بيكسر الشروط المتفق عليها مع العميل.'},
+          {t:'امسك الشيك لحد تاريخ استحقاقه المذكور، زي ما اتفق عليه.', ok:true, why:'صح — الشيك الآجل المفروض يتحصّل في تاريخ استحقاقه الفعلي.'},
+          {t:'اطلب إذن من العميل بعد ما تحصّله.', ok:false, why:'السؤال بعد التحصيل مابيلغيش الاتفاق اللي انكسر.'}]}},
+  {en:{title:'A deposit slip not matching the actual bank credit', desc:'A deposit slip shows 18,000 EGP was deposited, but the actual bank statement shows only 15,000 EGP credited that day.',
+    opts:[{t:'Assume it is a bank error and move on.', ok:false, why:'A discrepancy this size should always be verified, not assumed away.'},
+          {t:'Investigate the 3,000 EGP gap directly with the bank before accepting either figure.', ok:true, why:'Correct — a deposit slip mismatch could signal cash withheld before banking.'},
+          {t:'Record the deposit at 18,000 EGP since that is what the slip shows.', ok:false, why:'Recording the unverified higher figure ignores the bank\'s own confirmed credit.'}]},
+   ar:{title:'فيشة إيداع مش متطابقة مع الرصيد البنكي الفعلي', desc:'فيشة إيداع بتوضح إيداع 18,000 جنيه، لكن كشف الحساب الفعلي بيوضح 15,000 جنيه بس اتضافت في نفس اليوم.',
+    opts:[{t:'افترض إنه خطأ بنكي وكمّل.', ok:false, why:'فرق بالحجم ده لازم يتحقق منه دايمًا، مش يتفترض.'},
+          {t:'حقق في فرق الـ3,000 جنيه مباشرة مع البنك قبل ما تقبل أي رقم.', ok:true, why:'صح — عدم تطابق فيشة الإيداع ممكن يكون علامة على احتجاز نقدية قبل الإيداع.'},
+          {t:'سجّل الإيداع بـ18,000 جنيه لأن ده اللي الفيشة بتوضحه.', ok:false, why:'تسجيل الرقم الأعلى غير المتحقق منه بيتجاهل الرصيد البنكي الفعلي المؤكد.'}]}},
+  {en:{title:'An unauthorized bank transfer with a single signatory', desc:'A 70,000 EGP bank transfer is executed with only one person\'s authorization, even though company policy requires two signatories.',
+    opts:[{t:'Let it stand — the transfer went through successfully.', ok:false, why:'A control being bypassed successfully does not make it acceptable.'},
+          {t:'Flag it immediately and enforce true dual authorization at the bank\'s system level.', ok:true, why:'Correct — dual authorization is meant to prevent exactly this kind of single-person control.'},
+          {t:'Just note it in a file for the next audit.', ok:false, why:'Waiting for the next audit leaves the control gap open in the meantime.'}]},
+   ar:{title:'تحويل بنكي غير مصرح به بتوقيع واحد', desc:'تحويل بنكي بـ70,000 جنيه اتنفذ باعتماد شخص واحد بس، رغم إن سياسة الشركة بتشترط توقيعين.',
+    opts:[{t:'سيبه زي ما هو — التحويل اتنفذ بنجاح.', ok:false, why:'نجاح تجاوز الضابط مايخليهوش مقبول.'},
+          {t:'ارصده فورًا وطبّق الاعتماد الثنائي فعليًا على مستوى نظام البنك.', ok:true, why:'صح — الاعتماد الثنائي موجود بالظبط عشان يمنع تحكم شخص واحد كده.'},
+          {t:'سجّلها بس في ملف للمراجعة الجاية.', ok:false, why:'الانتظار للمراجعة الجاية بيسيب الثغرة مفتوحة في الوقت ده.'}]}},
+  {en:{title:'An overdraft netted against another positive bank balance', desc:'One bank account shows a 40,000 EGP overdraft and another shows a 55,000 EGP positive balance, and both are combined into a single "net positive" cash figure.',
+    opts:[{t:'Combining them is fine — it is all company cash in the end.', ok:false, why:'Netting an overdraft against a separate positive account hides a real liability.'},
+          {t:'Present each bank account\'s balance separately, showing the overdraft as its own liability.', ok:true, why:'Correct — an overdraft should never be netted away against a different account.'},
+          {t:'Only show the net figure to keep the report simple.', ok:false, why:'Simplicity should never come at the cost of hiding a real liability.'}]},
+   ar:{title:'سحب على المكشوف اتعمله مقاصة مع رصيد بنكي موجب تاني', desc:'حساب بنكي بيوضح سحب على المكشوف 40,000 جنيه وحساب تاني بيوضح رصيد موجب 55,000 جنيه، والاتنين اتجمعوا في رقم "صافي موجب" واحد.',
+    opts:[{t:'الدمج تمام — كله فلوس شركة في النهاية.', ok:false, why:'مقاصة السحب على المكشوف مع حساب موجب منفصل بتخبي التزام حقيقي.'},
+          {t:'اعرض رصيد كل حساب بنكي منفصل، والسحب على المكشوف كالتزام قائم بذاته.', ok:true, why:'صح — السحب على المكشوف أبدًا مايتعملوش مقاصة مع حساب تاني.'},
+          {t:'اعرض بس الرقم الصافي عشان التقرير يبقى بسيط.', ok:false, why:'البساطة أبدًا مايجيش على حساب إخفاء التزام حقيقي.'}]}},
+  {en:{title:'Interest income never recorded', desc:'A fixed deposit is known to earn a specific interest rate, but no interest income has ever been posted for it in the books.',
+    opts:[{t:'It is fine — interest will show up eventually when the deposit matures.', ok:false, why:'Interest income should be recognized as it accrues, not just at maturity.'},
+          {t:'Calculate expected interest independently and compare it against what was actually recorded.', ok:true, why:'Correct — missing interest income could mean it was diverted or simply forgotten.'},
+          {t:'Only check it once a year during the audit.', ok:false, why:'An annual-only check leaves months of potentially missing income unnoticed.'}]},
+   ar:{title:'إيراد فوائد أبدًا ما اتسجل', desc:'وديعة ثابتة معروف إنها بتكسب معدل فايدة محدد، لكن مفيش أي إيراد فوائد اترحّل ليها في الدفاتر خالص.',
+    opts:[{t:'ده تمام — الفايدة هتظهر في الآخر لما الوديعة تستحق.', ok:false, why:'إيراد الفوائد لازم يتحقق مع استحقاقه، مش بس عند تاريخ الاستحقاق النهائي.'},
+          {t:'احسب الفايدة المتوقعة بشكل مستقل وقارنها باللي فعلًا اتسجل.', ok:true, why:'صح — غياب إيراد الفوائد ممكن يكون معناه تحويله أو مجرد نسيان.'},
+          {t:'افحصها مرة في السنة بس وقت المراجعة.', ok:false, why:'الفحص السنوي بس بيسيب شهور من الإيراد الناقص المحتمل من غير ما حد يلاحظ.'}]}},
+  {en:{title:'Cash-in-transit between branches not confirmed on time', desc:'A transfer of 25,000 EGP in cash from the head office to a branch is recorded, but the branch\'s receipt confirmation is still missing three weeks later.',
+    opts:[{t:'Assume it arrived — the transfer was recorded properly.', ok:false, why:'A recorded transfer is not the same as a confirmed physical receipt.'},
+          {t:'Require immediate, independent confirmation from the receiving branch and age any open in-transit balance.', ok:true, why:'Correct — cash in transit should be confirmed quickly, not left open for weeks.'},
+          {t:'Wait until the next branch visit to check on it.', ok:false, why:'Waiting for a future visit leaves a real cash gap uninvestigated for too long.'}]},
+   ar:{title:'نقدية بالطريق بين الفروع من غير تأكيد في وقتها', desc:'تحويل 25,000 جنيه كاش من المكتب الرئيسي لفرع اتسجل، لكن تأكيد الاستلام من الفرع لسه ناقص بعد 3 أسابيع.',
+    opts:[{t:'افترض إنها وصلت — التحويل اتسجل صح.', ok:false, why:'التحويل المسجل مش نفس تأكيد الاستلام الفعلي.'},
+          {t:'اشترط تأكيد فوري ومستقل من الفرع المستقبل وراجع أعمار أي رصيد "بالطريق" فاضل مفتوح.', ok:true, why:'صح — النقدية بالطريق لازم تتأكد بسرعة، مش تتسيب مفتوحة لأسابيع.'},
+          {t:'استنى لحد زيارة الفرع الجاية عشان تتأكد.', ok:false, why:'انتظار زيارة مستقبلية بيسيب فجوة نقدية حقيقية من غير تحقيق لمدة طويلة.'}]}},
+  {en:{title:'A terminated employee still appears on payroll', desc:'An employee resigned three weeks ago, but HR never notified payroll, and their salary was paid again this month.',
+    opts:[{t:'Let it go this month and fix it next month.', ok:false, why:'An extra payment already made is a real loss that needs recovery, not deferral.'},
+          {t:'Notify payroll immediately, stop future payments, and recover the payment already made.', ok:true, why:'Correct — payroll must reflect terminations the moment they happen.'},
+          {t:'Deduct it from their final settlement quietly.', ok:false, why:'This should be handled transparently and promptly, not quietly patched later.'}]},
+   ar:{title:'موظف مستقيل لسه ظاهر في الرواتب', desc:'موظف استقال من 3 أسابيع، لكن الموارد البشرية أبدًا ما بلّغت الرواتب، وراتبه اتصرف تاني الشهر ده.',
+    opts:[{t:'سيبها الشهر ده وصلحها الشهر الجاي.', ok:false, why:'دفعة زيادة اتصرفت بالفعل خسارة حقيقية محتاجة استرداد، مش تأجيل.'},
+          {t:'بلّغ الرواتب فورًا، ووقف أي صرف مستقبلي، واسترد الدفعة اللي اتصرفت.', ok:true, why:'صح — الرواتب لازم تعكس أي إنهاء خدمة فور حدوثه.'},
+          {t:'اخصمها من التسوية النهائية بهدوء.', ok:false, why:'ده لازم يتعالج بشفافية وبسرعة، مش يتصلح بهدوء بعدين.'}]}},
+  {en:{title:'Overtime approved without manager sign-off', desc:'An employee logs 15 overtime hours, and payroll pays for them with no manager approval anywhere in the system.',
+    opts:[{t:'Pay it — the hours are logged in the system.', ok:false, why:'Logged hours alone do not confirm the overtime was genuinely authorized.'},
+          {t:'Require manager approval on overtime hours before they are paid.', ok:true, why:'Correct — overtime needs independent sign-off, not just a system log.'},
+          {t:'Pay half the hours as a compromise.', ok:false, why:'There is no valid basis for arbitrarily paying half of unapproved hours.'}]},
+   ar:{title:'ساعات إضافية اتعتمدت من غير توقيع مدير', desc:'موظف سجّل 15 ساعة إضافية، والرواتب سددتهم من غير أي اعتماد مدير في النظام خالص.',
+    opts:[{t:'اسددها — الساعات مسجلة في النظام.', ok:false, why:'الساعات المسجلة لوحدها مابتأكدش إن الإضافي اتصرح بيه فعليًا.'},
+          {t:'اشترط اعتماد مدير على الساعات الإضافية قبل ما تتسدد.', ok:true, why:'صح — الإضافي محتاج توقيع مستقل، مش مجرد تسجيل في النظام.'},
+          {t:'اسدد نص الساعات كحل وسط.', ok:false, why:'مفيش أساس صحيح لسداد نص ساعات غير معتمدة عشوائيًا.'}]}},
+  {en:{title:'A salary advance not tracked in any ledger', desc:'An employee receives a 5,000 EGP salary advance in cash, but no entry is made in an employee advances account anywhere.',
+    opts:[{t:'It is fine — it will be deducted from next month\'s pay automatically.', ok:false, why:'Without a recorded entry, there is no guarantee the deduction actually happens.'},
+          {t:'Record the advance in a dedicated employee advances account and schedule its deduction.', ok:true, why:'Correct — every advance needs a tracked entry so it does not get forgotten or abused.'},
+          {t:'Just tell the payroll clerk verbally to remember it.', ok:false, why:'A verbal reminder is not a real accounting control.'}]},
+   ar:{title:'سلفة راتب من غير تتبع في أي سجل', desc:'موظف استلم سلفة راتب 5,000 جنيه كاش، لكن مفيش أي قيد في حساب مقدمات موظفين خالص.',
+    opts:[{t:'ده تمام — هتتخصم من راتب الشهر الجاي أوتوماتيك.', ok:false, why:'من غير قيد مسجل، مفيش ضمان إن الخصم هيحصل فعليًا.'},
+          {t:'سجّل السلفة في حساب مقدمات موظفين مخصص وجدول خصمها.', ok:true, why:'صح — أي سلفة محتاجة قيد متتبع عشان متتنساش أو تتساء استخدامها.'},
+          {t:'قول لموظف الرواتب شفهيًا يفتكرها.', ok:false, why:'التذكير الشفهي مش ضابط محاسبي حقيقي.'}]}},
+  {en:{title:'Payroll processed twice for the same employee', desc:'An employee\'s name appears in two separate payroll batches for the same month, resulting in a double payment.',
+    opts:[{t:'Pay both since both batches were already approved.', ok:false, why:'Paying the same person twice for the same period is a direct overpayment.'},
+          {t:'Run a duplicate check across payroll batches and reverse the extra payment before release.', ok:true, why:'Correct — duplicate entries should be caught before any payment goes out.'},
+          {t:'Deduct it automatically from next year\'s bonus.', ok:false, why:'Waiting a full year to recover an overpayment is not a real control.'}]},
+   ar:{title:'الرواتب اتعالجت مرتين لنفس الموظف', desc:'اسم موظف ظهر في كشفين رواتب منفصلين لنفس الشهر، وده أدى لصرف مزدوج.',
+    opts:[{t:'اسدد الاتنين لأن الكشفين اتاعتمدوا بالفعل.', ok:false, why:'سداد نفس الشخص مرتين لنفس الفترة سداد زايد مباشر.'},
+          {t:'اعمل فحص تكرار عبر كشوفات الرواتب واعكس الدفعة الزيادة قبل الصرف.', ok:true, why:'صح — القيود المكررة لازم تتصاد قبل أي صرف.'},
+          {t:'اخصمها أوتوماتيك من بونص السنة الجاية.', ok:false, why:'الانتظار سنة كاملة لاسترداد دفعة زايدة مش ضابط حقيقي.'}]}},
+  {en:{title:'Tax withheld but never remitted', desc:'Income tax is correctly deducted from every payslip, but the amounts have not been sent to the Tax Authority for two months.',
+    opts:[{t:'It is fine — the money is safely sitting in the company account.', ok:false, why:'Withheld tax belongs to the tax authority, not the company, from the moment it is deducted.'},
+          {t:'Reconcile total deductions against actual remittance receipts and remit any shortfall immediately.', ok:true, why:'Correct — withheld tax must be remitted on time, with no exceptions.'},
+          {t:'Remit it whenever cash flow allows.', ok:false, why:'Remittance timing should follow the legal deadline, not the company\'s cash convenience.'}]},
+   ar:{title:'ضريبة اتخصمت لكن أبدًا ما اتوردتش', desc:'ضريبة كسب العمل بتتخصم صح من كل كشف مرتب، لكن المبالغ ما اتوردتش لمصلحة الضرائب لمدة شهرين.',
+    opts:[{t:'ده تمام — الفلوس قاعدة في حساب الشركة بأمان.', ok:false, why:'الضريبة المخصومة حق مصلحة الضرائب مش الشركة، من لحظة خصمها.'},
+          {t:'طابق إجمالي الاستقطاعات مع إيصالات التوريد الفعلية ووَرِّد أي نقص فورًا.', ok:true, why:'صح — الضريبة المخصومة لازم تتورد في وقتها، من غير أي استثناء.'},
+          {t:'وَرِّدها لما السيولة تسمح.', ok:false, why:'توقيت التوريد لازم يتبع الموعد القانوني، مش راحة الشركة النقدية.'}]}},
+  {en:{title:'Commission calculated on unapproved sales figures', desc:'A salesperson\'s commission is calculated from a self-reported sales figure, without cross-checking against the actual sales system.',
+    opts:[{t:'Pay it — the salesperson would not lie about their own numbers.', ok:false, why:'Self-reported figures with no cross-check is exactly how commission fraud happens.'},
+          {t:'Calculate commission automatically from the sales system\'s own verified figures.', ok:true, why:'Correct — commission should never rely on unverified, self-reported numbers.'},
+          {t:'Pay 80% now and true it up later.', ok:false, why:'Paying a partial unverified amount does not solve the missing verification.'}]},
+   ar:{title:'عمولة اتحسبت على أرقام مبيعات غير معتمدة', desc:'عمولة مندوب مبيعات اتحسبت من رقم مبيعات هو نفسه أبلغ عنه، من غير مطابقة مع نظام المبيعات الفعلي.',
+    opts:[{t:'اسددها — المندوب مش هيكذب في أرقامه.', ok:false, why:'أرقام مُبلَّغ عنها ذاتيًا من غير مطابقة بالظبط طريقة احتيال العمولات.'},
+          {t:'احسب العمولة أوتوماتيك من أرقام نظام المبيعات الموثّقة نفسها.', ok:true, why:'صح — العمولة أبدًا مايعتمدش على أرقام ذاتية غير متحقق منها.'},
+          {t:'اسدد 80% دلوقتي واظبطها بعدين.', ok:false, why:'سداد مبلغ جزئي غير متحقق منه مابيحلّش مشكلة التحقق الغايبة.'}]}},
+  {en:{title:'End-of-service provision using unrealistic assumptions', desc:'The provision for end-of-service benefits is calculated assuming zero staff turnover, even though the company has historically had steady turnover every year.',
+    opts:[{t:'It is fine — the assumption just needs to be documented somewhere.', ok:false, why:'An assumption that ignores real historical data is not a valid basis for a provision.'},
+          {t:'Base the provision on the company\'s actual historical turnover data, reviewed independently.', ok:true, why:'Correct — provisions should reflect real experience, not a convenient assumption.'},
+          {t:'Use whatever assumption produces a round number.', ok:false, why:'Choosing an assumption for a "nice" number is the opposite of a sound estimate.'}]},
+   ar:{title:'مخصص نهاية الخدمة بافتراضات غير واقعية', desc:'مخصص مكافأة نهاية الخدمة اتحسب بافتراض صفر دوران موظفين، رغم إن الشركة تاريخيًا عندها دوران ثابت كل سنة.',
+    opts:[{t:'ده تمام — الافتراض بس محتاج يتوثّق في مكان ما.', ok:false, why:'افتراض بيتجاهل البيانات التاريخية الحقيقية مش أساس صحيح لمخصص.'},
+          {t:'ابنِ المخصص على بيانات دوران الموظفين التاريخية الفعلية، وتُراجع بشكل مستقل.', ok:true, why:'صح — المخصصات لازم تعكس الخبرة الحقيقية، مش افتراض مريح.'},
+          {t:'استخدم أي افتراض يطلع رقم مستدير.', ok:false, why:'اختيار افتراض عشان يطلع رقم "حلو" عكس التقدير السليم تمامًا.'}]}},
+  {en:{title:'The payroll bank file edited after approval', desc:'The finance manager approves the payroll register, but someone edits the final Excel file sent to the bank afterward, increasing one employee\'s transfer.',
+    opts:[{t:'It is fine as long as the total still roughly matches.', ok:false, why:'Any post-approval edit breaks the entire point of having an approval step.'},
+          {t:'Send the bank file directly from the payroll system with no manual editing, and lock it after approval.', ok:true, why:'Correct — the approved file should be the one that actually goes to the bank, unedited.'},
+          {t:'Allow edits but require the editor to leave a comment explaining why.', ok:false, why:'A comment does not restore the integrity of an approval that was bypassed.'}]},
+   ar:{title:'ملف البنك للرواتب اتعدّل بعد الاعتماد', desc:'مدير المالية اعتمد كشف الرواتب، لكن حد عدّل ملف الإكسيل النهائي المرسل للبنك بعد كده، وزوّد تحويل موظف واحد.',
+    opts:[{t:'ده تمام طالما الإجمالي متطابق تقريبًا.', ok:false, why:'أي تعديل بعد الاعتماد بيلغي الغرض الكامل من وجود خطوة اعتماد أصلًا.'},
+          {t:'ابعت ملف البنك مباشرة من نظام الرواتب من غير تعديل يدوي، واقفله بعد الاعتماد.', ok:true, why:'صح — الملف المعتمد لازم يكون هو نفسه اللي بيروح للبنك، من غير تعديل.'},
+          {t:'اسمح بالتعديل بس اطلب من المعدّل يسيب تعليق يوضح السبب.', ok:false, why:'التعليق مابيرجعش سلامة اعتماد اتم تجاوزه.'}]}},
+  {en:{title:'A reimbursement claim with no original receipt', desc:'A travel reimbursement of 1,200 EGP is approved based only on a verbal description of the trip, with no receipt attached at all.',
+    opts:[{t:'Approve it — the employee has a good track record.', ok:false, why:'A good track record does not replace the need for real supporting documentation.'},
+          {t:'Require an original, itemized receipt for every reimbursement claim.', ok:true, why:'Correct — reimbursements need real evidence, not just a description.'},
+          {t:'Approve a lower estimated amount instead.', ok:false, why:'Guessing a lower number does not solve the missing receipt problem.'}]},
+   ar:{title:'مطالبة استرداد من غير إيصال أصلي', desc:'استرداد سفر بـ1,200 جنيه اتاعتمد بناءً على وصف شفهي للرحلة بس، من غير أي إيصال مرفق خالص.',
+    opts:[{t:'اعتمده — الموظف ده سجله كويس.', ok:false, why:'السجل الكويس مابيعوضش عن الحاجة لمستندات مؤيدة حقيقية.'},
+          {t:'اطلب إيصال أصلي ومفصّل لكل مطالبة استرداد.', ok:true, why:'صح — الاستردادات محتاجة دليل حقيقي، مش وصف بس.'},
+          {t:'اعتمد مبلغ تقديري أقل بدل كده.', ok:false, why:'تخمين رقم أقل مابيحلّش مشكلة الإيصال الغايب.'}]}},
+  {en:{title:'Direct labor misclassified as an administrative expense', desc:'Wages for factory production workers are posted to general administrative expenses instead of cost of goods sold.',
+    opts:[{t:'It is fine — it is all a company cost either way.', ok:false, why:'Misclassification distorts gross profit margin and cost reporting.'},
+          {t:'Reclassify direct production wages to cost of goods sold, based on actual job function.', ok:true, why:'Correct — labor classification should follow the real role the employee performs.'},
+          {t:'Split the wages 50/50 between the two categories.', ok:false, why:'A 50/50 split has no basis if the workers are genuinely production staff.'}]},
+   ar:{title:'أجور عمالة مباشرة اتصنفت كمصروف إداري', desc:'أجور عمال إنتاج بالمصنع اترحّلت على مصروفات إدارية عامة بدل تكلفة البضاعة المباعة.',
+    opts:[{t:'ده تمام — الاتنين تكلفة شركة في النهاية.', ok:false, why:'التصنيف الغلط بيشوّه هامش مجمل الربح وتقارير التكلفة.'},
+          {t:'أعد تصنيف أجور الإنتاج المباشر لتكلفة البضاعة المباعة، بناءً على الوظيفة الفعلية.', ok:true, why:'صح — تصنيف العمالة لازم يتبع الدور الحقيقي اللي الموظف بيأديه.'},
+          {t:'اقسم الأجور 50/50 بين الفئتين.', ok:false, why:'تقسيم 50/50 مالوش أساس لو العمال فعلًا موظفي إنتاج.'}]}},
+  {en:{title:'A payroll suspense difference never investigated', desc:'A small unexplained difference from a payroll/tax reconciliation is dumped into a suspense account and left there for six months.',
+    opts:[{t:'It is fine — it is a small amount and not worth the effort.', ok:false, why:'Small, unexplained, and aging is exactly the pattern that should trigger investigation.'},
+          {t:'Set a maximum age for payroll suspense items and investigate before it grows old.', ok:true, why:'Correct — even small differences should be resolved promptly, not parked indefinitely.'},
+          {t:'Write it off automatically after a year with no review.', ok:false, why:'An automatic write-off with no review just erases evidence of the underlying issue.'}]},
+   ar:{title:'فرق حساب معلّق للرواتب أبدًا ما اتحقق فيه', desc:'فرق صغير غير مفسّر من تسوية رواتب/ضرائب اتحط في حساب معلّق واتسيب فيه لمدة 6 شهور.',
+    opts:[{t:'ده تمام — المبلغ صغير ومش يستاهل المجهود.', ok:false, why:'صغير وغير مفسّر وقديم بالظبط النمط اللي المفروض يستدعي تحقيق.'},
+          {t:'حدّد أقصى مدة لبنود المعلّق الخاصة بالرواتب وحقق قبل ما يتقدم في العمر.', ok:true, why:'صح — حتى الفروق الصغيرة لازم تتحل بسرعة، مش تتسيب لأجل غير مسمى.'},
+          {t:'اشطبه أوتوماتيك بعد سنة من غير مراجعة.', ok:false, why:'الشطب الأوتوماتيكي من غير مراجعة بيمحي دليل المشكلة اللي وراه.'}]}},
+  {en:{title:'KPI numbers adjusted right before bonus payout', desc:'Operating performance figures are quietly adjusted at year-end, just enough to clear the threshold needed to trigger a management bonus.',
+    opts:[{t:'It is fine as long as the final numbers look reasonable.', ok:false, why:'A convenient last-minute adjustment right at the bonus threshold is a major red flag.'},
+          {t:'Have an independent party verify the underlying data behind any KPI tied to a bonus.', ok:true, why:'Correct — bonus-triggering metrics need independent verification, not self-adjustment.'},
+          {t:'Approve the bonus but reduce it by 10% as a compromise.', ok:false, why:'A partial reduction does not address the manipulated underlying data.'}]},
+   ar:{title:'أرقام مؤشرات الأداء اتعدلت قبل صرف البونص', desc:'أرقام الأداء التشغيلي اتعدلت بهدوء آخر السنة، بالظبط عشان تعدي الحد اللازم لصرف بونص إدارة.',
+    opts:[{t:'ده تمام طالما الأرقام النهائية شكلها معقول.', ok:false, why:'تعديل مريح في اللحظة الأخيرة بالظبط عند حد البونص علامة خطر كبيرة.'},
+          {t:'خلّي طرف مستقل يتحقق من البيانات الأساسية وراء أي مؤشر أداء مربوط بونص.', ok:true, why:'صح — المؤشرات اللي بتفعّل البونص محتاجة تحقق مستقل، مش تعديل ذاتي.'},
+          {t:'اعتمد البونص لكن قلله 10% كحل وسط.', ok:false, why:'التقليل الجزئي مابيعالجش البيانات الأساسية المتلاعب بيها.'}]}},
+  {en:{title:'Unclaimed wages not returned to the company', desc:'A cash wage payment for an employee on unpaid leave was never collected, and the money simply disappears from petty cash records with no explanation.',
+    opts:[{t:'It is fine — someone probably needed it more urgently.', ok:false, why:'Unclaimed wages belong back to the company as a liability, not to whoever took them.'},
+          {t:'Return unclaimed wages to a dedicated liability account after a defined period, with oversight.', ok:true, why:'Correct — unclaimed pay should never simply vanish from the records.'},
+          {t:'Just remove the entry from the books quietly.', ok:false, why:'Removing the entry hides the issue instead of properly resolving it.'}]},
+   ar:{title:'رواتب غير مستلمة ما رجعتش للشركة', desc:'دفعة راتب كاش لموظف في إجازة بدون مرتب أبدًا ما اتحصّلت، والفلوس اختفت من سجلات العهدة النثرية من غير تفسير.',
+    opts:[{t:'ده تمام — يمكن حد كان محتاجها أكتر بشكل عاجل.', ok:false, why:'الرواتب غير المستلمة لازم ترجع للشركة كالتزام، مش لمين ما أخدها.'},
+          {t:'رجّع الرواتب غير المستلمة لحساب التزام مخصص بعد مدة محددة، تحت إشراف.', ok:true, why:'صح — الراتب غير المستلم أبدًا مايختفيش من السجلات كده.'},
+          {t:'شيل القيد من الدفاتر بهدوء بس.', ok:false, why:'شيل القيد بيخبي المشكلة بدل ما يحلها صح.'}]}},
+  {en:{title:'Insurance recovery not netted against the original claim', desc:'The company pays 8,000 EGP for an employee\'s medical claim as a payroll expense, then later collects the same amount from the insurance company — recorded separately as unrelated income.',
+    opts:[{t:'It is fine — expense and income are just two different line items.', ok:false, why:'Without linking them, the true net cost of the benefit is misstated.'},
+          {t:'Track the original claim and its insurance recovery together as one linked record.', ok:true, why:'Correct — the recovery should reduce the original expense, not sit unrelated.'},
+          {t:'Record only the recovery and ignore the original expense.', ok:false, why:'Ignoring the original expense loses the actual cost history entirely.'}]},
+   ar:{title:'استرداد تأمين ما اتقاصّش مع المطالبة الأصلية', desc:'الشركة سددت 8,000 جنيه مطالبة طبية لموظف كمصروف رواتب، وبعدين حصّلت نفس المبلغ من شركة التأمين — واتسجل منفصل كإيراد مالوش علاقة.',
+    opts:[{t:'ده تمام — المصروف والإيراد بندين مختلفين بس.', ok:false, why:'من غير ربطهم، صافي التكلفة الحقيقي للمنفعة بيتشوّه.'},
+          {t:'تتبع المطالبة الأصلية والاسترداد التأميني المرتبط بيها مع بعض في سجل واحد مربوط.', ok:true, why:'صح — الاسترداد المفروض يقلل المصروف الأصلي، مش يقعد منفصل مالوش علاقة.'},
+          {t:'سجّل الاسترداد بس واتجاهل المصروف الأصلي.', ok:false, why:'تجاهل المصروف الأصلي بيضيع تاريخ التكلفة الحقيقي بالكامل.'}]}},
+  {en:{title:'A new hire starts work before setup is complete', desc:'An employee starts working and is paid for their first two weeks before HR has even finished setting up their file, contract, or bank details.',
+    opts:[{t:'It is fine — paperwork can always catch up later.', ok:false, why:'Paying someone before their basic HR file exists is a real control gap.'},
+          {t:'Complete essential HR setup (contract, ID, bank details) before the first payroll run for a new hire.', ok:true, why:'Correct — payroll should never run ahead of basic employee verification.'},
+          {t:'Pay them in cash until the paperwork is ready.', ok:false, why:'Cash payment outside the normal payroll process just avoids the control instead of fixing it.'}]},
+   ar:{title:'موظف جديد بدأ الشغل قبل ما الإجراءات تكتمل', desc:'موظف بدأ يشتغل واتصرفله أول أسبوعين قبل ما الموارد البشرية حتى تخلّص إعداد ملفه أو عقده أو بياناته البنكية.',
+    opts:[{t:'ده تمام — الأوراق دايمًا بتلحق بعدين.', ok:false, why:'سداد لحد قبل ما ملفه الأساسي في الموارد البشرية يتعمل ثغرة حقيقية.'},
+          {t:'كمّل الإجراءات الأساسية (العقد، الهوية، البيانات البنكية) قبل أول تشغيل رواتب لموظف جديد.', ok:true, why:'صح — الرواتب أبدًا مايجيش قبل التحقق الأساسي من الموظف.'},
+          {t:'اسدده كاش لحد ما الأوراق تجهز.', ok:false, why:'السداد الكاش بره العملية العادية بيتفادى الضابط بدل ما يصلحه.'}]}},
+  {en:{title:'Executive benefits hidden inside general expenses', desc:'A large, recurring payment to a senior executive\'s relative is booked as "general consulting expense" instead of being disclosed as related-party executive compensation.',
+    opts:[{t:'It is fine as long as the amount is reasonable.', ok:false, why:'The amount being reasonable does not remove the need for proper disclosure.'},
+          {t:'Classify and disclose it properly as related-party executive compensation.', ok:true, why:'Correct — payments to executives or their relatives need transparent, correct classification.'},
+          {t:'Reduce the payment slightly and keep the same classification.', ok:false, why:'A smaller amount still does not fix the underlying misclassification.'}]},
+   ar:{title:'مزايا تنفيذيين مخفية جوه مصروفات عامة', desc:'دفعة كبيرة ومتكررة لقريب مدير تنفيذي كبير اتسجلت كـ"مصروف استشارات عامة" بدل ما تتفصح كمكافأة تنفيذي طرف ذو صلة.',
+    opts:[{t:'ده تمام طالما المبلغ معقول.', ok:false, why:'معقولية المبلغ مابتلغيش الحاجة للإفصاح الصحيح.'},
+          {t:'صنّفها وأفصح عنها صح كمكافأة تنفيذي طرف ذو صلة.', ok:true, why:'صح — المدفوعات لتنفيذيين أو أقاربهم محتاجة تصنيف شفاف وصحيح.'},
+          {t:'قلل الدفعة شوية وخلّي نفس التصنيف.', ok:false, why:'مبلغ أصغر لسه مابيصلحش التصنيف الغلط اللي وراه.'}]}},
+  {en:{title:'A payroll accrual omitted at year-end', desc:'The last week of December\'s payroll clearly spans into the new year, but no accrued payroll entry is posted at year-end.',
+    opts:[{t:'It is fine — it will just be expensed fully in January instead.', ok:false, why:'Skipping the accrual understates this year\'s true expense and liability.'},
+          {t:'Post the standard accrued payroll entry for the portion of December\'s work not yet paid.', ok:true, why:'Correct — payroll earned in December belongs in December\'s expenses.'},
+          {t:'Estimate it roughly and adjust next year if needed.', ok:false, why:'A rough guess without a real calculation is not an acceptable accrual.'}]},
+   ar:{title:'استحقاق رواتب اتغفل آخر السنة', desc:'آخر أسبوع في ديسمبر واضح إنه بيمتد للسنة الجديدة، لكن مفيش أي قيد رواتب مستحقة اترحّل آخر السنة.',
+    opts:[{t:'ده تمام — هيتحمّل بالكامل في يناير بدل كده.', ok:false, why:'تخطي الاستحقاق بيقلل مصروف والتزام السنة الحقيقي.'},
+          {t:'رحّل قيد الرواتب المستحقة القياسي للجزء من عمل ديسمبر اللي لسه ما اتسددش.', ok:true, why:'صح — الراتب المكتسب في ديسمبر مكانه مصروفات ديسمبر.'},
+          {t:'قدّرها تقريبيًا وعدّلها السنة الجاية لو احتاج الأمر.', ok:false, why:'تخمين تقريبي من غير حساب حقيقي مش استحقاق مقبول.'}]}},
+  {en:{title:'A trainee under 18 charged the full insurance rate', desc:'A 17-year-old trainee is deducted the standard 11% employee social insurance rate, the same as a regular full-time employee.',
+    opts:[{t:'It is fine — insurance rules apply the same to everyone.', ok:false, why:'Trainees under 18 have a specific, much lower insurance treatment.'},
+          {t:'Apply the correct trainee rate (work-injury coverage only) instead of the standard employee rate.', ok:true, why:'Correct — a trainee under 18 should only pay the reduced, specific rate that applies to them.'},
+          {t:'Refund the difference at the end of the year.', ok:false, why:'The deduction should be correct from the start, not fixed with a year-end refund.'}]},
+   ar:{title:'متدرب تحت 18 سنة اتخصم منه بالنسبة الكاملة', desc:'متدرب عمره 17 سنة اتخصم منه نسبة التأمينات القياسية 11%، زي أي موظف دائم عادي.',
+    opts:[{t:'ده تمام — قواعد التأمين بتتطبق على الجميع بنفس الشكل.', ok:false, why:'المتدربين تحت 18 سنة ليهم معاملة تأمينية خاصة وأقل بكتير.'},
+          {t:'طبّق نسبة المتدرب الصحيحة (تغطية إصابة العمل بس) بدل نسبة الموظف القياسية.', ok:true, why:'صح — المتدرب تحت 18 سنة المفروض يدفع بس النسبة المخفضة الخاصة بيه.'},
+          {t:'رجّع الفرق آخر السنة.', ok:false, why:'الخصم لازم يكون صح من الأول، مش يتصلح باسترداد آخر السنة.'}]}},
+  {en:{title:'A manual journal entry posted with no supporting document', desc:'A large manual journal entry adjusting revenue by 60,000 EGP is posted directly to the general ledger with no attached document or explanation.',
+    opts:[{t:'Post it — the accountant posting it is senior and trusted.', ok:false, why:'Seniority does not replace the need for documented support on a large adjustment.'},
+          {t:'Require documented support and independent review for any manual top-side entry.', ok:true, why:'Correct — manual entries bypassing the subledgers need extra scrutiny, not less.'},
+          {t:'Post it now and attach documentation later if asked.', ok:false, why:'Supporting documentation should exist before posting, not be created retroactively if questioned.'}]},
+   ar:{title:'قيد يدوي في دفتر الأستاذ من غير مستند مؤيد', desc:'قيد يدوي كبير بيعدّل الإيراد بـ60,000 جنيه اترحّل مباشرة على دفتر الأستاذ العام من غير أي مستند مرفق أو تفسير.',
+    opts:[{t:'رحّله — المحاسب اللي رحّله كبير وموثوق فيه.', ok:false, why:'الأقدمية مابتعوضش عن الحاجة لمستند موثّق على تسوية كبيرة.'},
+          {t:'اشترط مستند موثّق ومراجعة مستقلة لأي قيد يدوي مباشر على دفتر الأستاذ.', ok:true, why:'صح — القيود اليدوية اللي بتتخطى الدفاتر الفرعية محتاجة تدقيق أكتر، مش أقل.'},
+          {t:'رحّله دلوقتي وارفق المستند بعدين لو حد سأل.', ok:false, why:'المستند المؤيد لازم يكون موجود قبل الترحيل، مش يتعمل بأثر رجعي لو اتسأل عليه.'}]}},
+  {en:{title:'An opening balance changed after audit sign-off', desc:'A general ledger account\'s opening balance for the new year is changed manually, after the prior year\'s figures were already signed off by the external auditor.',
+    opts:[{t:'It is fine as long as the change is small.', ok:false, why:'Any change after audit sign-off, regardless of size, breaks the integrity of the audited figures.'},
+          {t:'Lock opening balances after audit sign-off; any change needs senior, documented approval.', ok:true, why:'Correct — audited opening balances should not be casually adjusted afterward.'},
+          {t:'Change it and mention it verbally to the auditor next year.', ok:false, why:'A verbal mention next year does not undo a change made without proper approval now.'}]},
+   ar:{title:'رصيد افتتاحي اتغير بعد اعتماد المراجع', desc:'الرصيد الافتتاحي لحساب في دفتر الأستاذ للسنة الجديدة اتغير يدويًا، بعد ما أرقام السنة اللي فاتت اتوقّعت بالفعل من المراجع الخارجي.',
+    opts:[{t:'ده تمام طالما التغيير صغير.', ok:false, why:'أي تغيير بعد اعتماد المراجع، بغض النظر عن حجمه، بيكسر سلامة الأرقام المراجعة.'},
+          {t:'قفل الأرصدة الافتتاحية بعد اعتماد المراجع؛ أي تغيير محتاج اعتماد موثّق من إدارة عليا.', ok:true, why:'صح — الأرصدة الافتتاحية المراجعة مايتعدلش فيها ببساطة بعدين.'},
+          {t:'غيّرها واذكرها شفهيًا للمراجع السنة الجاية.', ok:false, why:'الذكر الشفهي السنة الجاية مابيلغيش تغيير حصل من غير اعتماد صحيح دلوقتي.'}]}},
+  {en:{title:'A suspense account cleared into unrelated expense accounts', desc:'A year\'s worth of unexplained differences sitting in a suspense account is cleared out into several unrelated general expense accounts right before an audit.',
+    opts:[{t:'It is fine — the suspense account needed to reach zero eventually.', ok:false, why:'Reaching zero by dumping into unrelated accounts hides the real underlying issues.'},
+          {t:'Resolve each suspense item to its true, specific account instead of bulk-clearing it.', ok:true, why:'Correct — every suspense item deserves a real explanation, not a convenient parking spot.'},
+          {t:'Clear it into whichever account has the most room in the budget.', ok:false, why:'Choosing an account based on budget room has nothing to do with where the item actually belongs.'}]},
+   ar:{title:'حساب معلّق اتقفل على حسابات مصروفات غير مرتبطة', desc:'فروق سنة كاملة غير مفسّرة قاعدة في حساب معلّق اتقفلت على كذا حساب مصروف عام مالهوش علاقة، قبل المراجعة مباشرة.',
+    opts:[{t:'ده تمام — الحساب المعلّق المفروض يوصل لصفر في الآخر.', ok:false, why:'الوصول لصفر برمي البنود على حسابات مالهاش علاقة بيخبي المشاكل الحقيقية.'},
+          {t:'حل كل بند معلّق لحسابه الحقيقي والمحدد بدل ما تقفله بالجملة.', ok:true, why:'صح — كل بند معلّق يستاهل تفسير حقيقي، مش مكان ركن مريح.'},
+          {t:'اقفله على أي حساب فيه مساحة أكتر في الميزانية.', ok:false, why:'اختيار حساب على أساس مساحة الميزانية مالوش علاقة بمكان البند الحقيقي.'}]}},
+  {en:{title:'Intercompany sales not eliminated in consolidation', desc:'A sale from one subsidiary to another within the same group is left fully recorded as revenue in the consolidated financial statements.',
+    opts:[{t:'It is fine — each subsidiary\'s books are accurate on their own.', ok:false, why:'Consolidated statements must eliminate intercompany transactions to show the group\'s real external results.'},
+          {t:'Eliminate the intercompany sale and related balance in the consolidation process.', ok:true, why:'Correct — group results should not include revenue the group generated from itself.'},
+          {t:'Eliminate only half of it as a simplification.', ok:false, why:'A partial elimination still overstates the group\'s real external performance.'}]},
+   ar:{title:'مبيعات بين شركات المجموعة ما اتستبعدتش في التجميع', desc:'بيع من شركة تابعة لشركة تابعة تانية في نفس المجموعة اتسيب مسجل بالكامل كإيراد في القوائم المالية المجمّعة.',
+    opts:[{t:'ده تمام — دفاتر كل شركة تابعة صحيحة لوحدها.', ok:false, why:'القوائم المجمّعة لازم تستبعد المعاملات بين الشركات عشان تعرض نتيجة المجموعة الخارجية الحقيقية.'},
+          {t:'استبعد البيع بين الشركات والرصيد المرتبط بيه في عملية التجميع.', ok:true, why:'صح — نتيجة المجموعة المفروض ماتتضمنش إيراد المجموعة ولّدته من نفسها.'},
+          {t:'استبعد نصه بس كتبسيط.', ok:false, why:'الاستبعاد الجزئي لسه بيضخّم أداء المجموعة الخارجي الحقيقي.'}]}},
+  {en:{title:'FX revaluation using an outdated rate', desc:'A foreign-currency bank balance is revalued at period-end using an exchange rate from three weeks earlier instead of the actual period-end rate.',
+    opts:[{t:'It is fine — exchange rates are usually similar over a few weeks.', ok:false, why:'Using a stale rate still misstates the revaluation, regardless of how much rates moved.'},
+          {t:'Pull the period-end exchange rate automatically from one official source.', ok:true, why:'Correct — FX revaluation should always use the actual rate as of the reporting date.'},
+          {t:'Use an average of the two rates.', ok:false, why:'Averaging two rates is not equivalent to the actual period-end rate.'}]},
+   ar:{title:'إعادة تقييم عملة أجنبية بسعر قديم', desc:'رصيد بنكي بعملة أجنبية اتقيّم آخر الفترة بسعر صرف من 3 أسابيع فاتت بدل سعر نهاية الفترة الفعلي.',
+    opts:[{t:'ده تمام — أسعار الصرف غالبًا متقاربة على مدار كام أسبوع.', ok:false, why:'استخدام سعر قديم لسه بيشوّه إعادة التقييم، بغض النظر عن حجم الحركة.'},
+          {t:'اسحب سعر الصرف آخر الفترة أوتوماتيك من مصدر رسمي واحد.', ok:true, why:'صح — إعادة تقييم العملة لازم دايمًا تستخدم السعر الفعلي في تاريخ التقرير.'},
+          {t:'استخدم متوسط السعرين.', ok:false, why:'متوسط سعرين مش بديل عن سعر نهاية الفترة الفعلي.'}]}},
+  {en:{title:'A depreciation policy changed with no disclosure', desc:'An asset\'s useful life is quietly extended from 5 years to 8 years, lowering the monthly depreciation expense, with no disclosure anywhere.',
+    opts:[{t:'It is fine as long as profit looks better.', ok:false, why:'Profit looking better is not a valid reason to skip required disclosure.'},
+          {t:'Require documented justification and disclosure for any change in useful life or depreciation policy.', ok:true, why:'Correct — a policy change like this needs a real basis and proper disclosure.'},
+          {t:'Apply it only to new assets going forward, quietly.', ok:false, why:'Applying it quietly, even to new assets, still lacks the required disclosure.'}]},
+   ar:{title:'سياسة الإهلاك اتغيرت من غير إفصاح', desc:'العمر الإنتاجي لأصل اتمدّد بهدوء من 5 سنين لـ8 سنين، وده قلل مصروف الإهلاك الشهري، من غير أي إفصاح خالص.',
+    opts:[{t:'ده تمام طالما الربح شكله أحسن.', ok:false, why:'الربح الأحسن مش سبب صحيح للتهرب من الإفصاح المطلوب.'},
+          {t:'اشترط تبرير موثّق وإفصاح لأي تغيير في العمر الإنتاجي أو سياسة الإهلاك.', ok:true, why:'صح — تغيير سياسة زي ده محتاج أساس حقيقي وإفصاح صحيح.'},
+          {t:'طبّقها بس على الأصول الجديدة قدام، بهدوء.', ok:false, why:'تطبيقها بهدوء، حتى على أصول جديدة، لسه ناقصها الإفصاح المطلوب.'}]}},
+  {en:{title:'A cash outflow misclassified between operating and investing', desc:'A routine supplier payment for raw materials is classified as an investing outflow in the cash flow statement instead of an operating one.',
+    opts:[{t:'It is fine — cash left the company either way.', ok:false, why:'Misclassifying between operating and investing distorts a key readability metric of the cash flow statement.'},
+          {t:'Trace the cash flow item back to its real underlying transaction and reclassify it correctly.', ok:true, why:'Correct — routine supplier payments belong in operating activities, not investing.'},
+          {t:'Leave it since the total net cash change is still correct.', ok:false, why:'A correct total does not excuse an incorrect breakdown that misleads readers.'}]},
+   ar:{title:'مسحوب نقدي اتصنف غلط بين تشغيلي واستثماري', desc:'سداد روتيني لمورد عن مواد خام اتصنف كمسحوب استثماري في قائمة التدفقات النقدية بدل تشغيلي.',
+    opts:[{t:'ده تمام — الفلوس خرجت من الشركة في الحالتين.', ok:false, why:'التصنيف الغلط بين التشغيلي والاستثماري بيشوّه مقياس مهم لقراءة قائمة التدفقات.'},
+          {t:'تتبع بند التدفق لمعاملته الحقيقية وأعد تصنيفه صح.', ok:true, why:'صح — سداد المورد الروتيني مكانه الأنشطة التشغيلية، مش الاستثمارية.'},
+          {t:'سيبه لأن صافي التغير الإجمالي في النقدية لسه صح.', ok:false, why:'الإجمالي الصح مابيبررش تفصيل غلط بيضلّل القارئ.'}]}}
 ];
-const SPOT_DESK_MAP = ['ar','gl','treasury','ap','hr','gl','ar','gl','ar','ar','ar','ap','gl','gl','gl','treasury','ar','treasury','gl','inv','gl','gl','ap','hr','gl','gl','gl','ap','ap','gl'];
+const SPOT_DESK_MAP = ['ar','gl','treasury','ap','hr','gl','ar','gl','ar','ar','ar','ap','gl','gl','gl','treasury','ar','treasury','gl','inv','gl','gl','ap','hr','gl','gl','gl','ap','ap','gl','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','gl','gl','gl','gl','gl','gl','gl'];
 const spotIndexByDesk = {ar:0, ap:0, inv:0, treasury:0, hr:0, gl:0};
+const spotOrderByDesk = {};
+const spotSessionStats = {};
+function spotShuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
 function spotScenariosFor(desk){
   return LEARN_SPOT_SCENARIOS.filter((s,i)=>SPOT_DESK_MAP[i]===desk);
+}
+function spotEnsureOrder(desk){
+  const scenarios = spotScenariosFor(desk);
+  if(!spotOrderByDesk[desk] || spotOrderByDesk[desk].length !== scenarios.length){
+    spotOrderByDesk[desk] = spotShuffle(scenarios.map((_,i)=>i));
+  }
 }
 function spotRenderFor(desk){
   const el = document.getElementById(desk+'-spot-scenario'); if(!el) return;
   const scenarios = spotScenariosFor(desk);
   if(!scenarios.length){ el.innerHTML = ''; return; }
-  const ar = cycleAr(), idx = spotIndexByDesk[desk] % scenarios.length, s = scenarios[idx][ar?'ar':'en'];
-  el.innerHTML = `<h4 style="margin:0 0 6px">${s.title}</h4><p class="stage-note">${s.desc}</p>` +
-    s.opts.map((o,i)=>`<button type="button" class="option" onclick="spotAnswerFor('${desk}',${i})">${o.t}</button>`).join('') +
+  spotEnsureOrder(desk);
+  if(!spotSessionStats[desk]) spotSessionStats[desk] = {correct:0, answered:0, startTime:Date.now()};
+  const ar = cycleAr();
+  const pos = spotIndexByDesk[desk] % scenarios.length;
+  const scenarioIdx = spotOrderByDesk[desk][pos];
+  const s = scenarios[scenarioIdx][ar?'ar':'en'];
+  const order = spotShuffle(s.opts.map((_,i)=>i));
+  el.innerHTML = `<p class="stage-note" style="margin:0 0 8px;font-weight:700">${ar?'سيناريو ':'Scenario '}${pos+1} ${ar?'من':'of'} ${scenarios.length}</p><h4 style="margin:0 0 6px">${s.title}</h4><p class="stage-note">${s.desc}</p>` +
+    order.map(i=>`<button type="button" class="option" onclick="spotAnswerFor('${desk}',${i})">${s.opts[i].t}</button>`).join('') +
     `<div id="${desk}-spot-result" style="margin-top:10px"></div>`;
   el.dataset.opts = JSON.stringify(s.opts);
 }
@@ -6859,7 +7835,10 @@ function spotAnswerFor(desk, i){
   const opts = JSON.parse(el.dataset.opts);
   const chosen = opts[i], ar = cycleAr();
   const resEl = document.getElementById(desk+'-spot-result');
+  if(!spotSessionStats[desk]) spotSessionStats[desk] = {correct:0, answered:0, startTime:Date.now()};
+  spotSessionStats[desk].answered++;
   if(chosen.ok){
+    spotSessionStats[desk].correct++;
     resEl.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'صح!':'Correct!')+'</strong> '+chosen.why+'</div>';
     if(typeof learnAddScore==='function') learnAddScore(15);
     if(typeof learnMarkSpotSolved==='function') learnMarkSpotSolved();
@@ -6867,7 +7846,52 @@ function spotAnswerFor(desk, i){
     resEl.innerHTML = '<div class="msg msg-error"><strong>'+(ar?'مش الأدق':'Not quite')+'</strong> '+chosen.why+'</div>';
   }
 }
-function spotNextFor(desk){ spotIndexByDesk[desk]++; spotRenderFor(desk); }
+function spotRenderCompletion(desk){
+  const el = document.getElementById(desk+'-spot-scenario'); if(!el) return;
+  const ar = cycleAr();
+  const stats = spotSessionStats[desk] || {correct:0, answered:0, startTime:Date.now()};
+  const elapsedSec = Math.max(0, Math.round((Date.now() - stats.startTime)/1000));
+  const mins = Math.floor(elapsedSec/60), secs = elapsedSec%60;
+  const timeStr = mins > 0 ? `${mins}${ar?'د ':'m '}${secs}${ar?'ث':'s'}` : `${secs}${ar?'ث':'s'}`;
+  const pct = stats.answered ? (stats.correct/stats.answered*100) : 0;
+  let emoji, en_msg, ar_msg;
+  if(pct >= 80){ emoji='🎉'; en_msg='Round complete — excellent work!'; ar_msg='خلصت الدورة — شغل ممتاز!'; }
+  else if(pct >= 50){ emoji='👍'; en_msg='Round complete — solid round.'; ar_msg='خلصت الدورة — دورة كويسة.'; }
+  else { emoji='💪'; en_msg='Round complete — keep practicing, it will click.'; ar_msg='خلصت الدورة — كمّل مذاكرة، هتتظبط.'; }
+  el.innerHTML = `<div style="text-align:center;padding:22px 10px">
+      <div style="font-size:42px">${emoji}</div>
+      <h4 style="margin:10px 0 4px">${ar?ar_msg:en_msg}</h4>
+      <p class="stage-note" style="font-size:15px;margin:0 0 4px">${ar?'جاوبت صح على':'You answered'} <strong>${stats.correct} ${ar?'من':'of'} ${stats.answered}</strong> ${ar?'سؤال':'questions'}</p>
+      <p class="stage-note">${ar?'الوقت المستغرق: ':'Time taken: '}${timeStr}</p>
+      <button type="button" class="btn btn-primary" style="margin-top:14px" onclick="spotStartNewRound('${desk}')">${ar?'ابدأ دورة جديدة ←':'Start New Round →'}</button>
+    </div>`;
+  const bar = el.parentElement ? el.parentElement.querySelector('.workflow-bar') : null;
+  if(bar) bar.style.display = 'none';
+}
+function spotStartNewRound(desk){
+  spotSessionStats[desk] = {correct:0, answered:0, startTime:Date.now()};
+  spotRenderFor(desk);
+  const el = document.getElementById(desk+'-spot-scenario');
+  const bar = el && el.parentElement ? el.parentElement.querySelector('.workflow-bar') : null;
+  if(bar) bar.style.display = '';
+}
+function spotNextFor(desk){
+  const scenarios = spotScenariosFor(desk);
+  spotEnsureOrder(desk);
+  const wasLast = scenarios.length>0 && (spotIndexByDesk[desk] % scenarios.length) === scenarios.length-1;
+  spotIndexByDesk[desk]++;
+  if(scenarios.length && spotIndexByDesk[desk] % scenarios.length === 0){
+    const lastIdx = spotOrderByDesk[desk][spotOrderByDesk[desk].length-1];
+    let newOrder;
+    do { newOrder = spotShuffle(scenarios.map((_,i)=>i)); } while(scenarios.length>1 && newOrder[0]===lastIdx);
+    spotOrderByDesk[desk] = newOrder;
+    if(wasLast){
+      spotRenderCompletion(desk);
+      return;
+    }
+  }
+  spotRenderFor(desk);
+}
 function learnSpotRender(){ ['ar','ap','inv','treasury','hr','gl'].forEach(spotRenderFor); }
 
 /* ===== Advanced Challenge: Fix the Trial Balance ===== */
@@ -7133,6 +8157,46 @@ function homeRenderCommandCard(){
       ? `زرت ${visitedCount} من ${HOME_STATIONS.length} مكاتب. كمّل رحلتك وابني معرفتك يوم بيوم.`
       : `You've visited ${visitedCount} of ${HOME_STATIONS.length} desks. Keep building your knowledge day by day.`;
   }
+  homeRenderReviewRing();
+  homeRenderWeakAreas();
+}
+const HOME_STATION_META = {
+  ar:{icon:'👥',color:'#2563eb',soft:'#eaf1fd',panel:'ar-home',en:'Accounts Receivable',ar_:'حسابات العملاء'},
+  ap:{icon:'🚚',color:'#ea580c',soft:'#fdf1e8',panel:'ap-home',en:'Accounts Payable',ar_:'حسابات الموردين'},
+  inv:{icon:'📦',color:'#a8600a',soft:'#fbf0dd',panel:'inv-home',en:'Inventory & Warehouse',ar_:'المخزون والمخازن'},
+  treasury:{icon:'🏦',color:'#4338ca',soft:'#ecebfa',panel:'treasury-home',en:'Treasury & Banks',ar_:'الخزينة والبنوك'},
+  hr:{icon:'🧑‍💼',color:'#be185d',soft:'#fbe9f1',panel:'hr-home',en:'Payroll & HR',ar_:'الرواتب والموارد البشرية'},
+  gl:{icon:'📚',color:'#0f766e',soft:'#e6f5f3',panel:'gl-home',en:'General Ledger & Closing',ar_:'دفتر الأستاذ والإقفال'}
+};
+function homeRenderReviewRing(){
+  const fill = document.getElementById('reviewRingFill'); if(!fill) return;
+  const stations = Object.keys(HOME_STATION_META);
+  const masteredCount = stations.filter(s=>typeof quizState!=='undefined' && quizState[s] && quizState[s].passed).length;
+  const pct = Math.round(masteredCount/stations.length*100);
+  const circumference = 264;
+  fill.style.strokeDashoffset = circumference - (circumference*pct/100);
+  const pctEl = document.getElementById('reviewRingPct'); if(pctEl) pctEl.textContent = pct+'%';
+  const countEl = document.getElementById('reviewMasteredCount'); if(countEl) countEl.textContent = masteredCount+'/'+stations.length;
+}
+function homeRenderWeakAreas(){
+  const list = document.getElementById('weakAreasList'); if(!list) return;
+  const ar = cycleAr();
+  const stations = Object.keys(HOME_STATION_META);
+  const weak = stations.filter(s=>!(typeof quizState!=='undefined' && quizState[s] && quizState[s].passed));
+  if(!weak.length){
+    list.innerHTML = `<p class="stage-note" style="text-align:center">${ar?'🎉 حققت إتقان في كل المكاتب!':'🎉 You\'ve mastered every desk!'}</p>`;
+    return;
+  }
+  list.innerHTML = `<div class="home-section-label"><span>${ar?'مناطق تحتاج تركيز':'Areas that need focus'}</span><small>${ar?'مكاتب لسه ما حققتش فيها إتقان':'Desks you haven\'t earned Mastery in yet'}</small></div>` +
+    weak.map(s=>{
+      const m = HOME_STATION_META[s];
+      const best = (typeof quizState!=='undefined' && quizState[s]) ? quizState[s].best||0 : 0;
+      return `<div class="weak-item" style="--dept-color:${m.color};--dept-soft:${m.soft}" onclick="showPanel('${s}-quiz')">
+        <span class="wi-icon" style="background:${m.soft}">${m.icon}</span>
+        <div class="wi-body"><strong>${ar?m.ar_:m.en}</strong><span>${ar?'أفضل نتيجة: ':'Best score: '}${best}/10</span></div>
+        <span class="wi-cta">${ar?'اختبر نفسك ←':'Take the quiz →'}</span>
+      </div>`;
+    }).join('');
 }
 function homeFocusGo(){
   const target = document.getElementById('todaysFocusCard').dataset.target;
@@ -7159,7 +8223,8 @@ function homeRenderFocus(){
     desc = ar?'مكتب لسه ما زرتوش — كل مكتب مستقل بحالاته وتمارينه الخاصة.':'A desk you haven\'t visited yet — each one is independent with its own cases and drills.';
     cta = ar?'افتح المكتب →':'Open desk →';
   } else {
-    const unmastered = HOME_STATIONS.filter(s=>s!=='learn').find(s=>!(typeof quizState!=='undefined' && quizState[s] && quizState[s].passed));
+    const unmasteredList = HOME_STATIONS.filter(s=>s!=='learn').filter(s=>!(typeof quizState!=='undefined' && quizState[s] && quizState[s].passed));
+    const unmastered = unmasteredList.length ? unmasteredList[Math.floor(Math.random()*unmasteredList.length)] : null;
     if(unmastered){
       target = 'quiz-'+unmastered;
       const names2 = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger']};
@@ -7261,6 +8326,27 @@ const QUIZ_LABELS = {ar:['حسابات العملاء','Accounts Receivable'], a
 const QUIZ_KEY = 'ayman_quiz_progress_v1';
 var quizState = {};
 function quizLoad(){ try{ quizState = JSON.parse(localStorage.getItem(QUIZ_KEY)||'{}'); }catch(_){ quizState = {}; } }
+function qtoolRandomSpotError(){
+  const desks = ['ar','ap','inv','treasury','hr','gl'];
+  const d = desks[Math.floor(Math.random()*desks.length)];
+  showPanel(d+'-spot-error');
+}
+function qtoolRandomFraudCatcher(){
+  const targets = ['ar-fraud','ap-fraud','inv-fraud','treasury-fraud-cash','treasury-fraud-bank','hr-fraud','gl-fraud'];
+  const t = targets[Math.floor(Math.random()*targets.length)];
+  showPanel(t);
+}
+function resetAllProgress(){
+  const ar = cycleAr();
+  const ok = confirm(ar ? 'هل أنت متأكد؟ ده هيمسح الستريك والنقاط والمكاتب اللي اتزارت ونتائج كل الاختبارات وتقدّم اكتشف الغلط بالكامل.' : 'Are you sure? This clears your streak, points, visited desks, all quiz results and Spot-the-Error progress completely.');
+  if(!ok) return;
+  try{
+    localStorage.removeItem(LEARN_KEY);
+    localStorage.removeItem(HOME_VISITED_KEY);
+    localStorage.removeItem(QUIZ_KEY);
+  }catch(_){}
+  location.reload();
+}
 function quizSave(){ try{ localStorage.setItem(QUIZ_KEY, JSON.stringify(quizState)); }catch(_){} }
 function shuffleIndices(n){
   const arr = Array.from({length:n}, (_,i)=>i);
@@ -8258,7 +9344,7 @@ window.addEventListener('resize', function(){
 
 <style>
 /* ===== End-to-End Accounting Mission ===== */
-.e2e-shell{max-width:1180px;margin:28px auto;padding:0 18px 50px;display:none}
+.e2e-shell{max-width:1180px;margin-top:28px;margin-bottom:50px;margin-inline-start:max(262px,calc((100vw - 1180px)/2));margin-inline-end:auto;padding:0 18px 50px;display:none}
 .e2e-shell.is-open{display:block}
 .e2e-head{background:linear-gradient(135deg,var(--ink),#28333a);color:#fff;border-radius:22px;padding:24px;box-shadow:0 18px 45px rgba(20,30,35,.14);position:relative;overflow:hidden}
 .e2e-head:after{content:"ACCOUNTING MISSION";position:absolute;right:-28px;top:18px;transform:rotate(8deg);font-size:10px;letter-spacing:2px;font-weight:900;opacity:.12}
@@ -8311,6 +9397,7 @@ function openEndToEndMission(){
   document.getElementById('e2eMission').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function closeEndToEndMission(){document.getElementById('e2eMission').classList.remove('is-open');window.scrollTo({top:0,behavior:'smooth'})}
+function closeE2ECaseLibrary(){ const el = document.getElementById('e2eCaseLibrary'); if(el) el.classList.remove('is-open'); }
 function e2eRender(){
   const ar=e2eAr();
   document.getElementById('e2eProgress').innerHTML=E2E_STEPS.map((_,i)=>`<i class="e2e-dot ${e2e.done.includes(i)?'done':''} ${i===e2e.step&&!e2e.done.includes(i)?'current':''}"></i>`).join('');
@@ -8356,7 +9443,7 @@ e2eLoad();
 
 <style>
 /* ================= End-to-End Case Library ================= */
-.e2e-library{display:none;max-width:1180px;margin:28px auto;padding:0 16px 50px}
+.e2e-library{display:none;max-width:1180px;margin-top:28px;margin-bottom:50px;margin-inline-start:max(262px,calc((100vw - 1180px)/2));margin-inline-end:auto;padding:0 16px 50px}
 .e2e-library.is-open{display:block}
 .e2e-lib-head{padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:0 10px 30px rgba(20,30,35,.06)}
 .e2e-lib-head h2{margin:5px 0;font-size:23px}.e2e-lib-head p{margin:0;color:var(--muted);line-height:1.6;font-size:12px}
@@ -8426,7 +9513,7 @@ const E2E_CASES=[
   steps:[
    ['Evidence','مستندات الأصل','Machine invoice is 120,000 EGP. Installation directly attributable to bringing it into use is 10,000 EGP.','What cost is initially capitalized?',['130,000 EGP, assuming the costs meet the capitalization policy.','120,000 EGP only; installation can never be capitalized.'],0,'Directly attributable costs can form part of asset cost when policy criteria are met.'],
    ['In Service','دخول الخدمة','The machine is ready and available for use on 20 Sep 2026.','When does depreciation begin under the stated policy?',['When the asset is available for use, subject to the company policy.','Only when the first customer uses the machine.'],0,'Depreciation follows the asset’s availability for use under the applicable policy.'],
-   ['Depreciation','الإهلاك','Useful life is 5 years and straight-line depreciation is used; ignore residual value for this case.','What is annual depreciation?',['26,000 EGP','24,000 EGP'],0,'130,000 ÷ 5 = 26,000 EGP per year.'],
+   ['Depreciation','الإهلاك','The capitalized asset cost from Step 1 was 130,000 EGP. Useful life is 5 years and straight-line depreciation is used; ignore residual value for this case.','What is annual depreciation?',['26,000 EGP','24,000 EGP'],0,'130,000 ÷ 5 = 26,000 EGP per year.'],
    ['Close','الإقفال','September depreciation is required after the asset is available for use.','What should the month-end accountant verify?',['Asset register, depreciation calculation, posting and GL balance.','Only the supplier invoice; depreciation can be checked next year.'],0,'Month-end ownership includes proving the register-to-GL trail.']
   ]},
  {id:'bank',no:'MISSION 06',title:'Bank-to-GL — Unknown Receipt',ar:'من كشف البنك إلى دفتر الأستاذ — تحصيل مجهول',
@@ -8473,15 +9560,15 @@ function renderE2ECaseRunner(){
  document.getElementById('e2eCaseTitle').textContent=ar?c.ar:c.title;
  document.getElementById('e2eCaseSubtitle').textContent=ar?c.arDesc:c.desc;
  document.getElementById('e2eCaseStepbar').innerHTML=c.steps.map((_,i)=>`<i class="${i<e2eCaseState.step?'done':''}"></i>`).join('');
- const options=s[3].map((o,i)=>`<label><input type="radio" name="e2eCaseAnswer" value="${i}"> ${o}</label>`).join('');
- document.getElementById('e2eCaseBody').innerHTML=`<div class="e2e-case-docs"><div class="e2e-case-doc"><b>${ar?'المرحلة':'Stage'} ${e2eCaseState.step+1}: ${ar?s[1]:s[0]}</b><span>${s[2]}</span></div><div class="e2e-case-doc"><b>${ar?'نقاط المهمة':'Mission score'}</b><span>${e2eCaseState.score}/40</span></div></div><div class="e2e-case-question"><strong>${ar?s[1]:s[0]} — ${ar?'قرار المحاسب':'Accountant decision'}</strong><div class="e2e-case-options">${options}</div></div><div class="e2e-case-actions"><button type="button" onclick="answerE2ECase()">${ar?'تأكيد القرار ←':'Confirm decision →'}</button></div><div id="e2eCaseMsg" class="e2e-case-msg"></div>`;
+ const options=s[4].map((o,i)=>`<label><input type="radio" name="e2eCaseAnswer" value="${i}"> ${o}</label>`).join('');
+ document.getElementById('e2eCaseBody').innerHTML=`<div class="e2e-case-docs"><div class="e2e-case-doc"><b>${ar?'المرحلة':'Stage'} ${e2eCaseState.step+1}: ${ar?s[1]:s[0]}</b><span>${s[2]}</span></div><div class="e2e-case-doc"><b>${ar?'نقاط المهمة':'Mission score'}</b><span>${e2eCaseState.score}/40</span></div></div><div class="e2e-case-question"><strong>${s[3]}</strong><div class="e2e-case-options">${options}</div></div><div class="e2e-case-actions"><button type="button" onclick="answerE2ECase()">${ar?'تأكيد القرار ←':'Confirm decision →'}</button></div><div id="e2eCaseMsg" class="e2e-case-msg"></div>`;
 }
 function answerE2ECase(){
  const c=E2E_CASES.find(x=>x.id===e2eCaseState.id),s=c.steps[e2eCaseState.step],v=document.querySelector('input[name="e2eCaseAnswer"]:checked')?.value,m=document.getElementById('e2eCaseMsg'),ar=document.documentElement.lang==='ar';
  if(v===undefined){m.textContent=ar?'اختر قرارًا أولًا.':'Choose a decision first.';return}
- if(Number(v)===s[4]){
+ if(Number(v)===s[5]){
    e2eCaseState.score+=10;
-   m.innerHTML=`<strong>✓ ${ar?'صحيح.':'Correct.'}</strong> ${s[5]}`;
+   m.innerHTML=`<strong>✓ ${ar?'صحيح.':'Correct.'}</strong> ${s[6]}`;
    setTimeout(()=>{if(e2eCaseState.step<c.steps.length-1){e2eCaseState.step++;renderE2ECaseRunner()}else{m.innerHTML=`<strong>✓ ${ar?'اكتملت المهمة.':'Mission complete.'}</strong> ${ar?'النتيجة: '+e2eCaseState.score+'/40':'Final score: '+e2eCaseState.score+'/40'}`;document.getElementById('e2eCaseBody').insertAdjacentHTML('beforeend',`<div class="e2e-case-actions"><button type="button" onclick="startE2ECase('${c.id}')">${ar?'إعادة الحالة':'Run again'}</button></div>`)}},500);
  }else{
    m.innerHTML=`<strong>✕ ${ar?'ليس هذا المسار.':'Not this path.'}</strong> ${ar?'ارجع للدليل قبل اتخاذ القرار.':'Go back to the evidence before deciding.'}`;
