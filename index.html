@@ -13,45 +13,51 @@
    gilt gold for figures, brick ink-red used sparingly.
    ============================================================ */
 :root{
-  --paper:#f3f6f4;
+  /* —— Midnight Ledger palette —— */
+  --paper:#f0f2f7;
   --card:#ffffff;
-  --ink:#14231c;
-  --ink-soft:#334940;
-  --muted:#5c6b63;
-  --line:#d5e0da;
-  --line-strong:#b8c9c0;
+  --ink:#0f172a;
+  --ink-soft:#334155;
+  --muted:#64748b;
+  --line:#e2e8f0;
+  --line-strong:#cbd5e1;
 
-  --brand:#0d8f63;
-  --brand-dark:#0a3d2c;
-  --brand-soft:#e3f5ed;
-  --brand-tint:#d0efe3;
+  --brand:#0f766e;
+  --brand-dark:#0b3d4a;
+  --brand-soft:#e0f7f4;
+  --brand-tint:#b8ebe4;
 
-  --gold:#c99214;
-  --gold-soft:#fbf0d4;
+  --gold:#e8a317;
+  --gold-soft:#fff3d6;
 
-  --debit:#c23b2a;
-  --debit-soft:#fde8e4;
+  --debit:#dc2626;
+  --debit-soft:#fee2e2;
 
-  --liability:#8a5420;
-  --liability-soft:#f5e8d4;
+  --liability:#b45309;
+  --liability-soft:#ffedd5;
 
-  --focus:#0b6e99;
+  --focus:#2563eb;
 
-  --info:#2a6f9c;
-  --info-soft:#e2eef6;
-  --teal:#14917a;
-  --teal-soft:#ddf4ef;
-  --indigo:#5555a0;
-  --indigo-soft:#eaeaf8;
-  --services:#6d5aa0;
-  --services-soft:#eeeaf8;
+  --info:#0284c7;
+  --info-soft:#e0f2fe;
+  --teal:#0d9488;
+  --teal-soft:#ccfbf1;
+  --indigo:#6366f1;
+  --indigo-soft:#e0e7ff;
+  --services:#7c3aed;
+  --services-soft:#ede9fe;
 
-  --shadow-sm:0 2px 8px rgba(10,61,44,.06);
-  --shadow-md:0 8px 28px rgba(10,61,44,.10);
-  --shadow-lg:0 18px 50px rgba(10,61,44,.14);
-  --radius:14px;
-  --radius-sm:10px;
-  --glow:0 0 0 4px rgba(13,143,99,.18);
+  --accent:#f43f5e;
+  --accent-soft:#ffe4e6;
+  --navy:#0b3d4a;
+  --navy-deep:#071e28;
+
+  --shadow-sm:0 2px 10px rgba(15,23,42,.06);
+  --shadow-md:0 12px 32px rgba(15,23,42,.10);
+  --shadow-lg:0 24px 56px rgba(15,23,42,.14);
+  --radius:16px;
+  --radius-sm:12px;
+  --glow:0 0 0 4px rgba(15,118,110,.20);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
@@ -1115,12 +1121,13 @@ header{position:relative}
 .hero h1{
   background:none !important;-webkit-text-fill-color:unset !important;
   color:#fff !important;
-  font-size:clamp(46px,7.2vw,94px) !important;
-  line-height:.95 !important;
-  letter-spacing:-.03em !important;
-  margin:14px 0 18px !important;
+  font-size:clamp(28px,4vw,46px) !important;
+  line-height:1.05 !important;
+  letter-spacing:-.02em !important;
+  margin:12px 0 14px !important;
 }
-.hero p{color:rgba(255,255,255,.72) !important;font-size:19px !important;max-width:560px}
+.hero p{color:rgba(255,255,255,.72) !important;font-size:16px !important;max-width:520px}
+.hero{padding:38px 20px 30px !important}
 .hero .cta{background:var(--gold) !important;color:#26200a !important;font-weight:800 !important;box-shadow:0 10px 24px rgba(0,0,0,.25) !important}
 .hero .cta:hover{background:#e0aa2a !important}
 
@@ -1262,7 +1269,1530 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
 .grand-card .grand-sub{font-size:13px;color:rgba(255,255,255,.7)}
 .grand-card button{margin-top:18px;background:var(--gold);color:#26200a;border:0;font-weight:800;padding:12px 24px;border-radius:12px;font-size:14.5px;cursor:pointer}
 
+
+
+/* ============================================================
+   DESIGN SYSTEM V7 — Midnight Ledger (fundamental redesign)
+   ============================================================ */
+
+/* Global surface */
+body{
+  background:var(--paper) !important;
+  background-image:
+    radial-gradient(ellipse 90% 50% at 10% -15%,rgba(15,118,110,.09),transparent 55%),
+    radial-gradient(ellipse 70% 45% at 95% 5%,rgba(99,102,241,.07),transparent 50%),
+    radial-gradient(ellipse 50% 30% at 50% 100%,rgba(232,163,23,.05),transparent 55%) !important;
+  color:var(--ink) !important;
+}
+h1,h2,h3{color:var(--brand-dark) !important;letter-spacing:-.02em}
+
+/* Header — deep navy glass bar */
+header{
+  background:linear-gradient(120deg,var(--navy-deep) 0%,var(--navy) 45%,#0f766e 100%) !important;
+  border-bottom:none !important;
+  box-shadow:0 8px 32px rgba(7,30,40,.35) !important;
+  padding:16px 5% !important;
+}
+header .logo{letter-spacing:.02em}
+header .logo small{color:rgba(255,255,255,.65) !important;letter-spacing:1.2px !important}
+nav a{color:rgba(255,255,255,.88) !important;font-weight:600 !important}
+nav a:hover{border-bottom-color:var(--gold) !important;color:#fff !important}
+.lang-switch{background:rgba(255,255,255,.12) !important;border:1px solid rgba(255,255,255,.15);border-radius:12px !important}
+.lang-btn.active{background:#fff !important;color:var(--navy-deep) !important;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+
+/* Sidebar — deep navy */
+.sidebar{
+  background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 50%,#0a4a52 100%) !important;
+  box-shadow:6px 0 28px rgba(7,30,40,.25) !important;
+}
+.side-logo small{color:rgba(184,235,228,.7) !important}
+.side-section{color:rgba(184,235,228,.55) !important}
+.side-item{color:rgba(255,255,255,.88) !important;border-radius:12px !important}
+.side-item:hover{background:rgba(15,118,110,.35) !important}
+.side-item[aria-selected="true"]{
+  background:linear-gradient(90deg,var(--gold),#f0b84a) !important;
+  color:var(--navy-deep) !important;
+  box-shadow:0 6px 18px rgba(232,163,23,.4) !important;
+}
+.module-parent{background:rgba(15,118,110,.2) !important;border-inline-start:3px solid var(--gold) !important}
+
+/* Hero — cinematic full-bleed */
+body:not(.is-workspace) .hero,
+.hero{
+  background:
+    radial-gradient(ellipse 80% 70% at 85% 20%,rgba(99,102,241,.25),transparent 50%),
+    radial-gradient(ellipse 60% 50% at 10% 80%,rgba(15,118,110,.3),transparent 45%),
+    linear-gradient(145deg,var(--navy-deep) 0%,var(--navy) 40%,#0f5c66 100%) !important;
+  padding:52px 20px 48px !important;
+  border-radius:0 0 36px 36px !important;
+  position:relative;overflow:hidden;
+}
+.hero .eyebrow{
+  background:rgba(232,163,23,.15) !important;
+  border:1px solid rgba(232,163,23,.35) !important;
+  color:var(--gold) !important;
+  padding:6px 14px !important;
+  border-radius:999px !important;
+  font-style:normal !important;
+  font-family:"IBM Plex Sans",sans-serif !important;
+  font-weight:800 !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase;
+  font-size:11px !important;
+}
+.hero .eyebrow::before{background:var(--gold) !important;box-shadow:0 0 8px var(--gold)}
+.hero h1{
+  background:none !important;-webkit-text-fill-color:#fff !important;color:#fff !important;
+  font-size:clamp(32px,5vw,54px) !important;
+  line-height:1.05 !important;
+  font-weight:700 !important;
+  text-shadow:0 4px 24px rgba(0,0,0,.2);
+}
+.hero p{color:rgba(255,255,255,.75) !important;font-size:16px !important;max-width:520px !important;line-height:1.6}
+.hero .cta{
+  background:linear-gradient(135deg,var(--gold),#f0b84a) !important;
+  color:var(--navy-deep) !important;
+  font-weight:800 !important;
+  padding:14px 24px !important;
+  border-radius:14px !important;
+  box-shadow:0 12px 28px rgba(232,163,23,.4) !important;
+  border:none !important;
+  letter-spacing:.01em;
+}
+.hero .cta:hover{
+  transform:translateY(-3px) !important;
+  box-shadow:0 16px 36px rgba(232,163,23,.5) !important;
+  background:linear-gradient(135deg,#f0b84a,#ffc857) !important;
+  filter:none !important;
+}
+
+/* Focus card — floating pill over hero edge */
+.focus-card{margin-top:-28px !important;position:relative;z-index:5}
+.focus-inner{
+  background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%) !important;
+  border:2px solid rgba(232,163,23,.35) !important;
+  border-radius:20px !important;
+  padding:20px 24px !important;
+  box-shadow:0 20px 48px rgba(15,23,42,.12),0 0 0 1px rgba(255,255,255,.8) inset !important;
+}
+.focus-badge{
+  background:linear-gradient(135deg,var(--gold),#f0b84a) !important;
+  color:var(--navy-deep) !important;
+  box-shadow:0 4px 14px rgba(232,163,23,.4) !important;
+}
+.focus-text strong{font-size:18px !important;color:var(--navy-deep) !important}
+.focus-inner .btn{
+  background:linear-gradient(135deg,var(--navy-deep),var(--brand)) !important;
+  border-radius:12px !important;
+  padding:12px 20px !important;
+  box-shadow:0 8px 20px rgba(11,61,74,.3) !important;
+}
+
+/* Journey banner */
+.home-journey-banner{
+  background:linear-gradient(120deg,rgba(15,118,110,.1),rgba(99,102,241,.08)) !important;
+  border:1px solid rgba(15,118,110,.15) !important;
+  border-radius:20px !important;
+  padding:14px 20px !important;
+  max-width:780px !important;
+  margin:20px auto 24px !important;
+  box-shadow:0 4px 16px rgba(15,23,42,.04);
+}
+.home-journey-banner .hjb-n{
+  background:linear-gradient(135deg,var(--brand),var(--teal)) !important;
+  box-shadow:0 4px 12px rgba(15,118,110,.35) !important;
+}
+
+/* Section blocks — glass cards */
+.home-section-block{
+  background:rgba(255,255,255,.75) !important;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(226,232,240,.9) !important;
+  border-radius:28px !important;
+  padding:28px 24px 32px !important;
+  margin:24px 0 !important;
+  box-shadow:0 12px 40px rgba(15,23,42,.06) !important;
+  overflow:hidden;position:relative;
+}
+.home-section-block::before{
+  height:4px !important;
+  background:linear-gradient(90deg,var(--brand),var(--indigo),var(--gold)) !important;
+  opacity:1 !important;
+}
+.tint-desks{background:linear-gradient(165deg,rgba(224,247,244,.85),rgba(255,255,255,.95)) !important}
+.tint-practice{background:linear-gradient(165deg,rgba(255,243,214,.85),rgba(255,255,255,.95)) !important}
+.tint-tools{background:linear-gradient(165deg,rgba(237,233,254,.85),rgba(255,255,255,.95)) !important}
+
+.home-section-label > span{
+  background:linear-gradient(135deg,var(--navy-deep),var(--brand)) !important;
+  color:#fff !important;
+  font-size:15px !important;
+  padding:8px 16px !important;
+  box-shadow:0 4px 14px rgba(11,61,74,.25);
+}
+.tint-desks .home-section-label > span{background:linear-gradient(135deg,#0e7490,#0f766e) !important}
+.tint-practice .home-section-label > span{background:linear-gradient(135deg,#b45309,#e8a317) !important}
+.tint-tools .home-section-label > span{background:linear-gradient(135deg,#5b21b6,#7c3aed) !important}
+
+/* Desk cards — bold identity */
+.home-depts{gap:18px !important}
+.home-dept{
+  background:#fff !important;
+  border:1px solid var(--line) !important;
+  border-radius:22px !important;
+  border-top:none !important;
+  border-inline-start:5px solid var(--dept-color,var(--brand)) !important;
+  padding:22px 20px 20px !important;
+  min-height:220px !important;
+  box-shadow:0 8px 24px rgba(15,23,42,.05) !important;
+}
+.home-dept:hover{
+  transform:translateY(-6px) scale(1.01) !important;
+  box-shadow:0 20px 44px rgba(15,23,42,.12) !important;
+  border-color:var(--dept-color,var(--brand)) !important;
+}
+.home-dept .hd-icon{
+  width:52px !important;height:52px !important;
+  border-radius:16px !important;
+  font-size:24px !important;
+  background:var(--dept-soft,var(--brand-soft)) !important;
+  box-shadow:0 6px 16px rgba(0,0,0,.06) !important;
+}
+.home-dept .hd-stage{
+  font-size:28px !important;
+  color:var(--dept-soft,var(--brand-soft)) !important;
+  opacity:.9;
+  font-weight:800 !important;
+}
+.home-dept strong{font-size:17px !important;color:var(--ink) !important}
+.home-dept .hd-desk{
+  color:var(--dept-color,var(--brand)) !important;
+  font-size:11px !important;
+  letter-spacing:.06em !important;
+}
+.home-dept .hd-go{
+  color:var(--dept-color,var(--brand)) !important;
+  font-size:13.5px !important;
+  font-weight:800 !important;
+  margin-top:auto;
+  padding-top:12px;
+  border-top:1px dashed var(--line);
+  width:100%;
+}
+/* Dept color identities — vivid */
+.home-dept[data-station="ar"]{--dept-color:#2563eb;--dept-soft:#dbeafe}
+.home-dept[data-station="ap"]{--dept-color:#ea580c;--dept-soft:#ffedd5}
+.home-dept[data-station="inv"]{--dept-color:#ca8a04;--dept-soft:#fef9c3}
+.home-dept[data-station="treasury"]{--dept-color:#4f46e5;--dept-soft:#e0e7ff}
+.home-dept[data-station="hr"]{--dept-color:#db2777;--dept-soft:#fce7f3}
+.home-dept[data-station="gl"]{--dept-color:#0f766e;--dept-soft:#ccfbf1}
+.home-dept[data-station="learn"]{--dept-color:#7c3aed;--dept-soft:#ede9fe}
+
+/* Practice mission cards */
+.tint-practice .home-secondary button{
+  background:#fff !important;
+  border:1.5px solid rgba(232,163,23,.3) !important;
+  border-radius:20px !important;
+  padding:22px 20px !important;
+  box-shadow:0 10px 28px rgba(180,83,9,.08) !important;
+}
+.tint-practice .home-secondary button:hover{
+  border-color:var(--gold) !important;
+  box-shadow:0 16px 40px rgba(180,83,9,.16) !important;
+  transform:translateY(-4px) !important;
+}
+.tint-practice .home-secondary strong{
+  font-size:17px !important;
+  background:linear-gradient(120deg,var(--navy-deep),#b45309);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* Tools */
+.qtool{
+  background:#fff !important;
+  border-radius:18px !important;
+  border:1px solid rgba(124,58,237,.12) !important;
+  padding:18px 14px !important;
+  box-shadow:0 6px 18px rgba(91,33,182,.05) !important;
+}
+.qtool:hover{
+  transform:translateY(-5px) !important;
+  border-color:var(--services) !important;
+  box-shadow:0 14px 32px rgba(91,33,182,.14) !important;
+}
+.qtool .qt-icon{
+  width:46px !important;height:46px !important;
+  border-radius:14px !important;
+  font-size:22px !important;
+}
+
+/* Buttons global */
+.btn-primary,.btn.btn-primary{
+  background:linear-gradient(135deg,var(--brand),#0d9488) !important;
+  border-radius:12px !important;
+  box-shadow:0 6px 16px rgba(15,118,110,.3) !important;
+}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.cta{border-radius:14px !important}
+
+/* Data panels & cards */
+.data-panel,.desk-card,.decision-card,.bridge-card,.case-item,.ticket,.impact-panel{
+  border-radius:18px !important;
+  border-color:var(--line) !important;
+  box-shadow:var(--shadow-sm) !important;
+}
+.data-table th{
+  background:linear-gradient(180deg,var(--brand-soft),#c5ebe4) !important;
+  color:var(--navy-deep) !important;
+}
+
+/* Floor */
+.floor{
+  border-radius:24px !important;
+  border:1px solid var(--line) !important;
+  box-shadow:var(--shadow-md) !important;
+  overflow:hidden;
+}
+.floor-head{
+  background:linear-gradient(120deg,var(--brand-soft),#fff) !important;
+  border-bottom:1px solid var(--line) !important;
+}
+.day-task{
+  border-radius:14px !important;
+  border:1px solid var(--line) !important;
+}
+.day-task:hover{
+  border-color:var(--brand) !important;
+  box-shadow:0 8px 20px rgba(15,118,110,.1) !important;
+}
+
+/* Mindset */
+.mindset-line{
+  background:linear-gradient(90deg,var(--brand-soft),rgba(99,102,241,.08)) !important;
+  border-inline-start:4px solid var(--brand) !important;
+  border-radius:16px !important;
+  color:var(--navy-deep) !important;
+}
+
+/* Home note */
+.home-note{
+  background:linear-gradient(90deg,var(--brand-soft),#fff) !important;
+  border-inline-start:4px solid var(--brand) !important;
+  border-radius:14px !important;
+  color:var(--navy-deep) !important;
+}
+
+/* Workspace chrome */
+.workspace-chrome,.ws-bar{
+  background:linear-gradient(135deg,#fff,var(--brand-soft)) !important;
+  border-radius:18px !important;
+  border:1px solid var(--line) !important;
+  box-shadow:var(--shadow-sm) !important;
+}
+.ws-back{
+  border-radius:10px !important;
+  border:1px solid var(--line-strong) !important;
+}
+.ws-back:hover{background:var(--brand-soft) !important;border-color:var(--brand) !important}
+
+/* Modal */
+.modalbox{
+  border-radius:22px !important;
+  border-top:5px solid var(--gold) !important;
+  box-shadow:var(--shadow-lg) !important;
+}
+.modalbox .option:hover{border-color:var(--brand) !important;background:var(--brand-soft) !important}
+.modalbox .option.correct{border-color:#059669 !important;background:#d1fae5 !important}
+.modalbox .option.wrong{border-color:#dc2626 !important;background:#fee2e2 !important}
+
+/* Menu toggle mobile */
+.menu-toggle{
+  background:linear-gradient(135deg,var(--navy-deep),var(--brand)) !important;
+  border-radius:14px !important;
+  box-shadow:0 8px 24px rgba(7,30,40,.4) !important;
+}
+
+/* Status pills & tags refresh */
+.status-approved,.type-DocClosed,.type-Asset{background:var(--brand-soft) !important;color:var(--brand-dark) !important}
+.status-pending,.type-DocPartial,.type-Revenue{background:var(--gold-soft) !important;color:#92400e !important}
+.status-rejected,.type-DocCancelled,.type-Expense{background:var(--debit-soft) !important;color:var(--debit) !important}
+
+/* Case / problem banner */
+#problem.case,.case.home-view#problem{
+  background:linear-gradient(135deg,var(--navy-deep),var(--navy) 50%,var(--brand)) !important;
+  border-radius:24px !important;
+  box-shadow:0 20px 50px rgba(7,30,40,.3) !important;
+}
+
+/* Chips */
+.chip[aria-selected="true"]{
+  background:linear-gradient(135deg,var(--brand),#0d9488) !important;
+  box-shadow:0 4px 14px rgba(15,118,110,.3) !important;
+}
+
+/* Selection */
+::selection{background:var(--gold-soft);color:var(--navy-deep)}
+
+/* Smooth transitions on interactive surfaces */
+.home-dept,.qtool,.day-task,.btn,.cta,.side-item,.chip{
+  transition:transform .2s cubic-bezier(.34,1.4,.64,1),box-shadow .2s ease,border-color .2s ease,background .2s ease !important;
+}
+
+
+
+
+
+/* ============================================================
+   HOMEPAGE MOCKUP — cream app shell matching design reference
+   ============================================================ */
+body:not(.is-workspace){
+  background:#F7F3EA !important;
+  background-image:none !important;
+}
+
+/* Hero */
+.mock-hero,
+body:not(.is-workspace) .mock-hero.hero{
+  background:linear-gradient(135deg,#0B3D3A 0%,#155E56 45%,#1A7A6D 100%) !important;
+  border-radius:0 0 28px 28px !important;
+  padding:28px 20px 32px !important;
+  margin:0 !important;
+  overflow:hidden;
+  position:relative;
+}
+.mock-hero-inner{
+  max-width:1180px;margin:0 auto;
+  display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:center;
+}
+.mock-hero-copy h1{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  background:none !important;
+  font-size:clamp(26px,4.2vw,40px) !important;
+  line-height:1.1 !important;
+  margin:0 0 10px !important;
+  text-shadow:none !important;
+}
+.mock-hero-copy p{
+  color:rgba(255,255,255,.78) !important;
+  font-size:13.5px !important;
+  margin:0 0 16px !important;
+  max-width:380px !important;
+}
+.mock-cta,
+.mock-hero .mock-cta.cta{
+  display:inline-flex !important;
+  background:#F0B429 !important;
+  color:#1A1508 !important;
+  font-weight:800 !important;
+  font-size:13.5px !important;
+  padding:12px 18px !important;
+  border-radius:999px !important;
+  box-shadow:0 8px 20px rgba(240,180,41,.35) !important;
+  text-decoration:none !important;
+  border:none !important;
+}
+.mock-cta:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.mock-hero-art{
+  display:flex;justify-content:center;align-items:center;
+  min-height:120px;
+}
+.mha-scene{
+  position:relative;width:180px;height:120px;
+  background:rgba(255,255,255,.1);border-radius:20px;
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  flex-wrap:wrap;padding:12px;
+}
+.mha-scene span{font-size:28px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))}
+@media(max-width:700px){
+  .mock-hero-inner{grid-template-columns:1fr}
+  .mock-hero-art{display:none}
+}
+
+/* Home shell */
+.mock-home.home-clean{
+  max-width:720px !important;
+  margin:0 auto !important;
+  padding:16px 16px 40px !important;
+}
+
+/* Steps */
+.mock-steps{
+  display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+  margin:8px 0 14px;padding:10px 8px;
+  background:#fff;border-radius:16px;
+  box-shadow:0 2px 10px rgba(20,40,30,.05);
+  border:1px solid rgba(20,40,30,.06);
+}
+.mock-step{display:flex;align-items:center;gap:7px;font-size:11.5px;color:#3A4A44}
+.mock-step strong{font-size:11.5px;font-weight:700;color:#1A2E28}
+.ms-icon{
+  width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;font-size:14px;
+  background:#E8F5F2;flex:none;
+}
+.ms-1{background:#D6EFEA}
+.ms-2{background:#F8E9C8}
+.ms-3{background:#DCE8F8}
+.ms-chevron{color:#A0B0A8;font-size:18px;font-weight:300}
+
+/* Case banner */
+.mock-case-banner{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  background:#fff;border-radius:16px;padding:14px 16px;
+  border:1px solid rgba(20,40,30,.07);
+  box-shadow:0 4px 14px rgba(20,40,30,.05);
+  margin-bottom:14px;
+}
+.mcb-kicker{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#1A5C54;margin-bottom:4px}
+.mcb-new{
+  background:#E8F8F0;color:#0B7A5A;font-size:9.5px;font-weight:800;
+  letter-spacing:.04em;padding:3px 8px;border-radius:999px;
+}
+.mcb-left strong{display:block;font-size:14.5px;color:#1A2E28;font-family:"Fraunces",serif}
+.mcb-btn{
+  background:#1E6B9F;color:#fff;border:0;border-radius:999px;
+  padding:10px 18px;font-weight:800;font-size:12.5px;cursor:pointer;
+  box-shadow:0 4px 12px rgba(30,107,159,.3);font-family:inherit;
+}
+.mcb-btn:hover{filter:brightness(1.06)}
+
+/* Desk grid 2-col */
+.mock-desks{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;
+}
+.mock-desk{
+  display:flex;flex-direction:column;align-items:stretch;gap:0;
+  background:#fff;border:1px solid rgba(20,40,30,.07);
+  border-radius:16px;padding:0;overflow:hidden;cursor:pointer;
+  text-align:start;font-family:inherit;color:inherit;
+  box-shadow:0 3px 12px rgba(20,40,30,.05);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.mock-desk:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(20,40,30,.1)}
+.md-art{
+  height:72px;display:flex;align-items:center;justify-content:center;
+  font-size:36px;background:#E8F5F2;
+}
+.md-ar{background:#E3F0FB}
+.md-ap{background:#FDEFE6}
+.md-inv{background:#FBF3DC}
+.md-tr{background:#EAE8FB}
+.md-hr{background:#FCE8F1}
+.md-gl{background:#E4F4F1}
+.md-body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:3px}
+.md-code{font-size:10px;font-weight:800;letter-spacing:.06em;color:#6A7B74;text-transform:uppercase}
+.md-body strong{font-size:13px;line-height:1.25;color:#1A2E28;font-family:"Fraunces",serif}
+.md-sub{font-size:11.5px;color:#6A7B74;line-height:1.3}
+.md-go{font-size:11.5px;font-weight:800;color:#1A5C54;margin-top:4px}
+.md-bar{
+  display:block;height:4px;background:#E8EEEA;border-radius:99px;margin-top:6px;overflow:hidden;
+}
+.md-bar i{display:block;height:100%;background:linear-gradient(90deg,#1A7A6D,#2BB5A0);border-radius:99px}
+
+/* Learning Hub */
+.mock-learn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:linear-gradient(135deg,#D6EFEA,#E8F7F4);border:1px solid #B5D9D2;
+  border-radius:16px;padding:14px 16px;margin-bottom:14px;cursor:pointer;
+  text-align:start;font-family:inherit;color:inherit;
+  box-shadow:0 3px 12px rgba(26,92,84,.08);
+  transition:transform .18s ease;
+}
+.mock-learn:hover{transform:translateY(-2px)}
+.ml-copy{display:flex;align-items:flex-start;gap:10px}
+.ml-icon{font-size:28px;line-height:1}
+.ml-copy strong{display:block;font-size:15px;color:#0B3D3A;font-family:"Fraunces",serif}
+.ml-copy span{display:block;font-size:11.5px;color:#4A6B64;margin:2px 0 4px;line-height:1.35}
+.ml-copy em{font-style:normal;font-size:12px;font-weight:800;color:#1A5C54}
+.ml-art{font-size:32px;opacity:.85}
+
+/* Section blocks */
+.mock-section{
+  background:#fff;border-radius:16px;overflow:hidden;margin-bottom:14px;
+  border:1px solid rgba(20,40,30,.07);
+  box-shadow:0 3px 12px rgba(20,40,30,.05);
+}
+.mock-sec-head{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:12px 16px;color:#fff;font-weight:700;font-size:14px;
+  font-family:"Fraunces",serif;
+}
+.mock-sec-head small{font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:600;opacity:.85}
+.mph-practice{background:linear-gradient(135deg,#8B6914,#C4A035)}
+.mph-tools{background:linear-gradient(135deg,#3D2E6B,#5C4A8A)}
+
+.mock-practice-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;
+}
+.mock-prac-card{
+  background:#FAF7F0;border:1px solid #E8DFC8;border-radius:14px;padding:14px;
+  display:flex;flex-direction:column;gap:4px;
+}
+.mock-prac-card strong{font-size:13.5px;color:#1A2E28;font-family:"Fraunces",serif}
+.mock-prac-card span{font-size:12px;color:#6A7B74}
+.mock-prac-card small{font-size:11px;color:#9AA89F;margin-bottom:6px}
+.mp-start{
+  margin-top:auto;background:#155E56;color:#fff;border:0;border-radius:999px;
+  padding:10px 14px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;
+  width:100%;
+}
+.mp-start:hover{filter:brightness(1.08)}
+
+.mock-tools-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px;
+}
+.mock-tool{
+  background:#F7F5FC;border:1px solid #E4DFF0;border-radius:12px;
+  padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;font-family:inherit;color:inherit;text-align:center;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mock-tool:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(61,46,107,.1)}
+.mock-tool span{font-size:22px}
+.mock-tool strong{font-size:11px;font-weight:700;color:#2A2440;line-height:1.2}
+
+.mock-home .home-note{
+  background:#E8F5F2;border-inline-start:3px solid #1A5C54;
+  border-radius:12px;padding:10px 12px;font-size:11.5px;color:#1A2E28;
+  text-align:start !important;margin-top:8px;
+}
+
+@media(max-width:520px){
+  .mock-desks{grid-template-columns:1fr}
+  .mock-practice-grid{grid-template-columns:1fr}
+  .mock-tools-grid{grid-template-columns:repeat(2,1fr)}
+  .mock-steps{gap:4px}
+  .ms-chevron{display:none}
+}
+
+/* Hide legacy home-dept / section-block styles on mock home */
+.mock-home .home-section-block,
+.mock-home .home-depts,
+.mock-home .home-journey-banner{display:none !important}
+
+/* Visited state still works if JS adds is-visited to data-station buttons */
+.mock-desk.is-visited .md-bar i{background:linear-gradient(90deg,#C4A035,#E8C84A)}
+.mock-desk.is-mastered{outline:2px solid #C4A035}
+
+
+/* ============================================================
+   HOMEPAGE V9 — IFRS-style: full-bleed dark titles + tinted body + dense cards
+   ============================================================ */
+
+/* Section shell: light tinted body (content pops), rounded card */
+.home-section-block{
+  background:var(--card) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  border:1px solid var(--line) !important;
+  border-radius:16px !important;
+  padding:0 0 14px !important;
+  margin:16px 0 !important;
+  box-shadow:0 6px 20px rgba(15,23,42,.07) !important;
+  overflow:hidden;
+  position:relative;
+}
+.home-section-block::before{display:none !important}
+
+/* Tinted section bodies — IFRS pattern */
+.tint-desks{
+  background:#E3F2F0 !important;
+  border-color:#b8d9d4 !important;
+}
+.tint-practice{
+  background:#F5EFE3 !important;
+  border-color:#e0d0b0 !important;
+}
+.tint-tools{
+  background:#EDE9F7 !important;
+  border-color:#d4cce8 !important;
+}
+
+/* FULL-BLEED dark title bar — entire row, not a pill */
+.home-section-label{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  flex-wrap:wrap !important;
+  margin:0 !important;
+  padding:13px 16px !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  border-bottom:none !important;
+  border-radius:0 !important;
+  background:#0A3835 !important;
+}
+.home-section-label > span{
+  background:transparent !important;
+  color:#fff !important;
+  font-family:"Fraunces",serif !important;
+  font-size:15px !important;
+  font-weight:700 !important;
+  padding:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  letter-spacing:-.01em !important;
+}
+.home-section-label small{
+  color:rgba(255,255,255,.72) !important;
+  font-size:12px !important;
+  font-weight:600 !important;
+  max-width:440px;
+  text-align:end;
+}
+
+/* Per-section title colors (IFRS-style distinct headers) */
+.tint-desks .home-section-label{
+  background:linear-gradient(135deg,#0A3835,#15514D) !important;
+}
+.tint-practice .home-section-label{
+  background:linear-gradient(135deg,#6B4E16,#92702B) !important;
+}
+.tint-tools .home-section-label{
+  background:linear-gradient(135deg,#3A2E52,#5B4578) !important;
+}
+
+/* Content padding inside shell — tight */
+.home-section-block .home-depts,
+.home-section-block .home-secondary,
+.home-section-block .qtools-grid{
+  padding:12px 12px 4px !important;
+  margin:0 !important;
+}
+
+/* Desk cards — dense, compact (IFRS tool-card feel) */
+.home-depts{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr)) !important;
+  gap:10px !important;
+}
+.home-dept{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  min-height:0 !important;
+  padding:12px 12px 10px !important;
+  border-radius:12px !important;
+  gap:3px !important;
+  background:#fff !important;
+  border:1px solid rgba(15,23,42,.08) !important;
+  border-inline-start:4px solid var(--dept-color,var(--brand)) !important;
+  border-top:none !important;
+  box-shadow:0 2px 8px rgba(15,23,42,.05) !important;
+}
+.home-dept:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 8px 20px rgba(15,23,42,.1) !important;
+  border-color:var(--dept-color,var(--brand)) !important;
+}
+.home-dept .hd-icon{
+  width:34px !important;height:34px !important;
+  border-radius:9px !important;
+  font-size:16px !important;
+  margin-bottom:2px !important;
+  box-shadow:none !important;
+}
+.home-dept .hd-stage{
+  font-size:18px !important;
+  top:8px !important;
+  inset-inline-end:10px !important;
+  opacity:.4 !important;
+  color:var(--dept-color,var(--brand)) !important;
+  background:transparent !important;
+  padding:0 !important;
+}
+.home-dept strong{
+  font-size:13.5px !important;
+  line-height:1.25 !important;
+  margin:0 0 1px !important;
+  padding-inline-end:32px !important;
+  color:var(--ink) !important;
+  font-family:"Fraunces",serif !important;
+}
+.home-dept .hd-desk{
+  font-size:10px !important;
+  margin:0 0 2px !important;
+  letter-spacing:.04em !important;
+  text-transform:uppercase !important;
+  color:var(--dept-color,var(--brand)) !important;
+  font-weight:700 !important;
+}
+.home-dept > span:not(.hd-stage):not(.hd-icon):not(.hd-desk):not(.hd-go):not(.hd-visited-badge){
+  font-size:11.5px !important;
+  line-height:1.35 !important;
+  color:var(--muted) !important;
+}
+.home-dept .hd-go{
+  font-size:11.5px !important;
+  padding-top:7px !important;
+  margin-top:6px !important;
+  border-top:1px dashed var(--line) !important;
+  color:var(--dept-color,var(--brand)) !important;
+  font-weight:800 !important;
+  width:100%;
+}
+.home-dept .hd-visited-badge{
+  width:18px !important;height:18px !important;font-size:10px !important;
+  top:8px !important;inset-inline-end:8px !important;
+}
+
+/* Practice — dense dual cards */
+.tint-practice .home-secondary{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:10px !important;
+  max-width:none !important;
+}
+.tint-practice .home-secondary button{
+  background:#fff !important;
+  border:1px solid rgba(146,112,43,.25) !important;
+  border-radius:12px !important;
+  padding:12px 14px !important;
+  box-shadow:0 2px 8px rgba(107,78,22,.06) !important;
+  text-align:start !important;
+}
+.tint-practice .home-secondary button:hover{
+  border-color:#92702B !important;
+  box-shadow:0 6px 16px rgba(107,78,22,.12) !important;
+  transform:translateY(-2px) !important;
+}
+.tint-practice .home-secondary strong{
+  font-size:14px !important;
+  color:var(--ink) !important;
+  -webkit-text-fill-color:unset !important;
+  background:none !important;
+  font-family:"Fraunces",serif !important;
+}
+.tint-practice .home-secondary span{font-size:11.5px !important;line-height:1.4;color:var(--muted)}
+.tint-practice .home-secondary small{font-size:11px !important}
+@media(max-width:700px){
+  .tint-practice .home-secondary{grid-template-columns:1fr !important}
+  .home-section-label small{text-align:start;max-width:none}
+}
+
+/* Tools denser */
+.qtools-grid{
+  gap:8px !important;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr)) !important;
+  padding:12px 12px 4px !important;
+  margin:0 !important;
+  max-width:none !important;
+}
+.qtool{
+  padding:10px 10px !important;
+  border-radius:11px !important;
+  gap:5px !important;
+  background:#fff !important;
+  border:1px solid rgba(91,69,120,.12) !important;
+  box-shadow:0 2px 6px rgba(58,46,82,.05) !important;
+}
+.qtool:hover{
+  transform:translateY(-2px) !important;
+  border-color:#5B4578 !important;
+  box-shadow:0 6px 14px rgba(58,46,82,.12) !important;
+}
+.qtool .qt-icon{
+  width:32px !important;height:32px !important;
+  border-radius:8px !important;
+  font-size:15px !important;
+}
+.qtool strong{font-size:12px !important}
+
+/* Journey banner tighter */
+.home-journey-banner{
+  margin:12px auto 10px !important;
+  padding:9px 14px !important;
+  border-radius:14px !important;
+  max-width:720px !important;
+}
+
+.home-note{
+  margin-top:12px !important;
+  margin-bottom:4px !important;
+  padding:10px 14px !important;
+  font-size:12px !important;
+}
+
+.home-clean{
+  padding:4px 20px 24px !important;
+}
+
+/* Dept colors stay vivid on white cards */
+.home-dept[data-station="ar"]{--dept-color:#1E5FA8;--dept-soft:#dbeafe}
+.home-dept[data-station="ap"]{--dept-color:#c2410c;--dept-soft:#ffedd5}
+.home-dept[data-station="inv"]{--dept-color:#a16207;--dept-soft:#fef9c3}
+.home-dept[data-station="treasury"]{--dept-color:#4338ca;--dept-soft:#e0e7ff}
+.home-dept[data-station="hr"]{--dept-color:#be185d;--dept-soft:#fce7f3}
+.home-dept[data-station="gl"]{--dept-color:#0f766e;--dept-soft:#ccfbf1}
+.home-dept[data-station="learn"]{--dept-color:#6d28d9;--dept-soft:#ede9fe}
+
+
+/* ============================================================
+   HOMEPAGE V6 — more engaging editorial floor
+   ============================================================ */
+.home-journey-banner{
+  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  max-width:720px;margin:6px auto 18px;padding:12px 16px;
+  background:linear-gradient(120deg,rgba(13,143,99,.08),rgba(201,146,20,.08));
+  border:1px solid var(--line);border-radius:999px;
+}
+.home-journey-banner .hjb-step{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:700;color:var(--brand-dark);
+}
+.home-journey-banner .hjb-n{
+  width:24px;height:24px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--brand);color:#fff;font-size:11px;font-weight:800;
+  box-shadow:0 4px 10px rgba(13,143,99,.25);
+}
+.home-journey-banner .hjb-line{
+  width:28px;height:2px;background:linear-gradient(90deg,var(--brand),var(--gold));
+  border-radius:2px;opacity:.55;
+}
+@media(max-width:520px){
+  .home-journey-banner{border-radius:16px;gap:8px}
+  .home-journey-banner .hjb-line{width:14px}
+}
+
+/* Focus card — pull it into the story right under the hero */
+.focus-card{
+  max-width:1180px;margin:-8px auto 0 !important;padding:0 20px !important;
+  position:relative;z-index:2;
+}
+.focus-inner{
+  background:linear-gradient(120deg,#fff8e6,#fde9b0) !important;
+  border:1px solid rgba(201,146,20,.4) !important;
+  border-radius:18px !important;
+  padding:18px 22px !important;
+  box-shadow:0 14px 32px rgba(169,120,31,.18) !important;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.focus-badge{
+  background:var(--gold) !important;color:#2a2208 !important;
+  font-size:11px !important;font-weight:800 !important;
+  letter-spacing:.4px;padding:5px 12px !important;border-radius:999px;
+  box-shadow:0 4px 12px rgba(201,146,20,.35);
+}
+.focus-text{flex:1;min-width:200px}
+.focus-text strong{font-family:"Fraunces",serif;font-size:17px !important;color:var(--brand-dark)}
+.focus-inner .btn{
+  background:linear-gradient(135deg,var(--brand-dark),var(--brand)) !important;
+  color:#fff !important;border:0 !important;
+  padding:11px 18px !important;border-radius:12px !important;
+  font-weight:800 !important;
+  box-shadow:0 8px 18px rgba(13,143,99,.3);
+}
+
+/* Section blocks — clearer rhythm */
+.home-section-block{
+  border-radius:22px !important;
+  padding:24px 22px 28px !important;
+  margin:20px 0 !important;
+  border:1px solid rgba(20,35,28,.06);
+  box-shadow:0 8px 28px rgba(18,60,44,.06);
+  position:relative;overflow:hidden;
+}
+.home-section-block::before{
+  content:"";position:absolute;top:0;inset-inline-start:0;inset-inline-end:0;height:3px;
+  background:linear-gradient(90deg,var(--brand),var(--gold));
+  opacity:.7;
+}
+.tint-desks{background:linear-gradient(165deg,#eef5ff 0%,#f7faff 55%,#fff 100%) !important}
+.tint-practice{background:linear-gradient(165deg,#fff6e0 0%,#fffaf0 55%,#fff 100%) !important}
+.tint-tools{background:linear-gradient(165deg,#f4effc 0%,#faf7fe 55%,#fff 100%) !important}
+
+.home-section-label{
+  margin:0 0 16px !important;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.home-section-label > span{
+  font-family:"Fraunces",serif !important;
+  font-size:18px !important;font-weight:700 !important;
+  color:#fff !important;
+  padding:6px 14px !important;border-radius:999px !important;
+  letter-spacing:.01em;
+}
+.home-section-label small{
+  font-size:12.5px !important;color:var(--ink-soft) !important;font-weight:600 !important;
+}
+
+/* Desks — richer cards */
+.home-depts{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr)) !important;
+  gap:16px !important;margin:0 !important;
+}
+.home-dept{
+  display:flex !important;flex-direction:column !important;align-items:flex-start !important;
+  border-radius:18px !important;
+  padding:22px 20px 18px !important;
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid rgba(20,35,28,.08) !important;
+  box-shadow:0 6px 18px rgba(18,60,44,.06) !important;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease !important;
+  min-height:210px;
+}
+.home-dept:hover{
+  transform:translateY(-5px) !important;
+  box-shadow:0 16px 36px rgba(18,60,44,.14) !important;
+  border-color:var(--dept-color,var(--brand)) !important;
+}
+.home-dept .hd-icon{
+  width:48px !important;height:48px !important;border-radius:14px !important;
+  font-size:22px !important;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
+}
+.home-dept strong{
+  font-size:16.5px !important;margin-top:2px;
+  font-family:"Fraunces",serif !important;
+}
+.home-dept .hd-go{
+  margin-top:auto;padding-top:10px;
+  font-size:13px !important;
+}
+
+/* Practice — dual action cards that feel like missions */
+.tint-practice .home-secondary{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:14px !important;
+  max-width:none !important;
+}
+.tint-practice .home-secondary-single{max-width:none !important}
+.tint-practice .home-secondary button,
+.tint-practice .home-secondary a{
+  background:#fff !important;
+  border:1px solid rgba(201,146,20,.25) !important;
+  border-radius:16px !important;
+  padding:18px 18px !important;
+  box-shadow:0 8px 22px rgba(169,120,31,.08) !important;
+  transition:transform .18s ease,box-shadow .18s ease !important;
+  position:relative;overflow:hidden;
+}
+.tint-practice .home-secondary button::after{
+  content:"";position:absolute;inset-inline-end:-20px;bottom:-20px;
+  width:90px;height:90px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,146,20,.12),transparent 70%);
+  pointer-events:none;
+}
+.tint-practice .home-secondary button:hover{
+  transform:translateY(-3px) !important;
+  box-shadow:0 14px 30px rgba(169,120,31,.16) !important;
+  border-color:var(--gold) !important;
+}
+.tint-practice .home-secondary strong{
+  font-size:16px !important;font-family:"Fraunces",serif !important;
+  color:var(--brand-dark) !important;
+}
+.tint-practice .home-secondary span{font-size:12.5px !important;line-height:1.5}
+@media(max-width:700px){
+  .tint-practice .home-secondary{grid-template-columns:1fr !important}
+}
+
+/* Tools grid */
+.qtools-grid{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr)) !important;
+  gap:12px !important;margin:0 !important;padding:0 !important;max-width:none !important;
+}
+.qtool{
+  background:#fff !important;
+  border-radius:16px !important;
+  padding:16px 14px !important;
+  border:1px solid rgba(124,58,237,.12) !important;
+  box-shadow:0 4px 14px rgba(80,40,140,.05) !important;
+  transition:transform .18s ease,box-shadow .18s ease !important;
+}
+.qtool:hover{
+  transform:translateY(-4px) !important;
+  box-shadow:0 12px 26px rgba(80,40,140,.12) !important;
+  border-color:rgba(124,58,237,.35) !important;
+}
+.qtool .qt-icon{
+  width:42px !important;height:42px !important;border-radius:12px !important;
+  font-size:20px !important;
+}
+
+/* Home note */
+.home-note{
+  margin-top:22px !important;
+  padding:12px 16px;
+  background:var(--brand-soft);
+  border-radius:12px;
+  border-inline-start:3px solid var(--brand);
+  text-align:start !important;
+  color:var(--brand-dark) !important;
+  font-size:12.5px !important;
+}
+
+/* Hero polish — tighter, more magazine */
+body:not(.is-workspace) .hero{
+  padding:42px 20px 36px !important;
+  border-radius:0 0 28px 28px;
+  margin-bottom:0 !important;
+}
+body:not(.is-workspace) .hero h1{
+  font-size:clamp(30px,4.4vw,48px) !important;
+  line-height:1.08 !important;
+}
+body:not(.is-workspace) .hero p{
+  font-size:15.5px !important;max-width:540px !important;
+  color:rgba(255,255,255,.78) !important;
+}
+body:not(.is-workspace) .hero .cta{
+  margin-top:16px;
+  padding:14px 22px !important;
+  font-size:14.5px !important;
+}
+
+/* Floor section — more immersive when visible */
+.floor.home-view{
+  border-radius:22px !important;
+  overflow:hidden;
+  box-shadow:0 12px 36px rgba(18,60,44,.1) !important;
+}
+.floor-head{
+  background:linear-gradient(120deg,var(--brand-soft),#fff) !important;
+}
+.day-task:hover{border-color:var(--brand) !important}
+
+/* Mindset line */
+.mindset-line.home-view{
+  border-radius:14px !important;
+  margin:18px auto !important;
+  max-width:1180px;
+  box-shadow:0 4px 16px rgba(13,143,99,.08);
+}
+
+/* Soft page background for home */
+body:not(.is-workspace){
+  background-image:
+    radial-gradient(ellipse 100% 60% at 0% -10%,rgba(13,143,99,.06),transparent 50%),
+    radial-gradient(ellipse 80% 50% at 100% 0%,rgba(201,146,20,.05),transparent 45%),
+    radial-gradient(ellipse 60% 40% at 50% 100%,rgba(37,99,235,.04),transparent 50%) !important;
+}
+
+/* Stagger desk entrance a touch more */
+.home-dept{animation:fadeUp .45s ease both}
+.home-dept:nth-child(1){animation-delay:.04s}
+.home-dept:nth-child(2){animation-delay:.08s}
+.home-dept:nth-child(3){animation-delay:.12s}
+.home-dept:nth-child(4){animation-delay:.16s}
+.home-dept:nth-child(5){animation-delay:.20s}
+.home-dept:nth-child(6){animation-delay:.24s}
+.home-dept:nth-child(7){animation-delay:.28s}
+
+
+/* Distinct tinted background blocks for home floor sections */
+.home-section-block{border-radius:20px;padding:22px 20px 26px;margin:22px 0}
+.home-section-block .home-section-label{margin-top:0}
+.tint-desks{background:linear-gradient(160deg,#eaf1fd,#f6f9fe)}
+.tint-tools{background:linear-gradient(160deg,#f2ecfc,#f9f6fe)}
+.tint-practice{background:linear-gradient(160deg,#fdf3d9,#fdfaf0)}
+.home-section-label span{
+  display:inline-block;padding:5px 14px;border-radius:9px;color:#fff;font-weight:800;
+  font-size:13px;letter-spacing:.02em;
+}
+.tint-desks .home-section-label span{background:#2563eb}
+.tint-tools .home-section-label span{background:#7c3aed}
+.tint-practice .home-section-label span{background:#b8860b}
+
 </style>
+<style id="homeVisibilityFix">
+/* Force homepage always visible + compact under hero */
+.hero.mock-hero,.mock-hero{
+  display:block !important;visibility:visible !important;opacity:1 !important;
+  min-height:140px !important;
+  background:linear-gradient(135deg,#0B3D3A 0%,#155E56 45%,#1A7A6D 100%) !important;
+  color:#fff !important;position:relative !important;z-index:2 !important;
+  padding:24px 18px 28px !important;margin:0 !important;
+  border-radius:0 0 24px 24px !important;
+  max-width:none !important;width:100% !important;
+}
+.mock-hero-copy h1,.mock-hero h1{
+  color:#fff !important;-webkit-text-fill-color:#fff !important;background:none !important;
+  opacity:1 !important;visibility:visible !important;
+  font-size:clamp(26px,6vw,40px) !important;line-height:1.12 !important;
+}
+.mock-hero-copy p{color:rgba(255,255,255,.85) !important;opacity:1 !important;margin:0 0 14px !important}
+.mock-cta{display:inline-flex !important;opacity:1 !important;visibility:visible !important}
+
+body:not(.is-workspace) #homeClean,
+body:not(.is-workspace) .home-clean.mock-home,
+body:not(.is-workspace) #homeClean.mock-home{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  z-index:1 !important;
+  max-width:720px !important;
+  margin:12px auto 0 !important;
+  padding:8px 14px 40px !important;
+}
+body.is-workspace #homeClean,
+body.is-workspace .home-clean,
+body.is-workspace .mock-home{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  overflow:hidden !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+.mock-home .reveal,#homeClean .reveal,
+.mock-steps,.mock-case-banner,.mock-desks,.mock-learn,.mock-section{
+  opacity:1 !important;transform:none !important;visibility:visible !important;
+}
+.mock-desks{display:grid !important;grid-template-columns:1fr 1fr !important;gap:10px !important;margin:0 0 12px !important}
+.mock-desk{display:flex !important;opacity:1 !important;visibility:visible !important;background:#fff !important}
+.mock-steps{display:flex !important;opacity:1 !important;margin:0 0 12px !important}
+.mock-case-banner{display:flex !important;opacity:1 !important;margin:0 0 12px !important;background:#fff !important}
+.mock-learn{display:flex !important;opacity:1 !important;margin:0 0 12px !important}
+.mock-section{display:block !important;opacity:1 !important;margin:0 0 12px !important;background:#fff !important}
+.mock-practice-grid{display:grid !important;grid-template-columns:1fr 1fr !important;gap:10px !important;padding:12px !important}
+.mock-tools-grid{display:grid !important;grid-template-columns:repeat(3,1fr) !important;gap:8px !important;padding:12px !important}
+
+/* Never hide home floor under sidebar on phones */
+@media(max-width:800px){
+  .page{margin-inline-start:0 !important;margin-left:0 !important;margin-right:0 !important}
+  .sidebar{transform:translateX(-100%) !important}
+  .sidebar.open{transform:translateX(0) !important}
+}
+body:not(.is-workspace) .page{min-height:100vh;background:#F7F3EA}
+body:not(.is-workspace) main#main-content{display:block !important;visibility:visible !important;opacity:1 !important;padding-top:0 !important}
+
+/* Prevent accidental full-screen overlays when closed */
+.modal:not(.open){display:none !important}
+.e2e-shell:not(.is-open),.e2e-library:not(.is-open){display:none !important}
+.grand-overlay:not(.show){display:none !important}
+</style>
+<style id="deskCardUnified">
+
+/* ============================================================
+   Desk cards — unified darker fill + thick colored frame
+   ============================================================ */
+.mock-desk{
+  display:flex !important;
+  flex-direction:column !important;
+  background:var(--desk-bg,#d4e4f0) !important;
+  border:3px solid var(--desk-border,#1e5fa8) !important;
+  border-radius:16px !important;
+  padding:14px 14px 12px !important;
+  overflow:hidden !important;
+  box-shadow:0 4px 14px rgba(15,23,42,.08) !important;
+  gap:6px !important;
+}
+.mock-desk .md-art{
+  height:auto !important;
+  min-height:0 !important;
+  background:transparent !important;
+  font-size:28px !important;
+  justify-content:flex-start !important;
+  padding:0 !important;
+  margin:0 0 2px !important;
+}
+.mock-desk .md-body{
+  padding:0 !important;
+  background:transparent !important;
+  gap:3px !important;
+}
+.mock-desk .md-code{
+  color:var(--desk-border,#1e5fa8) !important;
+  font-weight:800 !important;
+}
+.mock-desk .md-body strong{
+  color:#14231c !important;
+}
+.mock-desk .md-sub{
+  color:#3a4a44 !important;
+}
+.mock-desk .md-go{
+  color:var(--desk-border,#1e5fa8) !important;
+}
+.mock-desk .md-bar{
+  background:rgba(0,0,0,.12) !important;
+  margin-top:8px !important;
+}
+.mock-desk .md-bar i{
+  background:var(--desk-border,#1e5fa8) !important;
+}
+
+/* Per-desk darker pastel fills + strong borders */
+.mock-desk[data-station="ar"]{
+  --desk-bg:#b8d4f0;
+  --desk-border:#1a4f8c;
+}
+.mock-desk[data-station="ap"]{
+  --desk-bg:#f0c9b0;
+  --desk-border:#c2410c;
+}
+.mock-desk[data-station="inv"]{
+  --desk-bg:#e8d9a0;
+  --desk-border:#92700c;
+}
+.mock-desk[data-station="treasury"]{
+  --desk-bg:#c5c0f0;
+  --desk-border:#4338ca;
+}
+.mock-desk[data-station="hr"]{
+  --desk-bg:#f0c0d4;
+  --desk-border:#be185d;
+}
+.mock-desk[data-station="gl"]{
+  --desk-bg:#a8d9d0;
+  --desk-border:#0f5c54;
+}
+.mock-desk:hover{
+  transform:translateY(-3px) !important;
+  box-shadow:0 10px 24px rgba(15,23,42,.14) !important;
+  filter:brightness(1.03);
+}
+
+</style>
+<style id="modalForceOpen">
+#modal.open, .modal.open{display:flex !important; z-index:2147483646 !important; position:fixed !important; inset:0 !important; align-items:center !important; justify-content:center !important; background:rgba(10,20,18,.55) !important;}
+#modal .modalbox{pointer-events:auto !important; max-height:90vh; overflow:auto;}
+.mcb-btn, .mp-start{pointer-events:auto !important; cursor:pointer !important; position:relative; z-index:2;}
+.mock-case-banner{pointer-events:auto !important;}
+</style>
+
+<style id="focusCardFix">
+#todaysFocusCard.focus-card,
+.focus-card#todaysFocusCard{
+  /* visible only on home — see body:not(.is-workspace) rules below */
+  max-width:720px;
+  margin:12px auto;
+  padding:0 14px;
+  position:relative;
+  z-index:3;
+}
+#todaysFocusCard[hidden]{ display:block !important; }
+#todaysFocusCard .focus-inner{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  border:1px solid rgba(20,40,30,.1);
+  border-radius:16px;
+  padding:14px 16px;
+  box-shadow:0 4px 14px rgba(20,40,30,.06);
+}
+#todaysFocusCard .focus-badge{
+  background:#0B3D3A;
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  border-radius:999px;
+}
+#todaysFocusCard .focus-text{ flex:1; min-width:180px; }
+#todaysFocusCard .focus-text strong{ display:block; font-size:15px; color:#1A2E28; font-family:"Fraunces",serif; }
+#todaysFocusCard .focus-text span{ display:block; font-size:12.5px; color:#5a6b64; margin-top:2px; }
+#todaysFocusCard #focus-cta,
+#todaysFocusCard .btn-primary{
+  pointer-events:auto !important;
+  cursor:pointer !important;
+  background:#155E56 !important;
+  color:#fff !important;
+  border:0 !important;
+  border-radius:999px !important;
+  padding:10px 16px !important;
+  font-weight:800 !important;
+  font-size:13px !important;
+  white-space:nowrap;
+}
+body.is-workspace #todaysFocusCard{ display:none !important; }
+</style>
+
+
+<style id="wsSubnavDeluxe">
+/* Workspace menu — brand teal ops + gold practice cards */
+.ws-subnav.ws-subnav-deluxe,
+body.is-workspace .ws-subnav{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  gap:10px !important;
+  max-width:420px !important;
+  margin-top:14px !important;
+  width:100%;
+}
+.ws-sec-label{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin:4px 0 2px;
+  padding:0 2px;
+}
+.ws-sec-ops{ color:#0B3D3A; }
+.ws-sec-practice{ color:#8B6914; margin-top:8px; }
+
+/* Operational list — teal identity */
+.ws-ops-list{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  background:linear-gradient(180deg,#E8F5F2 0%,#F3FAF8 100%);
+  border:1px solid #B5D9D2;
+  border-radius:16px;
+  padding:8px;
+}
+.ws-ops-btn{
+  border:1px solid transparent !important;
+  background:rgba(255,255,255,.75) !important;
+  color:#1A2E28 !important;
+  padding:11px 14px !important;
+  border-radius:12px !important;
+  font:600 13px inherit !important;
+  cursor:pointer;
+  text-align:start !important;
+  border-inline-start:4px solid #1A7A6D !important;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  width:100%;
+}
+.ws-ops-btn:hover{
+  background:#fff !important;
+  box-shadow:0 4px 12px rgba(11,61,58,.1);
+  transform:translateY(-1px);
+  border-color:#1A7A6D !important;
+}
+.ws-ops-btn[aria-selected="true"]{
+  background:#155E56 !important;
+  color:#fff !important;
+  border-inline-start-color:#F0B429 !important;
+  font-weight:800 !important;
+}
+
+/* Practice grid — rounded gold-family cards */
+.ws-practice-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+@media(min-width:520px){
+  .ws-practice-grid{ grid-template-columns:1fr 1fr; }
+}
+.ws-practice-card{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:8px !important;
+  text-align:start !important;
+  padding:14px 14px 12px !important;
+  border-radius:18px !important;
+  border:2px solid #D4B84A !important;
+  background:linear-gradient(145deg,#FFF8E6 0%,#F5E6B8 100%) !important;
+  color:#3D2E0A !important;
+  cursor:pointer;
+  font:700 13px inherit !important;
+  box-shadow:0 4px 14px rgba(139,105,20,.12);
+  transition:transform .15s ease, box-shadow .15s ease;
+  width:100%;
+}
+.ws-practice-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(139,105,20,.18);
+}
+.ws-practice-card .ws-pk-icon{
+  font-size:22px;
+  line-height:1;
+  width:40px;height:40px;
+  display:grid;place-items:center;
+  border-radius:12px;
+  background:rgba(255,255,255,.7);
+}
+.ws-practice-card .ws-pk-label{
+  line-height:1.25;
+}
+/* subtle kind variants within gold family */
+.ws-practice-card.ws-pk-fraud{
+  border-color:#C4A035 !important;
+  background:linear-gradient(145deg,#FFF6E0 0%,#F0D989 100%) !important;
+}
+.ws-practice-card.ws-pk-spot{
+  border-color:#B8952C !important;
+  background:linear-gradient(145deg,#FFF9EB 0%,#EDE0A8 100%) !important;
+}
+.ws-practice-card.ws-pk-quiz{
+  border-color:#A67C00 !important;
+  background:linear-gradient(145deg,#FFF4D0 0%,#E8C84A 55%,#D4B84A 100%) !important;
+}
+.ws-practice-card[aria-selected="true"]{
+  outline:2px solid #0B3D3A;
+  outline-offset:2px;
+}
+
+/* Hide legacy plain subnav button look when deluxe active */
+.ws-subnav-deluxe > button{ display:none !important; }
+</style>
+
+
+<style id="workspaceIsolation">
+/* ===== When inside a desk: ONLY workspace chrome + panels ===== */
+body.is-workspace .hero,
+body.is-workspace .mock-hero,
+body.is-workspace .hero.mock-hero,
+body.is-workspace #homeClean,
+body.is-workspace .home-clean,
+body.is-workspace .mock-home,
+body.is-workspace .home-view,
+body.is-workspace .focus-card,
+body.is-workspace #todaysFocusCard,
+body.is-workspace .quickjump,
+body.is-workspace .mock-steps,
+body.is-workspace .mock-case-banner,
+body.is-workspace .mock-desks,
+body.is-workspace .mock-learn,
+body.is-workspace .mock-section,
+body.is-workspace .mock-practice,
+body.is-workspace .mock-tools,
+body.is-workspace .home-note,
+body.is-workspace .floor,
+body.is-workspace .role-strip,
+body.is-workspace .path-bar,
+body.is-workspace .journey,
+body.is-workspace .flow,
+body.is-workspace .case.home-view{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  height:0 !important;
+  max-height:0 !important;
+  overflow:hidden !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+}
+
+body.is-workspace .workspace-chrome{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  margin:12px 16px 18px !important;
+  max-width:720px;
+}
+
+body.is-workspace main#main-content{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  padding:8px 16px 48px !important;
+}
+
+/* Home mode: hide workspace chrome */
+body:not(.is-workspace) .workspace-chrome{
+  display:none !important;
+}
+</style>
+
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -1305,18 +2835,28 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
   </div>
 </header>
 
-<section class="hero">
-  <span class="hero-glow g1" aria-hidden="true"></span>
-  <span class="hero-glow g2" aria-hidden="true"></span>
-  <div>
-    <div class="eyebrow">Real World Accounting</div>
-    <h1><span data-en="Learn Accounting." data-ar="تعلّم المحاسبة.">Learn Accounting.</span><br><span data-en="Think Like an Accountant." data-ar="فكّر كمحاسب.">Think Like an Accountant.</span></h1>
-    <p><span data-en="One company. Independent desks. Real documents and daily exceptions." data-ar="شركة واحدة. مكاتب مستقلة. مستندات حقيقية واستثناءات يومية.">A practical accounting journey built around one company, real transactions, daily problems, investigations, reconciliations and month-end work.</span></p>
-    <a class="cta" href="#homeClean" onclick="goHomeSection('homeClean');return false"><span data-en="Choose your desk" data-ar="اختَر مكتبك">Choose your desk</span></a>
+
+<section class="hero mock-hero">
+  <div class="mock-hero-inner">
+    <div class="mock-hero-copy">
+      <h1><span data-en="Learn Accounting." data-ar="تعلّم المحاسبة.">Learn Accounting.</span><br><span data-en="Think Like an Accountant." data-ar="فكّر كمحاسب.">Think Like an Accountant.</span></h1>
+      <p data-en="One company. Real desks. Daily exceptions and month-end work." data-ar="شركة واحدة. مكاتب حقيقية. استثناءات يومية وإقفال شهر.">One company. Real desks. Daily exceptions and month-end work.</p>
+      <a class="cta mock-cta" href="#homeClean" onclick="goHomeSection('homeClean');return false"><span data-en="Find Your Path. Choose a Desk →" data-ar="اختَر مسارك. افتح مكتبًا ←">Find Your Path. Choose a Desk →</span></a>
+    </div>
+    <div class="mock-hero-art" aria-hidden="true">
+      <div class="mha-scene">
+        <span class="mha-person">👩‍💼</span>
+        <span class="mha-person">👨‍💻</span>
+        <span class="mha-person">👩‍💻</span>
+        <span class="mha-chart">📊</span>
+        <span class="mha-bulb">💡</span>
+        <span class="mha-desk">🖥️</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="focus-card reveal home-view" id="todaysFocusCard">
+<div class="focus-card home-view" id="todaysFocusCard" aria-hidden="false">
   <div class="focus-inner">
     <span class="focus-badge" data-en="TODAY'S FOCUS" data-ar="تركيز اليوم">TODAY'S FOCUS</span>
     <div class="focus-text"><strong id="focus-title">—</strong><span id="focus-desc"></span></div>
@@ -1324,16 +2864,16 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
   </div>
 </div>
 
-<nav class="quickjump" aria-label="Quick jump">
+<nav class="quickjump" aria-label="Quick jump" hidden>
   <button class="chip" aria-selected="true" onclick="jumpChip('overview',this)">Overview</button>
   <button class="chip" onclick="jumpChip('banks',this)">Banks</button>
   <button class="chip" onclick="jumpChip('customers',this)">Customers</button>
   <button class="chip" onclick="jumpChip('suppliers',this)">Suppliers</button>
   <button class="chip" onclick="jumpChip('inventory',this)">Inventory</button>
-  <button class="chip" onclick="jumpChip('departments',this)">Departments</button><button class="chip" onclick="jumpChip('employees',this)">Employees</button>
+  <button class="chip" onclick="jumpChip('departments',this)">Departments</button>
+  <button class="chip" onclick="jumpChip('employees',this)">Employees</button>
   <button class="chip" onclick="jumpChip('coa',this)">Chart of Accounts</button>
 </nav>
-
 
 <main id="main-content">
   <div class="workspace-chrome" id="workspaceChrome" aria-live="polite">
@@ -1349,108 +2889,143 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
     <p class="ws-hint" id="wsHint" data-en="Each tab opens only what belongs to this desk. Nothing else from other departments is mixed in." data-ar="كل تبويب يفتح ما يخص هذا المكتب فقط. لا يختلط معه شيء من أقسام أخرى.">Each tab opens only what belongs to this desk. Nothing else from other departments is mixed in.</p>
   </div>
 
-  
-  <div class="home-clean home-view" id="homeClean">
-    <div class="home-section-label">
-      <span data-en="Your desks = your learning journey" data-ar="مكاتبك = رحلة تعلّمك">Your desks = your learning journey</span>
-      <small data-en="Act as each accountant — open a desk and work real cases" data-ar="اشتغل كمحاسب في كل دور — افتح المكتب واعمل حالات حقيقية">Act as each accountant — open a desk and work real cases</small>
+  <div class="home-clean home-view mock-home" id="homeClean">
+
+    <div class="mock-steps">
+      <div class="mock-step">
+        <span class="ms-icon ms-1">🧍</span>
+        <div><strong data-en="Step 1: Pick a Desk" data-ar="الخطوة 1: اختَر مكتبًا">Step 1: Pick a Desk</strong></div>
+      </div>
+      <span class="ms-chevron" aria-hidden="true">›</span>
+      <div class="mock-step">
+        <span class="ms-icon ms-2">📋</span>
+        <div><strong data-en="Step 2: Work real cases" data-ar="الخطوة 2: اشتغل حالات حقيقية">Step 2: Work real cases</strong></div>
+      </div>
+      <span class="ms-chevron" aria-hidden="true">›</span>
+      <div class="mock-step">
+        <span class="ms-icon ms-3">🎯</span>
+        <div><strong data-en="Step 3: Practice &amp; master" data-ar="الخطوة 3: تدرّب واتقن">Step 3: Practice &amp; master</strong></div>
+      </div>
     </div>
-    <div class="home-depts">
-      <button type="button" class="home-dept" data-station="ar" onclick="openWorkspaceMenu('ar')">
-        <span class="hd-visited-badge">✓</span>
-        <span class="hd-stage" aria-hidden="true">01</span>
-        <span class="hd-icon">👥</span>
-        <strong data-en="Acting as AR Accountant" data-ar="العمل كمحاسب عملاء AR">Acting as AR Accountant</strong>
-        <span class="hd-desk" data-en="Accounts Receivable desk" data-ar="مكتب حسابات العملاء">Accounts Receivable desk</span>
-        <span data-en="Invoices, receipts, allocations, aging, disputes and reconciliation." data-ar="فواتير، تحصيل، تخصيص، أعمار، نزاعات ومطابقة.">Invoices, receipts, allocations, aging, disputes and reconciliation.</span>
-        <span class="hd-go" data-en="Open AR desk →" data-ar="افتح مكتب العملاء ←">Open AR desk →</span>
+
+    <div class="mock-case-banner">
+      <div class="mcb-left">
+        <div class="mcb-kicker"><span data-en="Case Study" data-ar="دراسة حالة">Case Study</span> <span class="mcb-new" data-en="NEW CASE READY!" data-ar="حالة جديدة جاهزة!">NEW CASE READY!</span></div>
+        <strong data-en="Master the daily Accounting Challenge." data-ar="أتقن تحدّي المحاسبة اليومي.">Master the daily Accounting Challenge.</strong>
+      </div>
+      <button type="button" class="mcb-btn" id="btnStartCase">START CASE</button>
+    </div>
+
+    <div class="mock-desks">
+      <button type="button" class="mock-desk" data-station="ar" onclick="openWorkspaceMenu('ar')">
+        <div class="md-art md-ar">👥</div>
+        <div class="md-body">
+          <span class="md-code">AR</span>
+          <strong data-en="Acting as AR Accountant" data-ar="العمل كمحاسب عملاء AR">Acting as AR Accountant</strong>
+          <span class="md-sub" data-en="Master Customer Payments" data-ar="أتقن تحصيل العملاء">Master Customer Payments</span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:72%"></i></span>
+        </div>
       </button>
-      <button type="button" class="home-dept" data-station="ap" onclick="openWorkspaceMenu('ap')">
-        <span class="hd-visited-badge">✓</span>
-        <span class="hd-stage" aria-hidden="true">02</span>
-        <span class="hd-icon">🚚</span>
-        <strong data-en="Acting as AP Accountant" data-ar="العمل كمحاسب موردين AP">Acting as AP Accountant</strong>
-        <span class="hd-desk" data-en="Accounts Payable desk" data-ar="مكتب حسابات الموردين">Accounts Payable desk</span>
-        <span data-en="PO, GRN, invoices, 3-way matching, payments and accruals." data-ar="أوامر شراء، استلام، فواتير، مطابقة ثلاثية، سداد واستحقاقات.">PO, GRN, invoices, 3-way matching, payments and accruals.</span>
-        <span class="hd-go" data-en="Open AP desk →" data-ar="افتح مكتب الموردين ←">Open AP desk →</span>
+      <button type="button" class="mock-desk" data-station="ap" onclick="openWorkspaceMenu('ap')">
+        <div class="md-art md-ap">🚚</div>
+        <div class="md-body">
+          <span class="md-code">AP</span>
+          <strong data-en="Acting as AP Accountant" data-ar="العمل كمحاسب موردين AP">Acting as AP Accountant</strong>
+          <span class="md-sub" data-en="Handle Supplier Bills" data-ar="إدارة فواتير الموردين">Handle Supplier Bills</span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:55%"></i></span>
+        </div>
       </button>
-      <button type="button" class="home-dept" data-station="inv" onclick="openWorkspaceMenu('inv')">
-        <span class="hd-visited-badge">✓</span>
-        <span class="hd-stage" aria-hidden="true">03</span>
-        <span class="hd-icon">📦</span>
-        <strong data-en="Acting as Inventory Accountant" data-ar="العمل كمحاسب مخزون">Acting as Inventory Accountant</strong>
-        <span class="hd-desk" data-en="Inventory & Warehouse desk" data-ar="مكتب المخزون والمخازن">Inventory & Warehouse desk</span>
-        <span data-en="Receiving, movements, counts, adjustments, valuation and COGS." data-ar="استلام، حركات، جرد، تسويات، تقييم وتكلفة البضاعة.">Receiving, movements, counts, adjustments, valuation and COGS.</span>
-        <span class="hd-go" data-en="Open inventory desk →" data-ar="افتح مكتب المخزون ←">Open inventory desk →</span>
+      <button type="button" class="mock-desk" data-station="inv" onclick="openWorkspaceMenu('inv')">
+        <div class="md-art md-inv">📦</div>
+        <div class="md-body">
+          <span class="md-code">INV</span>
+          <strong data-en="Acting as Inventory Accountant" data-ar="العمل كمحاسب مخزون">Acting as Inventory Accountant</strong>
+          <span class="md-sub" data-en="Control Stock &amp; Valuation" data-ar="التحكم في المخزون والتقييم">Control Stock &amp; Valuation</span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:40%"></i></span>
+        </div>
       </button>
-      <button type="button" class="home-dept" data-station="treasury" onclick="openWorkspaceMenu('treasury')">
-        <span class="hd-visited-badge">✓</span>
-        <span class="hd-stage" aria-hidden="true">04</span>
-        <span class="hd-icon">🏦</span>
-        <strong data-en="Acting as Treasury Accountant" data-ar="العمل كمحاسب خزينة">Acting as Treasury Accountant</strong>
-        <span class="hd-desk" data-en="Treasury & Banks desk" data-ar="مكتب الخزينة والبنوك">Treasury & Banks desk</span>
-        <span data-en="Cash, banks, transfers, payments, receipts and reconciliation." data-ar="نقدية، بنوك، تحويلات، مدفوعات، مقبوضات ومطابقة.">Cash, banks, transfers, payments, receipts and reconciliation.</span>
-        <span class="hd-go" data-en="Open treasury desk →" data-ar="افتح مكتب الخزينة ←">Open treasury desk →</span>
+      <button type="button" class="mock-desk" data-station="treasury" onclick="openWorkspaceMenu('treasury')">
+        <div class="md-art md-tr">🏦</div>
+        <div class="md-body">
+          <span class="md-code">TR</span>
+          <strong data-en="Acting as Treasury Accountant" data-ar="العمل كمحاسب خزينة">Acting as Treasury Accountant</strong>
+          <span class="md-sub" data-en="Manage Cash Position" data-ar="إدارة المركز النقدي">Manage Cash Position</span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:48%"></i></span>
+        </div>
       </button>
-      <button type="button" class="home-dept" data-station="hr" onclick="openWorkspaceMenu('hr')">
-        <span class="hd-visited-badge">✓</span>
-        <span class="hd-stage" aria-hidden="true">05</span>
-        <span class="hd-icon">🧑‍💼</span>
-        <strong data-en="Acting as Payroll Accountant" data-ar="العمل كمحاسب رواتب">Acting as Payroll Accountant</strong>
-        <span class="hd-desk" data-en="Payroll & HR desk" data-ar="مكتب الرواتب والموارد البشرية">Payroll & HR desk</span>
-        <span data-en="Salary, hourly pay, overtime, deductions, payroll journal." data-ar="راتب، ساعة، إضافي، استقطاعات، قيد رواتب.">Salary, hourly pay, overtime, deductions, payroll journal.</span>
-        <span class="hd-go" data-en="Open payroll desk →" data-ar="افتح مكتب الرواتب ←">Open payroll desk →</span>
+      <button type="button" class="mock-desk" data-station="hr" onclick="openWorkspaceMenu('hr')">
+        <div class="md-art md-hr">🧑‍💼</div>
+        <div class="md-body">
+          <span class="md-code">PAY</span>
+          <strong data-en="Acting as Payroll Accountant" data-ar="العمل كمحاسب رواتب">Acting as Payroll Accountant</strong>
+          <span class="md-sub" data-en="Calculate Salaries &amp; Compliance" data-ar="حساب الرواتب والالتزامات">Calculate Salaries &amp; Compliance</span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:35%"></i></span>
+        </div>
       </button>
-      <button type="button" class="home-dept" data-station="gl" onclick="openWorkspaceMenu('gl')">
-        <span class="hd-visited-badge">✓</span>
-        <span class="hd-stage" aria-hidden="true">06</span>
-        <span class="hd-icon">📚</span>
-        <strong data-en="Acting as GL Accountant" data-ar="العمل كمحاسب دفتر أستاذ GL">Acting as GL Accountant</strong>
-        <span class="hd-desk" data-en="General Ledger & Closing desk" data-ar="مكتب دفتر الأستاذ والإقفال">General Ledger & Closing desk</span>
-        <span data-en="Adjustments, trial balance, accruals, closing and statements." data-ar="تسويات، ميزان مراجعة، مستحقات، إقفال وقوائم.">Adjustments, trial balance, accruals, closing and statements.</span>
-        <span class="hd-go" data-en="Open GL desk →" data-ar="افتح مكتب دفتر الأستاذ ←">Open GL desk →</span>
-      </button>
-      <button type="button" class="home-dept" data-station="learn" onclick="openWorkspaceMenu('learn')" style="border-inline-start-color:var(--gold)">
-        <span class="hd-visited-badge">✓</span>
-        <span class="hd-stage" aria-hidden="true">07</span>
-        <span class="hd-icon">🎓</span>
-        <strong data-en="Learning Hub" data-ar="المركز التعليمي">Learning Hub</strong>
-        <span class="hd-desk" data-en="Reference, practice and career prep" data-ar="مرجع، تدريب، وتحضير مهني">Reference, practice and career prep</span>
-        <span data-en="Common entries, glossary, spot-the-error, interview prep and more." data-ar="قيود شائعة، قاموس مصطلحات، اكتشف الغلط، تحضير مقابلات وأكتر.">Common entries, glossary, spot-the-error, interview prep and more.</span>
-        <span class="hd-go" data-en="Open Learning Hub →" data-ar="افتح المركز التعليمي ←">Open Learning Hub →</span>
+      <button type="button" class="mock-desk" data-station="gl" onclick="openWorkspaceMenu('gl')">
+        <div class="md-art md-gl">📚</div>
+        <div class="md-body">
+          <span class="md-code">GL</span>
+          <strong data-en="Acting as GL Accountant" data-ar="العمل كمحاسب دفتر أستاذ">Acting as GL Accountant</strong>
+          <span class="md-sub" data-en="Compile Financial Statements" data-ar="إعداد القوائم المالية">Compile Financial Statements</span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:60%"></i></span>
+        </div>
       </button>
     </div>
 
-    <div class="home-section-label">
-      <span data-en="Quick tools" data-ar="أدوات سريعة">Quick tools</span>
-      <small data-en="Fast revision essentials" data-ar="أساسيات مراجعة سريعة">Fast revision essentials</small>
-    </div>
-    <div class="qtools-grid">
-      <button type="button" class="qtool" onclick="showPanel('learn-glossary')"><span class="qt-icon" style="background:#f1ebfd">📖</span><strong data-en="Glossary" data-ar="قاموس المصطلحات">Glossary</strong></button>
-      <button type="button" class="qtool" onclick="showPanel('learn-tax')"><span class="qt-icon" style="background:#fdf1e8">💰</span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمينات">Tax &amp; Insurance</strong></button>
-      <button type="button" class="qtool" onclick="showPanel('learn-interview')"><span class="qt-icon" style="background:#eaf1fd">🗣️</span><strong data-en="Interview Prep" data-ar="تحضير المقابلات">Interview Prep</strong></button>
-      <button type="button" class="qtool" onclick="showPanel('learn-comms')"><span class="qt-icon" style="background:#e6f5f3">💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong></button>
-      <button type="button" class="qtool" onclick="qtoolRandomSpotError()"><span class="qt-icon" style="background:#fbe9f1">🔍</span><strong data-en="Spot the Error" data-ar="اكتشف الغلط">Spot the Error</strong></button>
-      <button type="button" class="qtool" onclick="qtoolRandomFraudCatcher()"><span class="qt-icon" style="background:#fbf0dd">🕵️</span><strong data-en="Fraud Catcher" data-ar="صائد الاحتيال">Fraud Catcher</strong></button>
-    </div>
+    <button type="button" class="mock-learn" data-station="learn" onclick="openWorkspaceMenu('learn')">
+      <div class="ml-copy">
+        <span class="ml-icon">🎓</span>
+        <div>
+          <strong data-en="Learning Hub" data-ar="مركز التعلّم">Learning Hub</strong>
+          <span data-en="Common, Reference, and career PREP — progress, spot-the-error" data-ar="مرجع، تدريب، وتجهيز مهني — تقدّم واكتشاف الأخطاء">Common, Reference, and career PREP — progress, spot-the-error</span>
+          <em data-en="Open Learning Hub →" data-ar="افتح مركز التعلّم ←">Open Learning Hub →</em>
+        </div>
+      </div>
+      <div class="ml-art" aria-hidden="true">📖</div>
+    </button>
 
-    <div class="home-section-label">
-      <span data-en="Practice today" data-ar="تدرّب اليوم">Practice today</span>
-      <small data-en="Investigate one real exception" data-ar="حقّق في استثناء حقيقي واحد">Investigate one real exception</small>
-    </div>
-    <div class="home-secondary home-secondary-single reveal">
-      <button type="button" onclick="startRandomDailyCase()">
-        <strong data-en="Today's case study" data-ar="حالة اليوم">Today's case study</strong>
-        <span data-en="Jump straight into a random real-world exception to investigate." data-ar="ادخل مباشرة على استثناء واقعي عشوائي عشان تحقق فيه.">Jump straight into a random real-world exception to investigate.</span>
-      </button>
-    </div>
-    <div class="home-secondary home-secondary-single reveal" style="margin-top:10px">
-      <button type="button" onclick="startRandomE2ECase()">
-        <strong data-en="End-to-End Accounting Mission" data-ar="مهمة محاسبية متكاملة">End-to-End Accounting Mission</strong>
-        <span data-en="Sales invoice → customer receipt → bank reconciliation → GL → month-end close" data-ar="فاتورة بيع ← تحصيل العميل ← مطابقة البنك ← دفتر الأستاذ ← إقفال الشهر">Sales invoice → customer receipt → bank reconciliation → GL → month-end close</span>
-        <small style="display:block;margin-top:6px;color:var(--brand);font-weight:800" data-en="Start a random connected mission →" data-ar="ابدأ مهمة مترابطة عشوائية ←">Start a random connected mission →</small>
-      </button>
-    </div>
+    <section class="mock-section mock-practice">
+      <div class="mock-sec-head mph-practice">
+        <span data-en="Practice Today" data-ar="تدرّب اليوم">Practice Today</span>
+        <small data-en="Case &amp; mission" data-ar="حالة ومهمة">Case &amp; mission</small>
+      </div>
+      <div class="mock-practice-grid">
+        <div class="mock-prac-card">
+          <strong data-en="Today's Case Study" data-ar="حالة اليوم">Today's Case Study</strong>
+          <span data-en="Solve a real exception" data-ar="حل استثناء حقيقي">Solve a real exception</span>
+          <small>⏱ 12–15m</small>
+          <button type="button" class="mp-start" onclick="event.preventDefault();if(window.startCaseSession)window.startCaseSession();else alert('Case engine not loaded');" data-en="START NOW" data-ar="ابدأ الآن">START NOW</button>
+        </div>
+        <div class="mock-prac-card">
+          <strong data-en="Accounting Mission" data-ar="مهمة محاسبية">Accounting Mission</strong>
+          <span data-en="End-to-end connected cycle" data-ar="دورة مترابطة من البداية للنهاية">End-to-end connected cycle</span>
+          <small>⏱ 20–50m</small>
+          <button type="button" class="mp-start" onclick="startRandomE2ECase()" data-en="START NOW" data-ar="ابدأ الآن">START NOW</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="mock-section mock-tools">
+      <div class="mock-sec-head mph-tools">
+        <span data-en="Quick Tools" data-ar="أدوات سريعة">Quick Tools</span>
+      </div>
+      <div class="mock-tools-grid">
+        <button type="button" class="mock-tool" onclick="showPanel('learn-glossary')"><span>📘</span><strong data-en="Glossary" data-ar="القاموس">Glossary</strong></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-tax')"><span>🧮</span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمين">Tax &amp; Insurance</strong></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلة">Interview Prep</strong></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong></button>
+        <button type="button" class="mock-tool" onclick="qtoolRandomSpotError()"><span>🔍</span><strong data-en="Spot the Error" data-ar="اكتشف الغلط">Spot the Error</strong></button>
+        <button type="button" class="mock-tool" onclick="qtoolRandomFraudCatcher()"><span>🕵️</span><strong data-en="Fraud Catcher" data-ar="صائد الاحتيال">Fraud Catcher</strong></button>
+      </div>
+    </section>
+
     <p class="home-note" data-en="Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs." data-ar="نصيحة: استخدم الشريط الجانبي للانتقال بين الأقسام المستقلة. لكل مكتب تبويباته الخاصة.">Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs.</p>
   </div>
 
@@ -4597,20 +6172,19 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
 
 <footer>Ayman Hegazy · Real World Accounting · Redesigned Concept — <strong>Ayman Hegazy</strong></footer>
 
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="z-index:99999">
   <div class="modalbox" style="max-width:560px">
     <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px">
       <h3 id="modal-title" style="margin:0">—</h3>
-      <button type="button" onclick="closeCase()" aria-label="Close" style="border:0;background:transparent;font-size:20px;cursor:pointer;line-height:1">×</button>
+      <button type="button" onclick="closeCase()" aria-label="Close" style="border:0;background:transparent;font-size:20px;cursor:pointer;line-height:1;color:var(--ink)">×</button>
     </div>
     <p id="modal-desk" style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--brand)"></p>
     <p id="modal-scenario" style="margin:0 0 14px;font-size:13.5px;line-height:1.5;color:var(--ink-soft)"></p>
     <strong id="modal-question" style="display:block;margin-bottom:10px;font-size:13px"></strong>
     <div id="modal-options"></div>
     <p id="result" aria-live="polite" style="min-height:1.2em"></p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+    <div id="modalFooter" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center">
       <button type="button" onclick="closeCase()"><span data-en="Close" data-ar="إغلاق">Close</span></button>
-      <button type="button" class="btn" onclick="loadRandomDailyCase(true);openCase()"><span data-en="Next random case" data-ar="الحالة العشوائية التالية">Next random case</span></button>
     </div>
   </div>
 </div>
@@ -4846,14 +6420,74 @@ function renderWorkspaceChrome(wsKey, activeId){
   document.getElementById('wsSubtitle').textContent = ws.subtitle[ar?1:0];
   const nav = document.getElementById('wsSubnav');
   nav.innerHTML = '';
-  ws.tabs.forEach(t=>{
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.setAttribute('aria-selected', t.id === activeId ? 'true' : 'false');
-    b.textContent = ar ? t.ar : t.en;
-    b.onclick = ()=> showPanel(t.id);
-    nav.appendChild(b);
+  nav.classList.add('ws-subnav-deluxe');
+
+  function isPracticeTab(t){
+    const id = (t.id || '').toLowerCase();
+    const en = (t.en || '').toLowerCase();
+    return /fraud|spot-error|spot the error|quiz|mastery/.test(id) ||
+           /fraud|spot the error|mastery quiz|صائد|اكتشف الغلط|اختبار الإتقان/.test(en + ' ' + (t.ar||''));
+  }
+  function practiceKind(t){
+    const id = (t.id || '').toLowerCase();
+    const label = ((t.en||'') + ' ' + (t.ar||'')).toLowerCase();
+    if(id.indexOf('fraud')>=0 || label.indexOf('fraud')>=0 || label.indexOf('صائد')>=0) return 'fraud';
+    if(id.indexOf('spot')>=0 || label.indexOf('spot')>=0 || label.indexOf('غلط')>=0) return 'spot';
+    return 'quiz';
+  }
+  function practiceIcon(kind){
+    if(kind==='fraud') return '🕵️';
+    if(kind==='spot') return '🔍';
+    return '🏆';
+  }
+
+  const ops = [];
+  const practice = [];
+  (ws.tabs || []).forEach(t=>{
+    if(isPracticeTab(t)) practice.push(t);
+    else ops.push(t);
   });
+
+  if(ops.length){
+    const head = document.createElement('div');
+    head.className = 'ws-sec-label ws-sec-ops';
+    head.textContent = ar ? 'أدوات المكتب' : 'Workspace tools';
+    nav.appendChild(head);
+    const list = document.createElement('div');
+    list.className = 'ws-ops-list';
+    ops.forEach(t=>{
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ws-ops-btn';
+      b.setAttribute('aria-selected', t.id === activeId ? 'true' : 'false');
+      b.textContent = ar ? t.ar : t.en;
+      b.onclick = ()=> showPanel(t.id);
+      list.appendChild(b);
+    });
+    nav.appendChild(list);
+  }
+
+  if(practice.length){
+    const head = document.createElement('div');
+    head.className = 'ws-sec-label ws-sec-practice';
+    head.textContent = ar ? 'تدريب وإتقان' : 'Practice & mastery';
+    nav.appendChild(head);
+    const grid = document.createElement('div');
+    grid.className = 'ws-practice-grid';
+    practice.forEach(t=>{
+      const kind = practiceKind(t);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ws-practice-card ws-pk-' + kind;
+      b.setAttribute('aria-selected', t.id === activeId ? 'true' : 'false');
+      b.innerHTML = '<span class="ws-pk-icon">' + practiceIcon(kind) + '</span>' +
+        '<span class="ws-pk-label">' + (ar ? t.ar : t.en).replace(/^[🕵️🔍🏆]\s*/,'') + '</span>';
+      b.onclick = ()=> showPanel(t.id);
+      grid.appendChild(b);
+    });
+    nav.appendChild(grid);
+  }
+
   const back = document.querySelector('.ws-back');
   if(back) back.textContent = ar ? '→ رجوع' : '← Back';
 }
@@ -8215,12 +9849,20 @@ function homeRenderWeakAreas(){
     }).join('');
 }
 function homeFocusGo(){
-  const target = document.getElementById('todaysFocusCard').dataset.target;
-  if(target === 'spot') showPanel('ar-spot-error');
-  else if(target === 'case') { if(typeof showHomeExtra==='function') showHomeExtra('problem'); }
-  else if(target && target.indexOf('quiz-')===0) showPanel(target.slice(5)+'-quiz');
-  else if(target) showPanel(target+'-home');
-  else showPanel('ar-home');
+  try{
+    const card = document.getElementById('todaysFocusCard');
+    const target = card ? card.dataset.target : '';
+    if(target === 'spot'){ showPanel('ar-spot-error'); return; }
+    if(target === 'case'){
+      if(typeof window.startCaseSession === 'function'){ window.startCaseSession(); return; }
+      if(typeof startRandomDailyCase === 'function'){ startRandomDailyCase(); return; }
+      alert('Case engine not ready');
+      return;
+    }
+    if(target && target.indexOf('quiz-')===0){ showPanel(target.slice(5)+'-quiz'); return; }
+    if(target){ showPanel(target+'-home'); return; }
+    showPanel('ar-home');
+  }catch(e){ console.error(e); alert(e.message||e); }
 }
 function homeRenderFocus(){
   const card = document.getElementById('todaysFocusCard'); if(!card) return;
@@ -9389,87 +11031,251 @@ const DAILY_CASES = [
   }
 ];
 
+
 window._dailyCase = null;
 window._dailyAnswered = false;
+window._caseSession = null; // { indices:[], step:0, score:0, answered:false }
 
 function isAr(){ return document.documentElement.lang === 'ar'; }
 function t2(pair){ return isAr() ? pair[1] : pair[0]; }
 
+function shuffleIndices(n){
+  const a = Array.from({length:n}, (_,i)=>i);
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+/** Pick 5 unique random cases for a homepage Start Case session */
+
+function startCaseSession(){
+  try{
+    if(typeof DAILY_CASES === 'undefined' || !DAILY_CASES || !DAILY_CASES.length){
+      alert('No cases available.');
+      return;
+    }
+    var n = Math.min(5, DAILY_CASES.length);
+    var indices = shuffleIndices(DAILY_CASES.length).slice(0, n);
+    window._caseSession = { indices: indices, step: 0, score: 0, answered: false };
+    window._dailyCase = { idx: indices[0], c: DAILY_CASES[indices[0]] };
+    window._dailyAnswered = false;
+    renderCaseStep();
+  }catch(err){
+    console.error('startCaseSession', err);
+    alert('Case error: ' + (err && err.message ? err.message : String(err)));
+  }
+}
+
+function startRandomDailyCase(){
+  startCaseSession();
+}
+try{
+  window.startRandomDailyCase = startRandomDailyCase;
+  window.startCaseSession = startCaseSession;
+}catch(_e){}
+
 function loadRandomDailyCase(forceNew){
-  let idx;
+  var idx;
   if(!forceNew && window._dailyCase && typeof window._dailyCase.idx === 'number'){
     idx = window._dailyCase.idx;
   } else {
     idx = Math.floor(Math.random() * DAILY_CASES.length);
-    // avoid immediate repeat when forcing new
     if(forceNew && window._dailyCase && DAILY_CASES.length > 1 && idx === window._dailyCase.idx){
-      idx = (idx + 1 + Math.floor(Math.random()*(DAILY_CASES.length-1))) % DAILY_CASES.length;
+      idx = (idx + 1 + Math.floor(Math.random() * (DAILY_CASES.length - 1))) % DAILY_CASES.length;
     }
   }
-  const c = DAILY_CASES[idx];
-  window._dailyCase = {idx, c};
+  var c = DAILY_CASES[idx];
+  window._dailyCase = { idx: idx, c: c };
   window._dailyAnswered = false;
-  const no = document.getElementById('dailyCaseNo');
-  const title = document.getElementById('dailyCaseTitle');
-  const lead = document.getElementById('dailyCaseLead');
-  const desk = document.getElementById('dailyCaseDesk');
-  if(no) no.textContent = '#' + String(idx+1).padStart(2,'0') + ' / ' + DAILY_CASES.length;
+  var no = document.getElementById('dailyCaseNo');
+  var title = document.getElementById('dailyCaseTitle');
+  var lead = document.getElementById('dailyCaseLead');
+  var desk = document.getElementById('dailyCaseDesk');
+  if(no) no.textContent = '#' + String(idx + 1).padStart(2, '0') + ' / ' + DAILY_CASES.length;
   if(title) title.textContent = t2(c.title);
   if(lead) lead.textContent = t2(c.lead);
-  if(desk) desk.textContent = (isAr()?'المكتب: ':'Desk: ') + t2(c.desk);
+  if(desk) desk.textContent = (isAr() ? 'المكتب: ' : 'Desk: ') + t2(c.desk);
   try{ localStorage.setItem('ah_daily_case_idx', String(idx)); }catch(e){}
 }
 
-function startRandomDailyCase(){
-  loadRandomDailyCase(true);
-  openCase();
+function setModalFooter(html){
+  var footer = document.getElementById('modalFooter');
+  if(footer) footer.innerHTML = html;
 }
-function openCase(){
-  if(!window._dailyCase) loadRandomDailyCase(false);
-  const {c, idx} = window._dailyCase;
+
+function renderCaseStep(){
+  var ses = window._caseSession;
+  if(!ses){ openCase(); return; }
+  if(ses.step >= ses.indices.length){
+    showCaseSessionDone();
+    return;
+  }
+  var idx = ses.indices[ses.step];
+  var c = DAILY_CASES[idx];
+  window._dailyCase = { idx: idx, c: c };
   window._dailyAnswered = false;
-  const modal = document.getElementById('modal');
-  document.getElementById('modal-title').textContent = '#' + String(idx+1).padStart(2,'0') + ' — ' + t2(c.title);
-  document.getElementById('modal-desk').textContent = (isAr()?'المكتب: ':'Desk: ') + t2(c.desk);
+  ses.answered = false;
+
+  var modal = document.getElementById('modal');
+  if(!modal){ alert('Modal missing'); return; }
+
+  var qNum = ses.step + 1;
+  var qTotal = ses.indices.length;
+  var ar = isAr();
+  document.getElementById('modal-title').textContent =
+    (ar ? ('سؤال ' + qNum + ' من ' + qTotal) : ('Question ' + qNum + ' of ' + qTotal))
+    + ' — ' + t2(c.title);
+  document.getElementById('modal-desk').textContent =
+    (ar ? 'المكتب: ' : 'Desk: ') + t2(c.desk)
+    + ' · ' + (ar ? 'النتيجة: ' : 'Score: ') + ses.score + '/' + ses.step;
   document.getElementById('modal-scenario').textContent = t2(c.scenario);
   document.getElementById('modal-question').textContent = t2(c.q);
   document.getElementById('result').innerHTML = '';
-  const box = document.getElementById('modal-options');
-  const letters = ['A','B','C','D'];
-  const order = c.options.map((_,i)=>i);
-  for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+
+  var box = document.getElementById('modal-options');
+  var letters = ['A','B','C','D'];
+  var order = c.options.map(function(_, i){ return i; });
+  for(var i = order.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+  }
   window._dailyOptionOrder = order;
-  box.innerHTML = order.map((origIdx,pos)=>
-    `<button type="button" class="option" onclick="answerDaily(${origIdx})">${letters[pos]}. ${t2(c.options[origIdx])}</button>`
-  ).join('');
+  box.innerHTML = order.map(function(origIdx, pos){
+    return '<button type="button" class="option" onclick="answerDaily(' + origIdx + ')">' +
+      letters[pos] + '. ' + t2(c.options[origIdx]) + '</button>';
+  }).join('');
+
+  setModalFooter(
+    '<button type="button" onclick="closeCase()">' + (ar ? 'إغلاق' : 'Close') + '</button>' +
+    '<span style="font-size:12px;color:var(--muted)">' + (ar ? 'أجب ثم انتقل' : 'Answer to continue') + '</span>'
+  );
+
+  modal.classList.add('open');
+  modal.style.display = 'flex';
+}
+
+function showCaseSessionDone(){
+  var ses = window._caseSession;
+  var modal = document.getElementById('modal');
+  var total = ses ? ses.indices.length : 5;
+  var score = ses ? ses.score : 0;
+  var ar = isAr();
+  document.getElementById('modal-title').textContent = ar ? 'انتهت الحالة' : 'Case complete';
+  document.getElementById('modal-desk').textContent = '';
+  document.getElementById('modal-scenario').textContent = '';
+  document.getElementById('modal-question').textContent = '';
+  document.getElementById('modal-options').innerHTML = '';
+  var pct = total ? Math.round(score / total * 100) : 0;
+  var msg;
+  if(pct >= 80) msg = ar ? 'أداء ممتاز — قرارات رقابية قوية.' : 'Excellent — strong control decisions.';
+  else if(pct >= 50) msg = ar ? 'أداء جيد — راجع البنود التي أخطأت فيها.' : 'Good effort — review the misses.';
+  else msg = ar ? 'أعد المحاولة مع التركيز على الدليل قبل القرار.' : 'Try again — follow the evidence before deciding.';
+  document.getElementById('result').innerHTML =
+    '<div class="msg msg-success" style="text-align:center">' +
+    '<b style="font-size:22px;display:block;margin-bottom:6px">' + score + ' / ' + total + '</b>' +
+    '<span>' + (ar ? ('أجبتَ ' + total + ' أسئلة عشوائية.') : ('You answered ' + total + ' random questions.')) + '</span><br>' +
+    '<span style="margin-top:6px;display:inline-block">' + msg + '</span></div>';
+  setModalFooter(
+    '<button type="button" class="btn btn-primary" onclick="closeCase()">' + (ar ? 'إغلاق الحالة' : 'Close case') + '</button>' +
+    '<button type="button" class="btn" onclick="startCaseSession()">' + (ar ? '5 أسئلة جديدة' : 'New 5 questions') + '</button>'
+  );
+  modal.classList.add('open');
+  modal.style.display = 'flex';
+}
+
+function openCase(){
+  if(window._caseSession && window._caseSession.step < window._caseSession.indices.length){
+    renderCaseStep();
+    return;
+  }
+  if(!window._dailyCase) loadRandomDailyCase(false);
+  var c = window._dailyCase.c;
+  var idx = window._dailyCase.idx;
+  window._dailyAnswered = false;
+  var modal = document.getElementById('modal');
+  document.getElementById('modal-title').textContent = '#' + String(idx + 1).padStart(2, '0') + ' — ' + t2(c.title);
+  document.getElementById('modal-desk').textContent = (isAr() ? 'المكتب: ' : 'Desk: ') + t2(c.desk);
+  document.getElementById('modal-scenario').textContent = t2(c.scenario);
+  document.getElementById('modal-question').textContent = t2(c.q);
+  document.getElementById('result').innerHTML = '';
+  var box = document.getElementById('modal-options');
+  var letters = ['A','B','C','D'];
+  var order = c.options.map(function(_, i){ return i; });
+  for(var i = order.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+  }
+  window._dailyOptionOrder = order;
+  box.innerHTML = order.map(function(origIdx, pos){
+    return '<button type="button" class="option" onclick="answerDaily(' + origIdx + ')">' +
+      letters[pos] + '. ' + t2(c.options[origIdx]) + '</button>';
+  }).join('');
   modal.classList.add('open');
   modal.style.display = 'flex';
 }
 
 function closeCase(){
-  const modal = document.getElementById('modal');
-  if(modal){ modal.classList.remove('open'); modal.style.display = 'none'; }
+  var modal = document.getElementById('modal');
+  if(modal){
+    modal.classList.remove('open');
+    modal.style.display = 'none';
+  }
+  window._caseSession = null;
+  window._dailyAnswered = false;
 }
 
 function answerDaily(i){
   if(window._dailyAnswered || !window._dailyCase) return;
   window._dailyAnswered = true;
-  const c = window._dailyCase.c;
-  const order = window._dailyOptionOrder || c.options.map((_,x)=>x);
-  const ok = i === c.correct;
-  if(ok && typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);
-  if(ok && typeof coverageMark==='function') coverageMark('daily', null, window._dailyCase.idx);
-  const buttons = document.querySelectorAll('#modal-options .option');
-  buttons.forEach((b,n)=>{
+  var c = window._dailyCase.c;
+  var order = window._dailyOptionOrder || c.options.map(function(_, x){ return x; });
+  var ok = i === c.correct;
+  if(ok && typeof learnRegisterCorrect === 'function') learnRegisterCorrect(1);
+  if(ok && typeof coverageMark === 'function') coverageMark('daily', null, window._dailyCase.idx);
+  if(ok && window._caseSession) window._caseSession.score++;
+  if(window._caseSession) window._caseSession.answered = true;
+
+  var buttons = document.querySelectorAll('#modal-options .option');
+  buttons.forEach(function(b, n){
     b.disabled = true;
     if(order[n] === c.correct) b.classList.add('correct');
     if(order[n] === i && !ok) b.classList.add('wrong');
   });
-  const res = document.getElementById('result');
+  var res = document.getElementById('result');
+  var ar = isAr();
   res.innerHTML = ok
-    ? `<span class="msg-ok"><b>${isAr()?'قرار صحيح.':'Correct control decision.'}</b> ${t2(c.explain)}</span>`
-    : `<span class="msg-bad"><b>${isAr()?'ليس الأفضل — راجع الدليل.':'Not the best — follow the evidence.'}</b> ${t2(c.explain)}</span>`;
+    ? '<span class="msg-ok"><b>' + (ar ? 'قرار صحيح.' : 'Correct control decision.') + '</b> ' + t2(c.explain) + '</span>'
+    : '<span class="msg-bad"><b>' + (ar ? 'ليس الأفضل — راجع الدليل.' : 'Not the best — follow the evidence.') + '</b> ' + t2(c.explain) + '</span>';
+
+  if(window._caseSession){
+    var ses = window._caseSession;
+    var isLast = ses.step >= ses.indices.length - 1;
+    var nextLabel = isLast
+      ? (ar ? 'إنهاء وعرض النتيجة' : 'Finish & see score')
+      : (ar ? 'التالي' : 'Next');
+    setModalFooter(
+      '<button type="button" onclick="closeCase()">' + (ar ? 'إغلاق' : 'Close') + '</button>' +
+      '<button type="button" class="btn btn-primary" onclick="advanceCaseSession()">' + nextLabel + '</button>'
+    );
+  }
 }
+
+function advanceCaseSession(){
+  var ses = window._caseSession;
+  if(!ses) return;
+  if(!ses.answered) return;
+  ses.step++;
+  ses.answered = false;
+  if(ses.step >= ses.indices.length) showCaseSessionDone();
+  else renderCaseStep();
+}
+
+
+// expose case session globally (hard guarantee for inline onclick)
+window.startCaseSession = startCaseSession;
+window.startRandomDailyCase = startRandomDailyCase;
+window.answerDaily = answerDaily;
+window.advanceCaseSession = advanceCaseSession;
+window.closeCase = closeCase;
 
 // restore or pick on load
 document.addEventListener('DOMContentLoaded', function(){
@@ -9868,5 +11674,517 @@ function answerE2ECase(){
  }
 }
 </script>
+
+<script>
+/* Bridge: mark mock-desk visited same as home-dept */
+(function(){
+  function syncVisited(){
+    try{
+      var raw = localStorage.getItem('ah_visited_desks') || localStorage.getItem('ah_desk_visited') || '';
+      document.querySelectorAll('.mock-desk[data-station],.mock-learn[data-station]').forEach(function(el){
+        var s = el.getAttribute('data-station');
+        if(s && (raw.indexOf(s)>=0 || el.classList.contains('is-visited'))) el.classList.add('is-visited');
+      });
+    }catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded', syncVisited);
+  setTimeout(syncVisited, 400);
+})();
+</script>
+
+
+
+
+<script id="caseStudyEngine">
+/* Standalone Case Study engine — independent of main app script */
+(function(global){
+  'use strict';
+  var DAILY_CASES = [
+  {
+    desk:['AR','عملاء'],
+    title:['Customer says: “We already paid this invoice.”','العميل يقول: «سددنا هذه الفاتورة بالفعل»'],
+    lead:['Bank shows a receipt, but the invoice is still open on aging. Investigate before you touch the ledger.','البنك يظهر تحصيلًا والفاتورة ما زالت مفتوحة في الأعمار. حقّق قبل أن تلمس الدفاتر.'],
+    scenario:['Bank advice BR-2041 for EGP 85,000 arrived with no remittance. Customer C-110 claims invoice INV-900 was paid. INV-900 is still open; unapplied cash sits on another customer.','إشعار بنك BR-2041 بمبلغ 85,000 بدون إشعار تحويل. العميل C-110 يدّعي سداد INV-900. الفاتورة ما زالت مفتوحة؛ وتحصيل غير مخصص على عميل آخر.'],
+    q:['What should you do first?','ما أول خطوة صحيحة؟'],
+    options:[
+      ['Allocate the cash to the oldest open invoice since something has to clear it','خصّص النقدية لأقدم فاتورة مفتوحة لأن لازم حاجة تتقفل بيها'],
+      ['Trace the bank reference and remittance, then reallocate with evidence','تتبّع مرجع البنك وإشعار التحويل، وبعدين أعد التخصيص بالمستند'],
+      ['Write off the invoice since the customer insists it was already paid','اشطب الفاتورة لأن العميل مصرّ إنها سُددت بالفعل'],
+      ['Post the receipt straight to revenue to close the item quickly','رحّل التحصيل مباشرة للإيراد عشان تقفل البند بسرعة']
+    ],
+    correct:1,
+    explain:['Never allocate by guess. Trace bank reference and remittance, then reallocate with evidence.','لا تخصّص بالتخمين. تتبّع مرجع البنك وإشعار التحويل ثم أعد التخصيص بالمستند.']
+  },
+  {
+    desk:['AR','عملاء'],
+    title:['Unidentified cash in the bank','نقدية مجهولة في البنك'],
+    lead:['Money is in the bank account with only a reference code — no customer name.','المبلغ في الحساب البنكي بمرجع فقط — بلا اسم عميل.'],
+    scenario:['EGP 42,500 credited. Sales cannot identify the payer yet. Month-end is in two days.','إضافة 42,500. المبيعات لا تعرف الدافع بعد. نهاية الشهر بعد يومين.'],
+    q:['Correct treatment until identity is known?','المعالجة الصحيحة حتى تتضح الهوية؟'],
+    options:[
+      ['Credit sales revenue since the cash is already sitting in the bank','دائن إيراد مبيعات لأن النقدية موجودة في البنك بالفعل'],
+      ['Park it in unapplied receipts and hand it to AR with the bank reference','ضعها في غير مخصص وسلّمها للعملاء مع مرجع البنك'],
+      ['Ignore it until next month when the payer might identify themselves','تجاهلها لحد الشهر الجاي لما الدافع يمكن يتعرّف بنفسه'],
+      ['Offset it against any customer that has an open debit balance today','خصمها من أي عميل عليه رصيد مدين مفتوح النهاردة']
+    ],
+    correct:1,
+    explain:['Unidentified cash is not revenue. Suspense/unapplied until allocation evidence exists.','النقدية المجهولة ليست إيرادًا. وسيط/غير مخصص حتى يوجد دليل تخصيص.']
+  },
+  {
+    desk:['AR','عملاء'],
+    title:['GL Accounts Receivable ≠ invoice aging','حساب العملاء في GL ≠ أعمار الفواتير'],
+    lead:['Sub-ledger aging does not equal the AR control account.','أعمار المساعد لا تساوي حساب مراقبة العملاء.'],
+    scenario:['Aging total 1,250,000. GL 120000 is 1,323,000. Unapplied receipts 85,000 and an open credit note 12,000 exist.','مجموع الأعمار 1,250,000. GL 120000 = 1,323,000. يوجد غير مخصص 85,000 وإشعار دائن 12,000.'],
+    q:['Best next step?','أفضل خطوة تالية؟'],
+    options:[
+      ['Post a plug journal so the control account matches the aging report','رحّل قيد أعمى عشان حساب المراقبة يطابق تقرير الأعمار'],
+      ['Build an AR bridge: aging plus unapplied minus credits against GL','ابنِ جسر العملاء: أعمار + غير مخصص − إشعارات مقابل GL'],
+      ['Change the aging report until it agrees with the general ledger','عدّل تقرير الأعمار لحد ما يتفق مع دفتر الأستاذ'],
+      ['Write off the difference since reconciling it takes too long','اشطب الفرق لأن تسويته هتاخد وقت طويل']
+    ],
+    correct:1,
+    explain:['Always explain the gap with a bridge. Never plug.','فسّر الفجوة بالجسر دائمًا. لا تسد بعمياء.']
+  },
+  {
+    desk:['AR','عملاء'],
+    title:['Short payment without debit note','سداد أقل من الفاتورة بلا إشعار مدين'],
+    lead:['Customer paid less than the invoice and gave no explanation.','العميل دفع أقل من الفاتورة بلا توضيح.'],
+    scenario:['Invoice 50,000; receipt 47,500. No debit note or claim attached.','فاتورة 50,000؛ تحصيل 47,500. لا إشعار مدين ولا مطالبة.'],
+    q:['What do you post?','ماذا ترحّل؟'],
+    options:[
+      ['Clear the full invoice and post the shortfall straight to expense','صفِّ الفاتورة كاملة ورحّل العجز مباشرة كمصروف'],
+      ['Allocate the amount received and request proof for the deduction','خصّص المبلغ المستلم واطلب إثبات للخصم'],
+      ['Reverse the whole invoice since the payment does not match it','اعكس الفاتورة كلها لأن السداد مش مطابق ليها'],
+      ['Post the shortfall to suspense and leave it there permanently','ضع العجز في وسيط واسيبه هناك نهائيًا']
+    ],
+    correct:1,
+    explain:['Partial allocate; keep balance open until evidence and approval for any write-off.','تخصيص جزئي؛ الرصيد يبقى مفتوحًا حتى الدليل والاعتماد لأي شطب.']
+  },
+  {
+    desk:['AP','موردين'],
+    title:['Supplier invoice with no GRN','فاتورة مورد بلا إذن استلام'],
+    lead:['Invoice arrived; warehouse has no goods receipt.','وصلت فاتورة؛ المخزن بلا إذن استلام.'],
+    scenario:['Supplier pressure to pay before month-end. PO exists; GRN does not.','ضغط المورد للسداد قبل نهاية الشهر. أمر الشراء موجود؛ إذن الاستلام غير موجود.'],
+    q:['Correct control response?','الاستجابة الرقابية الصحيحة؟'],
+    options:[
+      ['Post and pay quickly since the supplier is pressuring for the funds','رحّل وادفع بسرعة لأن المورد بيضغط عشان الفلوس'],
+      ['Hold the invoice and request GRN or service confirmation first','أوقف الفاتورة واطلب إذن الاستلام أو تأكيد الخدمة الأول'],
+      ['Post it to expense directly without routing it through payables','رحّلها كمصروف مباشرة من غير ما تمر بحساب الموردين'],
+      ['Delete the purchase order so the mismatch disappears from view','احذف أمر الشراء عشان عدم التطابق يختفي من الشاشة']
+    ],
+    correct:1,
+    explain:['Three-way match protects the company. No GRN → hold.','المطابقة الثلاثية تحمي الشركة. بلا GRN → إيقاف.']
+  },
+  {
+    desk:['AP','موردين'],
+    title:['Goods received, invoice not in (GRNI)','بضاعة مستلمة والفاتورة لم تدخل (GRNI)'],
+    lead:['Warehouse received goods; supplier invoice not posted at period-end.','المخزن استلم؛ فاتورة المورد غير مرحّلة عند الإقفال.'],
+    scenario:['GRN-118 for materials already in stock. Finance is closing the month.','GRN-118 لمواد داخل المخزون. المالية تقفل الشهر.'],
+    q:['Month-end treatment?','معالجة نهاية الشهر؟'],
+    options:[
+      ['Do nothing and wait until the supplier invoice eventually arrives','ما تعملش حاجة واستنى لحد ما فاتورة المورد توصل في الآخر'],
+      ['Accrue inventory and a GRNI liability, then reverse when it posts','استحق مخزون والتزام GRNI، واعكسه لما الفاتورة ترحّل'],
+      ['Reduce recorded sales to offset the missing supplier invoice','قلّل المبيعات المسجلة عشان تعوّض فاتورة المورد الناقصة'],
+      ['Post it to suspense only, leaving the inventory account untouched','رحّلها لوسيط بس، وسيب حساب المخزون زي ما هو']
+    ],
+    correct:1,
+    explain:['Match recognition to receipt period via GRNI accrual.','طابق الاعتراف بفترة الاستلام عبر استحقاق GRNI.']
+  },
+  {
+    desk:['AP','موردين'],
+    title:['Duplicate supplier invoice','فاتورة مورد مكررة'],
+    lead:['Same supplier invoice number appears twice in the batch.','نفس رقم فاتورة المورد يظهر مرتين في الدفعة.'],
+    scenario:['Two scans of INV-5540 for EGP 18,200. One may already be paid.','صورتان لـ INV-5540 بمبلغ 18,200. إحداهما قد تكون مدفوعة.'],
+    q:['What should AP do?','ماذا يفعل حساب الموردين؟'],
+    options:[
+      ['Post both copies now and sort out any duplicate payment later','رحّل النسختين دلوقتي واحل مشكلة السداد المزدوج بعدين'],
+      ['Block the duplicate and verify open items before posting or paying','أوقف المكرر وتحقق من البنود المفتوحة قبل الترحيل أو السداد'],
+      ['Pay only the larger of the two amounts to stay on the safe side','ادفع بس المبلغ الأكبر من الاتنين عشان تكون في الأمان'],
+      ['Merge the two supplier records so the duplicate disappears','ادمج سجلي المورد عشان التكرار يختفي']
+    ],
+    correct:1,
+    explain:['Duplicate invoice number is a classic double-pay risk.','تكرار رقم الفاتورة خطر سداد مزدوج كلاسيكي.']
+  },
+  {
+    desk:['AP','موردين'],
+    title:['GL AP ≠ supplier aging','GL الموردين ≠ أعمار الموردين'],
+    lead:['Control account and open invoices do not match.','حساب المراقبة والفواتير المفتوحة غير متطابقين.'],
+    scenario:['Aging 980,000; GRNI 45,000; advances 20,000; GL 210000 = 1,005,000.','أعمار 980,000؛ GRNI 45,000؛ مقدمات 20,000؛ GL = 1,005,000.'],
+    q:['How do you explain it?','كيف تفسّرها؟'],
+    options:[
+      ['Ignore the GRNI balance since it usually clears itself over time','تجاهل رصيد GRNI لأنه عادة بيتصفّى لوحده مع الوقت'],
+      ['Build the AP bridge: open items plus GRNI minus advances against GL','ابنِ جسر الموردين: مفتوح + GRNI − مقدمات مقابل GL'],
+      ['Force a balancing entry straight into a general expense account','افرض قيد موازنة مباشرة على حساب مصروف عام'],
+      ['Change only the supplier statement until the numbers line up','عدّل بس كشف حساب المورد لحد ما الأرقام تتظبط']
+    ],
+    correct:1,
+    explain:['Use the AP bridge; clear each reconciling item with evidence.','استخدم جسر الموردين؛ صفِّ كل بند بالمستند.']
+  },
+  {
+    desk:['Inventory','مخزون'],
+    title:['Physical count ≠ system quantity','الجرد الفعلي ≠ كمية النظام'],
+    lead:['Warehouse count is lower than the system for a key item.','جرد المخزن أقل من النظام لصنف أساسي.'],
+    scenario:['System 500 units; count 470. Recent issues may be unposted.','النظام 500؛ الجرد 470. قد يكون هناك صرف غير مرحّل.'],
+    q:['First action?','أول إجراء؟'],
+    options:[
+      ['Write off the 30 missing units immediately to close the count','اشطب الـ30 وحدة الناقصة فورًا عشان تقفل الجرد'],
+      ['Investigate unposted movements first, then adjust with approval','حقّق في الحركات غير المرحّلة أولًا، وبعدين سوِّ باعتماد'],
+      ['Change the count sheet so it matches what the system shows','عدّل ورقة الجرد عشان تطابق اللي النظام بيوضحه'],
+      ['Ignore the gap until the year-end count comes around again','تجاهل الفرق لحد ما جرد نهاية السنة يجي تاني']
+    ],
+    correct:1,
+    explain:['Never silent write-off. Trace documents, then approve variance.','لا شطب صامت. تتبّع المستندات ثم اعتمد الفرق.']
+  },
+  {
+    desk:['Inventory','مخزون'],
+    title:['Negative stock balance','رصيد مخزون سالب'],
+    lead:['System allows issue that drives quantity below zero.','النظام يسمح بصرف ينزل الكمية تحت الصفر.'],
+    scenario:['Issue for 20 units when on-hand is 5. Production is waiting.','صرف 20 بينما المتاح 5. الإنتاج في انتظار.'],
+    q:['Control response?','الاستجابة الرقابية؟'],
+    options:[
+      ['Allow the negative balance and plan to fix it sometime later','اسمح بالرصيد السالب وخطط تصلحه في وقت لاحق'],
+      ['Block the negative issue and post the missing receipt or reversal','امنع الصرف السالب ورحّل الاستلام الناقص أو اعكس الخطأ'],
+      ['Post the cost of goods sold entry and leave inventory as is','رحّل قيد تكلفة البضاعة المباعة وسيب المخزون زي ما هو'],
+      ['Delete the item master so the negative balance disappears','احذف بطاقة الصنف عشان الرصيد السالب يختفي']
+    ],
+    correct:1,
+    explain:['Negative stock hides broken process. Block and fix source documents.','الرصيد السالب يخفي إجراءً مكسورًا. امنع وأصلح المستند المصدر.']
+  },
+  {
+    desk:['Treasury','خزينة'],
+    title:['Book balance ≠ bank statement','رصيد الدفاتر ≠ كشف البنك'],
+    lead:['Month-end bank rec does not tie.','مطابقة نهاية الشهر لا تتطابق.'],
+    scenario:['Statement 520,000; books 505,500. Outstanding cheques and unposted bank charges exist.','الكشف 520,000؛ الدفاتر 505,500. شيكات معلّقة ورسوم غير مرحّلة.'],
+    q:['What tool do you use?','أي أداة تستخدم؟'],
+    options:[
+      ['Delete the outstanding cheques so the two balances agree today','احذف الشيكات المعلّقة عشان الرصيدين يتفقوا النهاردة'],
+      ['Build a bank bridge for deposits, outstanding items and charges','ابنِ جسر بنك للإيداعات والبنود المعلّقة والرسوم'],
+      ['Post the whole difference to a generic cash variance account','رحّل الفرق كله على حساب فروق نقدية عام'],
+      ['Reuse last month\'s reconciliation since the accounts are similar','استخدم مطابقة الشهر الماضي لأن الحسابات متشابهة']
+    ],
+    correct:1,
+    explain:['Formal bank bridge explains timing and missing postings.','جسر البنك الرسمي يفسّر التوقيت والترحيلات الناقصة.']
+  },
+  {
+    desk:['Treasury','خزينة'],
+    title:['Payment to wrong beneficiary','صرف لمستفيد خطأ'],
+    lead:['Supplier payment left the account using an outdated IBAN.','دفعة المورد خرجت بـ IBAN قديم.'],
+    scenario:['EGP 95,000 paid. Supplier master was changed without dual approval.','دُفع 95,000. بيانات المورد تغيّرت بلا اعتماد مزدوج.'],
+    q:['Immediate action?','الإجراء الفوري؟'],
+    options:[
+      ['Wait and see whether the beneficiary notices and returns the funds','استنى وشوف هل المستفيد هيلاحظ ويرجّع الفلوس'],
+      ['Contact the bank for recall and tighten approval on bank master data','تواصل مع البنك للاسترجاع وقوِّ الاعتماد على بيانات البنك'],
+      ['Post the amount to employee receivables until it is explained','رحّل المبلغ لذمم الموظفين لحد ما يتفسّر'],
+      ['Book the payment as a donation since recovery seems unlikely','سجّل الدفعة كتبرع لأن الاسترداد شكله مستبعد']
+    ],
+    correct:1,
+    explain:['Speed matters for recall. Then fix access and approval on master data.','السرعة مهمة للاسترجاع. ثم أصلح الصلاحيات والاعتماد على البيانات.']
+  },
+  {
+    desk:['Payroll','رواتب'],
+    title:['Approved hours ≠ payroll file','الساعات المعتمدة ≠ ملف الرواتب'],
+    lead:['Overtime in payroll exceeds approved attendance.','الإضافي في الرواتب أعلى من الحضور المعتمد.'],
+    scenario:['Approved OT 160 hours; payroll input 172. Run is about to be released.','المعتمد 160؛ المدخل 172. التشغيل على وشك الصرف.'],
+    q:['What do you do?','ماذا تفعل؟'],
+    options:[
+      ['Pay the higher figure now to avoid conflict with the employees','ادفع الرقم الأعلى دلوقتي عشان تتجنب خلاف مع الموظفين'],
+      ['Stop the run and correct hours to the approved HR record','أوقف التشغيل وصحّح الساعات للسجل المعتمد من HR'],
+      ['Split the difference between approved and submitted hours','اقسم الفرق بين الساعات المعتمدة والمدخلة'],
+      ['Post the extra hours quietly as a discretionary bonus payment','رحّل الساعات الزيادة بصمت كبونص تقديري']
+    ],
+    correct:1,
+    explain:['Payroll must match approved inputs. Stop, fix, then run.','الرواتب يجب أن تطابق المدخلات المعتمدة. أوقف، صحّح، ثم شغّل.']
+  },
+  {
+    desk:['Payroll','رواتب'],
+    title:['Payroll liability not clearing after payment','التزام الرواتب لا يصفو بعد الصرف'],
+    lead:['Bank payment went out; payable account still shows a balance.','دفعة البنك خرجت؛ حساب المستحق ما زال عليه رصيد.'],
+    scenario:['Net pay paid; tax/insurance lines may be mis-coded on the payment journal.','صافي الراتب دُفع؛ بنود الضريبة/التأمين قد تكون مرمّزة خطأ في قيد الصرف.'],
+    q:['How to investigate?','كيف تحقق؟'],
+    options:[
+      ['Write off the liability since the bank payment already went out','اشطب الالتزام لأن دفعة البنك خرجت بالفعل'],
+      ['Match the payment coding to each liability account in the chain','طابق ترميز الدفعة مع كل حساب التزام في السلسلة'],
+      ['Reverse the entire payroll run and start the process again','اعكس تشغيل الرواتب كله وابدأ العملية تاني'],
+      ['Move the balance to suspense and leave it there permanently','انقل الرصيد لوسيط واسيبه هناك نهائيًا']
+    ],
+    correct:1,
+    explain:['Clearing failures are usually coding or partial-pay issues — reconciling the chain fixes them.','فشل التصفية غالبًا ترميز أو سداد جزئي — مطابقة السلسلة تصلحه.']
+  },
+  {
+    desk:['GL','دفتر أستاذ'],
+    title:['Accrual: service this month, invoice next month','استحقاق: خدمة هذا الشهر وفاتورة الشهر القادم'],
+    lead:['Consulting work was delivered in March; invoice arrives in April.','عمل استشاري سُلّم في مارس؛ الفاتورة في أبريل.'],
+    scenario:['Amount material; contract rate known; management wants correct March P&L.','المبلغ جوهري؛ سعر العقد معروف؛ الإدارة تريد قائمة دخل مارس صحيحة.'],
+    q:['Correct March entry?','قيد مارس الصحيح؟'],
+    options:[
+      ['Do nothing until the invoice actually arrives next month','ما تعملش حاجة لحد ما الفاتورة توصل فعليًا الشهر الجاي'],
+      ['Accrue the expense now and true it up when the invoice posts','استحق المصروف دلوقتي وسوِّه لما الفاتورة ترحّل'],
+      ['Treat the amount as a prepaid asset paid out of the bank','عامل المبلغ كأصل مقدم اتدفع من البنك'],
+      ['Post the amount directly against equity instead of expense','رحّل المبلغ مباشرة على حقوق الملكية بدل المصروف']
+    ],
+    correct:1,
+    explain:['Accrue when consumed with reliable estimate; true-up later.','استحق عند الاستهلاك بتقدير موثوق؛ سوِّ لاحقًا.']
+  },
+  {
+    desk:['GL','دفتر أستاذ'],
+    title:['Annual insurance paid in advance','تأمين سنوي مدفوع مقدمًا'],
+    lead:['Company paid 12 months of insurance on day 1 of the year.','الشركة دفعت تأمين 12 شهرًا في أول يوم من السنة.'],
+    scenario:['Full payment hit expense in month 1. CFO asks if P&L is distorted.','كامل الدفعة رُحّلت مصروفًا في الشهر الأول. المدير المالي يسأل إن كانت قائمة الدخل مشوّهة.'],
+    q:['Correct approach?','الأسلوب الصحيح؟'],
+    options:[
+      ['Leave the full amount in month-one expense since it was paid','سيب المبلغ كامل مصروف الشهر الأول لأنه اتدفع'],
+      ['Record a prepaid asset and amortize it over the coverage period','سجّل أصل مقدم ووزّعه على فترة التغطية'],
+      ['Capitalize it as a fixed asset and depreciate it for five years','رسمله كأصل ثابت وأهلكه على 5 سنين'],
+      ['Charge the whole payment directly to retained earnings','حمّل الدفعة كلها مباشرة على الأرباح المحتجزة']
+    ],
+    correct:1,
+    explain:['Match expense to periods of coverage via prepaid amortization.','طابق المصروف بفترات التغطية عبر توزيع المقدم.']
+  },
+  {
+    desk:['GL','دفتر أستاذ'],
+    title:['Suspense still open at close','حساب وسيط ما زال مفتوحًا عند الإقفال'],
+    lead:['Material suspense balance remains on the trial balance.','رصيد وسيط جوهري ما زال في ميزان المراجعة.'],
+    scenario:['Several unidentified items older than 30 days. Close pack is being signed.','عدة بنود مجهولة أقدم من 30 يومًا. حزمة الإقفال تُعتمد.'],
+    q:['What should GL insist on?','بماذا يصرّ دفتر الأستاذ؟'],
+    options:[
+      ['Sign the close anyway since the amount is not that large','اعتمد الإقفال على أي حال لأن المبلغ مش كبير أوي'],
+      ['Age every line and clear each one with evidence before sign-off','عمّر كل سطر وصفّيه بالمستند قبل الاعتماد'],
+      ['Move all suspense balances straight into revenue for now','انقل كل أرصدة الوسيط مباشرة للإيراد دلوقتي'],
+      ['Net the whole suspense account to zero with one journal','صفّر حساب الوسيط كله بقيد واحد']
+    ],
+    correct:1,
+    explain:['Material uncleared suspense weakens the statements — clear with owners and evidence.','الوسيط الجوهري غير المصفّى يضعف القوائم — صفِّ بمالكين ومستندات.']
+  },
+  {
+    desk:['GL','دفتر أستاذ'],
+    title:['Trial balance balances but P&L looks wrong','ميزان المراجعة متوازن وقائمة الدخل تبدو خاطئة'],
+    lead:['Debits equal credits; gross margin is unbelievable.','المدين = الدائن؛ مجمل الربح غير منطقي.'],
+    scenario:['Large reclass may have posted expense to a balance-sheet account (or vice versa).','قد يكون إعادة تصنيف كبيرة رحّلت مصروفًا إلى الميزانية (أو العكس).'],
+    q:['What does a balanced TB prove?','ماذا يثبت ميزان متوازن؟'],
+    options:[
+      ['Financial statements must be correct once debits equal credits','القوائم المالية لازم تكون صحيحة طالما المدين = الدائن'],
+      ['Only that debits equal credits — still review classification','بس إن المدين = الدائن — لسه لازم تراجع التصنيف'],
+      ['There is no further need for any bank reconciliations','مفيش حاجة لأي مطابقات بنكية تانية'],
+      ['Sub-ledgers are automatically correct once the TB balances','الدفاتر المساعدة تبقى صحيحة أوتوماتيك بمجرد توازن الميزان']
+    ],
+    correct:1,
+    explain:['Balanced TB is necessary but not sufficient for reliable statements.','توازن الميزان ضروري لكنه غير كافٍ لقوائم موثوقة.']
+  },
+  {
+    desk:['Cross-desk','بين المكاتب'],
+    title:['Treasury deposit must become an AR allocation','إيداع الخزينة يجب أن يصبح تخصيص عملاء'],
+    lead:['Treasury posted unapplied cash; AR has not allocated it.','الخزينة رحّلت غير مخصص؛ العملاء لم يخصّصوا.'],
+    scenario:['Ticket open: BR-2041 EGP 85,000. Close checklist waits on AR bridge.','تذكرة مفتوحة: BR-2041 بمبلغ 85,000. قائمة الإقفال تنتظر جسر العملاء.'],
+    q:['Healthy cross-desk behaviour?','السلوك الصحي بين المكاتب؟'],
+    options:[
+      ['Treasury posts it to revenue just to close the open ticket','الخزينة ترحّلها للإيراد بس عشان تقفل التذكرة المفتوحة'],
+      ['Keep it unapplied while AR allocates it with the remittance','خليها غير مخصصة لحد ما العملاء يخصّصوها بإشعار التحويل'],
+      ['Delete the bank receipt so the ticket disappears from view','احذف إشعار البنك عشان التذكرة تختفي من الشاشة'],
+      ['AR writes off an unrelated invoice to balance the numbers','العملاء يشطبوا فاتورة مالهاش علاقة عشان الأرقام تتوازن']
+    ],
+    correct:1,
+    explain:['Cross-desk tickets carry evidence and ownership — not shortcuts to revenue.','التذاكر بين المكاتب تنقل الدليل والملكية — لا اختصارات للإيراد.']
+  },
+  {
+    desk:['AP','موردين'],
+    title:['Price on invoice higher than PO','سعر الفاتورة أعلى من أمر الشراء'],
+    lead:['Matched quantity, but unit price exceeds the purchase order.','الكمية مطابقة، لكن سعر الوحدة أعلى من أمر الشراء.'],
+    scenario:['PO rate 100; invoice rate 115 for 200 units. Procurement not yet informed.','سعر الأمر 100؛ الفاتورة 115 لـ 200 وحدة. المشتريات لم تُبلَّغ بعد.'],
+    q:['What do you post?','ماذا ترحّل؟'],
+    options:[
+      ['Post the full invoice amount quietly without flagging anything','رحّل مبلغ الفاتورة كامل بصمت من غير ما ترصد أي حاجة'],
+      ['Post only the matched price and route the variance to procurement','رحّل السعر المطابق بس وحوّل الفرق للمشتريات'],
+      ['Cancel the goods receipt so the mismatch no longer shows','ألغِ إذن الاستلام عشان عدم التطابق مايبانش'],
+      ['Pay the full amount now and raise a dispute afterward','ادفع المبلغ كامل دلوقتي وارفع نزاع بعدين']
+    ],
+    correct:1,
+    explain:['Do not accept price variances without procurement approval.','لا تقبل فرق السعر بلا اعتماد المشتريات.']
+  }
+];;
+
+  function isAr(){ return document.documentElement.lang === 'ar'; }
+  function t2(pair){
+    if(pair == null) return '';
+    if(typeof pair === 'string') return pair;
+    return isAr() ? (pair[1] != null ? pair[1] : pair[0]) : (pair[0] != null ? pair[0] : '');
+  }
+  function shuffleIndices(n){
+    var a = [];
+    for(var i=0;i<n;i++) a.push(i);
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var t=a[i]; a[i]=a[j]; a[j]=t;
+    }
+    return a;
+  }
+  function setFooter(html){
+    var f = document.getElementById('modalFooter');
+    if(f) f.innerHTML = html;
+  }
+  function ensureModal(){
+    var m = document.getElementById('modal');
+    if(m) return m;
+    // create minimal modal if missing
+    m = document.createElement('div');
+    m.id = 'modal';
+    m.className = 'modal';
+    m.setAttribute('role','dialog');
+    m.innerHTML = '<div class="modalbox" style="max-width:560px;background:#fff;border-radius:16px;padding:20px">'+
+      '<div style="display:flex;justify-content:space-between"><h3 id="modal-title">—</h3>'+
+      '<button type="button" onclick="window.closeCase()" style="border:0;background:0;font-size:22px;cursor:pointer">×</button></div>'+
+      '<p id="modal-desk"></p><p id="modal-scenario"></p><strong id="modal-question"></strong>'+
+      '<div id="modal-options"></div><p id="result"></p><div id="modalFooter"></div></div>';
+    document.body.appendChild(m);
+    return m;
+  }
+  function openModal(m){
+    m.classList.add('open');
+    m.style.cssText = 'display:flex !important;position:fixed;inset:0;z-index:2147483646;align-items:center;justify-content:center;background:rgba(10,20,18,.55);padding:16px';
+  }
+  function renderStep(){
+    var ses = global._caseSession;
+    if(!ses) return;
+    if(ses.step >= ses.indices.length){ showDone(); return; }
+    var idx = ses.indices[ses.step];
+    var c = DAILY_CASES[idx];
+    global._dailyCase = {idx:idx, c:c};
+    global._dailyAnswered = false;
+    ses.answered = false;
+    var m = ensureModal();
+    var ar = isAr();
+    var qNum = ses.step+1, qTotal = ses.indices.length;
+    document.getElementById('modal-title').textContent = (ar?('سؤال '+qNum+' من '+qTotal):('Question '+qNum+' of '+qTotal))+' — '+t2(c.title);
+    document.getElementById('modal-desk').textContent = (ar?'المكتب: ':'Desk: ')+t2(c.desk)+' · '+(ar?'النتيجة: ':'Score: ')+ses.score+'/'+ses.step;
+    document.getElementById('modal-scenario').textContent = t2(c.scenario);
+    document.getElementById('modal-question').textContent = t2(c.q);
+    document.getElementById('result').innerHTML = '';
+    var order = c.options.map(function(_,i){return i;});
+    for(var i=order.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=order[i]; order[i]=order[j]; order[j]=t; }
+    global._dailyOptionOrder = order;
+    var letters = ['A','B','C','D'];
+    document.getElementById('modal-options').innerHTML = order.map(function(orig,pos){
+      return '<button type="button" class="option" style="display:block;width:100%;text-align:start;margin:6px 0;padding:10px 12px;border:1px solid #ccc;border-radius:10px;background:#f7f7f7;cursor:pointer;font:inherit" onclick="window.answerDaily('+orig+')">'+letters[pos]+'. '+t2(c.options[orig])+'</button>';
+    }).join('');
+    setFooter('<button type="button" onclick="window.closeCase()" style="padding:8px 14px;border-radius:8px;border:1px solid #ccc;cursor:pointer">'+(ar?'إغلاق':'Close')+'</button>');
+    openModal(m);
+  }
+  function showDone(){
+    var ses = global._caseSession;
+    var total = ses?ses.indices.length:5;
+    var score = ses?ses.score:0;
+    var ar = isAr();
+    var m = ensureModal();
+    document.getElementById('modal-title').textContent = ar?'انتهت الحالة':'Case complete';
+    document.getElementById('modal-desk').textContent = '';
+    document.getElementById('modal-scenario').textContent = '';
+    document.getElementById('modal-question').textContent = '';
+    document.getElementById('modal-options').innerHTML = '';
+    var pct = total?Math.round(score/total*100):0;
+    var msg = pct>=80 ? (ar?'أداء ممتاز.':'Excellent.') : pct>=50 ? (ar?'أداء جيد.':'Good effort.') : (ar?'حاول مرة أخرى.':'Try again.');
+    document.getElementById('result').innerHTML = '<div style="text-align:center;padding:12px;background:#e8f5e9;border-radius:12px"><b style="font-size:22px">'+score+' / '+total+'</b><br>'+msg+'</div>';
+    setFooter('<button type="button" onclick="window.closeCase()" style="padding:10px 16px;border:0;border-radius:10px;background:#0f766e;color:#fff;font-weight:700;cursor:pointer">'+(ar?'إغلاق الحالة':'Close case')+'</button> <button type="button" onclick="window.startCaseSession()" style="padding:10px 16px;border-radius:10px;border:1px solid #ccc;cursor:pointer">'+(ar?'5 أسئلة جديدة':'New 5 questions')+'</button>');
+    openModal(m);
+  }
+  function startCaseSession(){
+    try{
+      if(!DAILY_CASES || !DAILY_CASES.length){ alert('No cases'); return; }
+      var n = Math.min(5, DAILY_CASES.length);
+      var indices = shuffleIndices(DAILY_CASES.length).slice(0,n);
+      global._caseSession = {indices:indices, step:0, score:0, answered:false};
+      renderStep();
+    }catch(e){ alert('Case error: '+(e.message||e)); console.error(e); }
+  }
+  function answerDaily(choice){
+    if(global._dailyAnswered || !global._dailyCase) return;
+    global._dailyAnswered = true;
+    var c = global._dailyCase.c;
+    var order = global._dailyOptionOrder || c.options.map(function(_,x){return x;});
+    var ok = choice === c.correct;
+    if(ok && global._caseSession) global._caseSession.score++;
+    if(global._caseSession) global._caseSession.answered = true;
+    var buttons = document.querySelectorAll('#modal-options .option');
+    buttons.forEach(function(b,n){
+      b.disabled = true;
+      if(order[n]===c.correct){ b.style.borderColor='#2e7d32'; b.style.background='#e8f5e9'; }
+      if(order[n]===choice && !ok){ b.style.borderColor='#c62828'; b.style.background='#fdecea'; }
+    });
+    var ar = isAr();
+    document.getElementById('result').innerHTML = ok
+      ? '<span style="color:#1b5e20"><b>'+(ar?'قرار صحيح.':'Correct.')+'</b> '+t2(c.explain)+'</span>'
+      : '<span style="color:#b71c1c"><b>'+(ar?'ليس الأفضل.':'Not the best.')+'</b> '+t2(c.explain)+'</span>';
+    if(global._caseSession){
+      var isLast = global._caseSession.step >= global._caseSession.indices.length-1;
+      var nextLabel = isLast ? (ar?'إنهاء':'Finish') : (ar?'التالي':'Next');
+      setFooter('<button type="button" onclick="window.closeCase()" style="padding:8px 14px;border-radius:8px;border:1px solid #ccc;cursor:pointer">'+(ar?'إغلاق':'Close')+'</button> <button type="button" onclick="window.advanceCaseSession()" style="padding:8px 14px;border:0;border-radius:8px;background:#0f766e;color:#fff;font-weight:700;cursor:pointer">'+nextLabel+'</button>');
+    }
+  }
+  function advanceCaseSession(){
+    var ses = global._caseSession;
+    if(!ses || !ses.answered) return;
+    ses.step++;
+    ses.answered = false;
+    if(ses.step >= ses.indices.length) showDone();
+    else renderStep();
+  }
+  function closeCase(){
+    var m = document.getElementById('modal');
+    if(m){ m.classList.remove('open'); m.style.display='none'; }
+    global._caseSession = null;
+    global._dailyAnswered = false;
+  }
+
+  // Public API — always overwrite so homepage buttons work
+  global.startCaseSession = startCaseSession;
+  global.startRandomDailyCase = startCaseSession;
+  global.answerDaily = answerDaily;
+  global.advanceCaseSession = advanceCaseSession;
+  global.closeCase = closeCase;
+  global.DAILY_CASES = DAILY_CASES;
+
+  function bindButtons(){
+    var byId = document.getElementById('btnStartCase');
+    var focusCta = document.getElementById('focus-cta');
+    if(focusCta){
+      focusCta.addEventListener('click', function(ev){
+        var card = document.getElementById('todaysFocusCard');
+        var t = card && card.dataset ? card.dataset.target : '';
+        if(t === 'case' || !t){
+          if(ev){ ev.preventDefault(); ev.stopPropagation(); }
+          startCaseSession();
+        }
+      });
+    }
+    if(byId){
+      byId.onclick = function(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} startCaseSession(); return false; };
+    }
+    document.querySelectorAll('.mcb-btn, [data-en="START CASE"], [data-en="START NOW"]').forEach(function(btn){
+      var oc = (btn.getAttribute('onclick')||'');
+      if(oc.indexOf('E2E')>=0 || oc.indexOf('startRandomE2E')>=0) return;
+      if(btn.classList.contains('mp-start') && oc.indexOf('startCaseSession')<0 && oc.indexOf('startRandomDailyCase')<0 && oc.indexOf('startCaseSession')<0){
+        // mission button maybe - only bind if text is case related
+        var tx = (btn.textContent||'').toLowerCase();
+        if(tx.indexOf('start now')>=0 && btn.closest('.mock-prac-card')){
+          // first practice card is case study
+        }
+      }
+      btn.onclick = function(ev){
+        if(ev){ ev.preventDefault(); ev.stopPropagation(); }
+        startCaseSession();
+        return false;
+      };
+    });
+    // specifically first START NOW is case, second is E2E
+    var starts = document.querySelectorAll('.mp-start');
+    if(starts[0]){
+      starts[0].onclick = function(ev){ if(ev){ev.preventDefault();ev.stopPropagation();} startCaseSession(); return false; };
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bindButtons);
+  else bindButtons();
+  setTimeout(bindButtons, 100);
+  setTimeout(bindButtons, 800);
+})(window);
+</script>
+
 </body>
 </html>
