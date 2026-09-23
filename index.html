@@ -1220,7 +1220,7 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
 .milestone-toast{
   position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-30px);
   z-index:999;opacity:0;transition:opacity .35s ease,transform .35s ease;
-  pointer-events:none;
+  pointer-events:none;max-width:calc(100vw - 32px);
 }
 .milestone-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .milestone-inner{
@@ -1233,11 +1233,34 @@ body.is-workspace .ws-subnav{margin-bottom:4px}
 .milestone-stars{font-size:20px}
 .milestone-inner strong{font-size:16px}
 .milestone-count{font-size:13px;opacity:.9;border-inline-start:1px solid rgba(255,255,255,.3);padding-inline-start:10px}
-@media(max-width:480px){
-  .milestone-inner{padding:11px 14px;gap:7px}
+@media(max-width:800px){
+  .milestone-toast{
+    top:auto;bottom:calc(20px + env(safe-area-inset-bottom, 0px));left:16px;right:16px;
+    transform:translateY(40px);max-width:none;
+  }
+  .milestone-toast.show{transform:translateY(0)}
+  .milestone-inner{justify-content:center;white-space:normal;padding:12px 16px}
   .milestone-inner strong{font-size:14px}
-  .milestone-count{font-size:11.5px}
+  .milestone-count{font-size:12px}
 }
+
+.grand-overlay{
+  position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+  background:rgba(10,30,22,.75);opacity:0;transition:opacity .4s ease;padding:20px;
+}
+.grand-overlay.show{opacity:1}
+.grand-card{
+  background:linear-gradient(160deg,#0f5940,var(--brand-dark));color:#fff;
+  border-radius:22px;padding:38px 30px;max-width:480px;text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);
+  transform:scale(.9);transition:transform .4s ease;
+}
+.grand-overlay.show .grand-card{transform:scale(1)}
+.grand-fireworks{font-size:44px;margin-bottom:10px}
+.grand-card h2{font-family:'Fraunces',serif;font-size:26px;margin:0 0 14px;color:var(--gold)}
+.grand-card p{font-size:14.5px;line-height:1.7;margin:0 0 10px;color:rgba(255,255,255,.9)}
+.grand-card .grand-sub{font-size:13px;color:rgba(255,255,255,.7)}
+.grand-card button{margin-top:18px;background:var(--gold);color:#26200a;border:0;font-weight:800;padding:12px 24px;border-radius:12px;font-size:14.5px;cursor:pointer}
 
 </style>
 </head>
@@ -7819,6 +7842,7 @@ function spotRenderFor(desk){
     order.map(i=>`<button type="button" class="option" onclick="spotAnswerFor('${desk}',${i})">${s.opts[i].t}</button>`).join('') +
     `<div id="${desk}-spot-result" style="margin-top:10px"></div>`;
   el.dataset.opts = JSON.stringify(s.opts);
+  el.dataset.scenarioIdx = scenarioIdx;
 }
 function spotAnswerFor(desk, i){
   const el = document.getElementById(desk+'-spot-scenario');
@@ -7830,6 +7854,7 @@ function spotAnswerFor(desk, i){
   if(chosen.ok){
     spotSessionStats[desk].correct++;
     if(typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);
+    if(typeof coverageMark==='function') coverageMark('spot', desk, Number(el.dataset.scenarioIdx));
     resEl.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'صح!':'Correct!')+'</strong> '+chosen.why+'</div>';
     if(typeof learnAddScore==='function') learnAddScore(15);
     if(typeof learnMarkSpotSolved==='function') learnMarkSpotSolved();
@@ -8367,11 +8392,12 @@ function learnRegisterCorrect(n){
   const beforeMilestones = Math.floor(before/30);
   const afterMilestones = Math.floor(learnState.correctCount/30);
   if(afterMilestones > beforeMilestones){
-    showCorrectMilestone(learnState.correctCount);
+    showCorrectMilestone(afterMilestones*30);
   }
 }
 function showCorrectMilestone(total){
   const ar = cycleAr();
+  document.querySelectorAll('.milestone-toast').forEach(t=>t.remove());
   const el = document.createElement('div');
   el.className = 'milestone-toast';
   el.innerHTML = `<div class="milestone-inner"><span class="milestone-stars">🌟🌟</span><strong>${ar?'أحسنت!':'Well done!'}</strong><span class="milestone-count">${total} ${ar?'إجابة صحيحة':'correct answers'}</span></div>`;
@@ -8497,6 +8523,81 @@ function coaRemove(i){
   coaRender();
 }
 
+/* ===== Full coverage tracking: every question in the app answered correctly at least once ===== */
+const COVERAGE_KEY = 'ayman_full_coverage_v1';
+const COVERAGE_STATIONS = ['ar','ap','inv','treasury','hr','gl'];
+let fullCoverage = { quiz:{}, spot:{}, daily:[], workday:{}, e2e:{} };
+function coverageLoad(){ try{ const x = JSON.parse(localStorage.getItem(COVERAGE_KEY)); if(x) fullCoverage = Object.assign({quiz:{},spot:{},daily:[],workday:{},e2e:{}}, x); }catch(_){} }
+function coverageSave(){ try{ localStorage.setItem(COVERAGE_KEY, JSON.stringify(fullCoverage)); }catch(_){} }
+
+function coverageMark(category, key, index){
+  if(!fullCoverage[category]) fullCoverage[category] = {};
+  if(category==='daily'){
+    fullCoverage.daily[index] = true;
+  } else {
+    if(!fullCoverage[category][key]) fullCoverage[category][key] = [];
+    fullCoverage[category][key][index] = true;
+  }
+  coverageSave();
+  if(checkFullCoverage()) showGrandCelebration();
+}
+
+function checkFullCoverage(){
+  try{
+    for(const s of COVERAGE_STATIONS){
+      const bank = (typeof QUIZ_BANKS!=='undefined' && QUIZ_BANKS[s]) || [];
+      const cov = (fullCoverage.quiz && fullCoverage.quiz[s]) || [];
+      for(let i=0;i<bank.length;i++) if(!cov[i]) return false;
+    }
+    for(const s of COVERAGE_STATIONS){
+      const total = (typeof spotScenariosFor==='function') ? spotScenariosFor(s).length : 0;
+      const cov = (fullCoverage.spot && fullCoverage.spot[s]) || [];
+      for(let i=0;i<total;i++) if(!cov[i]) return false;
+    }
+    const dailyTotal = (typeof DAILY_CASES!=='undefined') ? DAILY_CASES.length : 0;
+    for(let i=0;i<dailyTotal;i++) if(!fullCoverage.daily[i]) return false;
+    if(typeof workdayCases!=='undefined'){
+      for(const id in workdayCases){
+        const total = workdayCases[id].steps.length;
+        const cov = (fullCoverage.workday && fullCoverage.workday[id]) || [];
+        for(let i=0;i<total;i++) if(!cov[i]) return false;
+      }
+    }
+    if(typeof E2E_CASES!=='undefined'){
+      for(const c of E2E_CASES){
+        const total = c.steps.length;
+        const cov = (fullCoverage.e2e && fullCoverage.e2e[c.id]) || [];
+        for(let i=0;i<total;i++) if(!cov[i]) return false;
+      }
+    }
+    return dailyTotal>0;
+  }catch(_){ return false; }
+}
+
+function showGrandCelebration(){
+  const ar = cycleAr();
+  const overlay = document.createElement('div');
+  overlay.className = 'grand-overlay';
+  overlay.innerHTML = `<div class="grand-card">
+    <div class="grand-fireworks">🎉🏆🎉</div>
+    <h2>${ar?'إنجاز أسطوري!':'Legendary Achievement!'}</h2>
+    <p>${ar?'جاوبت صح على كل سؤال وسيناريو موجود في التطبيق — كل الأقسام، كل الاختبارات، كل الحالات.':'You have correctly answered every single question and scenario in the entire app — every desk, every quiz, every case.'}</p>
+    <p class="grand-sub">${ar?'رحلة جديدة هتبدأ دلوقتي من الصفر — استعد تتحدى نفسك تاني!':'A brand-new journey starts now from zero — get ready to challenge yourself again!'}</p>
+    <button type="button" class="btn btn-primary" onclick="grandCelebrationAcknowledge()">${ar?'ابدأ رحلة جديدة ←':'Start a new journey →'}</button>
+  </div>`;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(()=>overlay.classList.add('show'));
+}
+function grandCelebrationAcknowledge(){
+  try{
+    localStorage.removeItem(LEARN_KEY);
+    localStorage.removeItem(HOME_VISITED_KEY);
+    localStorage.removeItem(QUIZ_KEY);
+    localStorage.removeItem(COVERAGE_KEY);
+  }catch(_){}
+  location.reload();
+}
+
 function qtoolRandomSpotError(){
   const desks = ['ar','ap','inv','treasury','hr','gl'];
   const d = desks[Math.floor(Math.random()*desks.length)];
@@ -8553,7 +8654,7 @@ function quizSubmit(station){
     const picked = document.querySelector(`input[name="quiz-${station}-${i}"]:checked`);
     const pickedVal = picked ? Number(picked.value) : -1;
     const isRight = pickedVal === item.c;
-    if(isRight) correct++;
+    if(isRight){ correct++; if(typeof coverageMark==='function') coverageMark('quiz', station, i); }
     const color = isRight ? 'var(--brand-dark)' : (pickedVal===-1 ? 'var(--muted)' : 'var(--debit)');
     const icon = isRight ? '✓' : (pickedVal===-1 ? '—' : '✗');
     return `<div style="color:${color};margin:4px 0">${icon} ${ar?'س':'Q'}${i+1}: ${ar?item.x.ar:item.x.en}</div>`;
@@ -8575,6 +8676,7 @@ function quizSubmit(station){
 }
 quizLoad();
 csLoadAll();
+coverageLoad();
 ['ar','ap','inv','treasury','hr','gl'].forEach(quizRender);
 
 /* ================= Fraud Catcher: AR, AP, HR, GL, Treasury (Cash & Bank) ================= */
@@ -8880,7 +8982,7 @@ monthend:{title:'Closing — Accrual Review',subtitle:'A recurring service expen
 ['Resolve','How should the item be closed?',['Document basis, post accrual, track reversal/true-up','Leave it forever','Delete evidence','Move it to revenue'],0,'A controlled accrual has a basis, period, owner and follow-up.']]}};
 function openWorkday(id){const c=workdayCases[id];if(!c)return;window.currentWorkday={id,step:0,score:0,answered:false};const el=document.getElementById('accountingWorkbench');el.hidden=false;document.getElementById('wbTitle').textContent=c.title;document.getElementById('wbSubtitle').textContent=c.subtitle;renderWorkdayStep();el.scrollIntoView({behavior:'smooth',block:'start'})}
 function renderWorkdayStep(){const w=window.currentWorkday,c=workdayCases[w.id];document.querySelectorAll('#wbProgress .wb-step').forEach((x,i)=>{x.classList.toggle('active',i===w.step);x.classList.toggle('done',i<w.step)});if(w.step>=c.steps.length){document.getElementById('wbBody').innerHTML=`<div class="wb-score"><div><strong>Case completed ✓</strong><div class="wb-impact">Score: ${w.score}/${c.steps.length}. The goal is controlled accounting thinking, not speed.</div></div><div class="wb-complete"><button class="primary" onclick="finishWorkday('${w.id}')">Mark case complete</button><button onclick="closeWorkday()">Back to inbox</button></div></div>`;return}const st=c.steps[w.step];const order=st[2].map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}w.order=order;document.getElementById('wbBody').innerHTML=`<div class="wb-grid"><div class="wb-card"><h4>${st[0]} — make your move</h4><div class="wb-question">${st[1]}</div><div class="wb-options">${order.map((origIdx,pos)=>`<button class="wb-option" onclick="answerWorkday(${origIdx})">${String.fromCharCode(65+pos)}. ${st[2][origIdx]}</button>`).join('')}</div><div id="wbFeedback"></div></div><div class="wb-card"><h4>Accountant's control lens</h4><div class="evidence-list"><div class="evidence"><b>Evidence</b><span>What proves the transaction?</span></div><div class="evidence"><b>Risk</b><span>What could go wrong?</span></div><div class="evidence"><b>Impact</b><span>Which ledger / statement changes?</span></div></div><p class="wb-impact" style="margin-top:12px">Rule of thumb: <b>don't post what you cannot explain.</b></p></div></div>`}
-function answerWorkday(i){const w=window.currentWorkday,c=workdayCases[w.id],st=c.steps[w.step];if(w.answered)return;w.answered=true;const order=w.order||st[2].map((_,x)=>x);const ok=i===st[3];if(ok){w.score++;if(typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);}document.querySelectorAll('.wb-option').forEach((b,n)=>{b.disabled=true;if(order[n]===st[3])b.classList.add('correct');if(order[n]===i&&!ok)b.classList.add('wrong')});document.getElementById('wbFeedback').innerHTML=`<div class="wb-feedback"><b>${ok?'Good control decision.':'Not quite — trace the evidence.'}</b> ${st[4]}<div class="wb-next"><button onclick="nextWorkdayStep()">${w.step===c.steps.length-1?'Finish case':'Next →'}</button></div></div>`}
+function answerWorkday(i){const w=window.currentWorkday,c=workdayCases[w.id],st=c.steps[w.step];if(w.answered)return;w.answered=true;const order=w.order||st[2].map((_,x)=>x);const ok=i===st[3];if(ok){w.score++;if(typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);if(typeof coverageMark==='function') coverageMark('workday', w.id, w.step);}document.querySelectorAll('.wb-option').forEach((b,n)=>{b.disabled=true;if(order[n]===st[3])b.classList.add('correct');if(order[n]===i&&!ok)b.classList.add('wrong')});document.getElementById('wbFeedback').innerHTML=`<div class="wb-feedback"><b>${ok?'Good control decision.':'Not quite — trace the evidence.'}</b> ${st[4]}<div class="wb-next"><button onclick="nextWorkdayStep()">${w.step===c.steps.length-1?'Finish case':'Next →'}</button></div></div>`}
 function nextWorkdayStep(){window.currentWorkday.step++;window.currentWorkday.answered=false;renderWorkdayStep()}
 function finishWorkday(id){const state=getInboxState();state[id]=true;saveInboxState(state);updateAccountingInbox();closeWorkday()}
 function closeWorkday(){const el=document.getElementById('accountingWorkbench');if(el)el.hidden=true;window.currentWorkday=null}
@@ -9356,6 +9458,7 @@ function answerDaily(i){
   const order = window._dailyOptionOrder || c.options.map((_,x)=>x);
   const ok = i === c.correct;
   if(ok && typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);
+  if(ok && typeof coverageMark==='function') coverageMark('daily', null, window._dailyCase.idx);
   const buttons = document.querySelectorAll('#modal-options .option');
   buttons.forEach((b,n)=>{
     b.disabled = true;
@@ -9757,6 +9860,7 @@ function answerE2ECase(){
  if(Number(v)===s[5]){
    e2eCaseState.score+=10;
    if(typeof learnRegisterCorrect==='function') learnRegisterCorrect(1);
+   if(typeof coverageMark==='function') coverageMark('e2e', e2eCaseState.id, e2eCaseState.step);
    m.innerHTML=`<strong>✓ ${ar?'صحيح.':'Correct.'}</strong> ${s[6]}`;
    setTimeout(()=>{if(e2eCaseState.step<c.steps.length-1){e2eCaseState.step++;renderE2ECaseRunner()}else{m.innerHTML=`<strong>✓ ${ar?'اكتملت المهمة.':'Mission complete.'}</strong> ${ar?'النتيجة: '+e2eCaseState.score+'/40':'Final score: '+e2eCaseState.score+'/40'}`;document.getElementById('e2eCaseBody').insertAdjacentHTML('beforeend',`<div class="e2e-case-actions"><button type="button" onclick="startE2ECase('${c.id}')">${ar?'إعادة الحالة':'Run again'}</button></div>`)}},500);
  }else{
