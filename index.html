@@ -383,8 +383,7 @@ footer strong{color:var(--brand-dark)}
   [dir=rtl] .sidebar{transform:translateX(100%) !important}
   [dir=rtl] .sidebar.open{transform:translateX(0) !important}
 }
-@media(min-width:801px){
-  .sidebar{transform:none !important}
+@media(min-width:1100px){.sidebar{transform:none !important}
   .sidebar-backdrop{display:none !important}
   .menu-toggle{display:none !important}
 }
@@ -2740,6 +2739,8 @@ body.is-workspace .ws-subnav{
 body.is-workspace .hero,
 body.is-workspace .mock-hero,
 body.is-workspace .hero.mock-hero,
+body.is-workspace .dash-hero,
+body.is-workspace .dash-home,
 body.is-workspace #homeClean,
 body.is-workspace .home-clean,
 body.is-workspace .mock-home,
@@ -2793,6 +2794,690 @@ body:not(.is-workspace) .workspace-chrome{
 }
 </style>
 
+
+<style id="dashHomeLayout">
+/* ===== Premium homepage — rich teal/navy/gold, high contrast ===== */
+body:not(.is-workspace){
+  background:#E8EEF5 !important;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(15,90,110,.12), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(180,130,40,.08), transparent) !important;
+}
+body:not(.is-workspace) .page{ background:transparent; }
+
+/* HERO — deep teal cinematic band */
+.dash-hero,
+body:not(.is-workspace) .dash-hero.hero,
+body:not(.is-workspace) section.dash-hero{
+  background:linear-gradient(135deg, #062F2C 0%, #0B4A45 40%, #0F6B5C 78%, #1A8A6E 100%) !important;
+  border-radius:0 0 28px 28px !important;
+  padding:36px 28px 40px !important;
+  margin:0 0 8px !important;
+  max-width:none !important;
+  color:#fff !important;
+  box-shadow:0 12px 40px rgba(6,47,44,.35) !important;
+  position:relative;
+  overflow:hidden;
+}
+.dash-hero::after{
+  content:"";
+  position:absolute; inset:auto -20% -40% 40%;
+  height:180px;
+  background:radial-gradient(circle, rgba(240,180,41,.25), transparent 70%);
+  pointer-events:none;
+}
+.dash-hero-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  position:relative;z-index:1;
+}
+.dash-hero-copy h1{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  background:none !important;
+  font-size:clamp(26px,4vw,38px) !important;
+  line-height:1.15 !important;
+  margin:0 0 12px !important;
+  font-weight:800 !important;
+  letter-spacing:-.02em !important;
+  text-shadow:0 2px 12px rgba(0,0,0,.2) !important;
+}
+.dash-hero-copy p{
+  color:rgba(255,255,255,.82) !important;
+  font-size:15px !important;
+  margin:0 0 16px !important;
+  max-width:420px !important;
+}
+.dash-hero-link{
+  display:inline-flex !important;
+  align-items:center;
+  background:linear-gradient(135deg,#F0B429,#E8A317) !important;
+  color:#1A1508 !important;
+  font-weight:800 !important;
+  font-size:14px !important;
+  text-decoration:none !important;
+  padding:12px 20px !important;
+  border-radius:999px !important;
+  box-shadow:0 8px 24px rgba(240,180,41,.4) !important;
+  transition:transform .15s ease, filter .15s ease;
+}
+.dash-hero-link:hover{ filter:brightness(1.06); transform:translateY(-2px); }
+.dash-hero-art{
+  display:flex;gap:8px;flex-wrap:wrap;max-width:220px;justify-content:flex-end;
+}
+.dash-hero-art span{
+  font-size:30px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;
+  width:52px;height:52px;
+  display:grid;place-items:center;
+  backdrop-filter:blur(6px);
+}
+@media(max-width:700px){ .dash-hero-art{display:none} }
+
+/* Shell */
+.dash-home.home-clean{
+  max-width:1100px !important;
+  margin:0 auto !important;
+  padding:16px 18px 48px !important;
+}
+.dash-grid{
+  display:grid;
+  grid-template-columns:1.35fr 1fr;
+  grid-template-areas:
+    "focus case"
+    "desks right";
+  gap:16px;
+  align-items:start;
+}
+.dash-focus{ grid-area: focus; }
+.dash-case{ grid-area: case; }
+.dash-desks-wrap{ grid-area: desks; }
+.dash-right{ grid-area: right; display:flex; flex-direction:column; gap:16px; }
+@media(max-width:900px){
+  .dash-grid{
+    grid-template-columns:1fr;
+    grid-template-areas:"focus" "case" "desks" "right";
+  }
+}
+
+/* Cards — white with strong presence */
+.dash-card{
+  background:#fff !important;
+  border:1px solid rgba(15,40,50,.08) !important;
+  border-radius:20px !important;
+  padding:16px 18px !important;
+  box-shadow:
+    0 4px 6px rgba(15,40,50,.03),
+    0 12px 28px rgba(15,40,50,.08) !important;
+}
+.dash-kicker{
+  font-size:11px !important;
+  font-weight:800 !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase !important;
+  color:#0B4A45 !important;
+  margin-bottom:12px !important;
+  display:flex;align-items:center;gap:8px;
+}
+.dash-kicker::before{
+  content:"";
+  width:8px;height:8px;border-radius:50%;
+  background:linear-gradient(135deg,#0F6B5C,#F0B429);
+  flex:none;
+}
+
+/* Focus card */
+.dash-focus{
+  background:linear-gradient(145deg,#fff 0%,#F0FAF7 100%) !important;
+  border-color:#B8D9D2 !important;
+}
+.dash-focus-body{ display:flex; align-items:center; gap:14px; }
+.dash-focus-text{ flex:1; }
+.dash-focus-text strong{
+  display:block; font-size:16px; color:#062F2C; margin-bottom:6px;
+  line-height:1.35; font-family:"Fraunces",Georgia,serif;
+}
+.dash-focus-text span{
+  display:block; font-size:13px; color:#3D5A54; margin-bottom:12px; line-height:1.45;
+}
+.dash-focus-art{
+  width:72px;height:72px;border-radius:18px;
+  background:linear-gradient(145deg,#0B4A45,#1A8A6E);
+  display:grid;place-items:center;font-size:34px;flex:none;
+  box-shadow:0 8px 20px rgba(11,74,69,.3);
+}
+.dash-btn-primary{
+  background:linear-gradient(135deg,#0B4A45,#0F6B5C) !important;
+  color:#fff !important;border:0 !important;border-radius:12px !important;
+  padding:11px 18px !important;font-weight:800 !important;font-size:13px !important;
+  cursor:pointer;font-family:inherit;
+  box-shadow:0 6px 16px rgba(11,74,69,.3) !important;
+}
+.dash-btn-primary:hover{ filter:brightness(1.1); transform:translateY(-1px); }
+
+/* Workflow */
+.dash-workflow{
+  background:linear-gradient(145deg,#fff,#F7F3EA) !important;
+  border-color:#E5D4A8 !important;
+}
+.dash-flow-steps{ display:flex;align-items:center;flex-wrap:wrap;gap:8px; }
+.dash-flow-step{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#fff;border:1.5px solid #D4B84A;
+  border-radius:999px;padding:10px 14px;
+  font-size:12.5px;font-weight:700;color:#3D2E0A;
+  box-shadow:0 2px 8px rgba(180,130,40,.1);
+}
+.dfs-n{
+  width:22px;height:22px;border-radius:50%;
+  background:linear-gradient(135deg,#0B4A45,#1A8A6E);color:#fff;
+  display:grid;place-items:center;font-size:11px;font-weight:800;
+}
+.dfs-arrow{ color:#C4A035; font-size:18px; font-weight:700; }
+
+/* Case study — bold navy header */
+.dash-case{ padding:0 !important; overflow:hidden !important; border:0 !important; }
+.dash-case-banner{
+  background:linear-gradient(90deg,#062F2C,#0B4A45 50%,#8B6914) !important;
+  color:#fff !important;font-size:12px !important;font-weight:800 !important;
+  letter-spacing:.06em !important;padding:12px 18px !important;
+}
+.dash-case-body{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;
+  background:linear-gradient(180deg,#fff,#F5F9F8);
+}
+.dash-case-body strong{
+  display:block; font-size:17px; color:#062F2C; margin-bottom:4px;
+  font-family:"Fraunces",Georgia,serif;
+}
+.dash-case-body p{ margin:0 0 12px; font-size:13px; color:#3D5A54; }
+.dash-case-art{ font-size:42px; }
+.dash-btn-dark{
+  background:linear-gradient(135deg,#F0B429,#D4920A) !important;
+  color:#1A1508 !important;border:0 !important;border-radius:12px !important;
+  padding:11px 18px !important;font-weight:800 !important;font-size:13px !important;
+  cursor:pointer;font-family:inherit;
+  box-shadow:0 6px 18px rgba(212,146,10,.35) !important;
+}
+.dash-btn-dark:hover{ filter:brightness(1.08); }
+
+/* Desks — vivid color tiles */
+.dash-desks-wrap{
+  background:linear-gradient(180deg,#fff 0%,#F4F8F7 100%) !important;
+}
+.dash-desks{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+@media(max-width:700px){ .dash-desks{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:420px){ .dash-desks{ grid-template-columns:1fr; } }
+
+.dash-desk{
+  display:flex;flex-direction:column;align-items:flex-start;gap:5px;
+  background:#fff !important;
+  border:2px solid transparent !important;
+  border-radius:16px !important;
+  padding:14px !important;
+  cursor:pointer;text-align:start;font-family:inherit;color:inherit;
+  box-shadow:0 4px 14px rgba(15,40,50,.07) !important;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  position:relative;
+  overflow:hidden;
+}
+.dash-desk::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:4px;
+  background:var(--desk-accent, #0F6B5C);
+}
+.dash-desk:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px rgba(15,40,50,.14) !important;
+  border-color:var(--desk-accent, #0F6B5C) !important;
+}
+.dash-desk[data-station="ar"]{ --desk-accent:#1E5FA8; }
+.dash-desk[data-station="ap"]{ --desk-accent:#C2410C; }
+.dash-desk[data-station="inv"]{ --desk-accent:#A16207; }
+.dash-desk[data-station="treasury"]{ --desk-accent:#4338CA; }
+.dash-desk[data-station="hr"]{ --desk-accent:#BE185D; }
+.dash-desk[data-station="gl"]{ --desk-accent:#0F766E; }
+
+.dd-icon{
+  width:42px;height:42px;border-radius:12px;
+  display:grid;place-items:center;font-size:20px;margin-bottom:4px;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);
+}
+.dd-ar{ background:linear-gradient(145deg,#BFDBFE,#60A5FA); }
+.dd-ap{ background:linear-gradient(145deg,#FED7AA,#FB923C); }
+.dd-inv{ background:linear-gradient(145deg,#FDE68A,#FBBF24); }
+.dd-tr{ background:linear-gradient(145deg,#C7D2FE,#818CF8); }
+.dd-hr{ background:linear-gradient(145deg,#FBCFE8,#F472B6); }
+.dd-gl{ background:linear-gradient(145deg,#99F6E4,#2DD4BF); }
+.dd-code{
+  font-size:10px;font-weight:800;letter-spacing:.06em;
+  color:var(--desk-accent,#0F6B5C);
+}
+.dash-desk strong{
+  font-size:13px; color:#0A1F1C; line-height:1.25;
+  font-family:"Fraunces",Georgia,serif;
+}
+.dd-sub{ font-size:11.5px; color:#4A635C; line-height:1.35; }
+.dd-go{
+  font-size:12px; font-weight:800;
+  color:var(--desk-accent,#0F6B5C);
+  margin-top:6px;
+}
+
+/* Learning hub */
+.dash-learn{
+  cursor:pointer; text-align:start; font-family:inherit; color:inherit; width:100%;
+  background:linear-gradient(145deg,#E6F7F3,#C5EDE4) !important;
+  border:1.5px solid #7BC4B5 !important;
+}
+.dash-learn:hover{
+  box-shadow:0 10px 24px rgba(11,74,69,.15) !important;
+  transform:translateY(-2px);
+}
+.dash-learn-body{ display:flex; gap:12px; align-items:flex-start; }
+.dl-icon{
+  font-size:30px;
+  width:48px;height:48px;border-radius:14px;
+  background:rgba(255,255,255,.7);
+  display:grid;place-items:center;flex:none;
+}
+.dash-learn-body strong{ display:block; font-size:15px; color:#062F2C; font-family:"Fraunces",Georgia,serif; }
+.dash-learn-body span{ display:block; font-size:12.5px; color:#2A524A; margin:4px 0 8px; line-height:1.4; }
+.dash-learn-body em{ font-style:normal; font-size:12.5px; font-weight:800; color:#0B4A45; }
+
+/* Practice */
+.dash-practice{
+  background:linear-gradient(145deg,#FFFBF0,#FFF3D6) !important;
+  border:1.5px solid #E5C76B !important;
+}
+.dash-prac-row{ display:flex; flex-direction:column; gap:10px; }
+.dash-prac-item{
+  background:#fff;border:1px solid #E8D49A;border-radius:14px;padding:12px 14px;
+  box-shadow:0 2px 8px rgba(180,130,40,.06);
+}
+.dash-prac-item strong{ display:block; font-size:13.5px; color:#3D2E0A; }
+.dash-prac-item small{ display:block; font-size:11.5px; color:#8B7355; margin:3px 0 8px; }
+.dash-btn-soft{
+  background:linear-gradient(135deg,#0B4A45,#0F6B5C) !important;
+  color:#fff !important;border:0 !important;border-radius:10px !important;
+  padding:8px 14px !important;font-weight:800 !important;font-size:12px !important;
+  cursor:pointer;font-family:inherit;
+  box-shadow:0 4px 12px rgba(11,74,69,.25) !important;
+}
+.dash-btn-soft:hover{ filter:brightness(1.1); }
+
+/* Tools */
+.dash-tools{
+  background:#fff !important;
+  border:1.5px solid #C4B5E0 !important;
+}
+.dash-tools .dash-kicker{ color:#4C1D95 !important; }
+.dash-tools .dash-kicker::before{ background:linear-gradient(135deg,#7C3AED,#C4B5E0); }
+.dash-tools-list{ display:flex;flex-wrap:wrap;gap:8px; }
+.dash-tools-list button{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(145deg,#F5F3FF,#EDE9FE);
+  border:1px solid #DDD6FE;border-radius:10px;
+  padding:8px 12px;font-size:12px;font-weight:700;color:#4C1D95;
+  cursor:pointer;font-family:inherit;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.dash-tools-list button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(76,29,149,.12);
+  border-color:#A78BFA;
+}
+
+.dash-tip{
+  margin-top:18px !important;
+  background:rgba(11,74,69,.06) !important;
+  border-inline-start:3px solid #0F6B5C !important;
+  border-radius:10px !important;
+  color:#2A524A !important;
+  font-size:12.5px !important;
+  text-align:start !important;
+  padding:10px 14px !important;
+}
+
+body.is-workspace .dash-hero,
+body.is-workspace .dash-home{ display:none !important; }
+</style>
+
+
+<style id="e2eRunnerModal">
+/* Accounting Mission — popup modal */
+.e2e-runner{
+  display:none !important;
+}
+.e2e-runner.is-open{
+  display:flex !important;
+  position:fixed !important;
+  inset:0 !important;
+  z-index:2147483000 !important;
+  margin:0 !important;
+  padding:16px !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:rgba(6,30,28,.55) !important;
+  backdrop-filter:blur(4px);
+  border:0 !important;
+  border-radius:0 !important;
+  overflow:auto !important;
+}
+.e2e-runner.is-open > .e2e-runner-head,
+.e2e-runner.is-open > .e2e-case-stepbar,
+.e2e-runner.is-open > #e2eCaseBody{
+  /* content sits in a card via wrapper - style head/body as card pieces */
+}
+.e2e-runner.is-open{
+  flex-direction:column !important;
+  align-items:stretch !important;
+  justify-content:flex-start !important;
+  max-width:100% !important;
+}
+.e2e-runner.is-open .e2e-runner-head{
+  background:#fff;
+  border-radius:16px 16px 0 0;
+  padding:16px 18px;
+  margin:auto auto 0;
+  width:min(640px,100%);
+  box-sizing:border-box;
+  border-bottom:1px solid #e5e7eb;
+}
+.e2e-runner.is-open .e2e-case-stepbar{
+  background:#fff;
+  width:min(640px,100%);
+  margin:0 auto;
+  padding:10px 18px;
+  box-sizing:border-box;
+}
+.e2e-runner.is-open #e2eCaseBody{
+  background:#fff;
+  width:min(640px,100%);
+  margin:0 auto auto;
+  padding:16px 18px 20px;
+  border-radius:0 0 16px 16px;
+  box-sizing:border-box;
+  box-shadow:0 20px 50px rgba(0,0,0,.25);
+  max-height:70vh;
+  overflow:auto;
+}
+.e2e-runner-close{
+  background:#0B4A45 !important;
+  color:#fff !important;
+  border:0 !important;
+  border-radius:10px !important;
+  padding:8px 14px !important;
+  font-weight:700 !important;
+  cursor:pointer;
+}
+</style>
+
+
+<style id="e2eRunnerModalBoost">
+#e2eCaseRunner.e2e-runner.is-open,
+.e2e-runner.is-open{
+  display:flex !important;
+  position:fixed !important;
+  inset:0 !important;
+  z-index:2147483646 !important;
+  margin:0 !important;
+  padding:20px 12px !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  background:rgba(6,30,28,.6) !important;
+  overflow:auto !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+#e2eCaseRunner.e2e-runner:not(.is-open){
+  display:none !important;
+}
+</style>
+
+
+<style id="dashSectionTints">
+/* Reordered grid: focus+practice on top, then case+learn, desks full, tools */
+.dash-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  grid-template-areas:
+    "focus practice"
+    "case learn"
+    "desks desks"
+    "tools tools" !important;
+  gap:16px !important;
+  align-items:stretch !important;
+}
+.dash-focus{ grid-area: focus !important; }
+.dash-practice{ grid-area: practice !important; }
+.dash-case{ grid-area: case !important; }
+.dash-learn{ grid-area: learn !important; }
+.dash-desks-wrap{ grid-area: desks !important; }
+.dash-tools{ grid-area: tools !important; }
+.dash-right{ display:contents !important; }
+
+@media(max-width:900px){
+  .dash-grid{
+    grid-template-columns:1fr !important;
+    grid-template-areas:
+      "focus"
+      "practice"
+      "case"
+      "learn"
+      "desks"
+      "tools" !important;
+  }
+}
+
+/* Distinct section backgrounds */
+.tint-focus{
+  background:linear-gradient(145deg,#E8F6F3 0%,#C5EDE4 100%) !important;
+  border:2px solid #5BA89A !important;
+}
+.tint-practice{
+  background:linear-gradient(145deg,#FFF6D6 0%,#F0D989 100%) !important;
+  border:2px solid #C4A035 !important;
+}
+.tint-practice .dash-prac-item{
+  background:rgba(255,255,255,.85) !important;
+  border-color:#E0C86A !important;
+}
+.tint-case{
+  border:2px solid #1E3A5F !important;
+  background:#fff !important;
+}
+.tint-learn{
+  background:linear-gradient(145deg,#EDE9FE 0%,#C4B5FD 100%) !important;
+  border:2px solid #7C3AED !important;
+}
+.tint-learn .dash-kicker{ color:#4C1D95 !important; }
+.tint-learn .dash-kicker::before{ background:#7C3AED !important; }
+.tint-learn strong, .tint-learn .dash-learn-body strong{ color:#2E1065 !important; }
+.tint-learn span{ color:#5B21B6 !important; }
+.tint-learn em{ color:#5B21B6 !important; }
+
+.tint-desks{
+  background:linear-gradient(160deg,#0B1F3A 0%,#123A5C 45%,#1A4F73 100%) !important;
+  border:2px solid #0A2744 !important;
+  color:#E8F0F8 !important;
+}
+.tint-desks .dash-kicker{
+  color:#A8D4F0 !important;
+}
+.tint-desks .dash-kicker::before{
+  background:linear-gradient(135deg,#5BA3D9,#F0B429) !important;
+}
+.tint-desks .dash-desk{
+  background:rgba(255,255,255,.96) !important;
+  border-color:rgba(255,255,255,.2) !important;
+}
+.tint-desks .dash-desk strong{ color:#0A1F2E !important; }
+
+.tint-tools{
+  background:linear-gradient(145deg,#3D2E12 0%,#6B4E16 40%,#C4A035 100%) !important;
+  border:2px solid #8B6914 !important;
+  color:#FFF8E6 !important;
+}
+.tint-tools .dash-kicker{
+  color:#FFF3C4 !important;
+}
+.tint-tools .dash-kicker::before{
+  background:#F0B429 !important;
+}
+.tint-tools .dash-tools-list button{
+  background:rgba(255,255,255,.95) !important;
+  border-color:#E8D49A !important;
+  color:#3D2E0A !important;
+}
+.tint-tools .dash-tools-list button:hover{
+  background:#fff !important;
+  box-shadow:0 4px 14px rgba(0,0,0,.15) !important;
+}
+</style>
+
+
+<style id="sidebarLayoutFix">
+/*
+  Phone "Desktop site" often reports ~980px width, which wrongly activated
+  the fixed sidebar. Permanent sidebar ONLY from 1100px up (real desktop/tablet landscape).
+*/
+@media (max-width: 1099px) {
+  .sidebar,
+  aside.sidebar,
+  #sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: min(300px, 84vw) !important;
+    max-width: 300px !important;
+    z-index: 400 !important;
+    transition: transform .25s ease !important;
+    display: block !important;
+  }
+  html:not([dir="rtl"]) .sidebar,
+  html:not([dir="rtl"]) aside.sidebar,
+  html:not([dir="rtl"]) #sidebar {
+    left: 0 !important;
+    right: auto !important;
+    transform: translate3d(-105%, 0, 0) !important;
+  }
+  html:not([dir="rtl"]) .sidebar.open,
+  html:not([dir="rtl"]) aside.sidebar.open,
+  html:not([dir="rtl"]) #sidebar.open {
+    transform: translate3d(0, 0, 0) !important;
+  }
+  html[dir="rtl"] .sidebar,
+  html[dir="rtl"] aside.sidebar,
+  html[dir="rtl"] #sidebar,
+  html[lang="ar"] .sidebar {
+    right: 0 !important;
+    left: auto !important;
+    transform: translate3d(105%, 0, 0) !important;
+  }
+  html[dir="rtl"] .sidebar.open,
+  html[dir="rtl"] aside.sidebar.open,
+  html[dir="rtl"] #sidebar.open,
+  html[lang="ar"] .sidebar.open {
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  .page,
+  body.is-workspace .page {
+    margin: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-inline-start: 0 !important;
+    margin-inline-end: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .menu-toggle {
+    display: flex !important;
+    z-index: 450 !important;
+  }
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 350;
+  }
+  .sidebar-backdrop.show {
+    display: block !important;
+  }
+}
+
+/* Real wide desktop only */
+@media (min-width: 1100px) {
+  .sidebar,
+  aside.sidebar,
+  #sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 260px !important;
+    max-width: 260px !important;
+    z-index: 30 !important;
+    transform: none !important;
+    translate: none !important;
+    display: block !important;
+  }
+  html:not([dir="rtl"]) .sidebar {
+    left: 0 !important;
+    right: auto !important;
+  }
+  html[dir="rtl"] .sidebar,
+  html[lang="ar"] .sidebar {
+    right: 0 !important;
+    left: auto !important;
+  }
+  .page,
+  body.is-workspace .page {
+    width: calc(100% - 260px) !important;
+    max-width: calc(100% - 260px) !important;
+    box-sizing: border-box !important;
+  }
+  html:not([dir="rtl"]) .page,
+  html:not([dir="rtl"]) body.is-workspace .page {
+    margin-left: 260px !important;
+    margin-right: 0 !important;
+    margin-inline-start: 260px !important;
+  }
+  html[dir="rtl"] .page,
+  html[dir="rtl"] body.is-workspace .page,
+  html[lang="ar"] .page,
+  html[lang="ar"] body.is-workspace .page {
+    margin-right: 260px !important;
+    margin-left: 0 !important;
+    margin-inline-start: 260px !important;
+  }
+  .menu-toggle { display: none !important; }
+  .sidebar-backdrop { display: none !important; }
+}
+
+/* Neutralize older 801px rules that forced always-visible sidebar */
+@media (max-width: 1099px) {
+  .sidebar { transform: translate3d(-105%, 0, 0) !important; }
+  html[dir="rtl"] .sidebar,
+  html[lang="ar"] .sidebar { transform: translate3d(105%, 0, 0) !important; }
+  .sidebar.open { transform: translate3d(0, 0, 0) !important; }
+  html[dir="rtl"] .sidebar.open,
+  html[lang="ar"] .sidebar.open { transform: translate3d(0, 0, 0) !important; }
+}
+</style>
+
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -2824,10 +3509,6 @@ body:not(.is-workspace) .workspace-chrome{
 <header>
   <div class="logo">AYMAN HEGAZY<small>REAL WORLD ACCOUNTING</small></div>
   <div style="display:flex;align-items:center;gap:18px">
-    <nav>
-      <a href="#homeClean" onclick="goHomeSection('homeClean');return false" data-en="Desks" data-ar="المكاتب">Desks</a>
-      <a href="#problem" onclick="goHomeSection('problem');return false" data-en="Daily Problem" data-ar="مشكلة اليوم">Daily Problem</a>
-    </nav>
     <div class="lang-switch">
       <button class="lang-btn active" id="enBtn" onclick="setLanguage('en')">EN</button>
       <button class="lang-btn" id="arBtn" onclick="setLanguage('ar')">عربي</button>
@@ -2836,44 +3517,22 @@ body:not(.is-workspace) .workspace-chrome{
 </header>
 
 
-<section class="hero mock-hero">
-  <div class="mock-hero-inner">
-    <div class="mock-hero-copy">
-      <h1><span data-en="Learn Accounting." data-ar="تعلّم المحاسبة.">Learn Accounting.</span><br><span data-en="Think Like an Accountant." data-ar="فكّر كمحاسب.">Think Like an Accountant.</span></h1>
+
+<section class="hero dash-hero home-view">
+  <div class="dash-hero-inner">
+    <div class="dash-hero-copy">
+      <h1><span data-en="Learn Accounting. Think Like an Accountant." data-ar="تعلّم المحاسبة. فكّر كمحاسب.">Learn Accounting. Think Like an Accountant.</span></h1>
       <p data-en="One company. Real desks. Daily exceptions and month-end work." data-ar="شركة واحدة. مكاتب حقيقية. استثناءات يومية وإقفال شهر.">One company. Real desks. Daily exceptions and month-end work.</p>
-      <a class="cta mock-cta" href="#homeClean" onclick="goHomeSection('homeClean');return false"><span data-en="Find Your Path. Choose a Desk →" data-ar="اختَر مسارك. افتح مكتبًا ←">Find Your Path. Choose a Desk →</span></a>
+      <a class="dash-hero-link" href="#homeClean" onclick="goHomeSection('homeClean');return false"><span data-en="Find Your Path. Choose a Desk →" data-ar="اختَر مسارك. افتح مكتبًا ←">Find Your Path. Choose a Desk →</span></a>
     </div>
-    <div class="mock-hero-art" aria-hidden="true">
-      <div class="mha-scene">
-        <span class="mha-person">👩‍💼</span>
-        <span class="mha-person">👨‍💻</span>
-        <span class="mha-person">👩‍💻</span>
-        <span class="mha-chart">📊</span>
-        <span class="mha-bulb">💡</span>
-        <span class="mha-desk">🖥️</span>
-      </div>
+    <div class="dash-hero-art" aria-hidden="true">
+      <span>👩‍💼</span><span>👨‍💻</span><span>👩‍💻</span>
+      <span>📊</span><span>💻</span><span>💡</span>
     </div>
   </div>
 </section>
 
-<div class="focus-card home-view" id="todaysFocusCard" aria-hidden="false">
-  <div class="focus-inner">
-    <span class="focus-badge" data-en="TODAY'S FOCUS" data-ar="تركيز اليوم">TODAY'S FOCUS</span>
-    <div class="focus-text"><strong id="focus-title">—</strong><span id="focus-desc"></span></div>
-    <button type="button" class="btn btn-primary" id="focus-cta" onclick="homeFocusGo()">—</button>
-  </div>
-</div>
-
-<nav class="quickjump" aria-label="Quick jump" hidden>
-  <button class="chip" aria-selected="true" onclick="jumpChip('overview',this)">Overview</button>
-  <button class="chip" onclick="jumpChip('banks',this)">Banks</button>
-  <button class="chip" onclick="jumpChip('customers',this)">Customers</button>
-  <button class="chip" onclick="jumpChip('suppliers',this)">Suppliers</button>
-  <button class="chip" onclick="jumpChip('inventory',this)">Inventory</button>
-  <button class="chip" onclick="jumpChip('departments',this)">Departments</button>
-  <button class="chip" onclick="jumpChip('employees',this)">Employees</button>
-  <button class="chip" onclick="jumpChip('coa',this)">Chart of Accounts</button>
-</nav>
+<div class="focus-card home-view" id="todaysFocusCard" aria-hidden="false" style="display:none"></div>
 
 <main id="main-content">
   <div class="workspace-chrome" id="workspaceChrome" aria-live="polite">
@@ -2889,145 +3548,136 @@ body:not(.is-workspace) .workspace-chrome{
     <p class="ws-hint" id="wsHint" data-en="Each tab opens only what belongs to this desk. Nothing else from other departments is mixed in." data-ar="كل تبويب يفتح ما يخص هذا المكتب فقط. لا يختلط معه شيء من أقسام أخرى.">Each tab opens only what belongs to this desk. Nothing else from other departments is mixed in.</p>
   </div>
 
-  <div class="home-clean home-view mock-home" id="homeClean">
+  <div class="home-clean home-view mock-home dash-home" id="homeClean">
 
-    <div class="mock-steps">
-      <div class="mock-step">
-        <span class="ms-icon ms-1">🧍</span>
-        <div><strong data-en="Step 1: Pick a Desk" data-ar="الخطوة 1: اختَر مكتبًا">Step 1: Pick a Desk</strong></div>
-      </div>
-      <span class="ms-chevron" aria-hidden="true">›</span>
-      <div class="mock-step">
-        <span class="ms-icon ms-2">📋</span>
-        <div><strong data-en="Step 2: Work real cases" data-ar="الخطوة 2: اشتغل حالات حقيقية">Step 2: Work real cases</strong></div>
-      </div>
-      <span class="ms-chevron" aria-hidden="true">›</span>
-      <div class="mock-step">
-        <span class="ms-icon ms-3">🎯</span>
-        <div><strong data-en="Step 3: Practice &amp; master" data-ar="الخطوة 3: تدرّب واتقن">Step 3: Practice &amp; master</strong></div>
-      </div>
-    </div>
+    <div class="dash-grid">
 
-    <div class="mock-case-banner">
-      <div class="mcb-left">
-        <div class="mcb-kicker"><span data-en="Case Study" data-ar="دراسة حالة">Case Study</span> <span class="mcb-new" data-en="NEW CASE READY!" data-ar="حالة جديدة جاهزة!">NEW CASE READY!</span></div>
-        <strong data-en="Master the daily Accounting Challenge." data-ar="أتقن تحدّي المحاسبة اليومي.">Master the daily Accounting Challenge.</strong>
+      <!-- TODAY'S FOCUS -->
+      <div class="dash-card dash-focus tint-focus" id="dashFocusCard">
+        <div class="dash-kicker" data-en="TODAY'S FOCUS" data-ar="تركيز اليوم">TODAY'S FOCUS</div>
+        <div class="dash-focus-body">
+          <div class="dash-focus-text">
+            <strong id="dash-focus-title">—</strong>
+            <span id="dash-focus-desc"></span>
+            <button type="button" class="dash-btn-primary" id="dash-focus-cta" onclick="homeFocusGo()">Open desk →</button>
+          </div>
+          <div class="dash-focus-art" aria-hidden="true">🧍</div>
+        </div>
       </div>
-      <button type="button" class="mcb-btn" id="btnStartCase">START CASE</button>
-    </div>
 
-    <div class="mock-desks">
-      <button type="button" class="mock-desk" data-station="ar" onclick="openWorkspaceMenu('ar')">
-        <div class="md-art md-ar">👥</div>
-        <div class="md-body">
-          <span class="md-code">AR</span>
-          <strong data-en="Acting as AR Accountant" data-ar="العمل كمحاسب عملاء AR">Acting as AR Accountant</strong>
-          <span class="md-sub" data-en="Master Customer Payments" data-ar="أتقن تحصيل العملاء">Master Customer Payments</span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:72%"></i></span>
+      <!-- Practice Today — moved up -->
+      <div class="dash-card dash-practice tint-practice">
+        <div class="dash-kicker" data-en="Practice Today" data-ar="تدرّب اليوم">Practice Today</div>
+        <div class="dash-prac-row">
+          <div class="dash-prac-item">
+            <strong data-en="1. Today's Case Study" data-ar="1. حالة اليوم">1. Today's Case Study</strong>
+            <small>12–15m</small>
+            <button type="button" class="dash-btn-soft" onclick="event.preventDefault();if(window.startCaseSession)window.startCaseSession();">START NOW</button>
+          </div>
+          <div class="dash-prac-item">
+            <strong data-en="2. Accounting Mission" data-ar="2. مهمة محاسبية">2. Accounting Mission</strong>
+            <small>20–50m</small>
+            <button type="button" class="dash-btn-soft" onclick="event.preventDefault();if(window.startRandomE2ECase){window.startRandomE2ECase();}else if(typeof startRandomE2ECase==='function'){startRandomE2ECase();}else{alert('Mission engine not loaded');}">START NOW</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Case Study -->
+      <div class="dash-card dash-case tint-case">
+        <div class="dash-case-banner">
+          <span data-en="NEW CASE READY!" data-ar="حالة جديدة جاهزة!">NEW CASE READY!</span>
+        </div>
+        <div class="dash-case-body">
+          <div>
+            <strong data-en="Case Study" data-ar="دراسة حالة">Case Study</strong>
+            <p data-en="Master the daily Accounting Challenge." data-ar="أتقن تحدّي المحاسبة اليومي.">Master the daily Accounting Challenge.</p>
+            <button type="button" class="dash-btn-dark" id="btnStartCase" onclick="if(window.startCaseSession)window.startCaseSession();else alert('Case engine loading…')">START CASE</button>
+          </div>
+          <div class="dash-case-art" aria-hidden="true">👥</div>
+        </div>
+      </div>
+
+      <!-- Learning Hub -->
+      <button type="button" class="dash-card dash-learn tint-learn" data-station="learn" onclick="openWorkspaceMenu('learn')">
+        <div class="dash-kicker" data-en="Learning Hub" data-ar="مركز التعلّم">Learning Hub</div>
+        <div class="dash-learn-body">
+          <span class="dl-icon">🎓</span>
+          <div>
+            <strong data-en="Learning Hub" data-ar="مركز التعلّم">Learning Hub</strong>
+            <span data-en="Common, Reference, and career PREP — progress, spot-the-error" data-ar="مرجع، تدريب، وتجهيز مهني">Common, Reference, and career PREP — progress, spot-the-error</span>
+            <em data-en="Open Learning Hub →" data-ar="افتح مركز التعلّم ←">Open Learning Hub →</em>
+          </div>
         </div>
       </button>
-      <button type="button" class="mock-desk" data-station="ap" onclick="openWorkspaceMenu('ap')">
-        <div class="md-art md-ap">🚚</div>
-        <div class="md-body">
-          <span class="md-code">AP</span>
-          <strong data-en="Acting as AP Accountant" data-ar="العمل كمحاسب موردين AP">Acting as AP Accountant</strong>
-          <span class="md-sub" data-en="Handle Supplier Bills" data-ar="إدارة فواتير الموردين">Handle Supplier Bills</span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:55%"></i></span>
-        </div>
-      </button>
-      <button type="button" class="mock-desk" data-station="inv" onclick="openWorkspaceMenu('inv')">
-        <div class="md-art md-inv">📦</div>
-        <div class="md-body">
-          <span class="md-code">INV</span>
-          <strong data-en="Acting as Inventory Accountant" data-ar="العمل كمحاسب مخزون">Acting as Inventory Accountant</strong>
-          <span class="md-sub" data-en="Control Stock &amp; Valuation" data-ar="التحكم في المخزون والتقييم">Control Stock &amp; Valuation</span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:40%"></i></span>
-        </div>
-      </button>
-      <button type="button" class="mock-desk" data-station="treasury" onclick="openWorkspaceMenu('treasury')">
-        <div class="md-art md-tr">🏦</div>
-        <div class="md-body">
-          <span class="md-code">TR</span>
-          <strong data-en="Acting as Treasury Accountant" data-ar="العمل كمحاسب خزينة">Acting as Treasury Accountant</strong>
-          <span class="md-sub" data-en="Manage Cash Position" data-ar="إدارة المركز النقدي">Manage Cash Position</span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:48%"></i></span>
-        </div>
-      </button>
-      <button type="button" class="mock-desk" data-station="hr" onclick="openWorkspaceMenu('hr')">
-        <div class="md-art md-hr">🧑‍💼</div>
-        <div class="md-body">
-          <span class="md-code">PAY</span>
-          <strong data-en="Acting as Payroll Accountant" data-ar="العمل كمحاسب رواتب">Acting as Payroll Accountant</strong>
-          <span class="md-sub" data-en="Calculate Salaries &amp; Compliance" data-ar="حساب الرواتب والالتزامات">Calculate Salaries &amp; Compliance</span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:35%"></i></span>
-        </div>
-      </button>
-      <button type="button" class="mock-desk" data-station="gl" onclick="openWorkspaceMenu('gl')">
-        <div class="md-art md-gl">📚</div>
-        <div class="md-body">
-          <span class="md-code">GL</span>
-          <strong data-en="Acting as GL Accountant" data-ar="العمل كمحاسب دفتر أستاذ">Acting as GL Accountant</strong>
-          <span class="md-sub" data-en="Compile Financial Statements" data-ar="إعداد القوائم المالية">Compile Financial Statements</span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:60%"></i></span>
-        </div>
-      </button>
-    </div>
 
-    <button type="button" class="mock-learn" data-station="learn" onclick="openWorkspaceMenu('learn')">
-      <div class="ml-copy">
-        <span class="ml-icon">🎓</span>
-        <div>
-          <strong data-en="Learning Hub" data-ar="مركز التعلّم">Learning Hub</strong>
-          <span data-en="Common, Reference, and career PREP — progress, spot-the-error" data-ar="مرجع، تدريب، وتجهيز مهني — تقدّم واكتشاف الأخطاء">Common, Reference, and career PREP — progress, spot-the-error</span>
-          <em data-en="Open Learning Hub →" data-ar="افتح مركز التعلّم ←">Open Learning Hub →</em>
+      <!-- The Desks -->
+      <div class="dash-card dash-desks-wrap tint-desks">
+        <div class="dash-kicker" data-en="The Desks" data-ar="المكاتب">The Desks</div>
+        <div class="dash-desks">
+          <button type="button" class="dash-desk" data-station="ar" onclick="openWorkspaceMenu('ar')">
+            <span class="dd-icon dd-ar">👥</span>
+            <span class="dd-code">AR</span>
+            <strong data-en="Acting as AR Accountant" data-ar="العمل كمحاسب عملاء AR">Acting as AR Accountant</strong>
+            <span class="dd-sub" data-en="Master Customer Payments" data-ar="أتقن تحصيل العملاء">Master Customer Payments</span>
+            <span class="dd-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          </button>
+          <button type="button" class="dash-desk" data-station="ap" onclick="openWorkspaceMenu('ap')">
+            <span class="dd-icon dd-ap">🚚</span>
+            <span class="dd-code">AP</span>
+            <strong data-en="Acting as AP Accountant" data-ar="العمل كمحاسب موردين AP">Acting as AP Accountant</strong>
+            <span class="dd-sub" data-en="Handle Supplier Bills" data-ar="إدارة فواتير الموردين">Handle Supplier Bills</span>
+            <span class="dd-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          </button>
+          <button type="button" class="dash-desk" data-station="inv" onclick="openWorkspaceMenu('inv')">
+            <span class="dd-icon dd-inv">📦</span>
+            <span class="dd-code">INV</span>
+            <strong data-en="Acting as Inventory Accountant" data-ar="العمل كمحاسب مخزون">Acting as Inventory Accountant</strong>
+            <span class="dd-sub" data-en="Control Stock &amp; Valuation" data-ar="التحكم في المخزون والتقييم">Control Stock &amp; Valuation</span>
+            <span class="dd-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          </button>
+          <button type="button" class="dash-desk" data-station="treasury" onclick="openWorkspaceMenu('treasury')">
+            <span class="dd-icon dd-tr">🏦</span>
+            <span class="dd-code">TR</span>
+            <strong data-en="Acting as Treasury Accountant" data-ar="العمل كمحاسب خزينة">Acting as Treasury Accountant</strong>
+            <span class="dd-sub" data-en="Manage Cash Position" data-ar="إدارة المركز النقدي">Manage Cash Position</span>
+            <span class="dd-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          </button>
+          <button type="button" class="dash-desk" data-station="hr" onclick="openWorkspaceMenu('hr')">
+            <span class="dd-icon dd-hr">🧑‍💼</span>
+            <span class="dd-code">PAY</span>
+            <strong data-en="Acting as Payroll Accountant" data-ar="العمل كمحاسب رواتب">Acting as Payroll Accountant</strong>
+            <span class="dd-sub" data-en="Calculate Salaries &amp; Compliance" data-ar="حساب الرواتب والالتزامات">Calculate Salaries &amp; Compliance</span>
+            <span class="dd-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          </button>
+          <button type="button" class="dash-desk" data-station="gl" onclick="openWorkspaceMenu('gl')">
+            <span class="dd-icon dd-gl">📚</span>
+            <span class="dd-code">GL</span>
+            <strong data-en="Acting as GL Accountant" data-ar="العمل كمحاسب دفتر أستاذ">Acting as GL Accountant</strong>
+            <span class="dd-sub" data-en="Compile Financial Statements" data-ar="إعداد القوائم المالية">Compile Financial Statements</span>
+            <span class="dd-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          </button>
         </div>
       </div>
-      <div class="ml-art" aria-hidden="true">📖</div>
-    </button>
 
-    <section class="mock-section mock-practice">
-      <div class="mock-sec-head mph-practice">
-        <span data-en="Practice Today" data-ar="تدرّب اليوم">Practice Today</span>
-        <small data-en="Case &amp; mission" data-ar="حالة ومهمة">Case &amp; mission</small>
-      </div>
-      <div class="mock-practice-grid">
-        <div class="mock-prac-card">
-          <strong data-en="Today's Case Study" data-ar="حالة اليوم">Today's Case Study</strong>
-          <span data-en="Solve a real exception" data-ar="حل استثناء حقيقي">Solve a real exception</span>
-          <small>⏱ 12–15m</small>
-          <button type="button" class="mp-start" onclick="event.preventDefault();if(window.startCaseSession)window.startCaseSession();else alert('Case engine not loaded');" data-en="START NOW" data-ar="ابدأ الآن">START NOW</button>
-        </div>
-        <div class="mock-prac-card">
-          <strong data-en="Accounting Mission" data-ar="مهمة محاسبية">Accounting Mission</strong>
-          <span data-en="End-to-end connected cycle" data-ar="دورة مترابطة من البداية للنهاية">End-to-end connected cycle</span>
-          <small>⏱ 20–50m</small>
-          <button type="button" class="mp-start" onclick="startRandomE2ECase()" data-en="START NOW" data-ar="ابدأ الآن">START NOW</button>
+      <!-- Quick Tools -->
+      <div class="dash-card dash-tools tint-tools">
+        <div class="dash-kicker" data-en="Quick Tools" data-ar="أدوات سريعة">Quick Tools</div>
+        <div class="dash-tools-list">
+          <button type="button" onclick="showPanel('learn-glossary')"><span>📘</span> Glossary</button>
+          <button type="button" onclick="showPanel('learn-tax')"><span>🧮</span> Tax &amp; Insurance</button>
+          <button type="button" onclick="showPanel('learn-interview')"><span>🎤</span> Interview Prep</button>
+          <button type="button" onclick="showPanel('learn-comms')"><span>💬</span> Workplace Comms</button>
+          <button type="button" onclick="qtoolRandomSpotError()"><span>🔍</span> Spot the Error</button>
+          <button type="button" onclick="qtoolRandomFraudCatcher()"><span>🕵️</span> Fraud Catcher</button>
         </div>
       </div>
-    </section>
 
-    <section class="mock-section mock-tools">
-      <div class="mock-sec-head mph-tools">
-        <span data-en="Quick Tools" data-ar="أدوات سريعة">Quick Tools</span>
-      </div>
-      <div class="mock-tools-grid">
-        <button type="button" class="mock-tool" onclick="showPanel('learn-glossary')"><span>📘</span><strong data-en="Glossary" data-ar="القاموس">Glossary</strong></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-tax')"><span>🧮</span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمين">Tax &amp; Insurance</strong></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلة">Interview Prep</strong></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong></button>
-        <button type="button" class="mock-tool" onclick="qtoolRandomSpotError()"><span>🔍</span><strong data-en="Spot the Error" data-ar="اكتشف الغلط">Spot the Error</strong></button>
-        <button type="button" class="mock-tool" onclick="qtoolRandomFraudCatcher()"><span>🕵️</span><strong data-en="Fraud Catcher" data-ar="صائد الاحتيال">Fraud Catcher</strong></button>
-      </div>
-    </section>
+    </div></div>
 
-    <p class="home-note" data-en="Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs." data-ar="نصيحة: استخدم الشريط الجانبي للانتقال بين الأقسام المستقلة. لكل مكتب تبويباته الخاصة.">Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs.</p>
+    <p class="home-note dash-tip" data-en="Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs." data-ar="نصيحة: استخدم الشريط الجانبي للانتقال بين الأقسام المستقلة. لكل مكتب تبويباته الخاصة.">Tip: use the left sidebar anytime to jump between independent departments. Each desk has its own tabs.</p>
   </div>
+
+
 
 <div class="data-panel" id="overview">
     <h3><span data-en="Company Master Data" data-ar="البيانات الأساسية للشركة">Company Master Data</span></h3>
@@ -9850,7 +10500,7 @@ function homeRenderWeakAreas(){
 }
 function homeFocusGo(){
   try{
-    const card = document.getElementById('todaysFocusCard');
+    const card = document.getElementById('dashFocusCard') || document.getElementById('todaysFocusCard');
     const target = card ? card.dataset.target : '';
     if(target === 'spot'){ showPanel('ar-spot-error'); return; }
     if(target === 'case'){
@@ -9899,6 +10549,15 @@ function homeRenderFocus(){
   if(titleEl) titleEl.textContent = title;
   if(descEl) descEl.textContent = desc;
   if(ctaEl) ctaEl.textContent = cta;
+  // Dashboard focus card (homepage redesign)
+  var dCard = document.getElementById('dashFocusCard');
+  if(dCard) dCard.dataset.target = target;
+  var dTitle = document.getElementById('dash-focus-title');
+  var dDesc = document.getElementById('dash-focus-desc');
+  var dCta = document.getElementById('dash-focus-cta');
+  if(dTitle) dTitle.textContent = title;
+  if(dDesc) dDesc.textContent = desc;
+  if(dCta) dCta.textContent = cta;
 }
 homeLoadVisited();
 homeRenderVisitedBadges();
@@ -11640,18 +12299,47 @@ function renderE2ECaseLibrary(){
  document.getElementById('e2eCaseGrid').innerHTML=E2E_CASES.map(c=>`<article class="e2e-case-card"><div class="e2e-case-top"><span class="e2e-case-no">${c.no}</span><span>4 decisions</span></div><h3>${ar?c.ar:c.title}</h3><p>${ar?c.arDesc:c.desc}</p><div class="e2e-flow">${c.flow.map(x=>`<span>${x}</span>`).join('')}</div><button type="button" onclick="startE2ECase('${c.id}')">${ar?'ابدأ الحالة ←':'Work this mission →'}</button></article>`).join('');
 }
 function startRandomE2ECase(){
-  const ids = E2E_CASES.map(c=>c.id);
-  const id = ids[Math.floor(Math.random()*ids.length)];
-  if(typeof openE2ECaseLibrary==='function') openE2ECaseLibrary();
-  startE2ECase(id);
+  try{
+    if(typeof E2E_CASES==='undefined' || !E2E_CASES || !E2E_CASES.length){
+      alert('No missions available');
+      return;
+    }
+    const ids = E2E_CASES.map(function(c){ return c.id; });
+    const id = ids[Math.floor(Math.random()*ids.length)];
+    startE2ECase(id);
+  }catch(e){
+    console.error(e);
+    alert('Mission error: ' + (e.message||e));
+  }
 }
 function startE2ECase(id){
- const c=E2E_CASES.find(x=>x.id===id); if(!c)return;
- e2eCaseState.id=id;e2eCaseState.step=0;e2eCaseState.score=0;
- document.getElementById('e2eCaseRunner').classList.add('is-open');
- renderE2ECaseRunner();document.getElementById('e2eCaseRunner').scrollIntoView({behavior:'smooth',block:'start'});
+  const c = E2E_CASES.find(function(x){ return x.id===id; });
+  if(!c){ alert('Mission not found'); return; }
+  e2eCaseState.id = id;
+  e2eCaseState.step = 0;
+  e2eCaseState.score = 0;
+  var runner = document.getElementById('e2eCaseRunner');
+  if(!runner){ alert('Mission panel missing'); return; }
+  // Parent .e2e-library is display:none when closed — move runner to body so modal can show
+  if(runner.parentElement !== document.body){
+    document.body.appendChild(runner);
+  }
+  runner.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  renderE2ECaseRunner();
 }
-function closeE2ECase(){document.getElementById('e2eCaseRunner').classList.remove('is-open')}
+function closeE2ECase(){
+  var runner = document.getElementById('e2eCaseRunner');
+  if(runner){
+    runner.classList.remove('is-open');
+  }
+  document.body.style.overflow = '';
+}
+try{
+  window.startRandomE2ECase = startRandomE2ECase;
+  window.startE2ECase = startE2ECase;
+  window.closeE2ECase = closeE2ECase;
+}catch(_e){}
 function renderE2ECaseRunner(){
  const c=E2E_CASES.find(x=>x.id===e2eCaseState.id), s=c.steps[e2eCaseState.step], ar=document.documentElement.lang==='ar';
  document.getElementById('e2eCaseTitle').textContent=ar?c.ar:c.title;
@@ -12184,6 +12872,72 @@ function answerE2ECase(){
   setTimeout(bindButtons, 100);
   setTimeout(bindButtons, 800);
 })(window);
+</script>
+
+
+<script id="sidebarDrawerBridge">
+(function(){
+  var BP = 1100;
+  function isNarrow(){ return window.innerWidth < BP; }
+  function sb(){ return document.getElementById('sidebar') || document.querySelector('aside.sidebar'); }
+  function ensureBd(){
+    var el = document.getElementById('sidebarBackdrop');
+    if(!el){
+      el = document.createElement('div');
+      el.id = 'sidebarBackdrop';
+      el.className = 'sidebar-backdrop';
+      el.addEventListener('click', closeSb);
+      document.body.appendChild(el);
+    }
+    return el;
+  }
+  function openSb(){
+    var s = sb(); if(!s) return;
+    s.classList.add('open');
+    ensureBd().classList.add('show');
+    if(isNarrow()) document.body.style.overflow = 'hidden';
+  }
+  function closeSb(){
+    var s = sb(); if(s) s.classList.remove('open');
+    var b = document.getElementById('sidebarBackdrop');
+    if(b) b.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  window.closeSidebar = closeSb;
+  window.toggleSidebar = function(){
+    var s = sb(); if(!s) return;
+    if(s.classList.contains('open')) closeSb(); else openSb();
+  };
+  function wrapNav(){
+    if(typeof window.openWorkspaceMenu === 'function' && !window.openWorkspaceMenu._drawerWrapped){
+      var orig = window.openWorkspaceMenu;
+      window.openWorkspaceMenu = function(){
+        var r = orig.apply(this, arguments);
+        if(isNarrow()) closeSb();
+        return r;
+      };
+      window.openWorkspaceMenu._drawerWrapped = true;
+    }
+    if(typeof window.goHome === 'function' && !window.goHome._drawerWrapped){
+      var og = window.goHome;
+      window.goHome = function(){
+        var r = og.apply(this, arguments);
+        if(isNarrow()) closeSb();
+        return r;
+      };
+      window.goHome._drawerWrapped = true;
+    }
+  }
+  wrapNav();
+  setTimeout(wrapNav, 100);
+  setTimeout(wrapNav, 600);
+  window.addEventListener('resize', function(){ if(!isNarrow()) closeSb(); });
+  document.addEventListener('click', function(ev){
+    if(!isNarrow()) return;
+    var t = ev.target.closest && ev.target.closest('#sidebar .side-item, #sidebar a, #sidebar button.side-item');
+    if(t) setTimeout(closeSb, 60);
+  });
+})();
 </script>
 
 </body>
