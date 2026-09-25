@@ -13,14 +13,14 @@
    gilt gold for figures, brick ink-red used sparingly.
    ============================================================ */
 :root{
-  /* —— Midnight Ledger palette —— */
-  --paper:#f0f2f7;
+  /* —— Ledger palette (warmed to match the home floor redesign) —— */
+  --paper:#F6F3EC;
   --card:#ffffff;
-  --ink:#0f172a;
-  --ink-soft:#334155;
-  --muted:#64748b;
-  --line:#e2e8f0;
-  --line-strong:#cbd5e1;
+  --ink:#14201b;
+  --ink-soft:#3f5850;
+  --muted:#6b7a72;
+  --line:#DCD5C4;
+  --line-strong:#c9bfa0;
 
   --brand:#0f766e;
   --brand-dark:#0b3d4a;
@@ -562,7 +562,7 @@ footer strong{color:var(--brand-dark)}
 /* ===== Daily Desk Journey per section ===== */
 .desk-day{margin:0}
 .desk-hero{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:16px;border-inline-start:5px solid var(--gold);display:grid;grid-template-columns:1.4fr auto;gap:16px;align-items:center}
-.desk-hero h3{margin:0 0 6px;color:#fff;font-size:22px}
+.desk-hero h3{margin:0 0 6px;color:#fff !important;font-size:22px}
 .desk-hero p{margin:0;color:#dcebe2;font-size:13px;max-width:640px}
 .desk-hero .desk-tag{font-size:10px;letter-spacing:.8px;text-transform:uppercase;font-weight:800;color:var(--gold-soft);margin-bottom:6px}
 .desk-meta{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
@@ -1841,8 +1841,6 @@ body:not(.is-workspace) .mock-hero.hero{
 .mock-home .home-journey-banner{display:none !important}
 
 /* Visited state still works if JS adds is-visited to data-station buttons */
-.mock-desk.is-visited .md-bar i{background:linear-gradient(90deg,#C4A035,#E8C84A)}
-.mock-desk.is-mastered{outline:2px solid #C4A035}
 
 
 /* ============================================================
@@ -2893,6 +2891,30 @@ body:not(.is-workspace) .workspace-chrome{
 .md-go span, .md-go{ font-size:0; }
 .md-go::before{ font-size:15px; }
 [dir="rtl"] .md-go::before{ content:'←'; }
+.mock-desk .hd-visited-badge{
+  display:inline-block !important;
+  position:static !important;
+  background:none !important;
+  width:auto !important;
+  height:auto !important;
+  border-radius:0 !important;
+  flex:none;
+  font-size:13px;
+  min-width:16px;
+  text-align:center;
+}
+
+/* Subtle per-desk icon accent — a thin ring, not a full colored card */
+.md-art{ border:1.5px solid transparent !important; }
+.mock-desk[data-station="ar"] .md-art{ border-color:#7fb3e8 !important; }
+.mock-desk[data-station="ap"] .md-art{ border-color:#e8a06b !important; }
+.mock-desk[data-station="inv"] .md-art{ border-color:#cbb15a !important; }
+.mock-desk[data-station="treasury"] .md-art{ border-color:#a89ae0 !important; }
+.mock-desk[data-station="hr"] .md-art{ border-color:#e08bb0 !important; }
+.mock-desk[data-station="gl"] .md-art{ border-color:#5fae9e !important; }
+.mock-desk[data-station="ratios"] .md-art{ border-color:#5bb9c4 !important; }
+.mock-desk[data-station="bc"] .md-art{ border-color:#b08a4e !important; }
+.mock-desk[data-station="aud"] .md-art{ border-color:#a58bd6 !important; }
 
 .mock-section.mock-practice, .mock-section.mock-tools{
   background:none !important;
@@ -2956,6 +2978,87 @@ body:not(.is-workspace) .workspace-chrome{
 @media (max-width:640px){
   .mock-hero-inner{ flex-direction:column; align-items:flex-start !important; }
   .mock-practice-grid{ grid-template-columns:1fr !important; }
+}
+
+/* ============================================================
+   Motion & micro-interactions — subtle, purposeful, reduced-motion safe
+   (global *{animation:none!important} rule already covers opt-out)
+   ============================================================ */
+@keyframes panelRise{
+  from{ opacity:0; transform:translateY(10px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.data-panel.open{
+  animation:panelRise .32s cubic-bezier(.22,.9,.34,1) both;
+}
+
+/* Smooth reveal for collapsible details content (fraud/SoD/cases) */
+@keyframes detailReveal{
+  from{ opacity:0; transform:translateY(-4px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.case-item[open] > .case-body{
+  animation:detailReveal .22s ease both;
+}
+.case-item summary{
+  transition:color .15s ease;
+}
+.case-item summary:hover{ color:var(--brand-dark); }
+.case-item summary::-webkit-details-marker{ display:none; }
+.case-item summary::marker{ content:''; }
+.case-item summary{ list-style:none; position:relative; }
+.case-item summary::after{
+  content:'+';
+  position:absolute; inset-inline-end:2px; top:0;
+  font-size:16px; font-weight:400; color:var(--muted);
+  transition:transform .22s ease;
+}
+.case-item[open] summary::after{ content:'−'; }
+
+/* Consistent hover lift for interactive surfaces */
+.data-card, .mock-tool, .mock-prac-card, .ratio-card, .case-item{
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.data-card:hover, .mock-tool:hover, .mock-prac-card:hover, .ratio-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(13,59,46,.08);
+}
+.case-item:hover{ border-color:var(--brand); }
+
+/* Button tactile feedback */
+.btn, .mp-start, .mock-cta, .mcb-btn, button[type="button"].btn-primary{
+  transition:transform .1s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:active, .mp-start:active, .mock-cta:active{
+  transform:scale(.97);
+}
+
+/* Progress bar fills smoothly instead of jumping */
+.md-bar i{
+  transition:width .5s cubic-bezier(.22,.9,.34,1), background .3s ease;
+}
+
+/* Sidebar item gentle highlight transition */
+.side-item{
+  transition:background .15s ease, transform .1s ease;
+}
+.side-item:active{ transform:scale(.98); }
+
+/* Mastery badge — small pop-in when it appears */
+@keyframes badgePop{
+  0%{ transform:scale(0); opacity:0; }
+  60%{ transform:scale(1.15); opacity:1; }
+  100%{ transform:scale(1); }
+}
+.mock-desk.is-mastered .hd-visited-badge{
+  animation:badgePop .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+/* Search input focus ring, calmer than default browser outline */
+input[type="text"]:focus, input[type="number"]:focus{
+  outline:none;
+  border-color:var(--brand) !important;
+  box-shadow:0 0 0 3px var(--brand-soft);
 }
 </style>
 
@@ -3069,6 +3172,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Customer payments &amp; collections" data-ar="تحصيل ومتابعة مدفوعات العملاء">Customer payments &amp; collections</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3083,6 +3187,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Supplier bills &amp; payments" data-ar="فواتير ومدفوعات الموردين">Supplier bills &amp; payments</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3097,6 +3202,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Stock control &amp; valuation" data-ar="مراقبة المخزون وتقييمه">Stock control &amp; valuation</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3111,6 +3217,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Cash &amp; bank management" data-ar="إدارة النقدية والبنوك">Cash &amp; bank management</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3125,6 +3232,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Salaries &amp; compliance" data-ar="الرواتب والالتزامات">Salaries &amp; compliance</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3139,6 +3247,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Financial statements &amp; closing" data-ar="القوائم المالية والإقفال">Financial statements &amp; closing</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3153,6 +3262,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Ratios &amp; performance analysis" data-ar="النسب وتحليل الأداء">Ratios &amp; performance analysis</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3167,6 +3277,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Budget planning &amp; control" data-ar="تخطيط ورقابة الميزانية">Budget planning &amp; control</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -3181,6 +3292,7 @@ body:not(.is-workspace) .workspace-chrome{
             </div>
             <span class="md-desc" data-en="Independent control testing" data-ar="اختبار الضوابط المستقل">Independent control testing</span>
           </div>
+          <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
@@ -6876,17 +6988,17 @@ const WORKSPACES = {
     subtitle: ['Only customer work: daily desk, master data, new account, cycle and role.', 'عمل العملاء فقط: المكتب اليومي، البيانات، حساب جديد، الدورة والدور.'],
     tabs: [
       {id:'ar-home', en:'Daily desk', ar:'المكتب اليومي'},
-      {id:'customers', en:'Customers', ar:'العملاء'},
-      {id:'ar-new-customer', en:'New customer', ar:'عميل جديد'},
-      {id:'ar-cycle', en:'Sales Cycle (Order to Cash)', ar:'دورة المبيعات (من الطلب للتحصيل)'},
-      {id:'ar-statement', en:'Customer Statement', ar:'كشف حساب عميل'},
-      {id:'ar-aging', en:'Aging Report', ar:'تقرير أعمار الديون'},
-      {id:'ar-workflow', en:'Operating cycle', ar:'دورة التشغيل'},
-      {id:'ar-role', en:'Role & procedures', ar:'الدور والإجراءات'},
-      {id:'ar-cases', en:'Cases & problems', ar:'حالات ومشكلات'},
-      {id:'ar-bridge', en:'AR bridge', ar:'جسر التسوية'},
-      {id:'cross-tickets', en:'Tickets', ar:'تذاكر'},
-      {id:'ar-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة'},
+      {id:'customers', en:'Customers', ar:'العملاء', group:'data'},
+      {id:'ar-new-customer', en:'New customer', ar:'عميل جديد', group:'data'},
+      {id:'ar-statement', en:'Customer Statement', ar:'كشف حساب عميل', group:'reports'},
+      {id:'ar-aging', en:'Aging Report', ar:'تقرير أعمار الديون', group:'reports'},
+      {id:'ar-cycle', en:'Sales Cycle (Order to Cash)', ar:'دورة المبيعات (من الطلب للتحصيل)', group:'ops'},
+      {id:'ar-workflow', en:'Operating cycle', ar:'دورة التشغيل', group:'ops'},
+      {id:'ar-bridge', en:'AR bridge', ar:'جسر التسوية', group:'ops'},
+      {id:'cross-tickets', en:'Tickets', ar:'تذاكر', group:'ops'},
+      {id:'ar-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
+      {id:'ar-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
+      {id:'ar-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
       {id:'ar-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
       {id:'ar-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'ar-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
@@ -6898,17 +7010,17 @@ const WORKSPACES = {
     subtitle: ['Only supplier work: match, post, pay — nothing from AR or inventory mixed in.', 'عمل الموردين فقط: طابق، رحّل، ادفع — بلا اختلاط مع العملاء أو المخزون.'],
     tabs: [
       {id:'ap-home', en:'Daily desk', ar:'المكتب اليومي'},
-      {id:'suppliers', en:'Suppliers', ar:'الموردون'},
-      {id:'ap-new-supplier', en:'New supplier', ar:'مورد جديد'},
-      {id:'ap-cycle', en:'Purchase Cycle (Procure to Pay)', ar:'دورة المشتريات (من الطلب للسداد)'},
-      {id:'ap-statement', en:'Supplier Statement', ar:'كشف حساب مورد'},
-      {id:'ap-aging', en:'Aging Report', ar:'تقرير أعمار الالتزامات'},
-      {id:'ap-workflow', en:'Operating cycle', ar:'دورة التشغيل'},
-      {id:'ap-role', en:'Role & procedures', ar:'الدور والإجراءات'},
-      {id:'ap-cases', en:'Cases & problems', ar:'حالات ومشكلات'},
-      {id:'ap-bridge', en:'AP bridge', ar:'جسر التسوية'},
-      {id:'cross-tickets', en:'Tickets', ar:'تذاكر'},
-      {id:'ap-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة'},
+      {id:'suppliers', en:'Suppliers', ar:'الموردون', group:'data'},
+      {id:'ap-new-supplier', en:'New supplier', ar:'مورد جديد', group:'data'},
+      {id:'ap-statement', en:'Supplier Statement', ar:'كشف حساب مورد', group:'reports'},
+      {id:'ap-aging', en:'Aging Report', ar:'تقرير أعمار الالتزامات', group:'reports'},
+      {id:'ap-cycle', en:'Purchase Cycle (Procure to Pay)', ar:'دورة المشتريات (من الطلب للسداد)', group:'ops'},
+      {id:'ap-workflow', en:'Operating cycle', ar:'دورة التشغيل', group:'ops'},
+      {id:'ap-bridge', en:'AP bridge', ar:'جسر التسوية', group:'ops'},
+      {id:'cross-tickets', en:'Tickets', ar:'تذاكر', group:'ops'},
+      {id:'ap-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
+      {id:'ap-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
+      {id:'ap-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
       {id:'ap-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
       {id:'ap-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'ap-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
@@ -6920,12 +7032,12 @@ const WORKSPACES = {
     subtitle: ['Receive, issue, count and value — this desk only.', 'استلام وصرف وجرد وتقييم — هذا المكتب فقط.'],
     tabs: [
       {id:'inv-home', en:'Daily desk', ar:'المكتب اليومي'},
-      {id:'inventory', en:'Items', ar:'الأصناف'},
-      {id:'inv-new-item', en:'New item', ar:'صنف جديد'},
-      {id:'inv-workflow', en:'Operating cycle', ar:'دورة التشغيل'},
-      {id:'inv-role', en:'Role & procedures', ar:'الدور والإجراءات'},
-      {id:'inv-cases', en:'Cases & problems', ar:'حالات ومشكلات'},
-      {id:'inv-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة'},
+      {id:'inventory', en:'Items', ar:'الأصناف', group:'data'},
+      {id:'inv-new-item', en:'New item', ar:'صنف جديد', group:'data'},
+      {id:'inv-workflow', en:'Operating cycle', ar:'دورة التشغيل', group:'ops'},
+      {id:'inv-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
+      {id:'inv-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
+      {id:'inv-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
       {id:'inv-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
       {id:'inv-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'inv-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
@@ -6937,17 +7049,17 @@ const WORKSPACES = {
     subtitle: ['Cash position, banks, payments and reconciliation only.', 'موقف النقدية والبنوك والمدفوعات والمطابقة فقط.'],
     tabs: [
       {id:'treasury-home', en:'Daily desk', ar:'المكتب اليومي'},
-      {id:'banks', en:'Bank accounts', ar:'الحسابات البنكية'},
-      {id:'bank-new-account', en:'New bank account', ar:'حساب بنكي جديد'},
-      {id:'treasury-cycle', en:'Cash & Bank Ledger', ar:'دفتر الخزينة والبنوك'},
-      {id:'treasury-bank-rec', en:'Bank Reconciliation', ar:'المطابقة البنكية'},
-      {id:'treasury-workflow', en:'Operating cycle', ar:'دورة التشغيل'},
-      {id:'treasury-role', en:'Role & procedures', ar:'الدور والإجراءات'},
-      {id:'treasury-cases', en:'Cases & problems', ar:'حالات ومشكلات'},
-      {id:'treasury-bridge', en:'Bank bridge', ar:'جسر البنك'},
-      {id:'cross-tickets', en:'Tickets', ar:'تذاكر'},
-      {id:'treasury-bank-rec-ref', en:'Bank Reconciliation Reference', ar:'مرجع المطابقة البنكية'},
-      {id:'treasury-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة'},
+      {id:'banks', en:'Bank accounts', ar:'الحسابات البنكية', group:'data'},
+      {id:'bank-new-account', en:'New bank account', ar:'حساب بنكي جديد', group:'data'},
+      {id:'treasury-bank-rec', en:'Bank Reconciliation', ar:'المطابقة البنكية', group:'reports'},
+      {id:'treasury-bank-rec-ref', en:'Bank Reconciliation Reference', ar:'مرجع المطابقة البنكية', group:'reports'},
+      {id:'treasury-cycle', en:'Cash & Bank Ledger', ar:'دفتر الخزينة والبنوك', group:'ops'},
+      {id:'treasury-workflow', en:'Operating cycle', ar:'دورة التشغيل', group:'ops'},
+      {id:'treasury-bridge', en:'Bank bridge', ar:'جسر البنك', group:'ops'},
+      {id:'cross-tickets', en:'Tickets', ar:'تذاكر', group:'ops'},
+      {id:'treasury-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
+      {id:'treasury-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
+      {id:'treasury-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
       {id:'treasury-fraud-cash', en:'🕵️ Fraud Catcher — Cash & Cashier', ar:'🕵️ صائد الاحتيال — الخزينة والصرافة'},
       {id:'treasury-fraud-bank', en:'🕵️ Fraud Catcher — Bank & Reconciliation', ar:'🕵️ صائد الاحتيال — البنوك والمطابقة'},
       {id:'treasury-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
@@ -6960,12 +7072,12 @@ const WORKSPACES = {
     subtitle: ['Employees, attendance exceptions, payroll and posting only.', 'الموظفون واستثناءات الحضور والرواتب والترحيل فقط.'],
     tabs: [
       {id:'hr-home', en:'Daily desk', ar:'المكتب اليومي'},
-      {id:'employees', en:'Employees', ar:'الموظفون'},
-      {id:'hr-new-employee', en:'New employee', ar:'موظف جديد'},
-      {id:'hr-payroll-run', en:'Payroll Run', ar:'تشغيل الرواتب'},
-      {id:'hr-role', en:'Role & procedures', ar:'الدور والإجراءات'},
-      {id:'hr-cases', en:'Cases & problems', ar:'حالات ومشكلات'},
-      {id:'hr-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة'},
+      {id:'employees', en:'Employees', ar:'الموظفون', group:'data'},
+      {id:'hr-new-employee', en:'New employee', ar:'موظف جديد', group:'data'},
+      {id:'hr-payroll-run', en:'Payroll Run', ar:'تشغيل الرواتب', group:'ops'},
+      {id:'hr-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
+      {id:'hr-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
+      {id:'hr-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
       {id:'hr-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
       {id:'hr-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'hr-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
@@ -6977,15 +7089,15 @@ const WORKSPACES = {
     subtitle: ['Journals, control accounts, accruals and financial statements.', 'القيود وحسابات المراقبة والمستحقات والقوائم المالية.'],
     tabs: [
       {id:'gl-home', en:'Daily desk', ar:'المكتب اليومي'},
-      {id:'gl-trial-balance', en:'Live Trial Balance', ar:'ميزان المراجعة الحي'},
-      {id:'gl-financials', en:'Financial Statements', ar:'القوائم المالية'},
-      {id:'gl-fixed-assets', en:'Fixed Assets Register', ar:'سجل الأصول الثابتة'},
-      {id:'gl-cashflow', en:'Cash Flow Statement', ar:'قائمة التدفقات النقدية'},
-      {id:'gl-role', en:'Role & procedures', ar:'الدور والإجراءات'},
-      {id:'gl-cases', en:'Cases & problems', ar:'حالات ومشكلات'},
-      {id:'gl-close', en:'Close calendar', ar:'تقويم الإقفال'},
-      {id:'cross-tickets', en:'Tickets', ar:'تذاكر'},
-      {id:'gl-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة'},
+      {id:'gl-trial-balance', en:'Live Trial Balance', ar:'ميزان المراجعة الحي', group:'reports'},
+      {id:'gl-financials', en:'Financial Statements', ar:'القوائم المالية', group:'reports'},
+      {id:'gl-fixed-assets', en:'Fixed Assets Register', ar:'سجل الأصول الثابتة', group:'reports'},
+      {id:'gl-cashflow', en:'Cash Flow Statement', ar:'قائمة التدفقات النقدية', group:'reports'},
+      {id:'gl-close', en:'Close calendar', ar:'تقويم الإقفال', group:'ops'},
+      {id:'cross-tickets', en:'Tickets', ar:'تذاكر', group:'ops'},
+      {id:'gl-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
+      {id:'gl-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
+      {id:'gl-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
       {id:'gl-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
       {id:'gl-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'gl-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
@@ -7154,7 +7266,17 @@ function renderWorkspaceChrome(wsKey, activeId){
     else ops.push(t);
   });
 
-  if(ops.length){
+  const GROUP_ORDER = ['', 'data', 'reports', 'ops', 'learn'];
+  const GROUP_LABELS = {
+    '': null,
+    data: {en:'Master Data', ar:'البيانات الأساسية'},
+    reports: {en:'Reports & Documents', ar:'التقارير والمستندات'},
+    ops: {en:'Operations & Cycle', ar:'العمليات والدورة'},
+    learn: {en:'Learning & Reference', ar:'التعلّم والمرجع'}
+  };
+  const hasAnyGroup = ops.some(t=>t.group);
+
+  if(ops.length && !hasAnyGroup){
     const head = document.createElement('div');
     head.className = 'ws-sec-label ws-sec-ops';
     head.textContent = ar ? 'أدوات المكتب' : 'Workspace tools';
@@ -7171,6 +7293,30 @@ function renderWorkspaceChrome(wsKey, activeId){
       list.appendChild(b);
     });
     nav.appendChild(list);
+  } else if(ops.length){
+    GROUP_ORDER.forEach(g=>{
+      const items = ops.filter(t=>(t.group||'')===g);
+      if(!items.length) return;
+      const label = GROUP_LABELS[g];
+      if(label){
+        const head = document.createElement('div');
+        head.className = 'ws-sec-label ws-sec-ops';
+        head.textContent = ar ? label.ar : label.en;
+        nav.appendChild(head);
+      }
+      const list = document.createElement('div');
+      list.className = 'ws-ops-list';
+      items.forEach(t=>{
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'ws-ops-btn';
+        b.setAttribute('aria-selected', t.id === activeId ? 'true' : 'false');
+        b.textContent = ar ? t.ar : t.en;
+        b.onclick = ()=> showPanel(t.id);
+        list.appendChild(b);
+      });
+      nav.appendChild(list);
+    });
   }
 
   if(practice.length){
@@ -11553,11 +11699,14 @@ function homeRenderVisitedBadges(){
     const mastered = qs && qs.passed;
     btn.classList.toggle('is-mastered', !!mastered);
     const badge = btn.querySelector('.hd-visited-badge');
-    if(badge) badge.textContent = mastered ? '🏆' : '✓';
+    if(badge){ badge.textContent = mastered ? '🏆' : (homeVisited[st] ? '✓' : ''); }
     const barFill = btn.querySelector('.md-bar i');
     if(barFill){
-      const pct = qs && qs.best ? Math.min(100, Math.round(qs.best/10*100)) : (homeVisited[st] ? 8 : 0);
+      let totalQ = 20;
+      try{ if(typeof QUIZ_BANKS!=='undefined' && QUIZ_BANKS[st]) totalQ = QUIZ_BANKS[st].length; }catch(e){}
+      const pct = qs && qs.best ? Math.min(100, Math.round(qs.best/totalQ*100)) : (homeVisited[st] ? 8 : 0);
       barFill.style.width = pct + '%';
+      barFill.style.background = mastered ? 'linear-gradient(90deg,var(--ledger-ink,#0d3b2e),#1f6b53)' : (pct>0 ? 'linear-gradient(90deg,var(--ledger-gold,#C9941F),#e0b64a)' : 'var(--ledger-rule,#DCD5C4)');
     }
   });
 }
