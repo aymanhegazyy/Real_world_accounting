@@ -2915,6 +2915,7 @@ body:not(.is-workspace) .workspace-chrome{
 .mock-desk[data-station="ratios"] .md-art{ border-color:#5bb9c4 !important; }
 .mock-desk[data-station="bc"] .md-art{ border-color:#b08a4e !important; }
 .mock-desk[data-station="aud"] .md-art{ border-color:#a58bd6 !important; }
+.mock-desk[data-station="cost"] .md-art{ border-color:#c2703c !important; }
 
 .mock-section.mock-practice, .mock-section.mock-tools{
   background:none !important;
@@ -3079,6 +3080,7 @@ input[type="text"]:focus, input[type="number"]:focus{
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ar-home" onclick="openWorkspaceMenu('ar')"><span data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ap-home" onclick="openWorkspaceMenu('ap')"><span data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="inv-home" onclick="openWorkspaceMenu('inv')"><span data-en="📦 Inventory & Warehouse" data-ar="📦 المخزون والمخازن">📦 Inventory & Warehouse</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="cost-home" onclick="openWorkspaceMenu('cost')"><span data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="treasury-home" onclick="openWorkspaceMenu('treasury')"><span data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="hr-home" onclick="openWorkspaceMenu('hr')"><span data-en="🧑‍💼 Payroll & HR" data-ar="🧑‍💼 الرواتب والموارد البشرية">🧑‍💼 Payroll & HR</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="gl-home" onclick="openWorkspaceMenu('gl')"><span data-en="📚 General Ledger & Closing" data-ar="📚 دفتر الأستاذ والإقفال">📚 General Ledger & Closing</span></button>
@@ -3201,6 +3203,21 @@ input[type="text"]:focus, input[type="number"]:focus{
               <strong data-en="Inventory &amp; Warehouse" data-ar="المخزون والمخازن">Inventory &amp; Warehouse</strong>
             </div>
             <span class="md-desc" data-en="Stock control &amp; valuation" data-ar="مراقبة المخزون وتقييمه">Stock control &amp; valuation</span>
+          </div>
+          <span class="hd-visited-badge"></span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:0%"></i></span>
+        </div>
+      </button>
+      <button type="button" class="mock-desk" data-station="cost" onclick="openWorkspaceMenu('cost')">
+        <div class="md-art md-cost">🧮</div>
+        <div class="md-body">
+          <div class="md-text">
+            <div class="md-title-row">
+              <span class="md-code">COST</span>
+              <strong data-en="Cost Accountant" data-ar="محاسب التكاليف">Cost Accountant</strong>
+            </div>
+            <span class="md-desc" data-en="Product costing &amp; variance analysis" data-ar="تكلفة المنتج وتحليل الانحرافات">Product costing &amp; variance analysis</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -4403,6 +4420,195 @@ input[type="text"]:focus, input[type="number"]:focus{
       <p class="panel-sub" data-en="20 questions on the audit cycle, sampling, writing findings and audit-integrity risks. Score 70% or higher to earn Mastery." data-ar="20 سؤال على دورة المراجعة والعينات وكتابة الملاحظات ومخاطر نزاهة المراجعة. احصل على 70% أو أكتر عشان تكسب الإتقان.">20 questions on the audit cycle, sampling, writing findings and audit-integrity risks. Score 70% or higher to earn Mastery.</p>
     </div>
     <div id="quiz-body-aud"></div>
+  </div>
+
+  <div class="data-panel" id="cost-home">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span>
+      <h3 data-en="Cost Accountant — Role &amp; Procedures" data-ar="محاسب التكاليف — الدور والإجراءات">Cost Accountant — Role &amp; Procedures</h3>
+    </div>
+    <div class="role-hero">
+      <h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4>
+      <p data-en="Determine and analyze the true cost of products and services — direct materials, direct labor, and manufacturing overhead — and explain variances between standard (planned) cost and actual cost to support pricing, budgeting, and operational decisions." data-ar="تحديد وتحليل التكلفة الحقيقية للمنتجات والخدمات — مواد مباشرة وعمالة مباشرة وتكاليف صناعية غير مباشرة — وتفسير الانحرافات بين التكلفة المعيارية (المخططة) والتكلفة الفعلية لدعم قرارات التسعير والميزانية والتشغيل.">Determine and analyze the true cost of products and services — direct materials, direct labor, and manufacturing overhead — and explain variances between standard (planned) cost and actual cost to support pricing, budgeting, and operational decisions.</p>
+    </div>
+    <div class="role-sequence">
+      <div class="role-step">
+        <h4 data-en="Main responsibilities" data-ar="المسؤوليات الرئيسية">Main responsibilities</h4>
+        <ul>
+          <li data-en="Maintain standard costs for materials, labor, and overhead." data-ar="الحفاظ على التكاليف المعيارية للمواد والعمالة والتكاليف الصناعية.">Maintain standard costs for materials, labor, and overhead.</li>
+          <li data-en="Calculate the actual product cost each period." data-ar="حساب التكلفة الفعلية للمنتج كل فترة.">Calculate the actual product cost each period.</li>
+          <li data-en="Analyze material price and quantity variances." data-ar="تحليل انحرافات سعر وكمية المواد.">Analyze material price and quantity variances.</li>
+          <li data-en="Analyze labor rate and efficiency variances." data-ar="تحليل انحرافات معدل وكفاءة العمالة.">Analyze labor rate and efficiency variances.</li>
+          <li data-en="Analyze overhead spending and volume variances." data-ar="تحليل انحرافات إنفاق وحجم التكاليف الصناعية.">Analyze overhead spending and volume variances.</li>
+          <li data-en="Support pricing decisions with accurate cost data." data-ar="دعم قرارات التسعير ببيانات تكلفة دقيقة.">Support pricing decisions with accurate cost data.</li>
+          <li data-en="Calculate break-even points and contribution margins." data-ar="حساب نقاط التعادل وهوامش المساهمة.">Calculate break-even points and contribution margins.</li>
+          <li data-en="Reconcile the standard costing system to actual GL costs." data-ar="مطابقة نظام التكلفة المعيارية مع تكاليف دفتر الأستاذ الفعلية.">Reconcile the standard costing system to actual GL costs.</li>
+          <li data-en="Investigate and explain significant cost variances to management." data-ar="التحقيق في انحرافات التكلفة الجوهرية وتفسيرها للإدارة.">Investigate and explain significant cost variances to management.</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Monthly tasks" data-ar="مهام شهرية">Monthly tasks</h4>
+        <ol>
+          <li data-en="Pull actual production quantities and costs for the period." data-ar="استخراج كميات وتكاليف الإنتاج الفعلية للفترة.">Pull actual production quantities and costs for the period.</li>
+          <li data-en="Calculate material, labor, and overhead variances." data-ar="حساب انحرافات المواد والعمالة والتكاليف الصناعية.">Calculate material, labor, and overhead variances.</li>
+          <li data-en="Investigate any variance beyond a set threshold." data-ar="التحقيق في أي انحراف يتخطى حد معين.">Investigate any variance beyond a set threshold.</li>
+          <li data-en="Reconcile standard cost inventory value to the GL." data-ar="مطابقة قيمة المخزون بالتكلفة المعيارية مع دفتر الأستاذ.">Reconcile standard cost inventory value to the GL.</li>
+          <li data-en="Prepare a variance report for management." data-ar="إعداد تقرير انحرافات للإدارة.">Prepare a variance report for management.</li>
+        </ol>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Quarterly &amp; annual tasks" data-ar="مهام ربع سنوية وسنوية">Quarterly &amp; annual tasks</h4>
+        <ul>
+          <li data-en="Review and update standard costs for the next period." data-ar="مراجعة وتحديث التكاليف المعيارية للفترة الجاية.">Review and update standard costs for the next period.</li>
+          <li data-en="Perform break-even and margin analysis for key products." data-ar="إجراء تحليل نقطة التعادل والهامش للمنتجات الرئيسية.">Perform break-even and margin analysis for key products.</li>
+          <li data-en="Support annual budget setting with cost projections." data-ar="دعم تحديد الميزانية السنوية بتوقعات التكلفة.">Support annual budget setting with cost projections.</li>
+          <li data-en="Review overhead allocation rates and bases." data-ar="مراجعة معدلات وأسس تحميل التكاليف الصناعية.">Review overhead allocation rates and bases.</li>
+          <li data-en="Present cost performance trends to senior management." data-ar="عرض اتجاهات أداء التكلفة على الإدارة العليا.">Present cost performance trends to senior management.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="entry-box"><strong data-en="Independence principle" data-ar="مبدأ الاستقلالية">Independence principle</strong><br><span data-en="The Cost Accountant should not have authority to approve production quantities or purchase prices they are analyzing — their role is to independently measure and report, not to control the underlying transactions." data-ar="محاسب التكاليف المفروض مايكونش عنده صلاحية اعتماد كميات الإنتاج أو أسعار الشراء اللي بيحللها — دوره القياس والإبلاغ باستقلالية، مش التحكم في المعاملات الأساسية.">The Cost Accountant should not have authority to approve production quantities or purchase prices they are analyzing — their role is to independently measure and report, not to control the underlying transactions.</span></div>
+  </div>
+
+  <div class="data-panel" id="cost-cases">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span>
+      <h3 data-en="Practical cases &amp; problems — Cost Accountant desk" data-ar="حالات عملية ومشكلات — مكتب محاسب التكاليف">Practical cases &amp; problems — Cost Accountant desk</h3>
+      <p class="panel-sub" data-en="Common real-world situations and the recommended way to handle each one." data-ar="مواقف واقعية شائعة وطريقة التعامل المقترحة مع كل واحدة.">Common real-world situations and the recommended way to handle each one.</p>
+    </div>
+    <div class="cases-list">
+      <details class="case-item" open>
+        <summary><span class="case-num">1</span><span data-en="Material price variance is unfavorable — a supplier raised prices, but purchasing never updated the standard" data-ar="انحراف سعر المواد غير موات — مورد رفع أسعاره، لكن المشتريات أبدًا ما حدّثت المعيار">Material price variance is unfavorable — a supplier raised prices, but purchasing never updated the standard</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Investigate whether the standard genuinely needs updating to reflect a new market reality, versus purchasing having actually overpaid relative to available alternatives — these are two very different root causes." data-ar="حقق هل المعيار فعليًا محتاج تحديث ليعكس واقع سوق جديد، مقابل هل المشتريات فعليًا دفعت أكتر من اللازم مقارنة ببدائل متاحة — دول سببين جذريين مختلفين تمامًا.">Investigate whether the standard genuinely needs updating to reflect a new market reality, versus purchasing having actually overpaid relative to available alternatives — these are two very different root causes.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">2</span><span data-en="Labor efficiency variance is favorable, but quality complaints increased that same period" data-ar="انحراف كفاءة العمالة موات، لكن شكاوى الجودة زادت في نفس الفترة">Labor efficiency variance is favorable, but quality complaints increased that same period</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Investigate whether workers rushed the job to hit efficiency targets at the expense of quality — a favorable variance is not automatically good news if it came at a real cost elsewhere." data-ar="حقق هل العمال استعجلوا الشغل عشان يحققوا أهداف الكفاءة على حساب الجودة — انحراف موات مش بالضرورة خبر كويس لو جه بتكلفة حقيقية في مكان تاني.">Investigate whether workers rushed the job to hit efficiency targets at the expense of quality — a favorable variance is not automatically good news if it came at a real cost elsewhere.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">3</span><span data-en="Overhead volume variance is unfavorable because actual production was lower than planned" data-ar="انحراف حجم التكاليف الصناعية غير موات لأن الإنتاج الفعلي كان أقل من المخطط">Overhead volume variance is unfavorable because actual production was lower than planned</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Explain that this reflects underutilized capacity (a volume issue), not a spending-control problem — clearly distinguish it from a controllable overhead spending variance so management doesn't misdiagnose the cause." data-ar="وضّح إن ده بيعكس طاقة غير مستغلة بالكامل (مشكلة حجم)، مش مشكلة ضبط إنفاق — فرّق بوضوح بينه وبين انحراف إنفاق تكاليف صناعية قابل للتحكم عشان الإدارة متشخصش السبب غلط.">Explain that this reflects underutilized capacity (a volume issue), not a spending-control problem — clearly distinguish it from a controllable overhead spending variance so management doesn't misdiagnose the cause.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">4</span><span data-en="A product's actual cost consistently runs higher than standard, but management doesn't want to raise its price" data-ar="تكلفة منتج فعلية باستمرار أعلى من المعيار، لكن الإدارة مش عايزة ترفع سعره">A product's actual cost consistently runs higher than standard, but management doesn't want to raise its price</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Present the cost data clearly and let management decide with full information — a cost accountant's job is to report accurately, not to hide unfavorable numbers to keep a product's pricing story attractive." data-ar="اعرض بيانات التكلفة بوضوح وسيب الإدارة تقرر بمعلومات كاملة — شغل محاسب التكاليف إنه يبلّغ بدقة، مش يخبي أرقام غير مواتية عشان قصة تسعير المنتج تفضل جذابة.">Present the cost data clearly and let management decide with full information — a cost accountant's job is to report accurately, not to hide unfavorable numbers to keep a product's pricing story attractive.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">5</span><span data-en="Two products share a common overhead cost, and management wants to know which one is \"more profitable\"" data-ar="منتجين بيتشاركوا تكلفة صناعية مشتركة، والإدارة عايزة تعرف أنهي واحد \"أكتر ربحية\"">Two products share a common overhead cost, and management wants to know which one is "more profitable"</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Use a defensible, consistent allocation basis and clearly disclose the assumption behind it — the choice of allocation method can genuinely change which product appears more profitable." data-ar="استخدم أساس تخصيص منطقي وثابت وأفصح بوضوح عن الافتراض وراه — اختيار طريقة التخصيص ممكن فعليًا يغيّر أنهي منتج بيبان أكتر ربحية.">Use a defensible, consistent allocation basis and clearly disclose the assumption behind it — the choice of allocation method can genuinely change which product appears more profitable.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">6</span><span data-en="A manager asks you to smooth variances across periods so results look more consistent" data-ar="مدير طلب منك تلطّف الانحرافات عبر الفترات عشان النتائج تبان أكتر ثباتًا">A manager asks you to smooth variances across periods so results look more consistent</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Decline — variances should be reported as they genuinely occurred in each period. Smoothing them hides real information decision-makers need, even if the intention seems harmless." data-ar="ارفض — الانحرافات المفروض تتبلّغ زي ما فعليًا حصلت في كل فترة. تلطيفها بيخبي معلومات حقيقية متخذي القرار محتاجينها، حتى لو النية شكلها غير ضارة.">Decline — variances should be reported as they genuinely occurred in each period. Smoothing them hides real information decision-makers need, even if the intention seems harmless.</p></div></div>
+      </details>
+    </div>
+  </div>
+
+  <div class="data-panel" id="cost-calc">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span>
+      <h3 data-en="Cost Accounting Formulas" data-ar="معادلات محاسبة التكاليف">Cost Accounting Formulas</h3>
+      <p class="panel-sub" data-en="11 categories, 39 formulas — variance analysis, CVP, ABC, process costing, joint costs, pricing and lean metrics. Formula, meaning and a live calculator for each." data-ar="11 فئة، 39 معادلة — تحليل الانحرافات، CVP، ABC، تكاليف المراحل، التكاليف المشتركة، التسعير ومؤشرات الكفاءة. الصيغة والمعنى وحاسبة حية لكل واحدة.">11 categories, 39 formulas — variance analysis, CVP, ABC, process costing, joint costs, pricing and lean metrics. Formula, meaning and a live calculator for each.</p>
+    </div>
+    <div id="cost-calc-list"></div>
+  </div>
+
+  <div class="data-panel" id="cost-quality">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span>
+      <h3 data-en="Quality &amp; Life-Cycle Costing" data-ar="تكلفة الجودة ودورة حياة المنتج">Quality &amp; Life-Cycle Costing</h3>
+      <p class="panel-sub" data-en="Two frameworks that look beyond a single production period: the full cost of quality, and the full cost of a product across its entire life." data-ar="إطاران بيبصوا أبعد من فترة إنتاج واحدة: التكلفة الكاملة للجودة، والتكلفة الكاملة للمنتج عبر دورة حياته بالكامل.">Two frameworks that look beyond a single production period: the full cost of quality, and the full cost of a product across its entire life.</p>
+    </div>
+
+    <div class="data-card" style="margin-bottom:18px;border-inline-start:3px solid var(--brand)">
+      <strong data-en="Total Cost of Quality (COQ)" data-ar="إجمالي تكلفة الجودة">Total Cost of Quality (COQ)</strong>
+      <span data-en="The full cost of achieving quality — spending proactively to prevent defects, plus what defects still cost when they happen anyway. COQ has four categories, split into two groups:" data-ar="التكلفة الكاملة لتحقيق الجودة — الإنفاق الاستباقي لمنع العيوب، زائد إيه اللي العيوب لسه بتكلفه لما تحصل على أي حال. تكلفة الجودة بتتقسم لـ4 فئات، في مجموعتين:">The full cost of achieving quality — spending proactively to prevent defects, plus what defects still cost when they happen anyway. COQ has four categories, split into two groups:</span>
+    </div>
+
+    <div class="role-sequence">
+      <div class="role-step">
+        <h4 data-en="Prevention Costs (proactive)" data-ar="تكاليف الوقاية (استباقية)">Prevention Costs (proactive)</h4>
+        <ul>
+          <li data-en="Quality training for staff" data-ar="تدريب الموظفين على الجودة">Quality training for staff</li>
+          <li data-en="Process design and control" data-ar="تصميم ومراقبة العمليات">Process design and control</li>
+          <li data-en="Supplier quality audits" data-ar="مراجعات جودة الموردين">Supplier quality audits</li>
+          <li data-en="Design and engineering reviews" data-ar="مراجعات التصميم والهندسة">Design and engineering reviews</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Appraisal Costs (proactive)" data-ar="تكاليف التقييم (استباقية)">Appraisal Costs (proactive)</h4>
+        <ul>
+          <li data-en="Incoming materials inspection" data-ar="فحص المواد الواردة">Incoming materials inspection</li>
+          <li data-en="In-process and final product testing" data-ar="اختبار المنتج أثناء وبعد التصنيع">In-process and final product testing</li>
+          <li data-en="Quality audits of finished goods" data-ar="مراجعات جودة البضاعة التامة">Quality audits of finished goods</li>
+          <li data-en="Calibration of measurement equipment" data-ar="معايرة معدات القياس">Calibration of measurement equipment</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Internal Failure Costs (reactive)" data-ar="تكاليف الفشل الداخلي (رد فعل)">Internal Failure Costs (reactive)</h4>
+        <ul>
+          <li data-en="Scrap — defective units discarded before shipping" data-ar="الهدر — وحدات معيبة اتشالت قبل الشحن">Scrap — defective units discarded before shipping</li>
+          <li data-en="Rework — fixing defective units before they ship" data-ar="إعادة العمل — تصليح وحدات معيبة قبل الشحن">Rework — fixing defective units before they ship</li>
+          <li data-en="Re-inspection after rework" data-ar="إعادة الفحص بعد إعادة العمل">Re-inspection after rework</li>
+          <li data-en="Downtime caused by quality problems" data-ar="توقف بسبب مشاكل جودة">Downtime caused by quality problems</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="External Failure Costs (reactive)" data-ar="تكاليف الفشل الخارجي (رد فعل)">External Failure Costs (reactive)</h4>
+        <ul>
+          <li data-en="Warranty claims and repairs" data-ar="مطالبات وإصلاحات الضمان">Warranty claims and repairs</li>
+          <li data-en="Product returns and refunds" data-ar="مرتجعات ومبالغ مستردة">Product returns and refunds</li>
+          <li data-en="Customer complaint handling" data-ar="التعامل مع شكاوى العملاء">Customer complaint handling</li>
+          <li data-en="Lost sales and reputation damage" data-ar="فقدان مبيعات وضرر السمعة">Lost sales and reputation damage</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry-box" style="margin-top:18px">
+      <strong data-en="The key insight" data-ar="الفكرة الجوهرية">The key insight</strong><br>
+      <span data-en="Spending more on prevention and appraisal usually reduces internal and external failure costs by far more than it costs — quality is cheaper to build in than to fix afterward." data-ar="زيادة الإنفاق على الوقاية والتقييم عادة بتقلل تكاليف الفشل الداخلي والخارجي بأكتر بكتير من تكلفتها هي — الجودة أرخص تُبنى من الأول من إصلاحها بعدين.">Spending more on prevention and appraisal usually reduces internal and external failure costs by far more than it costs — quality is cheaper to build in than to fix afterward.</span>
+    </div>
+
+    <div class="data-card" style="margin-top:24px;margin-bottom:18px;border-inline-start:3px solid var(--gold)">
+      <strong data-en="Product Life-Cycle Costing" data-ar="تكلفة دورة حياة المنتج">Product Life-Cycle Costing</strong>
+      <span data-en="Traditional costing only looks at the manufacturing period. Life-cycle costing tracks and accumulates ALL costs a product will ever cause — across its entire life, from before it's even made to after it stops being sold." data-ar="التكلفة التقليدية بتبص بس على فترة التصنيع. تكلفة دورة الحياة بتتبّع وتجمع كل التكاليف اللي المنتج هيسببها على الإطلاق — عبر دورة حياته كاملة، من قبل ما يتصنع لحد بعد ما يبطل يتباع.">Traditional costing only looks at the manufacturing period. Life-cycle costing tracks and accumulates ALL costs a product will ever cause — across its entire life, from before it's even made to after it stops being sold.</span>
+    </div>
+    <div class="role-sequence">
+      <div class="role-step">
+        <h4 data-en="Upstream (before manufacturing)" data-ar="مرحلة سابقة (قبل التصنيع)">Upstream (before manufacturing)</h4>
+        <ul>
+          <li data-en="Research &amp; development" data-ar="البحث والتطوير">Research &amp; development</li>
+          <li data-en="Product and process design" data-ar="تصميم المنتج والعملية">Product and process design</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Manufacturing (the usual focus)" data-ar="مرحلة التصنيع (التركيز المعتاد)">Manufacturing (the usual focus)</h4>
+        <ul>
+          <li data-en="Direct materials, labor, and overhead" data-ar="المواد والعمالة المباشرة والتكاليف الصناعية">Direct materials, labor, and overhead</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Downstream (after manufacturing)" data-ar="مرحلة لاحقة (بعد التصنيع)">Downstream (after manufacturing)</h4>
+        <ul>
+          <li data-en="Marketing and distribution" data-ar="التسويق والتوزيع">Marketing and distribution</li>
+          <li data-en="Customer service and warranty support" data-ar="خدمة العملاء ودعم الضمان">Customer service and warranty support</li>
+          <li data-en="End-of-life disposal or decommissioning" data-ar="التخلص أو إيقاف التشغيل نهاية العمر">End-of-life disposal or decommissioning</li>
+        </ul>
+      </div>
+    </div>
+    <div class="entry-box" style="margin-top:18px">
+      <strong data-en="Why it matters" data-ar="ليه ده مهم">Why it matters</strong><br>
+      <span data-en="A product with low manufacturing cost but heavy upfront R&amp;D or large future warranty costs can look deceptively profitable if only the manufacturing period is measured. Life-cycle costing catches this by looking at the whole picture." data-ar="منتج بتكلفة تصنيع منخفضة لكن بحث وتطوير كبير مقدمًا أو تكاليف ضمان مستقبلية ضخمة ممكن يبان مربح بشكل مضلل لو بس فترة التصنيع اتقاست. تكلفة دورة الحياة بتكشف ده ببصها على الصورة الكاملة.">A product with low manufacturing cost but heavy upfront R&amp;D or large future warranty costs can look deceptively profitable if only the manufacturing period is measured. Life-cycle costing catches this by looking at the whole picture.</span>
+    </div>
+  </div>
+
+  <div class="data-panel" id="cost-quiz">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 محاسب التكاليف</span>
+      <h3 data-en="🏆 Mastery Quiz" data-ar="🏆 اختبار الإتقان">🏆 Mastery Quiz</h3>
+      <p class="panel-sub" data-en="Questions on standard costing, variance analysis and break-even. Score 70% or higher to earn Mastery." data-ar="أسئلة على التكلفة المعيارية وتحليل الانحرافات ونقطة التعادل. احصل على 70% أو أكتر عشان تكسب الإتقان.">Questions on standard costing, variance analysis and break-even. Score 70% or higher to earn Mastery.</p>
+    </div>
+    <div id="quiz-body-cost"></div>
   </div>
 
   <div class="data-panel" id="treasury-bank-rec-ref">
@@ -7150,6 +7356,18 @@ const WORKSPACES = {
       {id:'aud-findings', en:'Writing Findings', ar:'كتابة الملاحظات'},
       {id:'aud-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
+  },
+  cost: {
+    kicker: ['COST ACCOUNTANT', 'محاسب التكاليف'],
+    title: ['Cost Accountant Workspace', 'مساحة عمل محاسب التكاليف'],
+    subtitle: ['Cost the product, explain the variance, support the price.', 'حدّد تكلفة المنتج، فسّر الانحراف، وادعم قرار التسعير.'],
+    tabs: [
+      {id:'cost-home', en:'Role & Procedures', ar:'الدور والإجراءات'},
+      {id:'cost-cases', en:'Cases & Problems', ar:'حالات ومشاكل'},
+      {id:'cost-calc', en:'Cost Accounting Formulas', ar:'معادلات محاسبة التكاليف'},
+      {id:'cost-quality', en:'Quality &amp; Life-Cycle', ar:'الجودة ودورة الحياة'},
+      {id:'cost-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
+    ]
   }
 };
 
@@ -7160,6 +7378,7 @@ const PANEL_TO_WS = {
   'learn-ratios':'ratios', 'ratios-quiz':'ratios', 'ratios-fraud':'ratios', 'ratios-spot-error':'ratios', 'ratios-home':'ratios', 'ratios-cases':'ratios',
   'bc-home':'bc', 'bc-cases':'bc', 'bc-sod':'bc', 'bc-quiz':'bc', 'bc-fraud':'bc', 'bc-spot-error':'bc',
   'aud-home':'aud', 'aud-program':'aud', 'aud-findings':'aud', 'aud-quiz':'aud', 'aud-fraud':'aud', 'aud-spot-error':'aud', 'aud-cases':'aud',
+  'cost-home':'cost', 'cost-cases':'cost', 'cost-calc':'cost', 'cost-quality':'cost', 'cost-quiz':'cost',
   'ar-home':'ar', customers:'ar', 'ar-new-customer':'ar', 'ar-cycle':'ar', 'ar-entries':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'ar-statement':'ar', 'ar-aging':'ar', 'ar-workflow':'ar', 'ar-role':'ar', 'ar-cases':'ar', 'ar-bridge':'ar', 'cross-tickets':'ar',
   'ap-home':'ap', suppliers:'ap', 'ap-new-supplier':'ap', 'ap-cycle':'ap', 'ap-entries':'ap', 'ap-spot-error':'ap', 'ap-quiz':'ap', 'ap-fraud':'ap', 'ap-statement':'ap', 'ap-aging':'ap', 'ap-workflow':'ap', 'ap-role':'ap', 'ap-cases':'ap', 'ap-bridge':'ap',
   'inv-home':'inv', inventory:'inv', 'inv-new-item':'inv', 'inv-workflow':'inv', 'inv-entries':'inv', 'inv-spot-error':'inv', 'inv-fraud':'inv', 'inv-quiz':'inv', 'inv-role':'inv', 'inv-cases':'inv',
@@ -7386,6 +7605,7 @@ function showPanel(id, btn, isBack){
     'learn-ratios':'learn-ratios', 'ratios-quiz':'learn-ratios', 'ratios-fraud':'learn-ratios', 'ratios-spot-error':'learn-ratios', 'ratios-home':'learn-ratios', 'ratios-cases':'learn-ratios',
     'bc-home':'bc-home', 'bc-cases':'bc-home', 'bc-sod':'bc-home', 'bc-quiz':'bc-home', 'bc-fraud':'bc-home', 'bc-spot-error':'bc-home',
     'aud-home':'aud-home', 'aud-program':'aud-home', 'aud-findings':'aud-home', 'aud-quiz':'aud-home', 'aud-fraud':'aud-home', 'aud-spot-error':'aud-home', 'aud-cases':'aud-home',
+    'cost-home':'cost-home', 'cost-cases':'cost-home', 'cost-calc':'cost-home', 'cost-quality':'cost-home', 'cost-quiz':'cost-home',
     'ar-home':'ar-home', customers:'ar-home', 'ar-new-customer':'ar-home', 'ar-cycle':'ar-home', 'ar-entries':'ar-home', 'ar-spot-error':'ar-home', 'ar-quiz':'ar-home', 'ar-fraud':'ar-home', 'ar-statement':'ar-home', 'ar-aging':'ar-home', 'ar-workflow':'ar-home', 'ar-role':'ar-home', 'ar-cases':'ar-home', 'ar-bridge':'ar-home', 'cross-tickets':'ar-home',
     'ap-home':'ap-home', suppliers:'ap-home', 'ap-new-supplier':'ap-home', 'ap-cycle':'ap-home', 'ap-entries':'ap-home', 'ap-spot-error':'ap-home', 'ap-quiz':'ap-home', 'ap-fraud':'ap-home', 'ap-statement':'ap-home', 'ap-aging':'ap-home', 'ap-workflow':'ap-home', 'ap-role':'ap-home', 'ap-cases':'ap-home', 'ap-bridge':'ap-home',
     'inv-home':'inv-home', inventory:'inv-home', 'inv-new-item':'inv-home', 'inv-workflow':'inv-home', 'inv-entries':'inv-home', 'inv-spot-error':'inv-home', 'inv-fraud':'inv-home', 'inv-quiz':'inv-home', 'inv-role':'inv-home', 'inv-cases':'inv-home',
@@ -9542,6 +9762,344 @@ function ratioCalc(uid){
 }
 
 
+const COST_FORMULAS = [
+  {category:'variance', cat_en:'Variance Analysis', cat_ar:'تحليل الانحرافات',
+   name_en:'Material Price Variance', name_ar:'انحراف سعر المواد',
+   formula_en:'(Actual Price − Standard Price) × Actual Quantity', formula_ar:'(السعر الفعلي − السعر المعياري) × الكمية الفعلية',
+   explain_en:'Positive = paid more than planned (unfavorable); negative = paid less (favorable).',
+   explain_ar:'موجب = دفعت أكتر من المخطط (غير موات)؛ سالب = دفعت أقل (موات).',
+   inputs:[{key:'ap',en:'Actual Price',ar:'السعر الفعلي'},{key:'sp',en:'Standard Price',ar:'السعر المعياري'},{key:'aq',en:'Actual Quantity',ar:'الكمية الفعلية'}],
+   compute:v=>(v.ap-v.sp)*v.aq, format:'var'},
+  {category:'variance', cat_en:'Variance Analysis', cat_ar:'تحليل الانحرافات',
+   name_en:'Material Quantity Variance', name_ar:'انحراف كمية المواد',
+   formula_en:'(Actual Quantity − Standard Quantity) × Standard Price', formula_ar:'(الكمية الفعلية − الكمية المعيارية) × السعر المعياري',
+   explain_en:'Positive = used more material than standard allows (unfavorable); negative = used less (favorable).',
+   explain_ar:'موجب = مواد أكتر من المعيار (غير موات)؛ سالب = مواد أقل (موات).',
+   inputs:[{key:'aq',en:'Actual Quantity Used',ar:'الكمية الفعلية المستخدمة'},{key:'sq',en:'Standard Quantity Allowed',ar:'الكمية المعيارية المسموحة'},{key:'sp',en:'Standard Price',ar:'السعر المعياري'}],
+   compute:v=>(v.aq-v.sq)*v.sp, format:'var'},
+  {category:'variance', cat_en:'Variance Analysis', cat_ar:'تحليل الانحرافات',
+   name_en:'Total Material Variance', name_ar:'إجمالي انحراف المواد',
+   formula_en:'(Actual Quantity × Actual Price) − (Standard Quantity × Standard Price)', formula_ar:'(الكمية الفعلية × السعر الفعلي) − (الكمية المعيارية × السعر المعياري)',
+   explain_en:'The combined price and quantity effect — the full gap between actual and standard material cost.',
+   explain_ar:'التأثير المجمّع للسعر والكمية — الفجوة الكاملة بين تكلفة المواد الفعلية والمعيارية.',
+   inputs:[{key:'aq',en:'Actual Quantity',ar:'الكمية الفعلية'},{key:'ap',en:'Actual Price',ar:'السعر الفعلي'},{key:'sq',en:'Standard Quantity',ar:'الكمية المعيارية'},{key:'sp',en:'Standard Price',ar:'السعر المعياري'}],
+   compute:v=>(v.aq*v.ap)-(v.sq*v.sp), format:'var'},
+  {category:'variance', cat_en:'Variance Analysis', cat_ar:'تحليل الانحرافات',
+   name_en:'Labor Rate Variance', name_ar:'انحراف معدل العمالة',
+   formula_en:'(Actual Rate − Standard Rate) × Actual Hours', formula_ar:'(المعدل الفعلي − المعدل المعياري) × الساعات الفعلية',
+   explain_en:'Positive = paid a higher wage rate than standard (unfavorable); negative = paid less (favorable).',
+   explain_ar:'موجب = معدل أجر أعلى من المعيار (غير موات)؛ سالب = أقل (موات).',
+   inputs:[{key:'ar',en:'Actual Rate per Hour',ar:'المعدل الفعلي للساعة'},{key:'sr',en:'Standard Rate per Hour',ar:'المعدل المعياري للساعة'},{key:'ah',en:'Actual Hours',ar:'الساعات الفعلية'}],
+   compute:v=>(v.ar-v.sr)*v.ah, format:'var'},
+  {category:'variance', cat_en:'Variance Analysis', cat_ar:'تحليل الانحرافات',
+   name_en:'Labor Efficiency Variance', name_ar:'انحراف كفاءة العمالة',
+   formula_en:'(Actual Hours − Standard Hours) × Standard Rate', formula_ar:'(الساعات الفعلية − الساعات المعيارية) × المعدل المعياري',
+   explain_en:'Positive = more hours used than standard allows (unfavorable); negative = work done faster (favorable).',
+   explain_ar:'موجب = ساعات أكتر من المعيار (غير موات)؛ سالب = الشغل اتعمل أسرع (موات).',
+   inputs:[{key:'ah',en:'Actual Hours',ar:'الساعات الفعلية'},{key:'sh',en:'Standard Hours Allowed',ar:'الساعات المعيارية المسموحة'},{key:'sr',en:'Standard Rate per Hour',ar:'المعدل المعياري للساعة'}],
+   compute:v=>(v.ah-v.sh)*v.sr, format:'var'},
+  {category:'variance', cat_en:'Variance Analysis', cat_ar:'تحليل الانحرافات',
+   name_en:'Variable Overhead Spending Variance', name_ar:'انحراف إنفاق التكاليف الصناعية المتغيرة',
+   formula_en:'Actual Variable Overhead − (Actual Hours × Standard VOH Rate)', formula_ar:'التكاليف الصناعية المتغيرة الفعلية − (الساعات الفعلية × معدل التكلفة الصناعية المتغيرة المعياري)',
+   explain_en:'Positive = spent more on variable overhead than the hours worked justify (unfavorable).',
+   explain_ar:'موجب = تم إنفاق أكتر على التكاليف الصناعية المتغيرة مما تبرره الساعات (غير موات).',
+   inputs:[{key:'avoh',en:'Actual Variable Overhead',ar:'التكاليف الصناعية المتغيرة الفعلية'},{key:'ah',en:'Actual Hours',ar:'الساعات الفعلية'},{key:'svr',en:'Standard VOH Rate per Hour',ar:'معدل التكلفة الصناعية المتغيرة المعياري للساعة'}],
+   compute:v=>v.avoh-(v.ah*v.svr), format:'var'},
+  {category:'variance', cat_en:'Variance Analysis', cat_ar:'تحليل الانحرافات',
+   name_en:'Variable Overhead Efficiency Variance', name_ar:'انحراف كفاءة التكاليف الصناعية المتغيرة',
+   formula_en:'(Actual Hours − Standard Hours) × Standard VOH Rate', formula_ar:'(الساعات الفعلية − الساعات المعيارية) × معدل التكلفة الصناعية المتغيرة المعياري',
+   explain_en:'Mirrors labor efficiency variance — driven by using more or fewer hours than standard, applied to variable overhead.',
+   explain_ar:'بتعكس انحراف كفاءة العمالة — ناتجة عن استخدام ساعات أكتر أو أقل من المعيار، مطبقة على التكاليف الصناعية المتغيرة.',
+   inputs:[{key:'ah',en:'Actual Hours',ar:'الساعات الفعلية'},{key:'sh',en:'Standard Hours Allowed',ar:'الساعات المعيارية المسموحة'},{key:'svr',en:'Standard VOH Rate per Hour',ar:'معدل التكلفة الصناعية المتغيرة المعياري للساعة'}],
+   compute:v=>(v.ah-v.sh)*v.svr, format:'var'},
+  {category:'cvp', cat_en:'CVP & Break-Even', cat_ar:'التكلفة والحجم والربح',
+   name_en:'Contribution Margin per Unit', name_ar:'هامش المساهمة للوحدة',
+   formula_en:'Price per Unit − Variable Cost per Unit', formula_ar:'سعر الوحدة − التكلفة المتغيرة للوحدة',
+   explain_en:'The amount each unit sold contributes toward covering fixed costs, then profit.',
+   explain_ar:'المبلغ اللي كل وحدة مباعة بتساهم بيه في تغطية التكاليف الثابتة، وبعدين الربح.',
+   inputs:[{key:'p',en:'Price per Unit',ar:'سعر الوحدة'},{key:'vc',en:'Variable Cost per Unit',ar:'التكلفة المتغيرة للوحدة'}],
+   compute:v=>v.p-v.vc, format:'value'},
+  {category:'cvp', cat_en:'CVP & Break-Even', cat_ar:'التكلفة والحجم والربح',
+   name_en:'Contribution Margin Ratio', name_ar:'نسبة هامش المساهمة',
+   formula_en:'(Price − Variable Cost) ÷ Price', formula_ar:'(السعر − التكلفة المتغيرة) ÷ السعر',
+   explain_en:'The share of each sales pound left after variable costs, available to cover fixed costs and profit.',
+   explain_ar:'النسبة المتبقية من كل جنيه مبيعات بعد التكاليف المتغيرة، المتاحة لتغطية التكاليف الثابتة والربح.',
+   inputs:[{key:'p',en:'Price per Unit',ar:'سعر الوحدة'},{key:'vc',en:'Variable Cost per Unit',ar:'التكلفة المتغيرة للوحدة'}],
+   compute:v=>v.p?(v.p-v.vc)/v.p:null, format:'pct'},
+  {category:'cvp', cat_en:'CVP & Break-Even', cat_ar:'التكلفة والحجم والربح',
+   name_en:'Break-Even Point (Units)', name_ar:'نقطة التعادل (بالوحدات)',
+   formula_en:'Fixed Costs ÷ (Price − Variable Cost per Unit)', formula_ar:'التكاليف الثابتة ÷ (السعر − التكلفة المتغيرة للوحدة)',
+   explain_en:'Units that must be sold for total revenue to exactly cover total costs, with zero profit or loss.',
+   explain_ar:'الوحدات اللي لازم تتباع عشان الإيراد يغطي بالظبط إجمالي التكاليف، من غير ربح أو خسارة.',
+   inputs:[{key:'fc',en:'Fixed Costs',ar:'التكاليف الثابتة'},{key:'p',en:'Price per Unit',ar:'سعر الوحدة'},{key:'vc',en:'Variable Cost per Unit',ar:'التكلفة المتغيرة للوحدة'}],
+   compute:v=>(v.p-v.vc)?v.fc/(v.p-v.vc):null, format:'unitsvalue'},
+  {category:'cvp', cat_en:'CVP & Break-Even', cat_ar:'التكلفة والحجم والربح',
+   name_en:'Break-Even Point (Sales Value)', name_ar:'نقطة التعادل (بالقيمة)',
+   formula_en:'Fixed Costs ÷ Contribution Margin Ratio', formula_ar:'التكاليف الثابتة ÷ نسبة هامش المساهمة',
+   explain_en:'The sales revenue in currency needed to exactly cover total costs.',
+   explain_ar:'الإيراد بالعملة المطلوب عشان يغطي بالظبط إجمالي التكاليف.',
+   inputs:[{key:'fc',en:'Fixed Costs',ar:'التكاليف الثابتة'},{key:'cmr',en:'Contribution Margin Ratio (as %, e.g. 40)',ar:'نسبة هامش المساهمة (%، مثلًا 40)'}],
+   compute:v=>v.cmr?v.fc/(v.cmr/100):null, format:'value'},
+  {category:'cvp', cat_en:'CVP & Break-Even', cat_ar:'التكلفة والحجم والربح',
+   name_en:'Target Profit Sales (Units)', name_ar:'مبيعات لتحقيق ربح مستهدف (بالوحدات)',
+   formula_en:'(Fixed Costs + Target Profit) ÷ (Price − Variable Cost per Unit)', formula_ar:'(التكاليف الثابتة + الربح المستهدف) ÷ (السعر − التكلفة المتغيرة للوحدة)',
+   explain_en:'The unit sales volume needed to earn a specific target profit, not just break even.',
+   explain_ar:'حجم مبيعات الوحدات المطلوب لتحقيق ربح مستهدف محدد، مش بس التعادل.',
+   inputs:[{key:'fc',en:'Fixed Costs',ar:'التكاليف الثابتة'},{key:'tp',en:'Target Profit',ar:'الربح المستهدف'},{key:'p',en:'Price per Unit',ar:'سعر الوحدة'},{key:'vc',en:'Variable Cost per Unit',ar:'التكلفة المتغيرة للوحدة'}],
+   compute:v=>(v.p-v.vc)?(v.fc+v.tp)/(v.p-v.vc):null, format:'unitsvalue'},
+  {category:'cvp', cat_en:'CVP & Break-Even', cat_ar:'التكلفة والحجم والربح',
+   name_en:'Margin of Safety', name_ar:'هامش الأمان',
+   formula_en:'Actual Sales − Break-Even Sales', formula_ar:'المبيعات الفعلية − مبيعات التعادل',
+   explain_en:'How far actual (or budgeted) sales can fall before the company hits break-even — a cushion against risk.',
+   explain_ar:'قد إيه المبيعات الفعلية (أو المخططة) ممكن تنزل قبل ما الشركة توصل لنقطة التعادل — وسادة أمان ضد المخاطرة.',
+   inputs:[{key:'asales',en:'Actual Sales',ar:'المبيعات الفعلية'},{key:'besales',en:'Break-Even Sales',ar:'مبيعات التعادل'}],
+   compute:v=>v.asales-v.besales, format:'value'},
+  {category:'flow', cat_en:'COGM & COGS', cat_ar:'تدفق التكاليف بالإنتاج',
+   name_en:'Total Manufacturing Costs', name_ar:'إجمالي التكاليف التصنيعية',
+   formula_en:'Direct Materials + Direct Labor + Manufacturing Overhead', formula_ar:'المواد المباشرة + العمالة المباشرة + التكاليف الصناعية غير المباشرة',
+   explain_en:'The three classic components combined into the total cost incurred by production this period.',
+   explain_ar:'المكونات الثلاثة الكلاسيكية مجمّعة في إجمالي التكلفة المتحملة من الإنتاج الفترة دي.',
+   inputs:[{key:'dm',en:'Direct Materials Used',ar:'المواد المباشرة المستخدمة'},{key:'dl',en:'Direct Labor',ar:'العمالة المباشرة'},{key:'moh',en:'Manufacturing Overhead',ar:'التكاليف الصناعية غير المباشرة'}],
+   compute:v=>v.dm+v.dl+v.moh, format:'value'},
+  {category:'flow', cat_en:'COGM & COGS', cat_ar:'تدفق التكاليف بالإنتاج',
+   name_en:'Cost of Goods Manufactured (COGM)', name_ar:'تكلفة البضاعة المصنعة',
+   formula_en:'Beginning WIP + Total Manufacturing Costs − Ending WIP', formula_ar:'مخزون تحت التشغيل أول المدة + إجمالي التكاليف التصنيعية − مخزون تحت التشغيل آخر المدة',
+   explain_en:'The cost of units that were actually finished and transferred out of the factory this period.',
+   explain_ar:'تكلفة الوحدات اللي فعليًا اتخلصت واتنقلت بره المصنع الفترة دي.',
+   inputs:[{key:'bwip',en:'Beginning WIP',ar:'مخزون تحت التشغيل أول المدة'},{key:'tmc',en:'Total Manufacturing Costs',ar:'إجمالي التكاليف التصنيعية'},{key:'ewip',en:'Ending WIP',ar:'مخزون تحت التشغيل آخر المدة'}],
+   compute:v=>v.bwip+v.tmc-v.ewip, format:'value'},
+  {category:'flow', cat_en:'COGM & COGS', cat_ar:'تدفق التكاليف بالإنتاج',
+   name_en:'Cost of Goods Sold (COGS)', name_ar:'تكلفة البضاعة المباعة',
+   formula_en:'Beginning Finished Goods + COGM − Ending Finished Goods', formula_ar:'بضاعة تامة أول المدة + تكلفة البضاعة المصنعة − بضاعة تامة آخر المدة',
+   explain_en:'The cost of the goods that actually left the business through a sale this period.',
+   explain_ar:'تكلفة البضاعة اللي فعليًا خرجت من الشركة عن طريق بيع الفترة دي.',
+   inputs:[{key:'bfg',en:'Beginning Finished Goods',ar:'بضاعة تامة أول المدة'},{key:'cogm',en:'COGM',ar:'تكلفة البضاعة المصنعة'},{key:'efg',en:'Ending Finished Goods',ar:'بضاعة تامة آخر المدة'}],
+   compute:v=>v.bfg+v.cogm-v.efg, format:'value'},
+  {category:'overhead', cat_en:'Overhead Allocation', cat_ar:'تخصيص التكاليف غير المباشرة',
+   name_en:'Predetermined Overhead Rate (POHR)', name_ar:'معدل التخصيص التقديري',
+   formula_en:'Estimated Overhead ÷ Estimated Activity Base', formula_ar:'التكاليف غير المباشرة التقديرية ÷ أساس النشاط التقديري',
+   explain_en:'Set at the start of the year using estimates, so overhead can be applied to jobs before actual costs are known.',
+   explain_ar:'بيتحدد أول السنة باستخدام تقديرات، عشان التكاليف غير المباشرة تتحمل على الأعمال قبل ما التكاليف الفعلية تتعرف.',
+   inputs:[{key:'eoh',en:'Estimated Overhead',ar:'التكاليف غير المباشرة التقديرية'},{key:'eab',en:'Estimated Activity Base (e.g. machine hours)',ar:'أساس النشاط التقديري (زي ساعات ماكينات)'}],
+   compute:v=>v.eab?v.eoh/v.eab:null, format:'value'},
+  {category:'overhead', cat_en:'Overhead Allocation', cat_ar:'تخصيص التكاليف غير المباشرة',
+   name_en:'Applied Overhead', name_ar:'التكاليف المخصصة المحملة',
+   formula_en:'POHR × Actual Activity', formula_ar:'معدل التخصيص التقديري × النشاط الفعلي',
+   explain_en:'The overhead actually charged to production, using the predetermined rate against real activity levels.',
+   explain_ar:'التكاليف غير المباشرة اللي فعليًا اتحملت على الإنتاج، باستخدام المعدل التقديري مقابل مستويات النشاط الحقيقية.',
+   inputs:[{key:'pohr',en:'POHR',ar:'معدل التخصيص التقديري'},{key:'aa',en:'Actual Activity',ar:'النشاط الفعلي'}],
+   compute:v=>v.pohr*v.aa, format:'value'},
+  {category:'abc', cat_en:'Activity-Based Costing (ABC)', cat_ar:'التكاليف القائمة على الأنشطة',
+   name_en:'Activity Cost Driver Rate', name_ar:'معدل مسبب تكلفة النشاط',
+   formula_en:'Total Activity Cost ÷ Total Driver Volume', formula_ar:'إجمالي تكلفة النشاط ÷ إجمالي حجم المسبب',
+   explain_en:'The cost per unit of whatever drives an activity (e.g. cost per machine setup, per inspection).',
+   explain_ar:'التكلفة لكل وحدة من أي حاجة بتحرك النشاط (زي التكلفة لكل إعداد ماكينة، لكل فحص).',
+   inputs:[{key:'tac',en:'Total Activity Cost',ar:'إجمالي تكلفة النشاط'},{key:'tdv',en:'Total Driver Volume',ar:'إجمالي حجم المسبب'}],
+   compute:v=>v.tdv?v.tac/v.tdv:null, format:'value'},
+  {category:'abc', cat_en:'Activity-Based Costing (ABC)', cat_ar:'التكاليف القائمة على الأنشطة',
+   name_en:'Allocated Overhead via ABC', name_ar:'التكلفة المخصصة عبر ABC',
+   formula_en:'Activity Driver Rate × Actual Driver Usage', formula_ar:'معدل مسبب النشاط × الاستخدام الفعلي للمسبب',
+   explain_en:'The overhead a specific product or job absorbs, based on how much of the actual driver it consumed.',
+   explain_ar:'التكاليف غير المباشرة اللي منتج أو عمل محدد بيمتصها، بناءً على قد إيه من المسبب الفعلي استهلكه.',
+   inputs:[{key:'adr',en:'Activity Driver Rate',ar:'معدل مسبب النشاط'},{key:'adu',en:'Actual Driver Usage',ar:'الاستخدام الفعلي للمسبب'}],
+   compute:v=>v.adr*v.adu, format:'value'},
+  {category:'process', cat_en:'Process Costing', cat_ar:'تكاليف المراحل الإنتاجية',
+   name_en:'Equivalent Units — Weighted Average', name_ar:'الوحدات المكافئة — المتوسط المرجح',
+   formula_en:'Units Completed &amp; Transferred Out + (Ending WIP × % Complete)', formula_ar:'الوحدات المكتملة والمنقولة + (مخزون تحت التشغيل آخر المدة × % الاكتمال)',
+   explain_en:'Converts partially-finished units into an equivalent count of fully-finished units for costing purposes.',
+   explain_ar:'بتحول الوحدات المكتملة جزئيًا لعدد مكافئ من وحدات مكتملة بالكامل لأغراض التكلفة.',
+   inputs:[{key:'completed',en:'Units Completed &amp; Transferred',ar:'الوحدات المكتملة والمنقولة'},{key:'ewip',en:'Ending WIP Units',ar:'وحدات تحت التشغيل آخر المدة'},{key:'pct',en:'Ending WIP % Complete (e.g. 60)',ar:'% اكتمال آخر المدة (مثلًا 60)'}],
+   compute:v=>v.completed+(v.ewip*(v.pct/100)), format:'unitsvalue'},
+  {category:'process', cat_en:'Process Costing', cat_ar:'تكاليف المراحل الإنتاجية',
+   name_en:'Cost per Equivalent Unit — Weighted Average', name_ar:'تكلفة الوحدة المكافئة — المتوسط المرجح',
+   formula_en:'Total Costs to Account For ÷ Equivalent Units', formula_ar:'إجمالي التكاليف الواجب محاسبتها ÷ الوحدات المكافئة',
+   explain_en:'Spreads all costs (beginning WIP plus current period costs) evenly across the equivalent units produced.',
+   explain_ar:'بتوزع كل التكاليف (تحت التشغيل أول المدة زائد تكاليف الفترة الحالية) بالتساوي على الوحدات المكافئة المنتجة.',
+   inputs:[{key:'tc',en:'Total Costs to Account For',ar:'إجمالي التكاليف الواجب محاسبتها'},{key:'eu',en:'Equivalent Units',ar:'الوحدات المكافئة'}],
+   compute:v=>v.eu?v.tc/v.eu:null, format:'value'},
+  {category:'process', cat_en:'Process Costing', cat_ar:'تكاليف المراحل الإنتاجية',
+   name_en:'Equivalent Units — FIFO', name_ar:'الوحدات المكافئة — FIFO',
+   formula_en:'Units Completed − (Beginning WIP × % Already Done) + (Ending WIP × % Done This Period)', formula_ar:'الوحدات المكتملة − (تحت التشغيل أول المدة × % منجز بالفعل) + (تحت التشغيل آخر المدة × % منجز الفترة دي)',
+   explain_en:'Counts only the work genuinely done THIS period, excluding work on beginning WIP that was already done last period.',
+   explain_ar:'بتحسب بس الشغل اللي فعليًا اتعمل الفترة دي، ومستبعدة شغل تحت التشغيل أول المدة اللي أصلًا اتعمل الفترة اللي فاتت.',
+   inputs:[{key:'completed',en:'Units Completed',ar:'الوحدات المكتملة'},{key:'bwip',en:'Beginning WIP Units',ar:'وحدات تحت التشغيل أول المدة'},{key:'bpct',en:'Beginning WIP % Already Done (e.g. 30)',ar:'% منجز مسبقًا لأول المدة (مثلًا 30)'},{key:'ewip',en:'Ending WIP Units',ar:'وحدات تحت التشغيل آخر المدة'},{key:'epct',en:'Ending WIP % Done (e.g. 60)',ar:'% منجز لآخر المدة (مثلًا 60)'}],
+   compute:v=>v.completed-(v.bwip*(v.bpct/100))+(v.ewip*(v.epct/100)), format:'unitsvalue'},
+  {category:'joint', cat_en:'Joint &amp; By-Product Costing', cat_ar:'التكاليف المشتركة والمنتجات الفرعية',
+   name_en:'Joint Cost Allocation — Sales Value at Split-off', name_ar:'تخصيص التكلفة المشتركة — القيمة البيعية عند الانفصال',
+   formula_en:'Product\'s Sales Value at Split-off ÷ Total Sales Value at Split-off) × Total Joint Cost', formula_ar:'(القيمة البيعية للمنتج عند الانفصال ÷ إجمالي القيمة البيعية عند الانفصال) × إجمالي التكلفة المشتركة',
+   explain_en:'Shares the joint cost across products in proportion to what each is worth the moment they separate.',
+   explain_ar:'بتوزع التكلفة المشتركة على المنتجات بنسبة قيمة كل واحد لحظة الانفصال.',
+   inputs:[{key:'psv',en:'This Product Sales Value at Split-off',ar:'القيمة البيعية للمنتج ده عند الانفصال'},{key:'tsv',en:'Total Sales Value at Split-off (all products)',ar:'إجمالي القيمة البيعية عند الانفصال (كل المنتجات)'},{key:'jc',en:'Total Joint Cost',ar:'إجمالي التكلفة المشتركة'}],
+   compute:v=>v.tsv?(v.psv/v.tsv)*v.jc:null, format:'value'},
+  {category:'joint', cat_en:'Joint &amp; By-Product Costing', cat_ar:'التكاليف المشتركة والمنتجات الفرعية',
+   name_en:'Net Realizable Value (NRV)', name_ar:'صافي القيمة القابلة للتحقق',
+   formula_en:'Final Sales Value − Further Processing Costs', formula_ar:'القيمة البيعية النهائية − تكاليف المعالجة الإضافية',
+   explain_en:'Used when a product cannot be sold at split-off — estimates its value after accounting for the extra cost to finish it.',
+   explain_ar:'بتُستخدم لما منتج مايقدرش يتباع عند الانفصال — بتقدّر قيمته بعد حساب التكلفة الإضافية لتشطيبه.',
+   inputs:[{key:'fsv',en:'Final Sales Value',ar:'القيمة البيعية النهائية'},{key:'fpc',en:'Further Processing Costs',ar:'تكاليف المعالجة الإضافية'}],
+   compute:v=>v.fsv-v.fpc, format:'value'},
+  {category:'salesvar', cat_en:'Sales &amp; Profitability Variances', cat_ar:'انحرافات المبيعات والمزيج',
+   name_en:'Sales Volume Variance', name_ar:'انحراف حجم المبيعات',
+   formula_en:'(Actual Units − Budgeted Units) × Budgeted Contribution Margin per Unit', formula_ar:'(الوحدات الفعلية − الوحدات الموازنة) × هامش المساهمة الموازن للوحدة',
+   explain_en:'Isolates the profit impact of selling more or fewer total units than budgeted, at the budgeted margin.',
+   explain_ar:'بتعزل تأثير الربح لبيع وحدات إجمالية أكتر أو أقل من الموازنة، بالهامش الموازن.',
+   inputs:[{key:'au',en:'Actual Units Sold',ar:'الوحدات المباعة فعليًا'},{key:'bu',en:'Budgeted Units',ar:'الوحدات الموازنة'},{key:'bcm',en:'Budgeted Contribution Margin per Unit',ar:'هامش المساهمة الموازن للوحدة'}],
+   compute:v=>(v.au-v.bu)*v.bcm, format:'var'},
+  {category:'salesvar', cat_en:'Sales &amp; Profitability Variances', cat_ar:'انحرافات المبيعات والمزيج',
+   name_en:'Sales Mix Variance', name_ar:'انحراف مزيج المبيعات',
+   formula_en:'Actual Total Units × (Actual Mix % − Budgeted Mix %) × Standard Contribution Margin per Unit', formula_ar:'إجمالي الوحدات الفعلية × (% المزيج الفعلي − % المزيج الموازن) × هامش المساهمة المعياري للوحدة',
+   explain_en:'Isolates the profit impact of selling a different proportion of this product than budgeted, at the same total volume.',
+   explain_ar:'بتعزل تأثير الربح لبيع نسبة مختلفة من المنتج ده عن الموازنة، بنفس الحجم الإجمالي.',
+   inputs:[{key:'atu',en:'Actual Total Units (all products)',ar:'إجمالي الوحدات الفعلية (كل المنتجات)'},{key:'amix',en:'Actual Mix % for this product (e.g. 45)',ar:'% المزيج الفعلي لهذا المنتج (مثلًا 45)'},{key:'bmix',en:'Budgeted Mix % for this product (e.g. 40)',ar:'% المزيج الموازن لهذا المنتج (مثلًا 40)'},{key:'scm',en:'Standard Contribution Margin per Unit',ar:'هامش المساهمة المعياري للوحدة'}],
+   compute:v=>v.atu*((v.amix-v.bmix)/100)*v.scm, format:'var'},
+  {category:'salesvar', cat_en:'Sales &amp; Profitability Variances', cat_ar:'انحرافات المبيعات والمزيج',
+   name_en:'Sales Quantity Variance', name_ar:'انحراف الكمية الكلية للمبيعات',
+   formula_en:'(Actual Total Units − Budgeted Total Units) × Budgeted Mix % × Standard Contribution Margin per Unit', formula_ar:'(إجمالي الوحدات الفعلية − إجمالي الوحدات الموازنة) × % المزيج الموازن × هامش المساهمة المعياري للوحدة',
+   explain_en:'Isolates the profit impact of the overall market/volume being larger or smaller than budgeted, at the budgeted mix.',
+   explain_ar:'بتعزل تأثير الربح لكون السوق/الحجم الإجمالي أكبر أو أصغر من الموازنة، بنفس المزيج الموازن.',
+   inputs:[{key:'atu',en:'Actual Total Units (all products)',ar:'إجمالي الوحدات الفعلية (كل المنتجات)'},{key:'btu',en:'Budgeted Total Units (all products)',ar:'إجمالي الوحدات الموازنة (كل المنتجات)'},{key:'bmix',en:'Budgeted Mix % for this product (e.g. 40)',ar:'% المزيج الموازن لهذا المنتج (مثلًا 40)'},{key:'scm',en:'Standard Contribution Margin per Unit',ar:'هامش المساهمة المعياري للوحدة'}],
+   compute:v=>(v.atu-v.btu)*(v.bmix/100)*v.scm, format:'var'},
+  {category:'inv2', cat_en:'Inventory &amp; Working Capital', cat_ar:'إدارة المخزون ورأس المال العامل',
+   name_en:'Average Inventory', name_ar:'متوسط المخزون',
+   formula_en:'(Beginning Inventory + Ending Inventory) ÷ 2', formula_ar:'(المخزون أول المدة + المخزون آخر المدة) ÷ 2',
+   explain_en:'Smooths a single point-in-time balance into a more representative period average.',
+   explain_ar:'بتلطّف رصيد لحظة واحدة في المتوسط عشان يكون أكتر تمثيلًا للفترة.',
+   inputs:[{key:'bi',en:'Beginning Inventory',ar:'المخزون أول المدة'},{key:'ei',en:'Ending Inventory',ar:'المخزون آخر المدة'}],
+   compute:v=>(v.bi+v.ei)/2, format:'value'},
+  {category:'inv2', cat_en:'Inventory &amp; Working Capital', cat_ar:'إدارة المخزون ورأس المال العامل',
+   name_en:'Inventory Turnover Ratio', name_ar:'معدل دوران المخزون',
+   formula_en:'COGS ÷ Average Inventory', formula_ar:'تكلفة البضاعة المباعة ÷ متوسط المخزون',
+   explain_en:'How many times inventory was sold and replaced during the period — higher generally means more efficient stock management.',
+   explain_ar:'كام مرة المخزون اتباع واتجدد خلال الفترة — أعلى عمومًا معناه إدارة مخزون أكفأ.',
+   inputs:[{key:'cogs',en:'COGS',ar:'تكلفة البضاعة المباعة'},{key:'avginv',en:'Average Inventory',ar:'متوسط المخزون'}],
+   compute:v=>v.avginv?v.cogs/v.avginv:null, format:'x'},
+  {category:'inv2', cat_en:'Inventory &amp; Working Capital', cat_ar:'إدارة المخزون ورأس المال العامل',
+   name_en:'Days Sales of Inventory (DSI)', name_ar:'متوسط فترة الاحتفاظ بالمخزون',
+   formula_en:'365 ÷ Inventory Turnover Ratio', formula_ar:'365 ÷ معدل دوران المخزون',
+   explain_en:'The average number of days inventory sits before being sold — fewer days generally means faster-moving stock.',
+   explain_ar:'متوسط عدد الأيام اللي المخزون بيقعدها قبل ما يتباع — أيام أقل عمومًا معناه بضاعة أسرع حركة.',
+   inputs:[{key:'turn',en:'Inventory Turnover Ratio',ar:'معدل دوران المخزون'}],
+   compute:v=>v.turn?365/v.turn:null, format:'daysvalue'},
+  {category:'inv2', cat_en:'Inventory &amp; Working Capital', cat_ar:'إدارة المخزون ورأس المال العامل',
+   name_en:'Economic Order Quantity (EOQ)', name_ar:'الحجم الاقتصادي للطلب',
+   formula_en:'√(2 × D × S ÷ H)', formula_ar:'√(2 × D × S ÷ H)',
+   explain_en:'D = annual demand, S = cost per order, H = annual holding cost per unit. The order size that minimizes total ordering + holding cost.',
+   explain_ar:'D = الطلب السنوي، S = تكلفة الطلبية، H = تكلفة الاحتفاظ السنوية للوحدة. حجم الطلبية اللي بيقلل إجمالي تكلفة الطلب والاحتفاظ.',
+   inputs:[{key:'d',en:'Annual Demand (D)',ar:'الطلب السنوي (D)'},{key:'s',en:'Cost per Order (S)',ar:'تكلفة الطلبية (S)'},{key:'h',en:'Annual Holding Cost per Unit (H)',ar:'تكلفة الاحتفاظ السنوية للوحدة (H)'}],
+   compute:v=>v.h?Math.sqrt((2*v.d*v.s)/v.h):null, format:'unitsvalue'},
+  {category:'pricing', cat_en:'Pricing &amp; Profitability Metrics', cat_ar:'التسعير والربحية التشغيلية',
+   name_en:'Cost-Plus Price', name_ar:'التسعير على أساس التكلفة زائد هامش',
+   formula_en:'Cost per Unit × (1 + Markup %)', formula_ar:'تكلفة الوحدة × (1 + % الهامش)',
+   explain_en:'A simple, transparent pricing method: start from cost, then add a target markup percentage.',
+   explain_ar:'طريقة تسعير بسيطة وشفافة: ابدأ من التكلفة، وبعدين ضيف نسبة هامش مستهدفة.',
+   inputs:[{key:'cost',en:'Cost per Unit',ar:'تكلفة الوحدة'},{key:'markup',en:'Markup % (e.g. 25)',ar:'% الهامش (مثلًا 25)'}],
+   compute:v=>v.cost*(1+(v.markup/100)), format:'value'},
+  {category:'pricing', cat_en:'Pricing &amp; Profitability Metrics', cat_ar:'التسعير والربحية التشغيلية',
+   name_en:'Target Cost', name_ar:'التكلفة المستهدفة',
+   formula_en:'Target Selling Price − Target Profit Margin', formula_ar:'سعر البيع المستهدف − هامش الربح المستهدف',
+   explain_en:'Works backward from what the market will pay to the maximum cost the company can afford to incur.',
+   explain_ar:'بتشتغل بالعكس من اللي السوق هيدفعه لأقصى تكلفة الشركة تقدر تتحملها.',
+   inputs:[{key:'tsp',en:'Target Selling Price',ar:'سعر البيع المستهدف'},{key:'tpm',en:'Target Profit Margin',ar:'هامش الربح المستهدف'}],
+   compute:v=>v.tsp-v.tpm, format:'value'},
+  {category:'pricing', cat_en:'Pricing &amp; Profitability Metrics', cat_ar:'التسعير والربحية التشغيلية',
+   name_en:'Return on Investment (ROI)', name_ar:'العائد على الاستثمار',
+   formula_en:'Operating Income ÷ Average Operating Assets', formula_ar:'الدخل التشغيلي ÷ متوسط الأصول التشغيلية',
+   explain_en:'A classic measure of how efficiently a segment or product line uses the assets invested in it.',
+   explain_ar:'مقياس كلاسيكي لكفاءة استخدام قطاع أو خط منتج للأصول المستثمرة فيه.',
+   inputs:[{key:'oi',en:'Operating Income',ar:'الدخل التشغيلي'},{key:'aoa',en:'Average Operating Assets',ar:'متوسط الأصول التشغيلية'}],
+   compute:v=>v.aoa?v.oi/v.aoa:null, format:'pct'},
+  {category:'pricing', cat_en:'Pricing &amp; Profitability Metrics', cat_ar:'التسعير والربحية التشغيلية',
+   name_en:'Residual Income', name_ar:'الربح المتبقي',
+   formula_en:'Operating Income − (Average Operating Assets × Required Rate of Return)', formula_ar:'الدخل التشغيلي − (متوسط الأصول التشغيلية × معدل العائد المطلوب)',
+   explain_en:'The dollar profit earned above the minimum return required — unlike ROI, this rewards genuinely profitable growth.',
+   explain_ar:'الربح بالعملة المكتسب فوق أدنى عائد مطلوب — على عكس العائد على الاستثمار، ده بيكافئ النمو المربح فعليًا.',
+   inputs:[{key:'oi',en:'Operating Income',ar:'الدخل التشغيلي'},{key:'aoa',en:'Average Operating Assets',ar:'متوسط الأصول التشغيلية'},{key:'rrr',en:'Required Rate of Return % (e.g. 12)',ar:'معدل العائد المطلوب % (مثلًا 12)'}],
+   compute:v=>v.oi-(v.aoa*(v.rrr/100)), format:'value'},
+  {category:'lean', cat_en:'Operations &amp; Lean Metrics', cat_ar:'مؤشرات الكفاءة والعمليات التصنيعية',
+   name_en:'Manufacturing Cycle Efficiency (MCE)', name_ar:'كفاءة دورة التصنيع',
+   formula_en:'Value-Added Time ÷ Total Cycle Time', formula_ar:'وقت القيمة المضافة ÷ إجمالي وقت الدورة',
+   explain_en:'What share of total production time is genuinely value-adding versus waiting, moving, or inspection.',
+   explain_ar:'قد إيه من إجمالي وقت الإنتاج بيضيف قيمة فعليًا مقابل الانتظار أو النقل أو الفحص.',
+   inputs:[{key:'vat',en:'Value-Added Time',ar:'وقت القيمة المضافة'},{key:'tct',en:'Total Cycle Time',ar:'إجمالي وقت الدورة'}],
+   compute:v=>v.tct?v.vat/v.tct:null, format:'pct'},
+  {category:'lean', cat_en:'Operations &amp; Lean Metrics', cat_ar:'مؤشرات الكفاءة والعمليات التصنيعية',
+   name_en:'Overall Equipment Effectiveness (OEE)', name_ar:'الفاعلية الإجمالية للمعدات',
+   formula_en:'Availability % × Performance % × Quality %', formula_ar:'% التوافر × % الأداء × % الجودة',
+   explain_en:'A single combined score for how effectively equipment is truly used, factoring in downtime, speed loss, and defects.',
+   explain_ar:'درجة مجمّعة واحدة لمدى فعالية استخدام المعدات فعليًا، بمراعاة التوقف وفقدان السرعة والعيوب.',
+   inputs:[{key:'avail',en:'Availability % (e.g. 90)',ar:'% التوافر (مثلًا 90)'},{key:'perf',en:'Performance % (e.g. 95)',ar:'% الأداء (مثلًا 95)'},{key:'qual',en:'Quality % (e.g. 98)',ar:'% الجودة (مثلًا 98)'}],
+   compute:v=>(v.avail/100)*(v.perf/100)*(v.qual/100), format:'pctraw'},
+  {category:'lean', cat_en:'Operations &amp; Lean Metrics', cat_ar:'مؤشرات الكفاءة والعمليات التصنيعية',
+   name_en:'Quality Rate', name_ar:'نسبة الجودة',
+   formula_en:'Good Units ÷ Total Units Produced', formula_ar:'الوحدات الجيدة ÷ إجمالي الوحدات المنتجة',
+   explain_en:'The share of total production that meets quality standards on the first pass, with no rework needed.',
+   explain_ar:'النسبة من إجمالي الإنتاج اللي بتستوفي معايير الجودة من أول مرة، من غير حاجة لإعادة عمل.',
+   inputs:[{key:'good',en:'Good Units',ar:'الوحدات الجيدة'},{key:'total',en:'Total Units Produced',ar:'إجمالي الوحدات المنتجة'}],
+   compute:v=>v.total?v.good/v.total:null, format:'pct'},
+
+  {category:'scrap', cat_en:'Scrap, Spoilage &amp; Rework', cat_ar:'الهدر والتلف وإعادة التشغيل',
+   name_en:'Normal Spoilage Rate', name_ar:'معدل التلف الطبيعي',
+   formula_en:'Normal Spoilage Units ÷ Total Good Units Produced', formula_ar:'وحدات التلف الطبيعي ÷ إجمالي الوحدات الجيدة المنتجة',
+   explain_en:'The spoilage rate considered an unavoidable, normal part of the production process under efficient operating conditions.',
+   explain_ar:'معدل التلف اللي بيُعتبر جزء طبيعي وحتمي من عملية الإنتاج تحت ظروف تشغيل كفؤة.',
+   inputs:[{key:'ns',en:'Normal Spoilage Units','ar':'وحدات التلف الطبيعي'},{key:'good',en:'Total Good Units Produced',ar:'إجمالي الوحدات الجيدة المنتجة'}],
+   compute:v=>v.good?v.ns/v.good:null, format:'pct'},
+  {category:'scrap', cat_en:'Scrap, Spoilage &amp; Rework', cat_ar:'الهدر والتلف وإعادة التشغيل',
+   name_en:'Abnormal Spoilage Cost', name_ar:'تكلفة التلف غير الطبيعي',
+   formula_en:'(Actual Spoilage Units − Normal Spoilage Units) × Cost per Unit', formula_ar:'(وحدات التلف الفعلي − وحدات التلف الطبيعي) × تكلفة الوحدة',
+   explain_en:'Spoilage beyond what is normal — this is charged as a period loss on the income statement, never added to product cost.',
+   explain_ar:'التلف اللي بيتخطى الطبيعي — ده بيتحمل كخسارة فترة في قائمة الدخل، أبدًا مايتضافش لتكلفة المنتج.',
+   inputs:[{key:'as',en:'Actual Spoilage Units',ar:'وحدات التلف الفعلي'},{key:'ns',en:'Normal Spoilage Units',ar:'وحدات التلف الطبيعي'},{key:'cpu',en:'Cost per Unit',ar:'تكلفة الوحدة'}],
+   compute:v=>(v.as-v.ns)*v.cpu, format:'value'}
+];
+
+function learnRenderCostCalc(){
+  const list = document.getElementById('cost-calc-list'); if(!list) return;
+  const ar = cycleAr();
+  const cats = [];
+  COST_FORMULAS.forEach(r=>{ if(!cats.includes(r.category)) cats.push(r.category); });
+  window._costRegistry = {};
+  list.innerHTML = cats.map(cat=>{
+    const items = COST_FORMULAS.filter(r=>r.category===cat);
+    const catLabel = ar ? items[0].cat_ar : items[0].cat_en;
+    const cards = items.map((r,i)=>{
+      const uid = cat+'-'+i;
+      window._costRegistry[uid] = r;
+      const inputsHtml = r.inputs.map(inp=>`<label>${ar?inp.ar:inp.en}<input type="number" inputmode="decimal" id="ci-${uid}-${inp.key}" oninput="costCalc('${uid}')" placeholder="0"></label>`).join('');
+      return `<div class="ratio-card">
+        <strong>${ar?r.name_ar:r.name_en}</strong>
+        <div class="ratio-formula">${ar?r.formula_ar:r.formula_en}</div>
+        <p class="ratio-explain">${ar?r.explain_ar:r.explain_en}</p>
+        <div class="ratio-calc">${inputsHtml}</div>
+        <div class="ratio-result" id="cr-${uid}">—</div>
+      </div>`;
+    }).join('');
+    return `<div class="ratio-category" data-cat="${cat}"><span class="ratio-cat-title">${catLabel}</span><div class="ratio-cards">${cards}</div></div>`;
+  }).join('');
+}
+function costCalc(uid){
+  const item = window._costRegistry[uid]; if(!item) return;
+  const values = {};
+  item.inputs.forEach(inp=>{
+    const el = document.getElementById(`ci-${uid}-${inp.key}`);
+    values[inp.key] = el ? (parseFloat(el.value)||0) : 0;
+  });
+  const result = item.compute(values);
+  const el = document.getElementById(`cr-${uid}`); if(!el) return;
+  if(result===null || result===undefined || !isFinite(result)){ el.textContent = '—'; return; }
+  const ar = cycleAr();
+  if(item.format==='pct') el.textContent = (result*100).toFixed(1)+'%';
+  else if(item.format==='pctraw') el.textContent = (result*100).toFixed(1)+'%';
+  else if(item.format==='unitsvalue') el.textContent = Math.ceil(result).toLocaleString() + (ar?' وحدة':' units');
+  else if(item.format==='daysvalue') el.textContent = result.toFixed(0) + (ar?' يوم':' days');
+  else if(item.format==='x') el.textContent = result.toFixed(2)+'x';
+  else if(item.format==='var'){
+    const tag = result>0 ? (ar?' (غير موات)':' (Unfavorable)') : (result<0 ? (ar?' (موات)':' (Favorable)') : '');
+    el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2}) + tag;
+  }
+  else el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2});
+}
+
 function learnRenderBankRec(){
   const list = document.getElementById('learn-bank-rec-list'); if(!list) return;
   const ar = cycleAr();
@@ -11674,13 +12232,14 @@ learnRenderGlossary();
 learnRenderTax();
 learnRenderSoD();
 learnRenderRatios();
+learnRenderCostCalc();
 learnRenderInterview();
 learnRenderComms();
 learnSpotRender();
 
 /* ================= Home Command Center ================= */
 const HOME_VISITED_KEY = 'ayman_home_visited_v1';
-const HOME_STATIONS = ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','learn'];
+const HOME_STATIONS = ['ar','ap','inv','cost','treasury','hr','gl','ratios','bc','aud','learn'];
 let homeVisited = {};
 function homeLoadVisited(){ try{ homeVisited = JSON.parse(localStorage.getItem(HOME_VISITED_KEY)||'{}'); }catch(_){ homeVisited = {}; } }
 function homeSaveVisited(){ try{ localStorage.setItem(HOME_VISITED_KEY, JSON.stringify(homeVisited)); }catch(_){} }
@@ -11803,7 +12362,7 @@ function openFocusPopup(){
     cta = ar?'ابدأ الآن →':'Start now →';
   } else if(unvisited){
     target = unvisited;
-    const names = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], learn:['المركز التعليمي','Learning Hub']};
+    const names = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], learn:['المركز التعليمي','Learning Hub']};
     title = (ar?'كمّل رحلتك: ':'Continue your journey: ') + (ar?names[unvisited][0]:names[unvisited][1]);
     desc = ar?'مكتب لسه ما زرتوش — كل مكتب مستقل بحالاته وتمارينه الخاصة.':'A desk you haven\'t visited yet — each one is independent with its own cases and drills.';
     cta = ar?'افتح المكتب →':'Open desk →';
@@ -11812,7 +12371,7 @@ function openFocusPopup(){
     const unmastered = unmasteredList.length ? unmasteredList[Math.floor(Math.random()*unmasteredList.length)] : null;
     if(unmastered){
       target = 'quiz-'+unmastered;
-      const names2 = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor']};
+      const names2 = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant']};
       title = (ar?'اثبت إتقانك: ':'Prove your mastery: ') + (ar?names2[unmastered][0]:names2[unmastered][1]);
       desc = ar?'زرت المكتب ده — دلوقتي جرّب اختبار الإتقان بتاعه (10 أسئلة).':'You\'ve visited this desk — now try its Mastery Quiz (10 questions).';
       cta = ar?'ابدأ الاختبار →':'Take the quiz →';
@@ -11872,7 +12431,7 @@ function homeRenderFocus(){
     cta = ar?'ابدأ الآن →':'Start now →';
   } else if(unvisited){
     target = unvisited;
-    const names = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], learn:['المركز التعليمي','Learning Hub']};
+    const names = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], learn:['المركز التعليمي','Learning Hub']};
     title = (ar?'كمّل رحلتك: ':'Continue your journey: ') + (ar?names[unvisited][0]:names[unvisited][1]);
     desc = ar?'مكتب لسه ما زرتوش — كل مكتب مستقل بحالاته وتمارينه الخاصة.':'A desk you haven\'t visited yet — each one is independent with its own cases and drills.';
     cta = ar?'افتح المكتب →':'Open desk →';
@@ -11881,7 +12440,7 @@ function homeRenderFocus(){
     const unmastered = unmasteredList.length ? unmasteredList[Math.floor(Math.random()*unmasteredList.length)] : null;
     if(unmastered){
       target = 'quiz-'+unmastered;
-      const names2 = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor']};
+      const names2 = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant']};
       title = (ar?'اثبت إتقانك: ':'Prove your mastery: ') + (ar?names2[unmastered][0]:names2[unmastered][1]);
       desc = ar?'زرت المكتب ده — دلوقتي جرّب اختبار الإتقان بتاعه (10 أسئلة).':'You\'ve visited this desk — now try its Mastery Quiz (10 questions).';
       cta = ar?'ابدأ الاختبار →':'Take the quiz →';
@@ -12100,9 +12659,21 @@ gl: [
  {q:{en:'What is a "subsequent event" in financial reporting?', ar:'إيه معنى "الحدث اللاحق" في التقارير المالية؟'}, o:{en:['A significant event occurring after the period-end but before the financial statements are issued','Any transaction recorded during the normal accounting period','An event that only affects next year\'s budget, never this year\'s statements'], ar:['حدث جوهري بيحصل بعد نهاية الفترة لكن قبل إصدار القوائم المالية','أي معاملة اتسجلت خلال الفترة المحاسبية العادية','حدث بيأثر بس على ميزانية السنة الجاية، أبدًا مش قوائم السنة دي']}, c:0, x:{en:'Subsequent events may need disclosure or adjustment if they are significant enough to affect the statements\' users.', ar:'الأحداث اللاحقة ممكن تحتاج إفصاح أو تعديل لو جوهرية كفاية عشان تأثر على مستخدمي القوائم.'}},
  {q:{en:'Why must related-party transactions be disclosed separately in financial statements?', ar:'ليه معاملات الأطراف ذات العلاقة لازم تتفصح عنها منفصلة في القوائم المالية؟'}, o:{en:['Because they may not reflect normal, arm\'s-length market terms, and users need to know this to interpret the numbers fairly','Because they are always illegal and must be reported to authorities','They never need any special disclosure at all'], ar:['لأنها ممكن ماتعكسش شروط سوق عادلة ومستقلة، والمستخدمين محتاجين يعرفوا ده عشان يفسروا الأرقام بإنصاف','لأنها دايمًا غير قانونية ولازم تتبلّغ للسلطات','أبدًا مش محتاجة أي إفصاح خاص خالص']}, c:0, x:{en:'Related-party disclosure lets readers judge whether the terms were genuinely fair and market-based.', ar:'الإفصاح عن الأطراف ذات العلاقة بيخلي القارئ يحكم هل الشروط كانت عادلة وبأساس سوقي فعليًا.'}},
  {q:{en:'What is a suspense account primarily used for?', ar:'حساب الوسيط بيتستخدم أساسًا في إيه؟'}, o:{en:['Temporarily holding an amount whose correct classification is not yet known, until it can be resolved and reclassified','Recording the company\'s permanent, unchanging capital','Storing revenue that will never need to be classified'], ar:['الاحتفاظ المؤقت بمبلغ تصنيفه الصحيح مش معروف لسه، لحد ما يتحل ويتعاد تصنيفه','تسجيل رأس مال الشركة الثابت الدائم','تخزين إيراد أبدًا مش هيحتاج تصنيف']}, c:0, x:{en:'A suspense account is a temporary holding spot — items should be investigated and cleared, not left there indefinitely.', ar:'حساب الوسيط مكان احتفاظ مؤقت — البنود المفروض تتحقق فيها وتتصفّى، مش تتسيب فيه لأجل غير مسمى.'}}
+],
+cost: [
+ {q:{en:'What does \'standard cost\' represent?', ar:'إيه اللي \'التكلفة المعيارية\' بتمثله؟'}, o:{en:['A pre-set, planned cost used as a benchmark to compare against actual cost','The exact cost that will always be incurred, with no possible variance','A cost figure used only for tax reporting'], ar:['تكلفة مخططة ومحددة مسبقًا بتُستخدم كمعيار للمقارنة مع التكلفة الفعلية','التكلفة الدقيقة اللي هتتحمل دايمًا، من غير أي انحراف ممكن','رقم تكلفة بيُستخدم بس للتقرير الضريبي']}, c:0, x:{en:'Standard cost is a planning benchmark; comparing it to actual cost is what produces a variance.', ar:'التكلفة المعيارية معيار تخطيطي؛ مقارنتها بالتكلفة الفعلية هي اللي بتطلّع الانحراف.'}},
+ {q:{en:'A favorable material price variance means:', ar:'انحراف سعر مواد موات معناه:'}, o:{en:['The company paid less per unit than the standard price','The company paid more per unit than the standard price','More material was used than planned'], ar:['الشركة دفعت أقل للوحدة من السعر المعياري','الشركة دفعت أكتر للوحدة من السعر المعياري','مواد أكتر اتستخدمت من المخطط']}, c:0, x:{en:'Favorable means the actual result was better than standard — here, paying less than expected per unit.', ar:'الموات معناه النتيجة الفعلية كانت أحسن من المعيار — هنا، دفع أقل من المتوقع للوحدة.'}},
+ {q:{en:'Which variance specifically measures whether more or less material was used than the standard allows?', ar:'أنهي انحراف بيقيس تحديدًا هل مواد أكتر أو أقل اتستخدمت من المعيار المسموح؟'}, o:{en:['Material Quantity (Usage) Variance','Material Price Variance','Labor Efficiency Variance'], ar:['انحراف كمية (استخدام) المواد','انحراف سعر المواد','انحراف كفاءة العمالة']}, c:0, x:{en:'The quantity/usage variance isolates the effect of using more or less material, holding price constant.', ar:'انحراف الكمية/الاستخدام بيعزل تأثير استخدام مواد أكتر أو أقل، مع تثبيت السعر.'}},
+ {q:{en:'What does an unfavorable labor rate variance indicate?', ar:'إيه اللي انحراف معدل عمالة غير موات بيدل عليه؟'}, o:{en:['Workers were paid more per hour than the standard rate','Workers took more hours than standard to finish the job','The company produced less output than planned'], ar:['العمال اتصرفلهم أكتر للساعة من المعدل المعياري','العمال أخدوا ساعات أكتر من المعيار عشان يخلصوا الشغل','الشركة أنتجت أقل من المخطط']}, c:0, x:{en:'Rate variance is about the pay rate itself, not the hours or output — a higher-than-standard rate is unfavorable.', ar:'انحراف المعدل بيتكلم عن معدل الأجر نفسه، مش الساعات أو الإنتاج — معدل أعلى من المعيار غير موات.'}},
+ {q:{en:'What does labor efficiency variance measure?', ar:'انحراف كفاءة العمالة بيقيس إيه؟'}, o:{en:['Whether more or fewer hours were used than the standard allows for actual output','Whether the hourly wage rate was higher or lower than standard','Whether the product sold at a higher or lower price than planned'], ar:['هل ساعات أكتر أو أقل اتستخدمت من المعيار المسموح للإنتاج الفعلي','هل معدل الأجر بالساعة كان أعلى أو أقل من المعيار','هل المنتج اتباع بسعر أعلى أو أقل من المخطط']}, c:0, x:{en:'Efficiency variance isolates the hours-used effect, holding the wage rate constant.', ar:'انحراف الكفاءة بيعزل تأثير الساعات المستخدمة، مع تثبيت معدل الأجر.'}},
+ {q:{en:'An unfavorable overhead volume variance most likely means:', ar:'انحراف حجم تكاليف صناعية غير موات على الأغلب معناه:'}, o:{en:['Actual production was lower than the planned (budgeted) production level','The company spent more cash on overhead items than budgeted','Direct labor was paid at a higher rate than standard'], ar:['الإنتاج الفعلي كان أقل من مستوى الإنتاج المخطط (الموازن)','الشركة صرفت كاش أكتر على بنود التكاليف الصناعية من الموازن','العمالة المباشرة اتصرفلها بمعدل أعلى من المعيار']}, c:0, x:{en:'Volume variance is about capacity utilization — producing less than planned leaves fixed overhead under-absorbed.', ar:'انحراف الحجم بيتكلم عن استغلال الطاقة — الإنتاج أقل من المخطط بيسيب التكاليف الصناعية الثابتة غير ممتصة بالكامل.'}},
+ {q:{en:'What is the \'contribution margin\' of a product?', ar:'إيه هو \'هامش المساهمة\' لمنتج؟'}, o:{en:['Price per unit minus variable cost per unit','Total revenue minus total fixed costs','Price per unit minus total cost per unit, including fixed costs'], ar:['سعر الوحدة ناقص التكلفة المتغيرة للوحدة','إجمالي الإيراد ناقص إجمالي التكاليف الثابتة','سعر الوحدة ناقص إجمالي تكلفة الوحدة، شامل التكاليف الثابتة']}, c:0, x:{en:'Contribution margin specifically excludes fixed costs — it\'s the amount left to cover fixed costs after variable costs.', ar:'هامش المساهمة بيستبعد التكاليف الثابتة تحديدًا — هو المبلغ المتبقي لتغطية التكاليف الثابتة بعد التكاليف المتغيرة.'}},
+ {q:{en:'What happens at the break-even point?', ar:'إيه اللي بيحصل عند نقطة التعادل؟'}, o:{en:['Total revenue exactly equals total costs, with zero profit or loss','The company achieves its maximum possible profit','All fixed costs have been eliminated'], ar:['إجمالي الإيراد بيساوي بالظبط إجمالي التكاليف، من غير ربح أو خسارة','الشركة بتحقق أقصى ربح ممكن','كل التكاليف الثابتة اتلغت']}, c:0, x:{en:'Break-even is defined as the point where revenue and total costs are exactly equal.', ar:'نقطة التعادل مُعرّفة كالنقطة اللي فيها الإيراد وإجمالي التكاليف بيتساووا بالظبط.'}},
+ {q:{en:'Which of these costs is classified as direct material?', ar:'أنهي من دول تكاليف بتتصنف كمواد مباشرة؟'}, o:{en:['Steel used to manufacture a car\'s body panels','Factory supervisor\'s monthly salary','Depreciation on factory equipment'], ar:['الصلب المستخدم لتصنيع ألواح جسم سيارة','راتب مشرف المصنع الشهري','إهلاك معدات المصنع']}, c:0, x:{en:'Direct material is a raw input that becomes a physical, traceable part of the finished product.', ar:'المواد المباشرة مدخل خام بيبقى جزء فعلي وقابل للتتبع من المنتج النهائي.'}},
+ {q:{en:'Why should a Cost Accountant avoid having authority to approve the purchase prices they analyze?', ar:'ليه محاسب التكاليف المفروض يتجنب امتلاك صلاحية اعتماد أسعار الشراء اللي بيحللها؟'}, o:{en:['To maintain independence between measuring/reporting cost and controlling the underlying transaction','Because cost accountants are not qualified to understand purchasing','Because purchase prices are never actually relevant to cost variances'], ar:['للحفاظ على استقلالية بين قياس/الإبلاغ عن التكلفة والتحكم في المعاملة الأساسية','لأن محاسبي التكاليف مش مؤهلين يفهموا المشتريات','لأن أسعار الشراء أصلًا مالهاش علاقة بانحرافات التكلفة']}, c:0, x:{en:'Independence between the person analyzing a cost and the person controlling it is a basic control safeguard.', ar:'الاستقلالية بين الشخص اللي بيحلل تكلفة والشخص اللي بيتحكم فيها ضمانة رقابية أساسية.'}}
 ]
 };
-const QUIZ_LABELS = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor']};
+const QUIZ_LABELS = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant']};
 const QUIZ_KEY = 'ayman_quiz_progress_v1';
 var quizState = {};
 function quizLoad(){ try{ quizState = JSON.parse(localStorage.getItem(QUIZ_KEY)||'{}'); }catch(_){ quizState = {}; } }
@@ -12441,7 +13012,7 @@ function quizSubmit(station){
 quizLoad();
 csLoadAll();
 coverageLoad();
-['ar','ap','inv','treasury','hr','gl','ratios','bc','aud'].forEach(quizRender);
+['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost'].forEach(quizRender);
 
 /* ================= Fraud Catcher: AR, AP, HR, GL, Treasury (Cash & Bank) ================= */
 const RATIOS_FRAUD_SCHEMES = [
@@ -12865,6 +13436,7 @@ function setLanguage(lang){
  if(typeof learnRenderTax==='function') learnRenderTax();
  if(typeof learnRenderSoD==='function') learnRenderSoD();
  if(typeof learnRenderRatios==='function') learnRenderRatios();
+ if(typeof learnRenderCostCalc==='function') learnRenderCostCalc();
  if(typeof learnRenderBankRec==='function') learnRenderBankRec();
  if(typeof learnRenderInterview==='function') learnRenderInterview();
  if(typeof learnRenderComms==='function') learnRenderComms();
@@ -12874,7 +13446,7 @@ function setLanguage(lang){
  if(typeof homeRenderFocus==='function') homeRenderFocus();
  if(typeof brecRenderLists==='function') brecRenderLists();
  if(typeof brecRender==='function') brecRender();
- if(typeof quizRender==='function') ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud'].forEach(quizRender);
+ if(typeof quizRender==='function') ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost'].forEach(quizRender);
  if(typeof renderFraudAll==='function') renderFraudAll();
 // start on home floor
 if(typeof goHome==='function'){/* keep overview visible on home */}
