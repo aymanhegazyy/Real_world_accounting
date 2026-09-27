@@ -3366,27 +3366,6 @@ input[type="text"]:focus, input[type="number"]:focus{
       </button>
     </div>
 
-    <section class="mock-section mock-practice">
-      <div class="mock-sec-head mph-practice">
-        <span data-en="Practice Today" data-ar="تدرّب اليوم">Practice Today</span>
-        <small data-en="Case &amp; mission" data-ar="حالة ومهمة">Case &amp; mission</small>
-      </div>
-      <div class="mock-practice-grid">
-        <div class="mock-prac-card">
-          <strong data-en="Today's Case Study" data-ar="حالة اليوم">Today's Case Study</strong>
-          <span data-en="Solve a real exception" data-ar="حل استثناء حقيقي">Solve a real exception</span>
-          <small>⏱ 12–15m</small>
-          <button type="button" class="mp-start" onclick="event.preventDefault();if(window.startCaseSession)window.startCaseSession();else alert('Case engine not loaded');" data-en="START NOW" data-ar="ابدأ الآن">START NOW</button>
-        </div>
-        <div class="mock-prac-card">
-          <strong data-en="Accounting Mission" data-ar="مهمة محاسبية">Accounting Mission</strong>
-          <span data-en="End-to-end connected cycle" data-ar="دورة مترابطة من البداية للنهاية">End-to-end connected cycle</span>
-          <small>⏱ 20–50m</small>
-          <button type="button" class="mp-start" onclick="openMissionPopup()" data-en="START NOW" data-ar="ابدأ الآن">START NOW</button>
-        </div>
-      </div>
-    </section>
-
     <section class="mock-section mock-tools">
       <div class="mock-sec-head mph-tools">
         <span data-en="Quick Tools" data-ar="أدوات سريعة">Quick Tools</span>
@@ -13366,7 +13345,9 @@ const WHEEL_DESKS = [
   {key:'gl', icon:'📚', color:'#5fae9e', names:{en:'General Ledger', ar:'دفتر الأستاذ'}},
   {key:'ratios', icon:'📐', color:'#5bb9c4', names:{en:'Financial Analyst', ar:'المحلل المالي'}},
   {key:'bc', icon:'📋', color:'#b08a4e', names:{en:'Budget Controller', ar:'مراقب الميزانية'}},
-  {key:'aud', icon:'🧐', color:'#a58bd6', names:{en:'Internal Auditor', ar:'المراجع الداخلي'}}
+  {key:'aud', icon:'🧐', color:'#a58bd6', names:{en:'Internal Auditor', ar:'المراجع الداخلي'}},
+  {key:'mission', icon:'🏆', color:'#e8c84a', names:{en:'Accounting Mission', ar:'المهمة المحاسبية'}, isMission:true},
+  {key:'case_study', icon:'📋', color:'#e07a5f', names:{en:'Cross-Desk Case Study', ar:'حالة دراسية عابرة للمكاتب'}, isCaseStudy:true}
 ];
 window._wheelBuilt = false;
 window._wheelSpinning = false;
@@ -13397,12 +13378,17 @@ function buildWheelSVG(){
 }
 
 function pickWeightedDeskForWheel(){
-  const weights = WHEEL_DESKS.map(d=>{
+  const deskEntries = WHEEL_DESKS.filter(d=>!d.isMission && !d.isCaseStudy);
+  const weights = deskEntries.map(d=>{
     const qs = (typeof quizState!=='undefined') ? quizState[d.key] : null;
     const mastered = qs && qs.passed;
     return {key:d.key, w: mastered ? 1 : 3};
   });
-  const total = weights.reduce((s,w)=>s+w.w,0);
+  const deskTotal = weights.reduce((s,w)=>s+w.w,0);
+  const specialWeight = deskTotal / 4; // with 2 special items, each gets exactly 1/6 of the grand total
+  weights.push({key:'mission', w: specialWeight});
+  weights.push({key:'case_study', w: specialWeight});
+  const total = deskTotal + specialWeight*2;
   let r = Math.random()*total;
   for(const w of weights){
     if(r < w.w) return w.key;
@@ -13410,6 +13396,11 @@ function pickWeightedDeskForWheel(){
   }
   return weights[weights.length-1].key;
 }
+
+const WHEEL_TO_DAILY_DESK = {
+  ar:'AR', ap:'AP', inv:'Inventory', recv:'RECV', cost:'COST',
+  treasury:'Treasury', hr:'Payroll', gl:'GL', ratios:'FA', bc:'BC', aud:'AUD'
+};
 
 function spinWheel(){
   if(window._wheelSpinning) return;
@@ -13445,13 +13436,50 @@ function spinWheel(){
     card.classList.remove('is-spinning');
     const desk = WHEEL_DESKS[idx];
     card.dataset.target = desk.key;
-    if(titleEl) titleEl.textContent = (ar?'طلعلك: ':'You got: ') + (ar?desk.names.ar:desk.names.en) + '! ' + desk.icon;
-    if(descEl) descEl.textContent = ar ? 'افتح المكتب ده وابدأ فيه دلوقتي.' : 'Open this desk and dive in now.';
-    if(ctaEl){
-      ctaEl.removeAttribute('disabled');
-      ctaEl.textContent = ar ? 'افتح المكتب ←' : 'Open Desk →';
-      ctaEl.onclick = function(){ openWorkspaceMenu(desk.key); };
+    if(desk.isMission){
+      if(titleEl) titleEl.textContent = (ar?'🏆 طلعلك المهمة الكبرى!':'🏆 You got the Grand Mission!') + ' ' + desk.icon;
+      if(descEl) descEl.textContent = ar ? 'بنجهزلك دورة عمل كاملة...' : 'Preparing a full end-to-end cycle...';
+      if(ctaEl){ ctaEl.textContent = ar ? 'جاري التحضير...' : 'Preparing...'; }
+      setTimeout(()=>{
+        if(ctaEl){
+          ctaEl.removeAttribute('disabled');
+          ctaEl.textContent = ar ? 'افتح المهام ←' : 'Open Missions →';
+          ctaEl.onclick = function(){ if(typeof openE2ECaseLibrary==='function') openE2ECaseLibrary(); };
+        }
+        if(descEl) descEl.textContent = ar ? 'دورة عمل كاملة (20-50 دقيقة) — نادرة الحظ!' : 'A full end-to-end cycle (20-50 min) — a rare pull!';
+        if(typeof window.startRandomE2ECase === 'function') window.startRandomE2ECase();
+      }, 700);
+      return;
     }
+    if(desk.isCaseStudy){
+      if(titleEl) titleEl.textContent = (ar?'📋 طلعلك حالة دراسية عابرة للمكاتب!':'📋 You got a Cross-Desk Case Study!') + ' ' + desk.icon;
+      if(descEl) descEl.textContent = ar ? 'بنجهزلك 5 أسئلة من مكاتب مختلفة...' : 'Preparing 5 questions across different desks...';
+      if(ctaEl){ ctaEl.textContent = ar ? 'جاري التحضير...' : 'Preparing...'; }
+      setTimeout(()=>{
+        if(ctaEl){
+          ctaEl.removeAttribute('disabled');
+          ctaEl.textContent = ar ? 'افتح الصفحة الرئيسية ←' : 'Open Home Floor →';
+          ctaEl.onclick = function(){ goHome(); };
+        }
+        if(descEl) descEl.textContent = ar ? '📋 5 أسئلة متنوعة من مكاتب مختلفة — نادرة الحظ!' : '📋 5 varied questions across desks — a rare pull!';
+        if(typeof window.startCaseSession === 'function') window.startCaseSession();
+      }, 700);
+      return;
+    }
+    if(titleEl) titleEl.textContent = (ar?'طلعلك: ':'You got: ') + (ar?desk.names.ar:desk.names.en) + '! ' + desk.icon;
+    if(descEl) descEl.textContent = ar ? 'بنجهزلك 3 أسئلة حقيقية من المكتب ده...' : 'Pulling 3 real questions from this desk...';
+    if(ctaEl){ ctaEl.textContent = ar ? 'جاري التحضير...' : 'Preparing...'; }
+    setTimeout(()=>{
+      if(ctaEl){
+        ctaEl.removeAttribute('disabled');
+        ctaEl.textContent = ar ? 'افتح المكتب ←' : 'Open Desk →';
+        ctaEl.onclick = function(){ openWorkspaceMenu(desk.key); };
+      }
+      if(descEl) descEl.textContent = ar ? '📋 3 أسئلة (كويز + اكتشف الغلط) — أو افتح المكتب كامل من الزرار.' : '📋 3 questions (quiz + spot-the-error) — or open the full desk from the button.';
+      if(typeof window.startWheelDeskMix === 'function'){
+        window.startWheelDeskMix(desk.key);
+      }
+    }, 700);
   }, 4300);
 }
 
@@ -16156,6 +16184,156 @@ function answerE2ECase(){
     ],
     correct:1,
     explain:['Do not accept price variances without procurement approval.','لا تقبل فرق السعر بلا اعتماد المشتريات.']
+  },
+  {
+    desk:['FA','محلل مالي'],
+    title:['Gross margin fell 4 points despite a 15% sales increase','هامش الربح المجمل نزل 4 نقاط رغم زيادة المبيعات 15%'],
+    lead:['A ratio moved the wrong way even though the headline number looks great. Break it down before you report it.','نسبة اتحركت غلط رغم إن الرقم الرئيسي شكله كويس. فكّكها قبل ما تبلّغ عنها.'],
+    scenario:['Q3 sales revenue rose 15% year-over-year, but gross margin fell from 38% to 34%. Management wants an explanation before the board meeting.','إيراد مبيعات الربع التالت زاد 15% سنويًا، لكن الهامش المجمل نزل من 38% لـ34%. الإدارة عايزة تفسير قبل اجتماع مجلس الإدارة.'],
+    q:['What should you check first?','إيه اللي المفروض تفحصه الأول؟'],
+    options:[
+      ['Break the margin down by product line and check if new sales came at heavier discounts or from a lower-margin product mix','فكّك الهامش حسب خط المنتج وافحص هل المبيعات الجديدة جت بخصومات أكبر أو من مزيج منتجات أقل هامشًا'],
+      ['Report the 15% sales growth as the main story and mention margin briefly at the end','بلّغ عن نمو المبيعات 15% كالقصة الرئيسية واذكر الهامش بإيجاز في النهاية'],
+      ['Assume the cost accounting system has an error and ask for a full system re-audit immediately','افترض إن نظام محاسبة التكاليف فيه خطأ واطلب إعادة تدقيق كامل للنظام فورًا'],
+      ['Wait until Q4 to see if the margin naturally corrects itself','استنى لحد الربع الرابع تشوف هل الهامش هيتصحح لوحده']
+    ],
+    correct:0,
+    explain:['A margin drop needs a genuine root cause before it goes to the board — decomposing by product/discount reveals what the headline growth number hides.','نزول الهامش محتاج سبب جذري حقيقي قبل ما يوصل لمجلس الإدارة — التفكيك حسب المنتج/الخصم بيكشف اللي رقم النمو الرئيسي بيخبيه.']
+  },
+  {
+    desk:['FA','محلل مالي'],
+    title:['A ratio looks excellent but conflicts with what operations is reporting','نسبة شكلها ممتاز لكن بتتعارض مع اللي العمليات بتبلّغ عنه'],
+    lead:['A number that looks too good demands verification, not celebration.','رقم شكله كويس أوي بيتطلب تحقق، مش احتفال.'],
+    scenario:['Inventory turnover ratio calculated at 12x this quarter — unusually high. The warehouse manager separately reports stock levels have been rising, not falling.','معدل دوران المخزون اتحسب 12 مرة الربع ده — مرتفع بشكل غير معتاد. مدير المخزن بشكل منفصل بيبلّغ إن مستويات المخزون بتزيد، مش بتقل.'],
+    q:['What is the right next step?','إيه الخطوة الصح الجاية؟'],
+    options:[
+      ['Verify the underlying COGS and average inventory data feeding the ratio before trusting the number','تحقق من بيانات تكلفة البضاعة المباعة ومتوسط المخزون الأساسية المغذية للنسبة قبل ما تثق بالرقم'],
+      ['Report the 12x figure since the formula was applied correctly','بلّغ عن رقم 12 مرة طالما الصيغة اتطبقت صح'],
+      ['Tell the warehouse manager their physical count method must be wrong','قول لمدير المخزن إن طريقة العد الفعلي عنده لازم تكون غلط'],
+      ['Average the two conflicting signals into one adjusted number','اعمل متوسط للإشارتين المتعارضتين في رقم واحد معدّل']
+    ],
+    correct:0,
+    explain:['A ratio conflicting with a genuine operational signal is a data-quality red flag — verify the inputs before trusting the output.','نسبة بتتعارض مع إشارة تشغيلية حقيقية علامة تحذير جودة بيانات — تحقق من المدخلات قبل ما تثق بالمخرج.']
+  },
+  {
+    desk:['BC','مراقب ميزانية'],
+    title:['A department requests an unplanned mid-year budget increase','قسم طلب زيادة ميزانية غير مخططة في نص السنة'],
+    lead:['Every "urgent" request feels urgent to the person asking. Your job is to test it against the plan.','كل طلب "عاجل" بيحس عاجل للشخص اللي بيطلبه. شغلك تختبره مقابل الخطة.'],
+    scenario:['The marketing department requests a 20% budget increase mid-year, citing a "critical" new campaign opportunity, with no supporting cost-benefit analysis attached.','قسم التسويق طلب زيادة ميزانية 20% في نص السنة، مستشهدًا بفرصة حملة "حرجة" جديدة، من غير أي تحليل تكلفة-عائد مرفق.'],
+    q:['What should you require before approving this?','إيه اللي المفروض تشترطه قبل الاعتماد؟'],
+    options:[
+      ['A documented cost-benefit analysis and identification of where the offsetting budget cut will come from','تحليل تكلفة-عائد موثّق وتحديد المصدر اللي التخفيض المقابل في الميزانية هيجيله'],
+      ['Approve it immediately since marketing opportunities are time-sensitive by nature','اعتمدها فورًا طالما فرص التسويق حساسة للوقت بطبيعتها'],
+      ['Reject it automatically since the annual budget was already approved and finalized','ارفضها أوتوماتيكيًا طالما الميزانية السنوية أصلًا اتاعتمدت واتقفلت'],
+      ['Approve half the requested amount as a compromise without further analysis','اعتمد نص المبلغ المطلوب كحل وسط من غير تحليل إضافي']
+    ],
+    correct:0,
+    explain:['Budget discipline means every increase needs a genuine business case and a funding source — not automatic approval or automatic rejection.','انضباط الميزانية معناه أي زيادة محتاجة حالة عمل حقيقية ومصدر تمويل — مش اعتماد أوتوماتيكي أو رفض أوتوماتيكي.']
+  },
+  {
+    desk:['BC','مراقب ميزانية'],
+    title:['Actual spend is consistently under budget — is that good news?','الإنفاق الفعلي باستمرار أقل من الميزانية — هل ده خبر كويس؟'],
+    lead:['An underspend isn\'t automatically a win. Find out why before you praise it.','التوفير مش انتصار أوتوماتيكيًا. اكتشف السبب قبل ما تمدحه.'],
+    scenario:['The IT department has spent only 60% of its annual training budget with two months left in the year. The department head calls this "excellent cost discipline."','قسم تكنولوجيا المعلومات صرف بس 60% من ميزانية التدريب السنوية وباقي شهرين في السنة. رئيس القسم بيسمي ده "انضباط تكلفة ممتاز".'],
+    q:['What is the appropriate response?','إيه الرد المناسب؟'],
+    options:[
+      ['Investigate whether training genuinely happened at a lower cost, or whether planned training was simply skipped, creating a future skills gap','حقق هل التدريب فعليًا حصل بتكلفة أقل، أو هل التدريب المخطط بس اتم تخطيه، وده بيخلق فجوة مهارات مستقبلية'],
+      ['Praise the department publicly for strong cost control and move on','امدح القسم علنًا على ضبط تكلفة قوي وكمّل'],
+      ['Automatically reduce next year\'s training budget to match this year\'s actual spend','قلل أوتوماتيكيًا ميزانية التدريب السنة الجاية عشان تطابق الإنفاق الفعلي السنة دي'],
+      ['Reallocate the unspent amount to a different department immediately','انقل المبلغ غير المصروف لقسم مختلف فورًا']
+    ],
+    correct:0,
+    explain:['Underspending can hide a real problem (skipped training, a delayed project) just as easily as overspending can — always investigate the "why" behind a variance.','التوفير في الإنفاق ممكن يخبي مشكلة حقيقية (تدريب اتخطى، مشروع اتأجل) بنفس سهولة الصرف الزيادة — دايمًا حقق في "ليه" وراء الانحراف.']
+  },
+  {
+    desk:['AUD','مراجع داخلي'],
+    title:['A senior manager asks you to soften a finding before a board meeting','مدير كبير طلب منك تلطّف ملاحظة قبل اجتماع مجلس إدارة'],
+    lead:['Independence is tested exactly in moments like this, not in the easy ones.','الاستقلالية بتتاختبر بالظبط في لحظات زي دي، مش في اللحظات السهلة.'],
+    scenario:['You documented a significant control weakness in the procurement process. The department head asks you to "soften the language" so it doesn\'t alarm the board this quarter.','وثّقت ضعف ضابط جوهري في عملية المشتريات. رئيس القسم طلب منك "تلطّف الصياغة" عشان مايقلقش مجلس الإدارة الربع ده.'],
+    q:['What is the correct response?','إيه الرد الصحيح؟'],
+    options:[
+      ['Politely decline — you can adjust tone for clarity, but not the substance or severity of a genuine finding','ارفض بأدب — تقدر تعدّل النبرة للوضوح، لكن مش جوهر أو خطورة ملاحظة حقيقية'],
+      ['Soften the language since maintaining a good relationship with the department is important','لطّف الصياغة لأن الحفاظ على علاقة كويسة مع القسم مهم'],
+      ['Remove the finding entirely if the department promises to fix it before the meeting','احذف الملاحظة خالص لو القسم وعد يصلحها قبل الاجتماع'],
+      ['Escalate immediately to the CEO before discussing it with the department at all','صعّد فورًا للرئيس التنفيذي قبل ما تناقشها مع القسم خالص']
+    ],
+    correct:0,
+    explain:['Adjusting tone for clarity is fine; changing the substance of a genuine finding compromises the independence the entire audit function depends on.','تعديل النبرة للوضوح تمام؛ تغيير جوهر ملاحظة حقيقية بيقوّض الاستقلالية اللي وظيفة المراجعة كلها معتمدة عليها.']
+  },
+  {
+    desk:['AUD','مراجع داخلي'],
+    title:['A routine test uncovers what looks like potential fraud','اختبار روتيني كشف عن حاجة شكلها احتيال محتمل'],
+    lead:['The moment a routine test stops being routine, your whole approach needs to change.','لحظة ما اختبار روتيني يبطل روتيني، أسلوبك كله محتاج يتغيّر.'],
+    scenario:['While testing a standard sample of vendor payments, you find a payment to a vendor whose address matches an employee\'s home address on file.','وانت بتختبر عينة قياسية من مدفوعات الموردين، لقيت دفعة لمورد عنوانه بيطابق عنوان منزل موظف في الملف.'],
+    q:['What should you do first?','إيه المفروض تعمله الأول؟'],
+    options:[
+      ['Preserve the evidence exactly as found and escalate to senior management or the fraud/legal function per protocol, without confronting anyone yourself','احفظ الدليل بالظبط زي ما اتلقى وصعّد للإدارة العليا أو جهة الاحتيال/القانونية حسب البروتوكول، من غير ما تواجه حد بنفسك'],
+      ['Confront the employee directly to ask them to explain the match','واجه الموظف مباشرة عشان تطلب منه يفسر التطابق'],
+      ['Note it as a minor observation in your routine test workpapers and continue the sample','دوّنها كملاحظة بسيطة في أوراق عمل اختبارك الروتيني وكمّل العينة'],
+      ['Quietly change the sample to avoid this specific transaction and finish the routine test','غيّر العينة بهدوء عشان تتجنب المعاملة دي المحددة وخلّص الاختبار الروتيني']
+    ],
+    correct:0,
+    explain:['A routine finding that looks like potential fraud shifts from an audit test to a fraud investigation — preserve evidence and escalate through proper channels immediately.','ملاحظة روتينية شكلها احتيال محتمل بتتحول من اختبار مراجعة لتحقيق احتيال — احفظ الدليل وصعّد عبر القنوات السليمة فورًا.']
+  },
+  {
+    desk:['COST','محاسب تكاليف'],
+    title:['Material price variance is unfavorable, but the standard was never updated','انحراف سعر مواد غير موات، لكن المعيار أبدًا ما اتحدث'],
+    lead:['An unfavorable variance has two very different possible causes — find out which one before you report it.','انحراف غير موات عنده سببين مختلفين تمامًا محتملين — اكتشف أنهي واحد قبل ما تبلّغ عنه.'],
+    scenario:['A key raw material\'s market price increased permanently six months ago, but the standard cost used for variance analysis has never been revised to reflect it.','سعر سوق مادة خام أساسية زاد بشكل دائم من 6 شهور، لكن التكلفة المعيارية المستخدمة لتحليل الانحراف أبدًا ما اتراجعت لتعكسه.'],
+    q:['What is the correct action?','إيه الإجراء الصحيح؟'],
+    options:[
+      ['Update the standard cost to reflect the genuine, permanent market change, and investigate purchasing separately for any prior overpayment','حدّث التكلفة المعيارية لتعكس التغيير السوقي الحقيقي والدائم، وحقق في المشتريات بشكل منفصل لأي دفع زيادة سابق'],
+      ['Report the variance as a purchasing performance failure without further investigation','بلّغ عن الانحراف كفشل أداء مشتريات من غير تحقيق إضافي'],
+      ['Leave the standard as-is indefinitely since standards should never change once set','سيب المعيار زي ما هو لأجل غير مسمى لأن المعايير المفروض ماتتغيرش بمجرد ما تتحدد'],
+      ['Average the old and new market prices to split the difference in the standard','اعمل متوسط بين السعر السوقي القديم والجديد عشان تقسّم الفرق في المعيار']
+    ],
+    correct:0,
+    explain:['A stale standard against a genuinely, permanently changed market condition produces a recurring, uninformative variance — the standard itself needs revising, separate from any purchasing performance question.','معيار قديم مقابل ظرف سوق تغيّر بشكل حقيقي ودائم بيطلّع انحراف متكرر ومش مفيد — المعيار نفسه محتاج مراجعة، بمعزل عن أي سؤال أداء مشتريات.']
+  },
+  {
+    desk:['COST','محاسب تكاليف'],
+    title:['Spoilage well above the normal rate is classified as \'normal\'','تلف أعلى بكتير من المعدل الطبيعي اتصنّف كـ\'طبيعي\''],
+    lead:['Whoever benefits from a classification shouldn\'t be the one making it unchecked.','اللي بيستفيد من تصنيف مايفروضش يكون هو اللي بيحدده من غير مراجعة.'],
+    scenario:['This period\'s spoilage rate is running at 8%, well above the historically normal 2% rate, but it was still recorded entirely as \'normal spoilage\' and absorbed into product cost.','معدل التلف الفترة دي واصل لـ8%، أعلى بكتير من المعدل الطبيعي التاريخي 2%، لكن لسه اتسجل بالكامل كـ\'تلف طبيعي\' واتمتص في تكلفة المنتج.'],
+    q:['What is the correct treatment?','إيه المعالجة الصحيحة؟'],
+    options:[
+      ['Classify only the historical 2% as normal spoilage; the excess above that should be expensed as abnormal spoilage on the income statement','صنّف بس الـ2% التاريخية كتلف طبيعي؛ الزيادة فوق كده المفروض تتحمل كتلف غير طبيعي في قائمة الدخل'],
+      ['Classify the entire 8% as normal since it happened during regular production','صنّف الـ8% كلها طبيعي طالما حصلت أثناء إنتاج عادي'],
+      ['Classify the entire 8% as abnormal to be conservative','صنّف الـ8% كلها غير طبيعي عشان تكون متحفظ'],
+      ['Ignore the classification question since spoilage doesn\'t materially affect the financial statements','تجاهل سؤال التصنيف لأن التلف مابيأثرش بشكل جوهري على القوائم المالية']
+    ],
+    correct:0,
+    explain:['Only the genuinely normal, historically-expected spoilage rate belongs in product cost — spoilage beyond that is an abnormal, avoidable loss that belongs on the income statement, not hidden in inventory value.','بس معدل التلف الطبيعي الحقيقي والمتوقع تاريخيًا هو اللي مكانه في تكلفة المنتج — التلف اللي فوق كده خسارة غير طبيعية وقابلة للتفادي مكانها قائمة الدخل، مش مخبية في قيمة المخزون.']
+  },
+  {
+    desk:['RECV','محاسب استلام'],
+    title:['A shipment arrives short, but the invoice bills the full quantity','شحنة وصلت ناقصة، لكن الفاتورة بتحاسب على الكمية كاملة'],
+    lead:['The paperwork and the physical reality don\'t always agree — your job is to trust the physical reality.','الأوراق والواقع الفعلي مش دايمًا بيتفقوا — شغلك تثق في الواقع الفعلي.'],
+    scenario:['A purchase order calls for 1,000 units. Only 800 units physically arrive on the truck, but the supplier\'s invoice bills for the full 1,000 units.','أمر الشراء بيطلب 1000 وحدة. بس 800 وحدة فعليًا وصلت على الشاحنة، لكن فاتورة المورد بتحاسب على الـ1000 وحدة كاملة.'],
+    q:['What should the receiving record show?','إيه اللي سجل الاستلام المفروض يوضحه؟'],
+    options:[
+      ['Record only the 800 units actually received, and formally dispute the invoice discrepancy with the supplier before any payment','سجّل بس الـ800 وحدة اللي فعليًا اتستلمت، ونازع رسميًا في فرق الفاتورة مع المورد قبل أي سداد'],
+      ['Record the full 1,000 units to match the invoice, since the rest will presumably arrive later','سجّل الـ1000 وحدة كاملة عشان تطابق الفاتورة، طالما الباقي على الأرجح هيوصل بعدين'],
+      ['Approve the full invoice for payment since disputing it could damage the supplier relationship','اعتمد الفاتورة كاملة للسداد لأن النزاع فيها ممكن يضر بعلاقة المورد'],
+      ['Reject the entire shipment and refuse to record anything until the missing 200 arrive','ارفض الشحنة كلها وارفض تسجيل أي حاجة لحد ما الـ200 الناقصة توصل']
+    ],
+    correct:0,
+    explain:['The receiving record must always reflect physical reality — recording what was actually received, then disputing the invoice discrepancy separately, protects the company from paying for goods it never got.','سجل الاستلام دايمًا لازم يعكس الواقع الفعلي — تسجيل اللي فعليًا اتستلم، وبعدين النزاع في فرق الفاتورة بشكل منفصل، بيحمي الشركة من دفع مقابل بضاعة أبدًا ما استلمتها.']
+  },
+  {
+    desk:['RECV','محاسب استلام'],
+    title:['A GRNI item has sat unreconciled for months','بند GRNI قاعد من غير مطابقة لشهور'],
+    lead:['An old, unexplained balance is never "harmless" just because it\'s old.','رصيد قديم وغير مفسّر أبدًا مش "بريء" مجرد لأنه قديم.'],
+    scenario:['A Goods-Received-Not-Invoiced balance from a shipment received four months ago is still open, with no one certain whether the invoice was lost, disputed, or genuinely never sent.','رصيد بضاعة مستلمة غير مفوترة من شحنة اتستلمت من 4 شهور لسه مفتوح، ومحدش متأكد هل الفاتورة ضاعت أو متنازع عليها أو فعليًا أبدًا ما اتبعتتش.'],
+    q:['What is the right approach?','إيه الأسلوب الصح؟'],
+    options:[
+      ['Investigate this specific aged item now — contact the supplier directly to determine what genuinely happened, rather than writing it off','حقق في البند القديم المحدد ده دلوقتي — تواصل مع المورد مباشرة عشان تحدد إيه اللي فعليًا حصل، بدل ما تشطبه'],
+      ['Write it off automatically since anything unresolved after this long is unlikely to matter','اشطبه أوتوماتيكيًا طالما أي حاجة غير محلولة بعد المدة دي مش مرجّح تكون مهمة'],
+      ['Leave it exactly as is indefinitely to avoid disturbing the supplier relationship','سيبه بالظبط زي ما هو لأجل غير مسمى عشان تتجنب إزعاج علاقة المورد'],
+      ['Move it to a different account so it no longer appears on the aged GRNI report','انقله لحساب مختلف عشان ما يبقاش ظاهر في تقرير GRNI القديم']
+    ],
+    correct:0,
+    explain:['An aged, unresolved GRNI balance deserves genuine investigation — it could represent a real missing invoice, a receiving error, or something more serious, and simply writing it off could hide a real problem.','رصيد GRNI قديم وغير محلول يستاهل تحقيق حقيقي — ممكن يمثل فاتورة ناقصة حقيقية، أو خطأ استلام، أو حاجة أخطر، ومجرد شطبه ممكن يخبي مشكلة حقيقية.']
   }
 ];;
 
@@ -16251,6 +16429,73 @@ function answerE2ECase(){
       renderStep();
     }catch(e){ alert('Case error: '+(e.message||e)); console.error(e); }
   }
+  function startCaseSessionForDesk(deskCode){
+    try{
+      if(!DAILY_CASES || !DAILY_CASES.length){ alert('No cases'); return; }
+      var matches = [];
+      DAILY_CASES.forEach(function(c, i){ if(c.desk && c.desk[0] === deskCode) matches.push(i); });
+      if(!matches.length){ startCaseSession(); return; }
+      var shuffled = matches.slice().sort(function(){ return Math.random()-0.5; });
+      global._caseSession = {indices:[shuffled[0]], step:0, score:0, answered:false};
+      renderStep();
+    }catch(e){ alert('Case error: '+(e.message||e)); console.error(e); }
+  }
+  function normalizeQuizItem(deskKey, item){
+    return {
+      desk:[deskKey, deskKey],
+      title:['Mastery Quiz', 'اختبار الإتقان'],
+      lead:['', ''],
+      scenario:['', ''],
+      q:[item.q.en, item.q.ar],
+      options: item.o.en.map(function(opt,i){ return [opt, item.o.ar[i]]; }),
+      correct: item.c,
+      explain: [item.x.en, item.x.ar]
+    };
+  }
+  function normalizeSpotItem(deskKey, item){
+    var correctIdx = 0;
+    item.en.opts.forEach(function(o,i){ if(o.ok) correctIdx = i; });
+    return {
+      desk:[deskKey, deskKey],
+      title:['Spot the Error', 'اكتشف الغلط'],
+      lead:['', ''],
+      scenario:[item.en.desc, item.ar.desc],
+      q:[item.en.title, item.ar.title],
+      options: item.en.opts.map(function(o,i){ return [o.t, item.ar.opts[i].t]; }),
+      correct: correctIdx,
+      explain: [item.en.opts[correctIdx].why, item.ar.opts[correctIdx].why]
+    };
+  }
+  var _wheelSlotIndices = null;
+  function startWheelDeskMix(deskKey){
+    try{
+      var pool = [];
+      if(typeof QUIZ_BANKS !== 'undefined' && QUIZ_BANKS[deskKey]){
+        QUIZ_BANKS[deskKey].forEach(function(it){ pool.push({type:'quiz', item:it}); });
+      }
+      if(typeof spotScenariosFor === 'function'){
+        var spots = spotScenariosFor(deskKey) || [];
+        spots.forEach(function(it){ pool.push({type:'spot', item:it}); });
+      }
+      if(!pool.length){ alert('No practice content for this desk yet'); return; }
+      var shuffled = pool.slice().sort(function(){ return Math.random()-0.5; });
+      var picks = shuffled.slice(0, Math.min(3, shuffled.length));
+      var normalized = picks.map(function(p){
+        return p.type === 'quiz' ? normalizeQuizItem(deskKey, p.item) : normalizeSpotItem(deskKey, p.item);
+      });
+      if(!_wheelSlotIndices){
+        _wheelSlotIndices = [DAILY_CASES.length, DAILY_CASES.length+1, DAILY_CASES.length+2];
+        DAILY_CASES.push(normalized[0] || normalized[normalized.length-1]);
+        DAILY_CASES.push(normalized[1] || normalized[normalized.length-1]);
+        DAILY_CASES.push(normalized[2] || normalized[normalized.length-1]);
+      }
+      for(var i=0;i<3;i++){
+        DAILY_CASES[_wheelSlotIndices[i]] = normalized[i] || normalized[normalized.length-1];
+      }
+      global._caseSession = {indices:_wheelSlotIndices.slice(), step:0, score:0, answered:false};
+      renderStep();
+    }catch(e){ alert('Practice error: '+(e.message||e)); console.error(e); }
+  }
   function answerDaily(choice){
     if(global._dailyAnswered || !global._dailyCase) return;
     global._dailyAnswered = true;
@@ -16292,6 +16537,8 @@ function answerE2ECase(){
 
   // Public API — always overwrite so homepage buttons work
   global.startCaseSession = startCaseSession;
+  global.startCaseSessionForDesk = startCaseSessionForDesk;
+  global.startWheelDeskMix = startWheelDeskMix;
   global.startRandomDailyCase = startCaseSession;
   global.answerDaily = answerDaily;
   global.advanceCaseSession = advanceCaseSession;
