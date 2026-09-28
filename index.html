@@ -2916,6 +2916,8 @@ body:not(.is-workspace) .workspace-chrome{
 .mock-desk[data-station="bc"] .md-art{ border-color:#b08a4e !important; }
 .mock-desk[data-station="aud"] .md-art{ border-color:#a58bd6 !important; }
 .mock-desk[data-station="cost"] .md-art{ border-color:#c2703c !important; }
+.mock-desk[data-station="constr"] .md-art{ border-color:#d4a03c !important; }
+.mock-desk[data-station="tax"] .md-art{ border-color:#6b8e6b !important; }
 .mock-desk[data-station="recv"] .md-art{ border-color:#4a90a4 !important; }
 
 .mock-section.mock-practice, .mock-section.mock-tools{
@@ -3231,9 +3233,11 @@ input[type="text"]:focus, input[type="number"]:focus{
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="inv-home" onclick="openWorkspaceMenu('inv')"><span data-en="📦 Inventory & Warehouse" data-ar="📦 المخزون والمخازن">📦 Inventory & Warehouse</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="recv-home" onclick="openWorkspaceMenu('recv')"><span data-en="📥 Receiving Accountant" data-ar="📥 محاسب الاستلام">📥 Receiving Accountant</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="cost-home" onclick="openWorkspaceMenu('cost')"><span data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="constr-home" onclick="openWorkspaceMenu('constr')"><span data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="treasury-home" onclick="openWorkspaceMenu('treasury')"><span data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="hr-home" onclick="openWorkspaceMenu('hr')"><span data-en="🧑‍💼 Payroll & HR" data-ar="🧑‍💼 الرواتب والموارد البشرية">🧑‍💼 Payroll & HR</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="gl-home" onclick="openWorkspaceMenu('gl')"><span data-en="📚 General Ledger & Closing" data-ar="📚 دفتر الأستاذ والإقفال">📚 General Ledger & Closing</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="tax-home" onclick="openWorkspaceMenu('tax')"><span data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 Tax Accountant</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="bc-home" onclick="openWorkspaceMenu('bc')"><span data-en="📋 Budget Controller" data-ar="📋 مراقب الميزانية">📋 Budget Controller</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="learn-ratios" onclick="openWorkspaceMenu('ratios')"><span data-en="📐 Financial Analyst" data-ar="📐 المحلل المالي">📐 Financial Analyst</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="aud-home" onclick="openWorkspaceMenu('aud')"><span data-en="🧐 Internal Auditor" data-ar="🧐 المراجع الداخلي">🧐 Internal Auditor</span></button>
@@ -3391,6 +3395,21 @@ input[type="text"]:focus, input[type="number"]:focus{
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
       </button>
+      <button type="button" class="mock-desk" data-station="constr" onclick="openWorkspaceMenu('constr')">
+        <div class="md-art md-constr">🏗️</div>
+        <div class="md-body">
+          <div class="md-text">
+            <div class="md-title-row">
+              <span class="md-code">SITE</span>
+              <strong data-en="Site Accountant" data-ar="محاسب الموقع">Site Accountant</strong>
+            </div>
+            <span class="md-desc" data-en="Construction &amp; project accounting" data-ar="محاسبة المقاولات والمشاريع">Construction &amp; project accounting</span>
+          </div>
+          <span class="hd-visited-badge"></span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:0%"></i></span>
+        </div>
+      </button>
       <button type="button" class="mock-desk" data-station="treasury" onclick="openWorkspaceMenu('treasury')">
         <div class="md-art md-tr">🏦</div>
         <div class="md-body">
@@ -3430,6 +3449,21 @@ input[type="text"]:focus, input[type="number"]:focus{
               <strong data-en="General Ledger &amp; Closing" data-ar="دفتر الأستاذ والإقفال">General Ledger &amp; Closing</strong>
             </div>
             <span class="md-desc" data-en="Financial statements &amp; closing" data-ar="القوائم المالية والإقفال">Financial statements &amp; closing</span>
+          </div>
+          <span class="hd-visited-badge"></span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:0%"></i></span>
+        </div>
+      </button>
+      <button type="button" class="mock-desk" data-station="tax" onclick="openWorkspaceMenu('tax')">
+        <div class="md-art md-tax">🧾</div>
+        <div class="md-body">
+          <div class="md-text">
+            <div class="md-title-row">
+              <span class="md-code">TAX</span>
+              <strong data-en="Tax Accountant" data-ar="محاسب الضرائب">Tax Accountant</strong>
+            </div>
+            <span class="md-desc" data-en="VAT, corporate tax &amp; compliance" data-ar="ضريبة القيمة المضافة وضريبة الشركات والالتزام">VAT, corporate tax &amp; compliance</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -4709,6 +4743,372 @@ input[type="text"]:focus, input[type="number"]:focus{
       <p class="panel-sub" data-en="Questions on receiving verification, three-way match, supplier performance and landed cost. Score 70% or higher to earn Mastery." data-ar="أسئلة على التحقق من الاستلام والمطابقة الثلاثية وأداء الموردين والتكلفة الواصلة. احصل على 70% أو أكتر عشان تكسب الإتقان.">Questions on receiving verification, three-way match, supplier performance and landed cost. Score 70% or higher to earn Mastery.</p>
     </div>
     <div id="quiz-body-recv"></div>
+  </div>
+
+  <div class="data-panel" id="tax-home">
+    <div class="desk-day">
+      <div class="desk-hero">
+        <div>
+          <div class="desk-tag" data-en="TAX ACCOUNTANT DESK" data-ar="مكتب محاسب الضرائب">TAX ACCOUNTANT DESK</div>
+          <h3 data-en="Your day as Tax Accountant" data-ar="يومك كمحاسب ضرائب">Your day as Tax Accountant</h3>
+          <p data-en="File on time, deduct correctly, document everything, and never structure a transaction purely to dodge tax." data-ar="قدّم في الميعاد، اخصم صح، وثّق كل حاجة، وما تهيكلش معاملة بغرض التهرب بس.">File on time, deduct correctly, document everything, and never structure a transaction purely to dodge tax.</p>
+        </div>
+        <div class="desk-meta">
+          <span data-en="Focus: VAT · withholding tax · corporate tax provision" data-ar="التركيز: ض.ق.م · الخصم تحت الحساب · مخصص ضريبة الشركات">Focus: VAT · withholding tax · corporate tax provision</span>
+          <span data-en="Control: no self-approval of the transactions being taxed" data-ar="رقابة: لا تعتمد لنفسك المعاملات اللي بتضرّبها">Control: no self-approval of the transactions being taxed</span>
+        </div>
+      </div>
+      <div class="desk-grid">
+        <div class="desk-card">
+          <h4 data-en="Morning checklist" data-ar="قائمة صباح المكتب"><span data-en="Morning checklist" data-ar="قائمة صباح المكتب">Morning checklist</span><small data-en="Start here" data-ar="ابدأ من هنا">Start here</small></h4>
+          <ul class="desk-checklist">
+            <li data-en="Check upcoming filing deadlines for VAT, WHT and corporate tax." data-ar="افحص مواعيد التقديم القادمة لضريبة القيمة المضافة والخصم تحت الحساب وضريبة الشركات.">Check upcoming filing deadlines for VAT, WHT and corporate tax.</li>
+            <li data-en="Reconcile input VAT against this period's purchase invoices." data-ar="طابق ضريبة المدخلات مقابل فواتير الشراء للفترة دي.">Reconcile input VAT against this period's purchase invoices.</li>
+            <li data-en="Review any supplier invoice missing a valid tax registration number." data-ar="راجع أي فاتورة مورد ناقصها رقم تسجيل ضريبي صحيح.">Review any supplier invoice missing a valid tax registration number.</li>
+            <li data-en="Confirm withholding tax was deducted correctly on this period's payments." data-ar="تأكد إن الخصم تحت الحساب اتخصم صح على مدفوعات الفترة دي.">Confirm withholding tax was deducted correctly on this period's payments.</li>
+          </ul>
+          <div class="desk-flow" style="margin-top:12px">
+            <span data-en="1 · Gather Data" data-ar="1 · اجمع البيانات">1 · Gather Data</span>
+            <span data-en="2 · Calculate" data-ar="2 · احسب">2 · Calculate</span>
+            <span data-en="3 · Reconcile" data-ar="3 · طابق">3 · Reconcile</span>
+            <span data-en="4 · File" data-ar="4 · قدّم">4 · File</span>
+            <span class="dim" data-en="5 · Remit Payment" data-ar="5 · سدّد">5 · Remit Payment</span>
+          </div>
+        </div>
+        <div class="desk-card">
+          <h4 data-en="On your desk today" data-ar="على مكتبك اليوم"><span data-en="On your desk today" data-ar="على مكتبك اليوم">On your desk today</span><small data-en="Open cases" data-ar="حالات مفتوحة">Open cases</small></h4>
+          <div class="desk-queue">
+            <div class="desk-queue-item">
+              <strong data-en="Management wants to delay a known tax liability" data-ar="الإدارة عايزة تأجّل التزام ضريبي معروف">Management wants to delay a known tax liability</strong>
+              <p data-en="A known tax liability from this period is being pushed to next quarter to improve reported profit. This isn't optional." data-ar="التزام ضريبي معروف من الفترة دي بيتم دفعه للربع الجاي عشان يحسّن الربح المُبلَّغ عنه. ده مش اختياري.">A known tax liability from this period is being pushed to next quarter to improve reported profit. This isn't optional.</p>
+              <button class="dq-go" type="button" onclick="showPanel('tax-cases')" data-en="Open today's problem →" data-ar="افتح مشكلة اليوم ←">Open today's problem →</button>
+            </div>
+            <div class="desk-queue-item">
+              <strong data-en="Input VAT claim missing valid documentation" data-ar="مطالبة ضريبة مدخلات ناقصها توثيق صحيح">Input VAT claim missing valid documentation</strong>
+              <p data-en="Purchasing wants to claim input VAT on an invoice with no valid tax registration number. Verify before claiming." data-ar="المشتريات عايزة تطالب بضريبة مدخلات على فاتورة من غير رقم تسجيل ضريبي صحيح. تحقق قبل المطالبة.">Purchasing wants to claim input VAT on an invoice with no valid tax registration number. Verify before claiming.</p>
+              <button class="dq-go" type="button" onclick="showPanel('tax-calc')" data-en="Investigate in formulas →" data-ar="حقّق في المعادلات ←">Investigate in formulas →</button>
+            </div>
+            <div class="desk-queue-item">
+              <strong data-en="Tax authority document request" data-ar="طلب مستندات من مصلحة الضرائب">Tax authority document request</strong>
+              <p data-en="The tax authority requests supporting documentation for a transaction from three years ago. Retrieve it calmly." data-ar="مصلحة الضرائب طلبت توثيق مؤيد لمعاملة من 3 سنين. استرجعه بهدوء.">The tax authority requests supporting documentation for a transaction from three years ago. Retrieve it calmly.</p>
+              <button class="dq-go" type="button" onclick="showPanel('tax-role')" data-en="Review role &amp; procedures →" data-ar="راجع الدور والإجراءات ←">Review role &amp; procedures →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="desk-card">
+        <h4 data-en="Core actions on this desk" data-ar="الإجراءات الأساسية على هذا المكتب">Core actions on this desk</h4>
+        <div class="desk-actions">
+          <button class="desk-action" type="button" onclick="showPanel('tax-role')"><strong data-en="Role &amp; procedures" data-ar="الدور والإجراءات">Role &amp; procedures</strong><span data-en="Responsibilities, monthly &amp; quarterly tasks" data-ar="المسؤوليات، مهام شهرية وربع سنوية">Responsibilities, monthly &amp; quarterly tasks</span></button>
+          <button class="desk-action" type="button" onclick="showPanel('tax-cases')"><strong data-en="Cases &amp; problems" data-ar="حالات ومشاكل">Cases &amp; problems</strong><span data-en="Real issues and how to solve them" data-ar="مشكلات حقيقية وطريقة حلها">Real issues and how to solve them</span></button>
+          <button class="desk-action" type="button" onclick="showPanel('tax-calc')"><strong data-en="Tax formulas &amp; metrics" data-ar="معادلات ومؤشرات ضريبية">Tax formulas &amp; metrics</strong><span data-en="VAT, WHT, corporate tax, deferred tax" data-ar="ض.ق.م، الخصم تحت الحساب، ضريبة الشركات، الضريبة المؤجلة">VAT, WHT, corporate tax, deferred tax</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-panel" id="tax-role">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 Tax Accountant</span>
+      <h3 data-en="Tax Accountant — Role &amp; Procedures" data-ar="محاسب الضرائب — الدور والإجراءات">Tax Accountant — Role &amp; Procedures</h3>
+    </div>
+    <div class="role-hero">
+      <h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4>
+      <p data-en="Ensure the company meets all its tax obligations accurately and on time — VAT, corporate income tax, and withholding tax — while managing genuine tax risk and supporting other departments with the correct tax treatment of new transactions." data-ar="تأكد إن الشركة بتستوفي كل التزاماتها الضريبية بدقة وفي الميعاد — ضريبة القيمة المضافة، ضريبة دخل الشركات، والخصم تحت الحساب — مع إدارة مخاطرة ضريبية حقيقية ودعم الأقسام التانية بالمعالجة الضريبية الصحيحة للمعاملات الجديدة.">Ensure the company meets all its tax obligations accurately and on time — VAT, corporate income tax, and withholding tax — while managing genuine tax risk and supporting other departments with the correct tax treatment of new transactions.</p>
+    </div>
+    <div class="role-sequence">
+      <div class="role-step">
+        <h4 data-en="Main responsibilities" data-ar="المسؤوليات الرئيسية">Main responsibilities</h4>
+        <ul>
+          <li data-en="Prepare and file periodic VAT returns." data-ar="إعداد وتقديم إقرارات ضريبة القيمة المضافة الدورية.">Prepare and file periodic VAT returns.</li>
+          <li data-en="Calculate the corporate income tax provision each period." data-ar="حساب مخصص ضريبة دخل الشركات كل فترة.">Calculate the corporate income tax provision each period.</li>
+          <li data-en="Manage withholding tax deducted from, and by, the company." data-ar="إدارة الخصم تحت الحساب المخصوم من الشركة ومنها.">Manage withholding tax deducted from, and by, the company.</li>
+          <li data-en="Reconcile all tax GL accounts to supporting schedules." data-ar="مطابقة كل حسابات الضرائب في دفتر الأستاذ مع الجداول المؤيدة.">Reconcile all tax GL accounts to supporting schedules.</li>
+          <li data-en="Track tax payment deadlines and ensure timely filing." data-ar="متابعة مواعيد سداد الضرائب وضمان التقديم في الوقت المناسب.">Track tax payment deadlines and ensure timely filing.</li>
+          <li data-en="Respond to tax authority queries and support tax audits." data-ar="الرد على استفسارات مصلحة الضرائب ودعم المراجعات الضريبية.">Respond to tax authority queries and support tax audits.</li>
+          <li data-en="Maintain supporting documentation for every tax position taken." data-ar="الحفاظ على التوثيق المؤيد لكل موقف ضريبي متخذ.">Maintain supporting documentation for every tax position taken.</li>
+          <li data-en="Monitor changes in tax law affecting the company." data-ar="متابعة تغييرات القانون الضريبي المؤثرة على الشركة.">Monitor changes in tax law affecting the company.</li>
+          <li data-en="Advise other departments on the tax treatment of new transactions." data-ar="نصح الأقسام التانية بالمعالجة الضريبية للمعاملات الجديدة.">Advise other departments on the tax treatment of new transactions.</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Monthly tasks" data-ar="مهام شهرية">Monthly tasks</h4>
+        <ol>
+          <li data-en="Calculate and file the VAT return for the period." data-ar="حساب وتقديم إقرار ضريبة القيمة المضافة للفترة.">Calculate and file the VAT return for the period.</li>
+          <li data-en="Reconcile input VAT against this period's purchase invoices." data-ar="مطابقة ضريبة المدخلات مقابل فواتير الشراء للفترة.">Reconcile input VAT against this period's purchase invoices.</li>
+          <li data-en="Calculate and remit withholding tax deducted from suppliers." data-ar="حساب وتوريد الخصم تحت الحساب المخصوم من الموردين.">Calculate and remit withholding tax deducted from suppliers.</li>
+          <li data-en="Reconcile tax GL accounts to supporting schedules." data-ar="مطابقة حسابات الضرائب في دفتر الأستاذ مع الجداول المؤيدة.">Reconcile tax GL accounts to supporting schedules.</li>
+        </ol>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Quarterly &amp; annual tasks" data-ar="مهام ربع سنوية وسنوية">Quarterly &amp; annual tasks</h4>
+        <ul>
+          <li data-en="Calculate and true-up the corporate income tax provision." data-ar="حساب وتسوية مخصص ضريبة دخل الشركات.">Calculate and true-up the corporate income tax provision.</li>
+          <li data-en="Prepare supporting schedules for the annual tax return." data-ar="إعداد الجداول المؤيدة للإقرار الضريبي السنوي.">Prepare supporting schedules for the annual tax return.</li>
+          <li data-en="Review deferred tax assets and liabilities." data-ar="مراجعة أصول والتزامات الضريبة المؤجلة.">Review deferred tax assets and liabilities.</li>
+          <li data-en="Support the external auditor's review of tax balances." data-ar="دعم مراجعة المراجع الخارجي لأرصدة الضرائب.">Support the external auditor's review of tax balances.</li>
+          <li data-en="Monitor tax law changes and assess their impact." data-ar="متابعة تغييرات القانون الضريبي وتقييم أثرها.">Monitor tax law changes and assess their impact.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="entry-box"><strong data-en="Independence principle" data-ar="مبدأ الاستقلالية">Independence principle</strong><br><span data-en="The Tax Accountant should not have authority to approve the underlying commercial transactions they are taxing — independence protects against structuring transactions purely to minimize tax at the expense of accurate reporting." data-ar="محاسب الضرائب المفروض مايكونش عنده صلاحية اعتماد المعاملات التجارية الأساسية اللي بيضرّبها — الاستقلالية بتحمي من تهيكلة معاملات بغرض تقليل الضريبة بس على حساب التقرير الدقيق.">The Tax Accountant should not have authority to approve the underlying commercial transactions they are taxing — independence protects against structuring transactions purely to minimize tax at the expense of accurate reporting.</span></div>
+  </div>
+
+  <div class="data-panel" id="tax-cases">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 Tax Accountant</span>
+      <h3 data-en="Practical cases &amp; problems — Tax Accountant desk" data-ar="حالات عملية ومشكلات — مكتب محاسب الضرائب">Practical cases &amp; problems — Tax Accountant desk</h3>
+      <p class="panel-sub" data-en="Common real-world situations and the recommended way to handle each one." data-ar="مواقف واقعية شائعة وطريقة التعامل المقترحة مع كل واحدة.">Common real-world situations and the recommended way to handle each one.</p>
+    </div>
+    <div class="cases-list">
+      <details class="case-item" open>
+        <summary><span class="case-num">1</span><span data-en="Management wants to delay recognizing a known tax liability to improve this quarter's profit" data-ar="الإدارة عايزة تأجّل الاعتراف بالتزام ضريبي معروف عشان تحسّن ربح الربع ده">Management wants to delay recognizing a known tax liability to improve this quarter's profit</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Recognize the liability in the period it's genuinely incurred — tax provisions follow the same accrual principles as any other liability, regardless of reporting optics." data-ar="اعترف بالالتزام في الفترة اللي فعليًا اتكبد فيها — المخصصات الضريبية بتتبع نفس مبادئ الاستحقاق زي أي التزام تاني، بغض النظر عن مظهر التقرير.">Recognize the liability in the period it's genuinely incurred — tax provisions follow the same accrual principles as any other liability, regardless of reporting optics.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">2</span><span data-en="A supplier invoice is missing a valid tax registration number, but purchasing wants to claim input VAT anyway" data-ar="فاتورة مورد ناقصها رقم تسجيل ضريبي صحيح، لكن المشتريات عايزة تطالب بضريبة المدخلات على أي حال">A supplier invoice is missing a valid tax registration number, but purchasing wants to claim input VAT anyway</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Don't claim input VAT without proper documentation — a missing or invalid tax registration risks the deduction being disallowed on audit, with penalties." data-ar="متطالبش بضريبة مدخلات من غير توثيق صحيح — تسجيل ضريبي ناقص أو غير صحيح بيخاطر برفض الخصم عند المراجعة، مع غرامات.">Don't claim input VAT without proper documentation — a missing or invalid tax registration risks the deduction being disallowed on audit, with penalties.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">3</span><span data-en="The tax authority requests documentation for a transaction from three years ago" data-ar="مصلحة الضرائب طلبت توثيق لمعاملة من 3 سنين">The tax authority requests documentation for a transaction from three years ago</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Retrieve and provide the documentation calmly and completely — this is exactly why supporting documentation must be retained for the statutory period." data-ar="استرجع وقدّم التوثيق بهدوء وبشكل كامل — ده بالظبط ليه التوثيق المؤيد لازم يتحفظ للفترة القانونية.">Retrieve and provide the documentation calmly and completely — this is exactly why supporting documentation must be retained for the statutory period.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">4</span><span data-en="A department wants to reclassify an expense to change its tax treatment, with no genuine change in the transaction" data-ar="قسم عايز يعيد تصنيف مصروف عشان يغيّر معالجته الضريبية، من غير أي تغيير حقيقي في المعاملة">A department wants to reclassify an expense to change its tax treatment, with no genuine change in the transaction</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Decline — tax treatment must follow the genuine substance of a transaction, not be retrofitted after the fact to produce a preferred tax outcome." data-ar="ارفض — المعالجة الضريبية لازم تتبع الجوهر الحقيقي للمعاملة، مش تتعدّل بعد ما حصلت عشان تنتج نتيجة ضريبية مفضّلة.">Decline — tax treatment must follow the genuine substance of a transaction, not be retrofitted after the fact to produce a preferred tax outcome.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">5</span><span data-en="Withholding tax was under-deducted on a supplier payment due to an honest error" data-ar="خصم تحت الحساب اتخصم أقل من المطلوب على دفعة مورد بسبب خطأ صادق">Withholding tax was under-deducted on a supplier payment due to an honest error</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Correct it and remit the shortfall as soon as it's discovered, rather than waiting for the tax authority to catch it, to minimize penalty exposure." data-ar="صحح الخطأ وورّد الفرق الناقص بمجرد اكتشافه، بدل ما تستنى مصلحة الضرائب تكتشفه، عشان تقلل التعرض للغرامات.">Correct it and remit the shortfall as soon as it's discovered, rather than waiting for the tax authority to catch it, to minimize penalty exposure.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">6</span><span data-en="Management wants to structure a transaction aggressively purely to avoid tax, with no genuine business purpose" data-ar="الإدارة عايزة تهيكل معاملة بشكل عدواني بغرض تجنب الضريبة بس، من غير أي غرض تجاري حقيقي">Management wants to structure a transaction aggressively purely to avoid tax, with no genuine business purpose</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Flag the risk clearly — tax positions with no genuine business purpose beyond tax avoidance carry real legal and reputational risk, and should go through proper review before proceeding." data-ar="ارصد المخاطرة بوضوح — مواقف ضريبية من غير غرض تجاري حقيقي غير تجنب الضريبة بيحملوا مخاطرة قانونية وسمعة حقيقية، ولازم يمروا بمراجعة سليمة قبل التنفيذ.">Flag the risk clearly — tax positions with no genuine business purpose beyond tax avoidance carry real legal and reputational risk, and should go through proper review before proceeding.</p></div></div>
+      </details>
+    </div>
+  </div>
+
+  <div class="data-panel" id="tax-calc">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 Tax Accountant</span>
+      <h3 data-en="Tax Formulas &amp; Metrics" data-ar="معادلات ومؤشرات ضريبية">Tax Formulas &amp; Metrics</h3>
+      <p class="panel-sub" data-en="VAT, withholding tax, corporate income tax, deferred tax and tax planning. Formula, meaning and a live calculator for each." data-ar="ضريبة القيمة المضافة، الخصم تحت الحساب، ضريبة دخل الشركات، الضريبة المؤجلة والتخطيط الضريبي. الصيغة والمعنى وحاسبة حية لكل واحدة.">VAT, withholding tax, corporate income tax, deferred tax and tax planning. Formula, meaning and a live calculator for each.</p>
+    </div>
+    <div id="tax-calc-list"></div>
+  </div>
+
+  <div class="data-panel" id="tax-spot-error">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 Tax Accountant</span>
+      <h3 data-en="🔍 Spot the Error" data-ar="🔍 اكتشف الغلط">🔍 Spot the Error</h3>
+      <p class="panel-sub" data-en="A short scenario, three options, one genuinely correct fix. Work through them one at a time." data-ar="سيناريو قصير، 3 خيارات، حل واحد صحيح فعليًا. اشتغل عليهم واحد واحد.">A short scenario, three options, one genuinely correct fix. Work through them one at a time.</p>
+    </div>
+    <div id="tax-spot-scenario"></div>
+  </div>
+
+  <div class="data-panel" id="tax-fraud">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 Tax Accountant</span>
+      <h3 data-en="🕵️ Fraud Catcher" data-ar="🕵️ صائد الاحتيال">🕵️ Fraud Catcher</h3>
+      <p class="panel-sub" data-en="Real schemes used to manipulate tax filings and evade tax liability — presented for detection and control, not execution." data-ar="حيل حقيقية بتُستخدم للتلاعب بالإقرارات الضريبية والتهرب من الالتزام الضريبي — معروضة لأغراض الاكتشاف والرقابة، مش التنفيذ.">Real schemes used to manipulate tax filings and evade tax liability — presented for detection and control, not execution.</p>
+    </div>
+    <div class="search-wrap" style="max-width:360px;margin-bottom:16px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="tax-fraud-search" oninput="learnFilterCards('tax-fraud-search','tax-fraud-list')" placeholder="Search schemes…">
+    </div>
+    <div id="tax-fraud-list" class="cases-list"></div>
+  </div>
+
+  <div class="data-panel" id="tax-quiz">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 محاسب الضرائب</span>
+      <h3 data-en="🏆 Mastery Quiz" data-ar="🏆 اختبار الإتقان">🏆 Mastery Quiz</h3>
+      <p class="panel-sub" data-en="Questions on VAT, withholding tax, corporate tax and deferred tax. Score 70% or higher to earn Mastery." data-ar="أسئلة على ضريبة القيمة المضافة والخصم تحت الحساب وضريبة الشركات والضريبة المؤجلة. احصل على 70% أو أكتر عشان تكسب الإتقان.">Questions on VAT, withholding tax, corporate tax and deferred tax. Score 70% or higher to earn Mastery.</p>
+    </div>
+    <div id="quiz-body-tax"></div>
+  </div>
+
+  <div class="data-panel" id="constr-home">
+    <div class="desk-day">
+      <div class="desk-hero">
+        <div>
+          <div class="desk-tag" data-en="SITE ACCOUNTANT DESK" data-ar="مكتب محاسب الموقع">SITE ACCOUNTANT DESK</div>
+          <h3 data-en="Your day as Site Accountant" data-ar="يومك كمحاسب موقع">Your day as Site Accountant</h3>
+          <p data-en="Track project cost against budget, recognize revenue honestly as work progresses, and protect the company from unpriced risk on site." data-ar="تتبّع تكلفة المشروع مقابل الموازنة، اعترف بالإيراد بأمانة مع تقدّم الشغل، واحمِ الشركة من مخاطر غير مسعّرة في الموقع.">Track project cost against budget, recognize revenue honestly as work progresses, and protect the company from unpriced risk on site.</p>
+        </div>
+        <div class="desk-meta">
+          <span data-en="Focus: % completion · WIP schedule · retention · change orders" data-ar="التركيز: نسبة الإنجاز · جدول WIP · الاحتجاز · أوامر التغيير">Focus: % completion · WIP schedule · retention · change orders</span>
+          <span data-en="Control: no self-approval of change orders or billings" data-ar="رقابة: لا تعتمد لنفسك أوامر تغيير أو مستخلصات">Control: no self-approval of change orders or billings</span>
+        </div>
+      </div>
+      <div class="desk-grid">
+        <div class="desk-card">
+          <h4 data-en="Morning checklist" data-ar="قائمة صباح المكتب"><span data-en="Morning checklist" data-ar="قائمة صباح المكتب">Morning checklist</span><small data-en="Start here" data-ar="ابدأ من هنا">Start here</small></h4>
+          <ul class="desk-checklist">
+            <li data-en="Update actual costs incurred to date for each active project." data-ar="حدّث التكاليف الفعلية المتكبدة لتاريخه لكل مشروع نشط.">Update actual costs incurred to date for each active project.</li>
+            <li data-en="Review any new change orders for cost and billing impact." data-ar="راجع أي أوامر تغيير جديدة من ناحية أثرها على التكلفة والفوترة.">Review any new change orders for cost and billing impact.</li>
+            <li data-en="Check progress billings awaiting client certification." data-ar="افحص مستخلصات بانتظار اعتماد العميل.">Check progress billings awaiting client certification.</li>
+            <li data-en="Confirm retention balances reconcile to the ledger." data-ar="تأكد إن أرصدة الاحتجاز متطابقة مع دفتر الأستاذ.">Confirm retention balances reconcile to the ledger.</li>
+          </ul>
+          <div class="desk-flow" style="margin-top:12px">
+            <span data-en="1 · Actual Cost" data-ar="1 · تكلفة فعلية">1 · Actual Cost</span>
+            <span data-en="2 · % Completion" data-ar="2 · نسبة إنجاز">2 · % Completion</span>
+            <span data-en="3 · Bill Client" data-ar="3 · فوتر العميل">3 · Bill Client</span>
+            <span data-en="4 · Update WIP" data-ar="4 · حدّث WIP">4 · Update WIP</span>
+            <span class="dim" data-en="5 · Reconcile Retention" data-ar="5 · طابق الاحتجاز">5 · Reconcile Retention</span>
+          </div>
+        </div>
+        <div class="desk-card">
+          <h4 data-en="On your desk today" data-ar="على مكتبك اليوم"><span data-en="On your desk today" data-ar="على مكتبك اليوم">On your desk today</span><small data-en="Open cases" data-ar="حالات مفتوحة">Open cases</small></h4>
+          <div class="desk-queue">
+            <div class="desk-queue-item">
+              <strong data-en="Project trending toward a loss" data-ar="مشروع متجه نحو خسارة">Project trending toward a loss</strong>
+              <p data-en="Latest cost-to-complete estimate shows total costs will exceed contract value. The expected loss must be recognized now." data-ar="آخر تقدير تكلفة للإكمال بيوضح إن إجمالي التكاليف هتتخطى قيمة العقد. الخسارة المتوقعة لازم تتحمل دلوقتي.">Latest cost-to-complete estimate shows total costs will exceed contract value. The expected loss must be recognized now.</p>
+              <button class="dq-go" type="button" onclick="showPanel('constr-cases')" data-en="Open today's problem →" data-ar="افتح مشكلة اليوم ←">Open today's problem →</button>
+            </div>
+            <div class="desk-queue-item">
+              <strong data-en="Unpriced change order in progress" data-ar="أمر تغيير غير مسعّر جاري تنفيذه">Unpriced change order in progress</strong>
+              <p data-en="Site team started extra work before the change order was formally priced and approved. Flag the risk." data-ar="فريق الموقع بدأ شغل إضافي قبل ما أمر التغيير يتسعّر ويتاعتمد رسميًا. ارصد المخاطرة.">Site team started extra work before the change order was formally priced and approved. Flag the risk.</p>
+              <button class="dq-go" type="button" onclick="showPanel('constr-calc')" data-en="Investigate in formulas →" data-ar="حقّق في المعادلات ←">Investigate in formulas →</button>
+            </div>
+            <div class="desk-queue-item">
+              <strong data-en="Retention release request pending" data-ar="طلب إفراج عن احتجاز معلّق">Retention release request pending</strong>
+              <p data-en="A subcontractor wants retention released before the defects liability period ends. Verify before approving." data-ar="مقاول من الباطن عايز الاحتجاز يتفرج عنه قبل ما فترة ضمان العيوب تخلص. تحقق قبل الاعتماد.">A subcontractor wants retention released before the defects liability period ends. Verify before approving.</p>
+              <button class="dq-go" type="button" onclick="showPanel('constr-role')" data-en="Review role &amp; procedures →" data-ar="راجع الدور والإجراءات ←">Review role &amp; procedures →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="desk-card">
+        <h4 data-en="Core actions on this desk" data-ar="الإجراءات الأساسية على هذا المكتب">Core actions on this desk</h4>
+        <div class="desk-actions">
+          <button class="desk-action" type="button" onclick="showPanel('constr-role')"><strong data-en="Role &amp; procedures" data-ar="الدور والإجراءات">Role &amp; procedures</strong><span data-en="Responsibilities, monthly &amp; quarterly tasks" data-ar="المسؤوليات، مهام شهرية وربع سنوية">Responsibilities, monthly &amp; quarterly tasks</span></button>
+          <button class="desk-action" type="button" onclick="showPanel('constr-cases')"><strong data-en="Cases &amp; problems" data-ar="حالات ومشاكل">Cases &amp; problems</strong><span data-en="Real issues and how to solve them" data-ar="مشكلات حقيقية وطريقة حلها">Real issues and how to solve them</span></button>
+          <button class="desk-action" type="button" onclick="showPanel('constr-calc')"><strong data-en="Construction accounting formulas" data-ar="معادلات محاسبة المقاولات">Construction accounting formulas</strong><span data-en="% completion, WIP, retention, profitability" data-ar="نسبة الإنجاز، WIP، الاحتجاز، الربحية">% completion, WIP, retention, profitability</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-panel" id="constr-role">
+    <div class="module-head">
+      <span class="module-tag" data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span>
+      <h3 data-en="Site Accountant — Role &amp; Procedures" data-ar="محاسب الموقع — الدور والإجراءات">Site Accountant — Role &amp; Procedures</h3>
+    </div>
+    <div class="role-hero">
+      <h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4>
+      <p data-en="Track project costs against budget, recognize revenue accurately over the life of long-term construction contracts, manage retention and progress billing, and protect the company from unpriced change-order risk and undetected cost overruns." data-ar="تتبّع تكاليف المشروع مقابل الموازنة، اعترف بالإيراد بدقة عبر حياة عقود الإنشاء طويلة الأجل، أدر الاحتجاز والفوترة بالتقدّم، واحمِ الشركة من مخاطر أوامر تغيير غير مسعّرة وتجاوزات تكلفة غير مكتشفة.">Track project costs against budget, recognize revenue accurately over the life of long-term construction contracts, manage retention and progress billing, and protect the company from unpriced change-order risk and undetected cost overruns.</p>
+    </div>
+    <div class="role-sequence">
+      <div class="role-step">
+        <h4 data-en="Main responsibilities" data-ar="المسؤوليات الرئيسية">Main responsibilities</h4>
+        <ul>
+          <li data-en="Maintain job costing records for each active project or site." data-ar="الحفاظ على سجلات تكلفة كل مشروع أو موقع نشط.">Maintain job costing records for each active project or site.</li>
+          <li data-en="Prepare the monthly Work-in-Progress (WIP) schedule." data-ar="إعداد جدول الأعمال تحت التنفيذ (WIP) الشهري.">Prepare the monthly Work-in-Progress (WIP) schedule.</li>
+          <li data-en="Calculate percentage of completion and recognize revenue accordingly." data-ar="حساب نسبة الإنجاز والاعتراف بالإيراد بناءً عليها.">Calculate percentage of completion and recognize revenue accordingly.</li>
+          <li data-en="Process progress billings (certified payment applications) to the client." data-ar="معالجة مستخلصات الأعمال (طلبات الدفع المعتمدة) للعميل.">Process progress billings (certified payment applications) to the client.</li>
+          <li data-en="Track and reconcile retention receivable and payable." data-ar="تتبّع ومطابقة الاحتجاز المدين والدائن.">Track and reconcile retention receivable and payable.</li>
+          <li data-en="Review and cost change orders before they are approved." data-ar="مراجعة وتقدير تكلفة أوامر التغيير قبل اعتمادها.">Review and cost change orders before they are approved.</li>
+          <li data-en="Reconcile subcontractor accounts and certified payments." data-ar="مطابقة حسابات مقاولي الباطن والمدفوعات المعتمدة.">Reconcile subcontractor accounts and certified payments.</li>
+          <li data-en="Monitor performance and advance-payment guarantee expiry dates." data-ar="متابعة تواريخ انتهاء ضمانات حسن التنفيذ والدفعة المقدمة.">Monitor performance and advance-payment guarantee expiry dates.</li>
+          <li data-en="Flag any project trending toward a loss." data-ar="رصد أي مشروع متجه نحو خسارة.">Flag any project trending toward a loss.</li>
+        </ul>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Monthly tasks" data-ar="مهام شهرية">Monthly tasks</h4>
+        <ol>
+          <li data-en="Update actual costs incurred to date for each project." data-ar="تحديث التكاليف الفعلية المتكبدة لتاريخه لكل مشروع.">Update actual costs incurred to date for each project.</li>
+          <li data-en="Recalculate percentage of completion and revenue to recognize." data-ar="إعادة حساب نسبة الإنجاز والإيراد الواجب الاعتراف به.">Recalculate percentage of completion and revenue to recognize.</li>
+          <li data-en="Update the WIP schedule (billed vs. earned)." data-ar="تحديث جدول WIP (المفوتر مقابل المكتسب).">Update the WIP schedule (billed vs. earned).</li>
+          <li data-en="Reconcile retention balances to the general ledger." data-ar="مطابقة أرصدة الاحتجاز مع دفتر الأستاذ العام.">Reconcile retention balances to the general ledger.</li>
+          <li data-en="Review any new change orders for cost and billing impact." data-ar="مراجعة أي أوامر تغيير جديدة من ناحية أثرها على التكلفة والفوترة.">Review any new change orders for cost and billing impact.</li>
+        </ol>
+      </div>
+      <div class="role-step">
+        <h4 data-en="Quarterly &amp; annual tasks" data-ar="مهام ربع سنوية وسنوية">Quarterly &amp; annual tasks</h4>
+        <ul>
+          <li data-en="Review project profitability across the entire portfolio." data-ar="مراجعة ربحية المشاريع عبر المحفظة بالكامل.">Review project profitability across the entire portfolio.</li>
+          <li data-en="Audit subcontractor bonds and guarantee expiry dates." data-ar="مراجعة خطابات ضمان مقاولي الباطن وتواريخ انتهائها.">Audit subcontractor bonds and guarantee expiry dates.</li>
+          <li data-en="Support the external auditor's review of WIP and revenue recognition." data-ar="دعم مراجعة المراجع الخارجي لـWIP والاعتراف بالإيراد.">Support the external auditor's review of WIP and revenue recognition.</li>
+          <li data-en="Reassess estimated cost-to-complete for long-running projects." data-ar="إعادة تقييم تقدير التكلفة للإكمال للمشاريع طويلة الأمد.">Reassess estimated cost-to-complete for long-running projects.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="entry-box"><strong data-en="Independence principle" data-ar="مبدأ الاستقلالية">Independence principle</strong><br><span data-en="The Site Accountant should not have authority to approve the change orders or client billings they are also recording — separating approval from recording protects against inflated progress claims." data-ar="محاسب الموقع المفروض مايكونش عنده صلاحية اعتماد أوامر التغيير أو مستخلصات العميل اللي هو نفسه بيسجلها — فصل الاعتماد عن التسجيل بيحمي من مطالبات إنجاز مضخّمة.">The Site Accountant should not have authority to approve the change orders or client billings they are also recording — separating approval from recording protects against inflated progress claims.</span></div>
+  </div>
+
+  <div class="data-panel" id="constr-cases">
+    <div class="module-head">
+      <span class="module-tag" data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span>
+      <h3 data-en="Practical cases &amp; problems — Site Accountant desk" data-ar="حالات عملية ومشكلات — مكتب محاسب الموقع">Practical cases &amp; problems — Site Accountant desk</h3>
+      <p class="panel-sub" data-en="Common real-world situations and the recommended way to handle each one." data-ar="مواقف واقعية شائعة وطريقة التعامل المقترحة مع كل واحدة.">Common real-world situations and the recommended way to handle each one.</p>
+    </div>
+    <div class="cases-list">
+      <details class="case-item" open>
+        <summary><span class="case-num">1</span><span data-en="A project manager wants to report higher percentage of completion than actual costs support" data-ar="مدير مشروع عايز يبلّغ عن نسبة إنجاز أعلى مما تدعمه التكاليف الفعلية">A project manager wants to report higher percentage of completion than actual costs support</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Push back — percentage of completion must be based on genuine cost-to-cost or physical measurement, not on what management wants to report this quarter." data-ar="ارفض — نسبة الإنجاز لازم تتبني على أساس تكلفة-لتكلفة حقيقي أو قياس فعلي، مش على اللي الإدارة عايزة تبلّغ عنه الربع ده.">Push back — percentage of completion must be based on genuine cost-to-cost or physical measurement, not on what management wants to report this quarter.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">2</span><span data-en="A subcontractor submits a payment application for work that has not actually been completed on site" data-ar="مقاول من الباطن قدّم طلب دفع لشغل أبدًا ما اكتمل فعليًا في الموقع">A subcontractor submits a payment application for work that has not actually been completed on site</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Verify actual physical progress (a site visit or engineer's certification) before certifying the subcontractor payment, regardless of the relationship." data-ar="تحقق من التقدّم الفعلي المادي (زيارة موقع أو اعتماد مهندس) قبل اعتماد دفعة مقاول الباطن، بغض النظر عن العلاقة.">Verify actual physical progress (a site visit or engineer's certification) before certifying the subcontractor payment, regardless of the relationship.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">3</span><span data-en="A change order is being executed on-site before it is formally priced and approved" data-ar="أمر تغيير بيتنفذ في الموقع قبل ما يتسعّر ويتاعتمد رسميًا">A change order is being executed on-site before it is formally priced and approved</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Flag this immediately — unpriced change orders create real risk of disputed costs later; work should not proceed without at least a provisional agreement." data-ar="ارصدها فورًا — أوامر التغيير غير المسعّرة بتخلق مخاطرة حقيقية لنزاع تكاليف لاحقًا؛ الشغل مايفروضش يكمّل من غير اتفاق مبدئي على الأقل.">Flag this immediately — unpriced change orders create real risk of disputed costs later; work should not proceed without at least a provisional agreement.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">4</span><span data-en="Retention is being released to a subcontractor before the defects liability period ends" data-ar="احتجاز بيتفرج عنه لمقاول باطن قبل ما فترة ضمان العيوب تخلص">Retention is being released to a subcontractor before the defects liability period ends</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Decline — retention exists specifically to cover defect risk during that period; releasing it early defeats its entire purpose." data-ar="ارفض — الاحتجاز موجود تحديدًا عشان يغطي مخاطرة العيوب خلال الفترة دي؛ الإفراج المبكر عنه بيلغي غرضه بالكامل.">Decline — retention exists specifically to cover defect risk during that period; releasing it early defeats its entire purpose.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">5</span><span data-en="A project is trending toward a loss, but the project manager doesn't want to report it this period" data-ar="مشروع متجه نحو خسارة، لكن مدير المشروع مش عايز يبلّغ عنها الفترة دي">A project is trending toward a loss, but the project manager doesn't want to report it this period</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Recognize the full expected loss immediately once it becomes foreseeable — this is a basic accounting principle for long-term contracts, not an optional choice." data-ar="اعترف بالخسارة المتوقعة كاملة فورًا بمجرد ما تبقى متوقعة — ده مبدأ محاسبي أساسي للعقود طويلة الأجل، مش خيار اختياري.">Recognize the full expected loss immediately once it becomes foreseeable — this is a basic accounting principle for long-term contracts, not an optional choice.</p></div></div>
+      </details>
+      <details class="case-item">
+        <summary><span class="case-num">6</span><span data-en="The client disputes an approved change order's value after the work is already complete" data-ar="العميل نازع في قيمة أمر تغيير معتمد بعد ما الشغل خلص بالفعل">The client disputes an approved change order's value after the work is already complete</summary>
+        <div class="case-body"><div class="case-block"><p data-en="Present the documented approval trail (signed change order, correspondence) — this is exactly why proper change-order documentation matters before starting work." data-ar="اعرض مسار الاعتماد الموثّق (أمر تغيير موقّع، مراسلات) — ده بالظبط ليه توثيق أمر التغيير الصحيح مهم قبل بدء الشغل.">Present the documented approval trail (signed change order, correspondence) — this is exactly why proper change-order documentation matters before starting work.</p></div></div>
+      </details>
+    </div>
+  </div>
+
+  <div class="data-panel" id="constr-calc">
+    <div class="module-head">
+      <span class="module-tag" data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span>
+      <h3 data-en="Construction Accounting Formulas" data-ar="معادلات محاسبة المقاولات">Construction Accounting Formulas</h3>
+      <p class="panel-sub" data-en="Percentage of completion, WIP schedule, retention, change orders and project profitability. Formula, meaning and a live calculator for each." data-ar="نسبة الإنجاز، جدول WIP، الاحتجاز، أوامر التغيير وربحية المشروع. الصيغة والمعنى وحاسبة حية لكل واحدة.">Percentage of completion, WIP schedule, retention, change orders and project profitability. Formula, meaning and a live calculator for each.</p>
+    </div>
+    <div id="constr-calc-list"></div>
+  </div>
+
+  <div class="data-panel" id="constr-spot-error">
+    <div class="module-head">
+      <span class="module-tag" data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span>
+      <h3 data-en="🔍 Spot the Error" data-ar="🔍 اكتشف الغلط">🔍 Spot the Error</h3>
+      <p class="panel-sub" data-en="A short scenario, three options, one genuinely correct fix. Work through them one at a time." data-ar="سيناريو قصير، 3 خيارات، حل واحد صحيح فعليًا. اشتغل عليهم واحد واحد.">A short scenario, three options, one genuinely correct fix. Work through them one at a time.</p>
+    </div>
+    <div id="constr-spot-scenario"></div>
+  </div>
+
+  <div class="data-panel" id="constr-fraud">
+    <div class="module-head">
+      <span class="module-tag" data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span>
+      <h3 data-en="🕵️ Fraud Catcher" data-ar="🕵️ صائد الاحتيال">🕵️ Fraud Catcher</h3>
+      <p class="panel-sub" data-en="Real schemes used to manipulate project cost, billing and revenue recognition — presented for detection and control, not execution." data-ar="حيل حقيقية بتُستخدم للتلاعب بتكلفة المشروع والفوترة والاعتراف بالإيراد — معروضة لأغراض الاكتشاف والرقابة، مش التنفيذ.">Real schemes used to manipulate project cost, billing and revenue recognition — presented for detection and control, not execution.</p>
+    </div>
+    <div class="search-wrap" style="max-width:360px;margin-bottom:16px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="constr-fraud-search" oninput="learnFilterCards('constr-fraud-search','constr-fraud-list')" placeholder="Search schemes…">
+    </div>
+    <div id="constr-fraud-list" class="cases-list"></div>
+  </div>
+
+  <div class="data-panel" id="constr-quiz">
+    <div class="module-head">
+      <span class="module-tag" data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ محاسب الموقع</span>
+      <h3 data-en="🏆 Mastery Quiz" data-ar="🏆 اختبار الإتقان">🏆 Mastery Quiz</h3>
+      <p class="panel-sub" data-en="Questions on percentage of completion, WIP, retention and change orders. Score 70% or higher to earn Mastery." data-ar="أسئلة على نسبة الإنجاز وWIP والاحتجاز وأوامر التغيير. احصل على 70% أو أكتر عشان تكسب الإتقان.">Questions on percentage of completion, WIP, retention and change orders. Score 70% or higher to earn Mastery.</p>
+    </div>
+    <div id="quiz-body-constr"></div>
   </div>
 
   <div class="data-panel" id="cost-home">
@@ -7725,6 +8125,20 @@ const WORKSPACES = {
       {id:'gl-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
   },
+  tax: {
+    kicker: ['TAX ACCOUNTANT', 'محاسب الضرائب'],
+    title: ['Tax Accountant Workspace', 'مساحة عمل محاسب الضرائب'],
+    subtitle: ['File on time, deduct correctly, and never structure a transaction purely to dodge tax.', 'قدّم في الميعاد، اخصم صح، وما تهيكلش معاملة بغرض التهرب بس.'],
+    tabs: [
+      {id:'tax-home', en:'Daily Desk', ar:'المكتب اليومي'},
+      {id:'tax-role', en:'Role & Procedures', ar:'الدور والإجراءات'},
+      {id:'tax-cases', en:'Cases & Problems', ar:'حالات ومشاكل'},
+      {id:'tax-calc', en:'Tax Formulas &amp; Metrics', ar:'معادلات ومؤشرات ضريبية'},
+      {id:'tax-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
+      {id:'tax-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
+      {id:'tax-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
+    ]
+  },
   ratios: {
     kicker: ['FINANCIAL RATIOS', 'النسب المالية'],
     title: ['Financial Ratios Workspace', 'مساحة عمل النسب المالية'],
@@ -7780,17 +8194,33 @@ const WORKSPACES = {
       {id:'cost-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'cost-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
+  },
+  constr: {
+    kicker: ['SITE ACCOUNTANT — CONSTRUCTION', 'محاسب الموقع — قطاع الإنشاءات'],
+    title: ['Site Accountant Workspace', 'مساحة عمل محاسب الموقع'],
+    subtitle: ['Track project cost, recognize revenue honestly, and protect the company from unpriced risk.', 'تتبّع تكلفة المشروع، اعترف بالإيراد بأمانة، واحمِ الشركة من مخاطر غير مسعّرة.'],
+    tabs: [
+      {id:'constr-home', en:'Daily Desk', ar:'المكتب اليومي'},
+      {id:'constr-role', en:'Role & Procedures', ar:'الدور والإجراءات'},
+      {id:'constr-cases', en:'Cases & Problems', ar:'حالات ومشاكل'},
+      {id:'constr-calc', en:'Construction Accounting Formulas', ar:'معادلات محاسبة المقاولات'},
+      {id:'constr-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
+      {id:'constr-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
+      {id:'constr-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
+    ]
   }
 };
 
 const PANEL_TO_WS = {
   overview:'settings', coa:'settings', departments:'settings',
   'gl-home':'gl', 'gl-role':'gl', 'gl-cases':'gl', 'gl-close':'gl', 'gl-trial-balance':'gl', 'gl-financials':'gl', 'gl-fixed-assets':'gl', 'gl-cashflow':'gl', 'gl-entries':'gl', 'gl-spot-error':'gl', 'gl-quiz':'gl', 'gl-fraud':'gl',
+  'tax-home':'tax', 'tax-role':'tax', 'tax-cases':'tax', 'tax-calc':'tax', 'tax-spot-error':'tax', 'tax-fraud':'tax', 'tax-quiz':'tax',
   'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn',
   'learn-ratios':'ratios', 'ratios-quiz':'ratios', 'ratios-fraud':'ratios', 'ratios-spot-error':'ratios', 'ratios-home':'ratios', 'ratios-cases':'ratios',
   'bc-home':'bc', 'bc-cases':'bc', 'bc-sod':'bc', 'bc-quiz':'bc', 'bc-fraud':'bc', 'bc-spot-error':'bc',
   'aud-home':'aud', 'aud-program':'aud', 'aud-findings':'aud', 'aud-quiz':'aud', 'aud-fraud':'aud', 'aud-spot-error':'aud', 'aud-cases':'aud',
   'cost-home':'cost', 'cost-role':'cost', 'cost-cases':'cost', 'cost-calc':'cost', 'cost-capital':'cost', 'cost-quality':'cost', 'cost-spot-error':'cost', 'cost-fraud':'cost', 'cost-quiz':'cost',
+  'constr-home':'constr', 'constr-role':'constr', 'constr-cases':'constr', 'constr-calc':'constr', 'constr-spot-error':'constr', 'constr-fraud':'constr', 'constr-quiz':'constr',
   'ar-home':'ar', customers:'ar', 'ar-new-customer':'ar', 'ar-cycle':'ar', 'ar-entries':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'ar-statement':'ar', 'ar-aging':'ar', 'ar-workflow':'ar', 'ar-role':'ar', 'ar-cases':'ar', 'ar-bridge':'ar', 'cross-tickets':'ar',
   'ap-home':'ap', suppliers:'ap', 'ap-new-supplier':'ap', 'ap-cycle':'ap', 'ap-entries':'ap', 'ap-spot-error':'ap', 'ap-quiz':'ap', 'ap-fraud':'ap', 'ap-statement':'ap', 'ap-aging':'ap', 'ap-workflow':'ap', 'ap-role':'ap', 'ap-cases':'ap', 'ap-bridge':'ap',
   'inv-home':'inv', inventory:'inv', 'inv-new-item':'inv', 'inv-workflow':'inv', 'inv-entries':'inv', 'inv-spot-error':'inv', 'inv-fraud':'inv', 'inv-quiz':'inv', 'inv-role':'inv', 'inv-cases':'inv',
@@ -7988,7 +8418,7 @@ function showPanel(id, btn, isBack){
   }
   currentPanelId = id;
   const wsKey = PANEL_TO_WS[id];
-  if(wsKey && ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv','learn'].includes(wsKey) && typeof homeMarkVisited==='function'){
+  if(wsKey && ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv','constr','tax','learn'].includes(wsKey) && typeof homeMarkVisited==='function'){
     homeMarkVisited(wsKey);
   }
   document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
@@ -8014,11 +8444,13 @@ function showPanel(id, btn, isBack){
   const parentMap = {
     overview:'overview', coa:'overview', departments:'overview',
     'gl-home':'gl-home', 'gl-role':'gl-home', 'gl-cases':'gl-home', 'gl-close':'gl-home', 'gl-trial-balance':'gl-home', 'gl-financials':'gl-home', 'gl-fixed-assets':'gl-home', 'gl-cashflow':'gl-home', 'gl-entries':'gl-home', 'gl-spot-error':'gl-home', 'gl-quiz':'gl-home', 'gl-fraud':'gl-home',
+    'tax-home':'tax-home', 'tax-role':'tax-home', 'tax-cases':'tax-home', 'tax-calc':'tax-home', 'tax-spot-error':'tax-home', 'tax-fraud':'tax-home', 'tax-quiz':'tax-home',
     'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home',
     'learn-ratios':'learn-ratios', 'ratios-quiz':'learn-ratios', 'ratios-fraud':'learn-ratios', 'ratios-spot-error':'learn-ratios', 'ratios-home':'learn-ratios', 'ratios-cases':'learn-ratios',
     'bc-home':'bc-home', 'bc-cases':'bc-home', 'bc-sod':'bc-home', 'bc-quiz':'bc-home', 'bc-fraud':'bc-home', 'bc-spot-error':'bc-home',
     'aud-home':'aud-home', 'aud-program':'aud-home', 'aud-findings':'aud-home', 'aud-quiz':'aud-home', 'aud-fraud':'aud-home', 'aud-spot-error':'aud-home', 'aud-cases':'aud-home',
     'cost-home':'cost-home', 'cost-role':'cost-home', 'cost-cases':'cost-home', 'cost-calc':'cost-home', 'cost-capital':'cost-home', 'cost-quality':'cost-home', 'cost-spot-error':'cost-home', 'cost-fraud':'cost-home', 'cost-quiz':'cost-home',
+    'constr-home':'constr-home', 'constr-role':'constr-home', 'constr-cases':'constr-home', 'constr-calc':'constr-home', 'constr-spot-error':'constr-home', 'constr-fraud':'constr-home', 'constr-quiz':'constr-home',
     'ar-home':'ar-home', customers:'ar-home', 'ar-new-customer':'ar-home', 'ar-cycle':'ar-home', 'ar-entries':'ar-home', 'ar-spot-error':'ar-home', 'ar-quiz':'ar-home', 'ar-fraud':'ar-home', 'ar-statement':'ar-home', 'ar-aging':'ar-home', 'ar-workflow':'ar-home', 'ar-role':'ar-home', 'ar-cases':'ar-home', 'ar-bridge':'ar-home', 'cross-tickets':'ar-home',
     'ap-home':'ap-home', suppliers:'ap-home', 'ap-new-supplier':'ap-home', 'ap-cycle':'ap-home', 'ap-entries':'ap-home', 'ap-spot-error':'ap-home', 'ap-quiz':'ap-home', 'ap-fraud':'ap-home', 'ap-statement':'ap-home', 'ap-aging':'ap-home', 'ap-workflow':'ap-home', 'ap-role':'ap-home', 'ap-cases':'ap-home', 'ap-bridge':'ap-home',
     'inv-home':'inv-home', inventory:'inv-home', 'inv-new-item':'inv-home', 'inv-workflow':'inv-home', 'inv-entries':'inv-home', 'inv-spot-error':'inv-home', 'inv-fraud':'inv-home', 'inv-quiz':'inv-home', 'inv-role':'inv-home', 'inv-cases':'inv-home',
@@ -10720,6 +11152,275 @@ function recvCalc(uid){
   else el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2});
 }
 
+const CONSTR_FORMULAS = [
+  {category:'poc', cat_en:'Percentage of Completion &amp; Revenue', cat_ar:'نسبة الإنجاز والإيراد',
+   name_en:'Percentage of Completion (Cost-to-Cost)', name_ar:'نسبة الإنجاز (تكلفة إلى تكلفة)',
+   formula_en:'Costs Incurred to Date ÷ Total Estimated Costs', formula_ar:'التكاليف المتكبدة لتاريخه ÷ إجمالي التكاليف التقديرية',
+   explain_en:'The most common way to measure how far along a long-term contract genuinely is, based on cost incurred rather than time elapsed.',
+   explain_ar:'الطريقة الأكتر شيوعًا لقياس قد إيه عقد طويل الأجل فعليًا متقدّم، بناءً على التكلفة المتكبدة مش الوقت المنقضي.',
+   inputs:[{key:'cid',en:'Costs Incurred to Date',ar:'التكاليف المتكبدة لتاريخه'},{key:'tec',en:'Total Estimated Costs',ar:'إجمالي التكاليف التقديرية'}],
+   compute:v=>v.tec?v.cid/v.tec:null, format:'pct'},
+  {category:'poc', cat_en:'Percentage of Completion &amp; Revenue', cat_ar:'نسبة الإنجاز والإيراد',
+   name_en:'Revenue to Recognize to Date', name_ar:'الإيراد الواجب الاعتراف به لتاريخه',
+   formula_en:'% Completion × Total Contract Value', formula_ar:'% الإنجاز × إجمالي قيمة العقد',
+   explain_en:'The total revenue that should have been recognized so far across the whole life of the contract, based on genuine progress.',
+   explain_ar:'إجمالي الإيراد المفروض يتم الاعتراف بيه لحد دلوقتي عبر حياة العقد كاملة، بناءً على تقدّم حقيقي.',
+   inputs:[{key:'pct',en:'% Completion (e.g. 45)',ar:'% الإنجاز (مثلًا 45)'},{key:'tcv',en:'Total Contract Value',ar:'إجمالي قيمة العقد'}],
+   compute:v=>(v.pct/100)*v.tcv, format:'value'},
+  {category:'poc', cat_en:'Percentage of Completion &amp; Revenue', cat_ar:'نسبة الإنجاز والإيراد',
+   name_en:'Revenue to Recognize This Period', name_ar:'الإيراد الواجب الاعتراف به لهذه الفترة',
+   formula_en:'Revenue to Recognize to Date − Revenue Recognized in Prior Periods', formula_ar:'الإيراد الواجب الاعتراف به لتاريخه − الإيراد المعترف به في الفترات السابقة',
+   explain_en:'The incremental revenue that belongs specifically to this period\'s income statement, not the full cumulative amount.',
+   explain_ar:'الإيراد الإضافي اللي يخص تحديدًا قائمة دخل الفترة دي، مش المبلغ التراكمي الكامل.',
+   inputs:[{key:'rtd',en:'Revenue to Recognize to Date',ar:'الإيراد الواجب الاعتراف به لتاريخه'},{key:'rpp',en:'Revenue Recognized in Prior Periods',ar:'الإيراد المعترف به في الفترات السابقة'}],
+   compute:v=>v.rtd-v.rpp, format:'value'},
+  {category:'wip', cat_en:'WIP Schedule', cat_ar:'جدول الأعمال تحت التنفيذ',
+   name_en:'Underbilling (Costs and Earnings in Excess of Billings)', name_ar:'عدم اكتمال الفوترة (تكاليف وأرباح تتخطى الفواتير)',
+   formula_en:'Revenue Recognized to Date − Billings to Date', formula_ar:'الإيراد المعترف به لتاريخه − الفواتير الصادرة لتاريخه',
+   explain_en:'A positive result is an asset — you\'ve earned more than you\'ve billed the client, a common and healthy WIP position.',
+   explain_ar:'نتيجة موجبة أصل — إنت كسبت أكتر مما فوترت للعميل، وضع WIP شائع وصحي.',
+   inputs:[{key:'rev',en:'Revenue Recognized to Date',ar:'الإيراد المعترف به لتاريخه'},{key:'bill',en:'Billings to Date',ar:'الفواتير الصادرة لتاريخه'}],
+   compute:v=>v.rev-v.bill, format:'value'},
+  {category:'wip', cat_en:'WIP Schedule', cat_ar:'جدول الأعمال تحت التنفيذ',
+   name_en:'Overbilling (Billings in Excess of Costs and Earnings)', name_ar:'تجاوز الفوترة (فواتير تتخطى التكاليف والأرباح)',
+   formula_en:'Billings to Date − Revenue Recognized to Date', formula_ar:'الفواتير الصادرة لتاريخه − الإيراد المعترف به لتاريخه',
+   explain_en:'A positive result is a liability — you\'ve billed the client more than you\'ve actually earned so far, meaning cash collected ahead of work done.',
+   explain_ar:'نتيجة موجبة التزام — إنت فوترت العميل أكتر مما فعليًا كسبت لحد دلوقتي، معناه كاش اتحصّل قبل الشغل المنجز.',
+   inputs:[{key:'bill',en:'Billings to Date',ar:'الفواتير الصادرة لتاريخه'},{key:'rev',en:'Revenue Recognized to Date',ar:'الإيراد المعترف به لتاريخه'}],
+   compute:v=>v.bill-v.rev, format:'value'},
+  {category:'profit', cat_en:'Project Profitability', cat_ar:'ربحية المشروع',
+   name_en:'Estimated Gross Profit', name_ar:'إجمالي الربح التقديري',
+   formula_en:'Total Contract Value − Total Estimated Costs', formula_ar:'إجمالي قيمة العقد − إجمالي التكاليف التقديرية',
+   explain_en:'The total profit the project is expected to generate over its entire life, before any revenue has actually been recognized.',
+   explain_ar:'إجمالي الربح المتوقع من المشروع عبر حياته بالكامل، قبل ما أي إيراد فعليًا يتم الاعتراف بيه.',
+   inputs:[{key:'tcv',en:'Total Contract Value',ar:'إجمالي قيمة العقد'},{key:'tec',en:'Total Estimated Costs',ar:'إجمالي التكاليف التقديرية'}],
+   compute:v=>v.tcv-v.tec, format:'value'},
+  {category:'profit', cat_en:'Project Profitability', cat_ar:'ربحية المشروع',
+   name_en:'Gross Profit Recognized to Date', name_ar:'إجمالي الربح المعترف به لتاريخه',
+   formula_en:'Revenue Recognized to Date − Costs Incurred to Date', formula_ar:'الإيراد المعترف به لتاريخه − التكاليف المتكبدة لتاريخه',
+   explain_en:'The actual profit booked so far on this project, matching the percentage of completion already recognized.',
+   explain_ar:'الربح الفعلي المسجّل لحد دلوقتي على المشروع ده، بما يتماشى مع نسبة الإنجاز المعترف بها بالفعل.',
+   inputs:[{key:'rev',en:'Revenue Recognized to Date',ar:'الإيراد المعترف به لتاريخه'},{key:'cid',en:'Costs Incurred to Date',ar:'التكاليف المتكبدة لتاريخه'}],
+   compute:v=>v.rev-v.cid, format:'value'},
+  {category:'profit', cat_en:'Project Profitability', cat_ar:'ربحية المشروع',
+   name_en:'Estimated Cost to Complete', name_ar:'التكلفة التقديرية للإكمال',
+   formula_en:'Total Estimated Costs − Costs Incurred to Date', formula_ar:'إجمالي التكاليف التقديرية − التكاليف المتكبدة لتاريخه',
+   explain_en:'The remaining cost genuinely expected to finish the project — critical for spotting a project that\'s about to run over budget.',
+   explain_ar:'التكلفة المتبقية المتوقعة فعليًا لإكمال المشروع — حرجة لاكتشاف مشروع أوشك يتخطى الموازنة.',
+   inputs:[{key:'tec',en:'Total Estimated Costs',ar:'إجمالي التكاليف التقديرية'},{key:'cid',en:'Costs Incurred to Date',ar:'التكاليف المتكبدة لتاريخه'}],
+   compute:v=>v.tec-v.cid, format:'value'},
+  {category:'profit', cat_en:'Project Profitability', cat_ar:'ربحية المشروع',
+   name_en:'Cost Overrun Variance', name_ar:'انحراف تجاوز التكلفة',
+   formula_en:'Actual Costs to Date − Budgeted Costs to Date (Same Stage)', formula_ar:'التكاليف الفعلية لتاريخه − التكاليف المخططة لتاريخه (نفس المرحلة)',
+   explain_en:'Positive means the project is spending more than planned for the same stage of progress — an early warning sign worth investigating.',
+   explain_ar:'موجب معناه المشروع بيصرف أكتر من المخطط لنفس مرحلة التقدّم — علامة إنذار مبكر تستاهل التحقيق.',
+   inputs:[{key:'act',en:'Actual Costs to Date',ar:'التكاليف الفعلية لتاريخه'},{key:'bud',en:'Budgeted Costs to Date (Same Stage)',ar:'التكاليف المخططة لتاريخه (نفس المرحلة)'}],
+   compute:v=>v.act-v.bud, format:'var'},
+  {category:'retention', cat_en:'Retention', cat_ar:'الاحتجاز',
+   name_en:'Retention Withheld from a Billing', name_ar:'الاحتجاز المخصوم من مستخلص',
+   formula_en:'Progress Billing Amount × Retention Rate %', formula_ar:'مبلغ المستخلص × نسبة الاحتجاز %',
+   explain_en:'The amount held back from each progress payment as security against defects, released later per the contract terms.',
+   explain_ar:'المبلغ المحتجز من كل دفعة تقدّم كضمان ضد العيوب، ويتم الإفراج عنه لاحقًا حسب شروط العقد.',
+   inputs:[{key:'pba',en:'Progress Billing Amount',ar:'مبلغ المستخلص'},{key:'rr',en:'Retention Rate % (e.g. 10)',ar:'نسبة الاحتجاز % (مثلًا 10)'}],
+   compute:v=>v.pba*(v.rr/100), format:'value'},
+  {category:'retention', cat_en:'Retention', cat_ar:'الاحتجاز',
+   name_en:'Cumulative Retention Held', name_ar:'إجمالي الاحتجاز المتراكم',
+   formula_en:'Total Billings to Date × Retention Rate %', formula_ar:'إجمالي الفواتير لتاريخه × نسبة الاحتجاز %',
+   explain_en:'The total amount currently held as retention across all billings on this project — a real receivable owed once conditions are met.',
+   explain_ar:'إجمالي المبلغ المحتجز حاليًا عبر كل الفواتير على المشروع ده — مدين حقيقي مستحق بمجرد استيفاء الشروط.',
+   inputs:[{key:'tbd',en:'Total Billings to Date',ar:'إجمالي الفواتير لتاريخه'},{key:'rr',en:'Retention Rate % (e.g. 10)',ar:'نسبة الاحتجاز % (مثلًا 10)'}],
+   compute:v=>v.tbd*(v.rr/100), format:'value'},
+  {category:'co', cat_en:'Change Orders', cat_ar:'أوامر التغيير',
+   name_en:'Revised Contract Value', name_ar:'قيمة العقد المعدّلة',
+   formula_en:'Original Contract Value + Approved Change Orders', formula_ar:'قيمة العقد الأصلية + أوامر التغيير المعتمدة',
+   explain_en:'The true, current contract value after all formally approved scope changes — this is what percentage of completion should be measured against.',
+   explain_ar:'قيمة العقد الحقيقية والحالية بعد كل تغييرات النطاق المعتمدة رسميًا — ده اللي نسبة الإنجاز المفروض تتقاس عليه.',
+   inputs:[{key:'ocv',en:'Original Contract Value',ar:'قيمة العقد الأصلية'},{key:'aco',en:'Approved Change Orders',ar:'أوامر التغيير المعتمدة'}],
+   compute:v=>v.ocv+v.aco, format:'value'},
+  {category:'co', cat_en:'Change Orders', cat_ar:'أوامر التغيير',
+   name_en:'Change Order Cost Impact %', name_ar:'نسبة أثر أمر التغيير على التكلفة',
+   formula_en:'Change Order Additional Cost ÷ Original Estimated Costs', formula_ar:'التكلفة الإضافية لأمر التغيير ÷ التكاليف التقديرية الأصلية',
+   explain_en:'How significant a change order is relative to the original project budget — larger percentages deserve closer management scrutiny.',
+   explain_ar:'قد إيه أمر التغيير جوهري مقارنة بالموازنة الأصلية للمشروع — النسب الأكبر تستاهل تدقيق إداري أقرب.',
+   inputs:[{key:'coc',en:'Change Order Additional Cost',ar:'التكلفة الإضافية لأمر التغيير'},{key:'oec',en:'Original Estimated Costs',ar:'التكاليف التقديرية الأصلية'}],
+   compute:v=>v.oec?v.coc/v.oec:null, format:'pct'}
+];
+
+function learnRenderConstrCalc(){
+  const list = document.getElementById('constr-calc-list'); if(!list) return;
+  const ar = cycleAr();
+  const cats = [];
+  CONSTR_FORMULAS.forEach(r=>{ if(!cats.includes(r.category)) cats.push(r.category); });
+  window._constrRegistry = {};
+  list.innerHTML = cats.map(cat=>{
+    const items = CONSTR_FORMULAS.filter(r=>r.category===cat);
+    const catLabel = ar ? items[0].cat_ar : items[0].cat_en;
+    const cards = items.map((r,i)=>{
+      const uid = cat+'-'+i;
+      window._constrRegistry[uid] = r;
+      const inputsHtml = r.inputs.map(inp=>`<label>${ar?inp.ar:inp.en}<input type="number" inputmode="decimal" id="ci2-${uid}-${inp.key}" oninput="constrCalc('${uid}')" placeholder="0"></label>`).join('');
+      return `<div class="ratio-card">
+        <strong>${ar?r.name_ar:r.name_en}</strong>
+        <div class="ratio-formula">${ar?r.formula_ar:r.formula_en}</div>
+        <p class="ratio-explain">${ar?r.explain_ar:r.explain_en}</p>
+        <div class="ratio-calc">${inputsHtml}</div>
+        <div class="ratio-result" id="cr2-${uid}">—</div>
+      </div>`;
+    }).join('');
+    return `<div class="ratio-category" data-cat="${cat}"><span class="ratio-cat-title">${catLabel}</span><div class="ratio-cards">${cards}</div></div>`;
+  }).join('');
+}
+function constrCalc(uid){
+  const item = window._constrRegistry[uid]; if(!item) return;
+  const values = {};
+  item.inputs.forEach(inp=>{
+    const el = document.getElementById(`ci2-${uid}-${inp.key}`);
+    values[inp.key] = el ? (parseFloat(el.value)||0) : 0;
+  });
+  const result = item.compute(values);
+  const el = document.getElementById(`cr2-${uid}`); if(!el) return;
+  if(result===null || result===undefined || !isFinite(result)){ el.textContent = '—'; return; }
+  const ar = cycleAr();
+  if(item.format==='pct') el.textContent = (result*100).toFixed(1)+'%';
+  else if(item.format==='x') el.textContent = result.toFixed(2)+'x';
+  else if(item.format==='var'){
+    const tag = result>0 ? (ar?' (غير موات)':' (Unfavorable)') : (result<0 ? (ar?' (موات)':' (Favorable)') : '');
+    el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2}) + tag;
+  }
+  else el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2});
+}
+
+const TAX_FORMULAS = [
+  {category:'vat', cat_en:'Value-Added Tax (VAT)', cat_ar:'ضريبة القيمة المضافة',
+   name_en:'Output VAT', name_ar:'ضريبة المخرجات',
+   formula_en:'Taxable Sales × VAT Rate', formula_ar:'المبيعات الخاضعة للضريبة × معدل الضريبة',
+   explain_en:'The VAT a company collects from its customers on taxable sales, which it holds on behalf of the tax authority.',
+   explain_ar:'ضريبة القيمة المضافة اللي الشركة بتحصلها من عملائها على المبيعات الخاضعة، وبتحتفظ بيها نيابة عن مصلحة الضرائب.',
+   inputs:[{key:'sales',en:'Taxable Sales',ar:'المبيعات الخاضعة للضريبة'},{key:'rate',en:'VAT Rate % (e.g. 14)',ar:'معدل الضريبة % (مثلًا 14)'}],
+   compute:v=>v.sales*(v.rate/100), format:'value'},
+  {category:'vat', cat_en:'Value-Added Tax (VAT)', cat_ar:'ضريبة القيمة المضافة',
+   name_en:'Input VAT (Deductible)', name_ar:'ضريبة المدخلات (القابلة للخصم)',
+   formula_en:'Eligible Purchases × VAT Rate', formula_ar:'المشتريات المؤهلة × معدل الضريبة',
+   explain_en:'The VAT a company genuinely pays on its eligible business purchases, which it can generally deduct against output VAT owed.',
+   explain_ar:'ضريبة القيمة المضافة اللي الشركة فعليًا بتدفعها على مشترياتها التجارية المؤهلة، واللي عمومًا تقدر تخصمها مقابل ضريبة المخرجات المستحقة.',
+   inputs:[{key:'purch',en:'Eligible Purchases',ar:'المشتريات المؤهلة'},{key:'rate',en:'VAT Rate % (e.g. 14)',ar:'معدل الضريبة % (مثلًا 14)'}],
+   compute:v=>v.purch*(v.rate/100), format:'value'},
+  {category:'vat', cat_en:'Value-Added Tax (VAT)', cat_ar:'ضريبة القيمة المضافة',
+   name_en:'Net VAT Payable / (Receivable)', name_ar:'صافي ضريبة القيمة المضافة المستحقة / (المستردة)',
+   formula_en:'Output VAT − Input VAT', formula_ar:'ضريبة المخرجات − ضريبة المدخلات',
+   explain_en:'Positive means the company owes this amount to the tax authority; negative means the company is owed a refund or credit.',
+   explain_ar:'موجب معناه الشركة مديونة بالمبلغ ده لمصلحة الضرائب؛ سالب معناه الشركة مستحق لها استرداد أو رصيد.',
+   inputs:[{key:'out',en:'Output VAT',ar:'ضريبة المخرجات'},{key:'inp',en:'Input VAT',ar:'ضريبة المدخلات'}],
+   compute:v=>v.out-v.inp, format:'var'},
+  {category:'wht', cat_en:'Withholding Tax (WHT)', cat_ar:'الخصم تحت الحساب',
+   name_en:'Withholding Tax Amount', name_ar:'مبلغ الخصم تحت الحساب',
+   formula_en:'Payment Subject to WHT × WHT Rate', formula_ar:'الدفعة الخاضعة للخصم × معدل الخصم',
+   explain_en:'The amount that must be deducted at source from a payment and remitted directly to the tax authority on the payee\'s behalf.',
+   explain_ar:'المبلغ اللي لازم يتخصم من المصدر من الدفعة ويتورّد مباشرة لمصلحة الضرائب نيابة عن المستفيد.',
+   inputs:[{key:'pay',en:'Payment Subject to WHT',ar:'الدفعة الخاضعة للخصم'},{key:'rate',en:'WHT Rate % (e.g. 5)',ar:'معدل الخصم % (مثلًا 5)'}],
+   compute:v=>v.pay*(v.rate/100), format:'value'},
+  {category:'wht', cat_en:'Withholding Tax (WHT)', cat_ar:'الخصم تحت الحساب',
+   name_en:'Net Payment to Supplier', name_ar:'صافي الدفعة للمورد',
+   formula_en:'Gross Payment − WHT Deducted', formula_ar:'الدفعة الإجمالية − الخصم تحت الحساب المخصوم',
+   explain_en:'The actual cash amount the supplier receives, after the withheld portion is deducted and separately remitted to the tax authority.',
+   explain_ar:'المبلغ النقدي الفعلي اللي المورد بيستلمه، بعد ما الجزء المخصوم يتحصم ويتورّد بشكل منفصل لمصلحة الضرائب.',
+   inputs:[{key:'gross',en:'Gross Payment',ar:'الدفعة الإجمالية'},{key:'wht',en:'WHT Deducted',ar:'الخصم تحت الحساب المخصوم'}],
+   compute:v=>v.gross-v.wht, format:'value'},
+  {category:'cit', cat_en:'Corporate Income Tax', cat_ar:'ضريبة دخل الشركات',
+   name_en:'Taxable Income', name_ar:'الدخل الخاضع للضريبة',
+   formula_en:'Accounting Profit + Non-Deductible Expenses − Tax-Exempt Income', formula_ar:'الربح المحاسبي + المصروفات غير القابلة للخصم − الإيراد المعفى من الضريبة',
+   explain_en:'The income figure the tax authority actually taxes — genuinely different from accounting profit due to items tax law treats differently.',
+   explain_ar:'رقم الدخل اللي مصلحة الضرائب فعليًا بتضرّبه — مختلف فعليًا عن الربح المحاسبي بسبب بنود القانون الضريبي بيعاملها مختلف.',
+   inputs:[{key:'ap',en:'Accounting Profit',ar:'الربح المحاسبي'},{key:'nde',en:'Non-Deductible Expenses',ar:'المصروفات غير القابلة للخصم'},{key:'tei',en:'Tax-Exempt Income',ar:'الإيراد المعفى من الضريبة'}],
+   compute:v=>v.ap+v.nde-v.tei, format:'value'},
+  {category:'cit', cat_en:'Corporate Income Tax', cat_ar:'ضريبة دخل الشركات',
+   name_en:'Corporate Tax Provision', name_ar:'مخصص ضريبة الشركات',
+   formula_en:'Taxable Income × Corporate Tax Rate', formula_ar:'الدخل الخاضع للضريبة × معدل ضريبة الشركات',
+   explain_en:'The tax expense a company must provide for in its financial statements for the current period, based on taxable income.',
+   explain_ar:'مصروف الضريبة اللي الشركة لازم تخصص له في قوائمها المالية للفترة الحالية، بناءً على الدخل الخاضع للضريبة.',
+   inputs:[{key:'ti',en:'Taxable Income',ar:'الدخل الخاضع للضريبة'},{key:'rate',en:'Corporate Tax Rate % (e.g. 22.5)',ar:'معدل ضريبة الشركات % (مثلًا 22.5)'}],
+   compute:v=>v.ti*(v.rate/100), format:'value'},
+  {category:'cit', cat_en:'Corporate Income Tax', cat_ar:'ضريبة دخل الشركات',
+   name_en:'Effective Tax Rate', name_ar:'معدل الضريبة الفعلي',
+   formula_en:'Tax Expense ÷ Accounting Profit Before Tax', formula_ar:'مصروف الضريبة ÷ الربح المحاسبي قبل الضريبة',
+   explain_en:'The real, overall tax burden relative to accounting profit — often different from the statutory rate due to permanent differences.',
+   explain_ar:'العبء الضريبي الحقيقي والإجمالي مقارنة بالربح المحاسبي — غالبًا مختلف عن المعدل القانوني بسبب فروق دائمة.',
+   inputs:[{key:'tax',en:'Tax Expense',ar:'مصروف الضريبة'},{key:'pbt',en:'Accounting Profit Before Tax',ar:'الربح المحاسبي قبل الضريبة'}],
+   compute:v=>v.pbt?v.tax/v.pbt:null, format:'pct'},
+  {category:'deferred', cat_en:'Deferred Tax', cat_ar:'الضريبة المؤجلة',
+   name_en:'Temporary Difference', name_ar:'الفرق المؤقت',
+   formula_en:'Carrying Amount (Accounting) − Tax Base', formula_ar:'القيمة الدفترية (المحاسبية) − الأساس الضريبي',
+   explain_en:'The genuine, temporary gap between an asset or liability\'s accounting value and its tax value — the root cause of deferred tax.',
+   explain_ar:'الفجوة الحقيقية والمؤقتة بين القيمة المحاسبية لأصل أو التزام وقيمته الضريبية — السبب الجذري للضريبة المؤجلة.',
+   inputs:[{key:'carry',en:'Carrying Amount (Accounting)',ar:'القيمة الدفترية (المحاسبية)'},{key:'base',en:'Tax Base',ar:'الأساس الضريبي'}],
+   compute:v=>v.carry-v.base, format:'value'},
+  {category:'deferred', cat_en:'Deferred Tax', cat_ar:'الضريبة المؤجلة',
+   name_en:'Deferred Tax Liability / (Asset)', name_ar:'التزام / (أصل) الضريبة المؤجلة',
+   formula_en:'Temporary Difference × Tax Rate', formula_ar:'الفرق المؤقت × معدل الضريبة',
+   explain_en:'Positive means a deferred tax liability (more tax due later); negative means a deferred tax asset (less tax due later, or a future benefit).',
+   explain_ar:'موجب معناه التزام ضريبة مؤجلة (ضريبة أكتر مستحقة لاحقًا)؛ سالب معناه أصل ضريبة مؤجلة (ضريبة أقل مستحقة لاحقًا، أو فايدة مستقبلية).',
+   inputs:[{key:'td',en:'Temporary Difference',ar:'الفرق المؤقت'},{key:'rate',en:'Tax Rate % (e.g. 22.5)',ar:'معدل الضريبة % (مثلًا 22.5)'}],
+   compute:v=>(v.td*(v.rate/100)), format:'var'},
+  {category:'penalty', cat_en:'Penalties &amp; Tax Planning', cat_ar:'الغرامات والتخطيط الضريبي',
+   name_en:'Late Payment Penalty', name_ar:'غرامة التأخير في السداد',
+   formula_en:'Tax Due × Penalty Rate % × Number of Periods Late', formula_ar:'الضريبة المستحقة × معدل الغرامة % × عدد فترات التأخير',
+   explain_en:'The genuine cost of late filing or payment — a real, avoidable expense that timely compliance simply eliminates.',
+   explain_ar:'التكلفة الحقيقية للتقديم أو السداد المتأخر — مصروف حقيقي وقابل للتفادي، الالتزام في الميعاد بيلغيه ببساطة.',
+   inputs:[{key:'due',en:'Tax Due',ar:'الضريبة المستحقة'},{key:'rate',en:'Penalty Rate % per Period (e.g. 1.5)',ar:'معدل الغرامة % لكل فترة (مثلًا 1.5)'},{key:'periods',en:'Number of Periods Late',ar:'عدد فترات التأخير'}],
+   compute:v=>v.due*(v.rate/100)*v.periods, format:'value'},
+  {category:'penalty', cat_en:'Penalties &amp; Tax Planning', cat_ar:'الغرامات والتخطيط الضريبي',
+   name_en:'After-Tax Cost of an Expense', name_ar:'التكلفة بعد الضريبة لمصروف',
+   formula_en:'Pre-Tax Cost × (1 − Tax Rate)', formula_ar:'التكلفة قبل الضريبة × (1 − معدل الضريبة)',
+   explain_en:'The genuine net cost of a deductible expense after accounting for the tax savings it generates — useful for real cost-benefit comparisons.',
+   explain_ar:'التكلفة الصافية الحقيقية لمصروف قابل للخصم بعد حساب الوفورات الضريبية اللي بيولّدها — مفيدة لمقارنات تكلفة-عائد حقيقية.',
+   inputs:[{key:'cost',en:'Pre-Tax Cost',ar:'التكلفة قبل الضريبة'},{key:'rate',en:'Tax Rate % (e.g. 22.5)',ar:'معدل الضريبة % (مثلًا 22.5)'}],
+   compute:v=>v.cost*(1-(v.rate/100)), format:'value'}
+];
+
+function learnRenderTaxCalc(){
+  const list = document.getElementById('tax-calc-list'); if(!list) return;
+  const ar = cycleAr();
+  const cats = [];
+  TAX_FORMULAS.forEach(r=>{ if(!cats.includes(r.category)) cats.push(r.category); });
+  window._taxRegistry = {};
+  list.innerHTML = cats.map(cat=>{
+    const items = TAX_FORMULAS.filter(r=>r.category===cat);
+    const catLabel = ar ? items[0].cat_ar : items[0].cat_en;
+    const cards = items.map((r,i)=>{
+      const uid = cat+'-'+i;
+      window._taxRegistry[uid] = r;
+      const inputsHtml = r.inputs.map(inp=>`<label>${ar?inp.ar:inp.en}<input type="number" inputmode="decimal" id="ci3-${uid}-${inp.key}" oninput="taxCalc('${uid}')" placeholder="0"></label>`).join('');
+      return `<div class="ratio-card">
+        <strong>${ar?r.name_ar:r.name_en}</strong>
+        <div class="ratio-formula">${ar?r.formula_ar:r.formula_en}</div>
+        <p class="ratio-explain">${ar?r.explain_ar:r.explain_en}</p>
+        <div class="ratio-calc">${inputsHtml}</div>
+        <div class="ratio-result" id="cr3-${uid}">—</div>
+      </div>`;
+    }).join('');
+    return `<div class="ratio-category" data-cat="${cat}"><span class="ratio-cat-title">${catLabel}</span><div class="ratio-cards">${cards}</div></div>`;
+  }).join('');
+}
+function taxCalc(uid){
+  const item = window._taxRegistry[uid]; if(!item) return;
+  const values = {};
+  item.inputs.forEach(inp=>{
+    const el = document.getElementById(`ci3-${uid}-${inp.key}`);
+    values[inp.key] = el ? (parseFloat(el.value)||0) : 0;
+  });
+  const result = item.compute(values);
+  const el = document.getElementById(`cr3-${uid}`); if(!el) return;
+  if(result===null || result===undefined || !isFinite(result)){ el.textContent = '—'; return; }
+  const ar = cycleAr();
+  if(item.format==='pct') el.textContent = (result*100).toFixed(1)+'%';
+  else if(item.format==='x') el.textContent = result.toFixed(2)+'x';
+  else if(item.format==='var'){
+    const tag = result>0 ? (ar?' (التزام)':' (Liability)') : (result<0 ? (ar?' (رصيد/استرداد)':' (Credit/Refund)') : '');
+    el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2}) + tag;
+  }
+  else el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2});
+}
+
 let capYearCount = 3;
 function renderCapYears(){
   const list = document.getElementById('capYearsList'); if(!list) return;
@@ -12908,10 +13609,90 @@ const LEARN_SPOT_SCENARIOS = [
   {en:{title:'Not verifying that a substitute item meets the same regulatory approval', desc:'A supplier substitutes an item with an equivalent from a different manufacturer, and it\'s accepted because the specifications look similar — without checking whether the substitute has the same required regulatory approval or certification.',
     opts:[{t:'That is fine — if the specifications are similar on paper, regulatory approval status is a formality that rarely differs.', ok:false, why:'Regulatory approval is tied to the specific manufacturer and often the specific product, not just similar specifications — a substitute may genuinely lack required approval.'},{t:'Verify the substitute item carries the same required regulatory approval or certification before accepting it as equivalent.', ok:true, why:'Correct — similar specifications don\'t guarantee the same regulatory status; this needs independent verification, especially for regulated goods.'},{t:'Accept the substitute, and assume the supplier would only offer something with proper certification.', ok:false, why:'Assuming supplier good faith without verification removes the actual control and risks accepting genuinely non-compliant product.'}]},
    ar:{title:'عدم التحقق من إن صنف بديل بيستوفي نفس الاعتماد التنظيمي', desc:'مورد استبدل صنف بمكافئ من مصنّع مختلف، واتقبل لأن المواصفات شكلها متشابهة — من غير التحقق هل البديل عنده نفس الاعتماد التنظيمي أو الشهادة المطلوبة.',
-    opts:[{t:'ده تمام — لو المواصفات متشابهة على الورق، حالة الاعتماد التنظيمي إجراء شكلي نادرًا ما يختلف.', ok:false, why:'الاعتماد التنظيمي مرتبط بالمصنّع المحدد وغالبًا المنتج المحدد، مش بس مواصفات متشابهة — البديل ممكن فعليًا يفتقر للاعتماد المطلوب.'},{t:'تحقق من إن الصنف البديل بيحمل نفس الاعتماد التنظيمي أو الشهادة المطلوبة قبل قبوله كمكافئ.', ok:true, why:'صح — مواصفات متشابهة مابتضمنش نفس الحالة التنظيمية؛ ده محتاج تحقق مستقل، خصوصًا للبضاعة المنظّمة.'},{t:'اقبل البديل، وافترض إن المورد مش هيعرض حاجة من غير شهادة مناسبة.', ok:false, why:'افتراض حسن نية المورد من غير تحقق بيشيل الضابط الفعلي وبيخاطر بقبول منتج فعليًا غير مطابق.'}]}}
+    opts:[{t:'ده تمام — لو المواصفات متشابهة على الورق، حالة الاعتماد التنظيمي إجراء شكلي نادرًا ما يختلف.', ok:false, why:'الاعتماد التنظيمي مرتبط بالمصنّع المحدد وغالبًا المنتج المحدد، مش بس مواصفات متشابهة — البديل ممكن فعليًا يفتقر للاعتماد المطلوب.'},{t:'تحقق من إن الصنف البديل بيحمل نفس الاعتماد التنظيمي أو الشهادة المطلوبة قبل قبوله كمكافئ.', ok:true, why:'صح — مواصفات متشابهة مابتضمنش نفس الحالة التنظيمية؛ ده محتاج تحقق مستقل، خصوصًا للبضاعة المنظّمة.'},{t:'اقبل البديل، وافترض إن المورد مش هيعرض حاجة من غير شهادة مناسبة.', ok:false, why:'افتراض حسن نية المورد من غير تحقق بيشيل الضابط الفعلي وبيخاطر بقبول منتج فعليًا غير مطابق.'}]}},
+  {en:{title:'Measuring percentage of completion by time elapsed instead of cost', desc:'A project accountant calculates percentage of completion as (months elapsed ÷ total contract months), instead of using costs incurred versus total estimated costs.',
+    opts:[{t:'That is fine — time elapsed is a simple, reasonable proxy for progress on any contract.', ok:false, why:'Time elapsed often has no real relationship to actual physical or cost progress — a project can be ahead of or behind schedule relative to spending.'},{t:'Use costs incurred to date divided by total estimated costs — the cost-to-cost method reflects genuine progress, not just calendar time.', ok:true, why:'Correct — percentage of completion should be based on genuine cost or physical progress, since time and progress often diverge significantly.'},{t:'Use whichever method produces a higher percentage this period.', ok:false, why:'Choosing a method based on which result looks better, rather than which is genuinely accurate, is exactly the kind of manipulation this control exists to prevent.'}]},
+   ar:{title:'قياس نسبة الإنجاز بالوقت المنقضي بدل التكلفة', desc:'محاسب مشروع حسب نسبة الإنجاز كـ(الشهور المنقضية ÷ إجمالي شهور العقد)، بدل استخدام التكاليف المتكبدة مقابل إجمالي التكاليف التقديرية.',
+    opts:[{t:'ده تمام — الوقت المنقضي بديل بسيط ومعقول للتقدّم في أي عقد.', ok:false, why:'الوقت المنقضي غالبًا مالوش علاقة حقيقية بالتقدّم المادي أو التكلفة الفعلي — مشروع ممكن يكون متقدّم أو متأخر عن الجدول مقارنة بالإنفاق.'},{t:'استخدم التكاليف المتكبدة لتاريخه مقسومة على إجمالي التكاليف التقديرية — طريقة تكلفة-لتكلفة بتعكس تقدّم حقيقي، مش وقت تقويمي بس.', ok:true, why:'صح — نسبة الإنجاز المفروض تتبني على تكلفة أو تقدّم مادي حقيقي، لأن الوقت والتقدّم غالبًا بيختلفوا بشكل كبير.'},{t:'استخدم أي طريقة بتطلّع نسبة أعلى الفترة دي.', ok:false, why:'اختيار طريقة بناءً على أنهي نتيجة شكلها أحسن، بدل أنهي دقيقة فعليًا، بالظبط نوع التلاعب اللي الضابط ده موجود عشان يمنعه.'}]}},
+  {en:{title:'Not distinguishing underbilling from overbilling on the WIP schedule', desc:'A WIP schedule reports a single net number combining underbilled and overbilled projects together, without showing each project\'s position separately.',
+    opts:[{t:'That is fine — the net total is all that matters for the overall financial position.', ok:false, why:'Combining underbilling (an asset) and overbilling (a liability) into one net number hides which specific projects need attention and misstates the balance sheet presentation.'},{t:'Report underbilled and overbilled positions separately for each project — one is an asset, the other a liability, and they shouldn\'t be netted together.', ok:true, why:'Correct — underbilling and overbilling are genuinely different balance sheet items (asset vs. liability) and must be reported separately, not netted.'},{t:'Report only the overbilling figure and ignore underbilled projects entirely.', ok:false, why:'Ignoring underbilled projects hides a genuine asset and understates the company\'s true financial position.'}]},
+   ar:{title:'عدم التمييز بين عدم اكتمال الفوترة وتجاوزها في جدول WIP', desc:'جدول WIP بيبلّغ عن رقم صافي واحد بيجمع مشاريع ناقصة الفوترة ومشاريع متجاوزة الفوترة مع بعض، من غير ما يوضح موقف كل مشروع منفصل.',
+    opts:[{t:'ده تمام — الإجمالي الصافي هو كل اللي يهم للموقف المالي العام.', ok:false, why:'دمج عدم اكتمال الفوترة (أصل) وتجاوز الفوترة (التزام) في رقم صافي واحد بيخبي أنهي مشاريع محددة محتاجة اهتمام وبيشوّه عرض الميزانية.'},{t:'بلّغ عن مواقف عدم اكتمال الفوترة وتجاوزها بشكل منفصل لكل مشروع — واحد أصل والتاني التزام، ومايفروضش يتم دمجهم صافي.', ok:true, why:'صح — عدم اكتمال الفوترة وتجاوزها بندين ميزانية مختلفين فعليًا (أصل مقابل التزام) ولازم يتبلّغ عنهم منفصلين، مش دمج صافي.'},{t:'بلّغ بس عن رقم تجاوز الفوترة وتجاهل المشاريع الناقصة الفوترة خالص.', ok:false, why:'تجاهل المشاريع الناقصة الفوترة بيخبي أصل حقيقي وبيقلل الموقف المالي الحقيقي للشركة.'}]}},
+  {en:{title:'Including unapproved change order costs in total estimated costs', desc:'A project\'s total estimated costs is updated to include the cost of a change order that has been proposed but not yet formally approved by the client.',
+    opts:[{t:'That is fine — if the change is very likely to be approved, including it early gives a more complete picture.', ok:false, why:'Including unapproved costs in the official estimate risks recognizing revenue against a contract value that doesn\'t genuinely exist yet.'},{t:'Only include change order costs and revised contract value once the change order is formally approved — not while it\'s merely proposed.', ok:true, why:'Correct — percentage of completion and revenue recognition should be based on the contract as it currently, formally stands, not anticipated future approvals.'},{t:'Include half of the proposed change order cost as a compromise.', ok:false, why:'Partially including an unapproved amount is still including something not yet contractually real — there\'s no valid basis for a 50% inclusion.'}]},
+   ar:{title:'تضمين تكاليف أمر تغيير غير معتمد في إجمالي التكاليف التقديرية', desc:'إجمالي التكاليف التقديرية لمشروع اتحدث ليشمل تكلفة أمر تغيير مقترح لكن لسه ما اتاعتمدش رسميًا من العميل.',
+    opts:[{t:'ده تمام — لو التغيير مرجّح جدًا يتاعتمد، تضمينه بدري بيدي صورة أكمل.', ok:false, why:'تضمين تكاليف غير معتمدة في التقدير الرسمي بيخاطر بالاعتراف بإيراد مقابل قيمة عقد مش موجودة فعليًا لسه.'},{t:'ضمّن بس تكاليف أمر التغيير وقيمة العقد المعدّلة بمجرد ما أمر التغيير يتاعتمد رسميًا — مش وهو مجرد مقترح.', ok:true, why:'صح — نسبة الإنجاز والاعتراف بالإيراد المفروض يتبنوا على العقد زي ما هو حاليًا وبشكل رسمي، مش اعتمادات مستقبلية متوقعة.'},{t:'ضمّن نص تكلفة أمر التغيير المقترح كحل وسط.', ok:false, why:'تضمين جزء من مبلغ غير معتمد لسه تضمين حاجة مش حقيقية تعاقديًا بعد — مفيش أساس صحيح لتضمين 50%.'}]}},
+  {en:{title:'Netting retention against an unrelated payable', desc:'A subcontractor\'s retention receivable balance is netted against a completely unrelated payable owed to the same subcontractor on a different project, without formal agreement.',
+    opts:[{t:'That is fine — since it\'s the same subcontractor, netting different project balances together simplifies the accounting.', ok:false, why:'Retention on one project and a payable on a different project are legally and contractually distinct — netting them without agreement can breach contract terms.'},{t:'Keep retention and payables separate by project unless there is a formal, signed agreement with the subcontractor to net specific balances.', ok:true, why:'Correct — each project\'s contractual obligations are distinct; informally netting balances across projects risks a genuine contractual or legal problem.'},{t:'Net them automatically whenever the subcontractor name matches, regardless of project.', ok:false, why:'Automating this based on name alone ignores that each project is a separate contractual relationship with its own terms.'}]},
+   ar:{title:'مقاصة الاحتجاز مقابل مستحق غير مرتبط', desc:'رصيد احتجاز مدين لمقاول باطن بيتقاص مع مستحق دفع غير مرتبط خالص لنفس مقاول الباطن على مشروع مختلف، من غير اتفاق رسمي.',
+    opts:[{t:'ده تمام — طالما نفس مقاول الباطن، مقاصة أرصدة مشاريع مختلفة بتبسّط المحاسبة.', ok:false, why:'احتجاز على مشروع ومستحق دفع على مشروع مختلف متمايزين قانونيًا وتعاقديًا — مقاصتهم من غير اتفاق ممكن تخالف شروط العقد.'},{t:'خلّي الاحتجاز والمستحقات منفصلة حسب المشروع إلا لو فيه اتفاق موقّع رسمي مع مقاول الباطن لمقاصة أرصدة محددة.', ok:true, why:'صح — التزامات كل مشروع التعاقدية متمايزة؛ مقاصة أرصدة بشكل غير رسمي عبر المشاريع بتخاطر بمشكلة تعاقدية أو قانونية حقيقية.'},{t:'قاصّهم أوتوماتيكيًا كل ما اسم مقاول الباطن يتطابق، بغض النظر عن المشروع.', ok:false, why:'أتمتة ده بناءً على الاسم بس بتتجاهل إن كل مشروع علاقة تعاقدية منفصلة بشروطها الخاصة.'}]}},
+  {en:{title:'Not updating the cost-to-complete estimate despite known scope changes', desc:'A significant, known increase in remaining project scope has occurred, but the cost-to-complete estimate used in the WIP schedule has not been revised to reflect it.',
+    opts:[{t:'That is fine — the estimate can be updated at year-end during the annual review.', ok:false, why:'A stale cost-to-complete estimate produces a materially wrong percentage of completion and profitability figure for every period until it\'s corrected.'},{t:'Update the cost-to-complete estimate as soon as a significant, known scope change occurs, not just at year-end.', ok:true, why:'Correct — percentage of completion and profit recognition depend directly on an accurate, current cost-to-complete estimate; delaying updates distorts every period in between.'},{t:'Leave the estimate unchanged, but add a footnote disclosure about the scope change.', ok:false, why:'A footnote doesn\'t fix the fact that percentage of completion and recognized profit are being calculated on stale, incorrect data.'}]},
+   ar:{title:'عدم تحديث تقدير التكلفة للإكمال رغم تغييرات نطاق معروفة', desc:'زيادة جوهرية ومعروفة في نطاق المشروع المتبقي حصلت، لكن تقدير التكلفة للإكمال المستخدم في جدول WIP ما اتراجعش ليعكسها.',
+    opts:[{t:'ده تمام — التقدير ممكن يتحدث آخر السنة أثناء المراجعة السنوية.', ok:false, why:'تقدير تكلفة للإكمال قديم بيطلّع نسبة إنجاز ورقم ربحية غلط بشكل جوهري لكل فترة لحد ما يتصحح.'},{t:'حدّث تقدير التكلفة للإكمال بمجرد ما تغيير نطاق جوهري ومعروف يحصل، مش بس آخر السنة.', ok:true, why:'صح — نسبة الإنجاز والاعتراف بالربح بيعتمدوا مباشرة على تقدير تكلفة للإكمال دقيق وحالي؛ تأخير التحديثات بيشوّه كل فترة بينهم.'},{t:'سيب التقدير زي ما هو، لكن ضيف إفصاح في هامش عن تغيير النطاق.', ok:false, why:'الهامش مابيصلحش حقيقة إن نسبة الإنجاز والربح المعترف به بيتحسبوا على بيانات قديمة وغلط.'}]}},
+  {en:{title:'Treating an advance payment as recognized revenue', desc:'An advance payment received from the client at contract signing is recorded directly as revenue, before any actual work has been performed.',
+    opts:[{t:'That is fine — cash received is cash received, and it can be recognized as revenue immediately.', ok:false, why:'An advance payment is a liability (money held on account for future work), not revenue — recognizing it early overstates current-period income.'},{t:'Record the advance payment as a liability and recognize it as revenue only as work is genuinely performed and earned.', ok:true, why:'Correct — revenue recognition must follow work actually performed, not simply when cash changes hands.'},{t:'Recognize half as revenue immediately and defer the other half.', ok:false, why:'There\'s no valid basis for a 50/50 split — the advance should be fully deferred as a liability until it is genuinely earned through work performed.'}]},
+   ar:{title:'معاملة دفعة مقدمة كإيراد معترف به', desc:'دفعة مقدمة اتستلمت من العميل وقت توقيع العقد اتسجلت مباشرة كإيراد، قبل ما أي شغل فعلي يتم إنجازه.',
+    opts:[{t:'ده تمام — كاش اتستلم يبقى كاش اتستلم، وممكن يتم الاعتراف بيه كإيراد فورًا.', ok:false, why:'الدفعة المقدمة التزام (فلوس محتفظ بيها على الحساب لشغل مستقبلي)، مش إيراد — الاعتراف المبكر بيها بيضخّم دخل الفترة الحالية.'},{t:'سجّل الدفعة المقدمة كالتزام واعترف بيها كإيراد بس مع ما الشغل فعليًا يتم إنجازه وكسبه.', ok:true, why:'صح — الاعتراف بالإيراد لازم يتبع الشغل المنجز فعليًا، مش مجرد وقت انتقال الكاش.'},{t:'اعترف بنص المبلغ كإيراد فورًا وأجّل النص التاني.', ok:false, why:'مفيش أساس صحيح لتقسيم 50/50 — الدفعة المقدمة المفروض تتأجل بالكامل كالتزام لحد ما فعليًا تتكسب من خلال شغل منجز.'}]}},
+  {en:{title:'Not verifying a performance bond\'s validity before starting a major project', desc:'A contract requiring a performance bond is signed and major work begins, without anyone actually confirming the bond was genuinely issued and remains valid.',
+    opts:[{t:'That is fine — the contract file shows a bond was requested, so it can be assumed to be in place.', ok:false, why:'A bond that was requested but never confirmed as genuinely issued provides no real protection if it turns out not to exist or lapsed.'},{t:'Verify the performance bond\'s validity directly with the issuing bank before major work begins, not just check that it was requested.', ok:true, why:'Correct — a bond only provides real protection if it genuinely exists and is valid; this must be independently confirmed, not assumed.'},{t:'Proceed with work, and verify the bond only if a dispute arises later.', ok:false, why:'Waiting until a dispute to check means discovering the bond doesn\'t exist exactly when protection is needed most.'}]},
+   ar:{title:'عدم التحقق من صلاحية ضمان حسن تنفيذ قبل بدء مشروع كبير', desc:'عقد بيشترط ضمان حسن تنفيذ اتوقّع وشغل كبير بدأ، من غير ما حد فعليًا يأكد إن الضمان فعليًا اتصدر ولسه ساري.',
+    opts:[{t:'ده تمام — ملف العقد بيوضح إن ضمان اتطلب، فممكن يُفترض إنه موجود.', ok:false, why:'ضمان اتطلب لكن أبدًا ما اتأكدش إنه فعليًا اتصدر مابيقدّمش أي حماية حقيقية لو طلع مش موجود أو انتهى.'},{t:'تحقق من صلاحية ضمان حسن التنفيذ مباشرة مع البنك المُصدر قبل ما الشغل الكبير يبدأ، مش بس تفحص إنه اتطلب.', ok:true, why:'صح — الضمان بس بيقدّم حماية حقيقية لو فعليًا موجود وساري؛ ده لازم يتأكد بشكل مستقل، مش يُفترض.'},{t:'كمّل الشغل، وتحقق من الضمان بس لو نزاع حصل بعدين.', ok:false, why:'الانتظار لحد النزاع عشان تفحص معناه اكتشاف إن الضمان مش موجود بالظبط لما الحماية أكتر ما تكون محتاجة.'}]}},
+  {en:{title:'Confusing gross profit recognized to date with total estimated gross profit', desc:'A project report presents Total Estimated Gross Profit (the full amount expected over the contract\'s life) as if it were Gross Profit Recognized to Date (the actual profit booked so far).',
+    opts:[{t:'That is correct — since the total is what the project will ultimately earn, either figure can represent current performance.', ok:false, why:'Total estimated gross profit is a future-looking figure for the whole contract life; presenting it as current recognized profit overstates this period\'s actual results.'},{t:'Clearly label and calculate each figure separately — recognized-to-date reflects actual current profit, while total estimated is the full-contract expectation.', ok:true, why:'Correct — conflating these two genuinely different figures overstates the profit actually recognized in current financial statements.'},{t:'Use total estimated gross profit for external reporting since it\'s a larger, more impressive number.', ok:false, why:'Choosing to report a larger number regardless of accuracy is exactly the kind of misrepresentation this distinction exists to prevent.'}]},
+   ar:{title:'الخلط بين الربح المعترف به لتاريخه وإجمالي الربح التقديري', desc:'تقرير مشروع بيعرض إجمالي الربح الإجمالي التقديري (المبلغ الكامل المتوقع عبر حياة العقد) وكأنه الربح الإجمالي المعترف به لتاريخه (الربح الفعلي المسجّل لحد دلوقتي).',
+    opts:[{t:'ده صح — طالما الإجمالي هو اللي المشروع في النهاية هيكسبه، أي رقم من الاتنين ممكن يمثل الأداء الحالي.', ok:false, why:'إجمالي الربح التقديري رقم مستقبلي لحياة العقد كاملة؛ عرضه كربح حالي معترف به بيضخّم نتائج الفترة دي الفعلية.'},{t:'سمّي واحسب كل رقم بشكل منفصل وواضح — المعترف به لتاريخه بيعكس ربح فعلي حالي، والإجمالي التقديري توقّع العقد الكامل.', ok:true, why:'صح — خلط الرقمين المختلفين فعليًا بيضخّم الربح المعترف به فعليًا في القوائم المالية الحالية.'},{t:'استخدم إجمالي الربح الإجمالي التقديري للتقرير الخارجي لأنه رقم أكبر وأكتر إبهارًا.', ok:false, why:'اختيار تبليغ رقم أكبر بغض النظر عن الدقة بالظبط نوع سوء التمثيل اللي التمييز ده موجود عشان يمنعه.'}]}},
+  {en:{title:'Not requiring a second approval for a large change order', desc:'A change order well above the company\'s normal materiality threshold is approved by a single project manager, with no second, independent sign-off required.',
+    opts:[{t:'That is fine — the project manager who knows the project best is the right person to make this call alone.', ok:false, why:'A large change order above materiality thresholds represents genuine financial risk that a single-approver process doesn\'t adequately control.'},{t:'Require a second, independent approval (e.g. from finance or senior management) for any change order above the defined materiality threshold.', ok:true, why:'Correct — dual approval for large financial commitments is a basic control that reduces both error and fraud risk.'},{t:'Require a second approval only if the project manager requests one voluntarily.', ok:false, why:'Making a control optional at the discretion of the very person it\'s meant to check defeats its purpose entirely.'}]},
+   ar:{title:'عدم اشتراط اعتماد ثاني لأمر تغيير كبير', desc:'أمر تغيير أعلى بكتير من حد الجوهرية العادي للشركة اتاعتمد من مدير مشروع واحد، من غير أي اعتماد ثاني ومستقل مطلوب.',
+    opts:[{t:'ده تمام — مدير المشروع اللي عارف المشروع أحسن هو الشخص الصح ياخد القرار ده لوحده.', ok:false, why:'أمر تغيير كبير فوق حدود الجوهرية بيمثل مخاطرة مالية حقيقية عملية اعتماد واحد مابتضبطهاش كفاية.'},{t:'اشترط اعتماد ثاني ومستقل (زي من المالية أو الإدارة العليا) لأي أمر تغيير فوق حد الجوهرية المحدد.', ok:true, why:'صح — الاعتماد المزدوج للالتزامات المالية الكبيرة ضابط أساسي بيقلل مخاطرة الخطأ والاحتيال الاتنين.'},{t:'اشترط اعتماد ثاني بس لو مدير المشروع طلبه بمحض إرادته.', ok:false, why:'خلي الضابط اختياري بتقدير نفس الشخص اللي مفروض يتحقق منه بيلغي غرضه تمامًا.'}]}},
+  {en:{title:'Reporting billings to date without reconciling to the contract sum', desc:'A progress billing is issued and recorded without checking that cumulative billings to date, plus this new billing, still stay within the total (revised) contract value.',
+    opts:[{t:'That is fine — as long as the client agrees to pay each individual billing, cumulative totals don\'t need separate tracking.', ok:false, why:'Without tracking cumulative billings against the contract sum, the company risks over-billing the client beyond what the contract actually allows.'},{t:'Reconcile cumulative billings to date against the total revised contract value before issuing any new progress billing.', ok:true, why:'Correct — every new billing should be checked against the running cumulative total to ensure the company never bills beyond the contract\'s total value.'},{t:'Check cumulative billings only at the very end of the project.', ok:false, why:'Waiting until project completion to check means any over-billing has already happened and may be difficult to unwind.'}]},
+   ar:{title:'تسجيل فواتير لتاريخه من غير مطابقة مع إجمالي العقد', desc:'مستخلص تقدّم اتصدر وسُجل من غير فحص إن إجمالي الفواتير التراكمي لتاريخه، بالإضافة للمستخلص الجديد ده، لسه في حدود إجمالي قيمة العقد (المعدّلة).',
+    opts:[{t:'ده تمام — طالما العميل موافق يدفع كل مستخلص فردي، الإجماليات التراكمية مش محتاجة تتبّع منفصل.', ok:false, why:'من غير تتبّع الفواتير التراكمية مقابل إجمالي العقد، الشركة بتخاطر بفوترة العميل زيادة عن اللي العقد فعليًا بيسمح بيه.'},{t:'طابق الفواتير التراكمية لتاريخه مقابل إجمالي قيمة العقد المعدّلة قبل ما تصدر أي مستخلص تقدّم جديد.', ok:true, why:'صح — كل مستخلص جديد المفروض يتفحص مقابل الإجمالي التراكمي الجاري عشان تضمن إن الشركة أبدًا ما بتفوترش أكتر من إجمالي قيمة العقد.'},{t:'افحص الفواتير التراكمية بس في نهاية المشروع تمامًا.', ok:false, why:'الانتظار لحد اكتمال المشروع عشان تفحص معناه إن أي فوترة زيادة أصلًا حصلت وممكن تكون صعبة التراجع عنها.'}]}},
+  {en:{title:'Not distinguishing original scope costs from change order costs in job costing', desc:'Costs from an approved change order are recorded mixed together with original-scope costs in the job cost ledger, with no way to separately track the change order\'s own cost performance.',
+    opts:[{t:'That is fine — it\'s all the same project, so total cost is what matters, not the breakdown by scope.', ok:false, why:'Without separate tracking, the company loses the ability to see whether the change order itself is profitable or losing money independently of the original scope.'},{t:'Track change order costs separately from original scope costs within the job cost ledger, even though both belong to the same project.', ok:true, why:'Correct — separate tracking lets management see whether change orders are being executed profitably, which is essential information for future negotiations and pricing.'},{t:'Track change order costs separately only for change orders above a certain size.', ok:false, why:'Applying separate tracking only to large change orders still leaves smaller ones invisible, and cost-tracking discipline shouldn\'t depend on size alone.'}]},
+   ar:{title:'عدم التمييز بين تكاليف النطاق الأصلي وتكاليف أوامر التغيير في تكلفة العمل', desc:'تكاليف من أمر تغيير معتمد بتتسجل مخلوطة مع تكاليف النطاق الأصلي في دفتر تكلفة العمل، من غير طريقة لتتبّع أداء تكلفة أمر التغيير نفسه بشكل منفصل.',
+    opts:[{t:'ده تمام — كله نفس المشروع، فإجمالي التكلفة هو اللي يهم، مش التفصيل حسب النطاق.', ok:false, why:'من غير تتبّع منفصل، الشركة بتفقد القدرة إنها تشوف هل أمر التغيير نفسه مربح أو خسران بشكل مستقل عن النطاق الأصلي.'},{t:'تتبّع تكاليف أوامر التغيير بشكل منفصل عن تكاليف النطاق الأصلي جوه دفتر تكلفة العمل، رغم إن الاتنين يخصوا نفس المشروع.', ok:true, why:'صح — التتبّع المنفصل بيخلي الإدارة تشوف هل أوامر التغيير بتتنفذ بربحية، وده معلومة أساسية للتفاوضات والتسعير المستقبلي.'},{t:'تتبّع تكاليف أوامر التغيير بشكل منفصل بس لأوامر التغيير فوق حجم معين.', ok:false, why:'تطبيق التتبّع المنفصل بس على أوامر التغيير الكبيرة لسه بيسيب الأصغر غير مرئية، وانضباط تتبّع التكلفة مايفروضش يعتمد على الحجم بس.'}]}},
+  {en:{title:'Claiming input VAT on a purchase invoice with no valid tax registration number', desc:'A supplier invoice lacks a valid tax registration number, but the amount is still included as input VAT in the periodic VAT return.',
+    opts:[{t:'That is fine — as long as VAT was genuinely paid, it should be claimed regardless of the invoice\'s formal details.', ok:false, why:'A missing or invalid tax registration number risks the entire deduction being disallowed on audit, along with penalties for the improper claim.'},{t:'Do not claim input VAT on this invoice until a valid tax registration number is obtained from the supplier.', ok:true, why:'Correct — proper documentation, including a valid tax registration number, is a genuine requirement for a defensible input VAT claim.'},{t:'Claim half the VAT amount as a cautious compromise.', ok:false, why:'There is no valid basis for a partial claim — either the documentation supports the deduction or it doesn\'t.'}]},
+   ar:{title:'المطالبة بضريبة مدخلات على فاتورة شراء بدون رقم تسجيل ضريبي صحيح', desc:'فاتورة مورد ناقصها رقم تسجيل ضريبي صحيح، لكن المبلغ لسه اتضمن كضريبة مدخلات في إقرار ضريبة القيمة المضافة الدوري.',
+    opts:[{t:'ده تمام — طالما الضريبة فعليًا اتدفعت، المفروض تتطالب بيها بغض النظر عن تفاصيل الفاتورة الشكلية.', ok:false, why:'رقم تسجيل ضريبي ناقص أو غير صحيح بيخاطر برفض الخصم بالكامل عند المراجعة، مع غرامات للمطالبة غير الصحيحة.'},{t:'متطالبش بضريبة مدخلات على الفاتورة دي لحد ما رقم تسجيل ضريبي صحيح يتحصل عليه من المورد.', ok:true, why:'صح — التوثيق الصحيح، شامل رقم تسجيل ضريبي صحيح، شرط حقيقي لمطالبة ضريبة مدخلات قابلة للدفاع عنها.'},{t:'طالب بنص مبلغ الضريبة كحل وسط حذر.', ok:false, why:'مفيش أساس صحيح لمطالبة جزئية — إما التوثيق بيدعم الخصم أو لأ.'}]}},
+  {en:{title:'Recognizing a known tax liability in a later, more convenient period', desc:'A tax liability that genuinely relates to this period is deliberately deferred to next quarter\'s books, to avoid impacting this period\'s reported profit.',
+    opts:[{t:'That is fine — tax liabilities can be recognized whenever is most convenient for reporting purposes.', ok:false, why:'Tax provisions must follow the same accrual accounting principles as any other liability — deferring recognition for reporting optics is a real accounting misstatement.'},{t:'Recognize the tax liability in the period it genuinely relates to, regardless of the impact on that period\'s reported profit.', ok:true, why:'Correct — the timing of recognition should be driven by when the liability genuinely arose, not by which period\'s results look better.'},{t:'Split the liability evenly between this period and next period.', ok:false, why:'Splitting a liability that genuinely belongs to one period is still a form of manipulating when it\'s recognized.'}]},
+   ar:{title:'الاعتراف بالتزام ضريبي معروف في فترة لاحقة وأنسب', desc:'التزام ضريبي فعليًا بيخص الفترة دي بيتأجل بشكل متعمد لدفاتر الربع الجاي، عشان يتفادى التأثير على ربح الفترة دي المُبلَّغ عنه.',
+    opts:[{t:'ده تمام — الالتزامات الضريبية ممكن يتم الاعتراف بيها وقت ما يكون أنسب لأغراض التقرير.', ok:false, why:'المخصصات الضريبية لازم تتبع نفس مبادئ محاسبة الاستحقاق زي أي التزام تاني — تأجيل الاعتراف لمظهر التقرير تحريف محاسبي حقيقي.'},{t:'اعترف بالالتزام الضريبي في الفترة اللي فعليًا يخصها، بغض النظر عن التأثير على ربح الفترة دي المُبلَّغ عنه.', ok:true, why:'صح — توقيت الاعتراف المفروض يتحدد بوقت ما الالتزام فعليًا نشأ، مش أنهي فترة نتائجها هتبان أحسن.'},{t:'قسّم الالتزام بالتساوي بين الفترة دي والفترة الجاية.', ok:false, why:'تقسيم التزام فعليًا يخص فترة واحدة لسه نوع من التلاعب بتوقيت الاعتراف بيه.'}]}},
+  {en:{title:'Confusing accounting profit with taxable income', desc:'A company calculates its corporate tax provision by applying the tax rate directly to accounting profit, without adjusting for non-deductible expenses or tax-exempt income.',
+    opts:[{t:'That is fine — accounting profit and taxable income are always the same figure.', ok:false, why:'Accounting profit and taxable income genuinely differ because tax law treats certain items differently than accounting standards do.'},{t:'Adjust accounting profit for non-deductible expenses and tax-exempt income to arrive at taxable income before applying the tax rate.', ok:true, why:'Correct — the tax provision must be based on taxable income, which requires specific adjustments to accounting profit, not the raw accounting figure.'},{t:'Apply the tax rate to accounting profit, then adjust the result afterward for any known differences.', ok:false, why:'Adjusting the final tax amount rather than the income figure itself doesn\'t produce a mathematically correct provision.'}]},
+   ar:{title:'الخلط بين الربح المحاسبي والدخل الخاضع للضريبة', desc:'شركة بتحسب مخصص ضريبة الشركات بتطبيق معدل الضريبة مباشرة على الربح المحاسبي، من غير تعديل للمصروفات غير القابلة للخصم أو الإيراد المعفى من الضريبة.',
+    opts:[{t:'ده تمام — الربح المحاسبي والدخل الخاضع للضريبة دايمًا نفس الرقم.', ok:false, why:'الربح المحاسبي والدخل الخاضع للضريبة فعليًا مختلفين لأن القانون الضريبي بيعامل بنود معينة مختلف عن المعايير المحاسبية.'},{t:'عدّل الربح المحاسبي بالمصروفات غير القابلة للخصم والإيراد المعفى من الضريبة عشان توصل للدخل الخاضع للضريبة قبل تطبيق معدل الضريبة.', ok:true, why:'صح — المخصص الضريبي لازم يتبني على الدخل الخاضع للضريبة، وده بيتطلب تعديلات محددة على الربح المحاسبي، مش الرقم المحاسبي الخام.'},{t:'طبّق معدل الضريبة على الربح المحاسبي، وبعدين عدّل النتيجة بعد كده لأي فروق معروفة.', ok:false, why:'تعديل مبلغ الضريبة النهائي بدل رقم الدخل نفسه مابيطلّعش مخصص صحيح رياضيًا.'}]}},
+  {en:{title:'Applying the wrong withholding tax rate based on payment category', desc:'A payment for professional services is subjected to the withholding tax rate meant for goods purchases, rather than the rate specifically applicable to services.',
+    opts:[{t:'That is fine — withholding tax rates are roughly similar regardless of the payment category.', ok:false, why:'Different payment categories genuinely have different withholding tax rates under most tax laws; using the wrong rate produces an incorrect deduction.'},{t:'Apply the withholding tax rate specifically applicable to the genuine nature of the payment (services, in this case), not a different category\'s rate.', ok:true, why:'Correct — the correct withholding rate depends on correctly classifying what the payment genuinely represents.'},{t:'Apply the higher of the two possible rates to be cautious.', ok:false, why:'Applying an incorrect, higher rate isn\'t a valid substitute for correct classification — it just creates a different error, over-withholding from the payee.'}]},
+   ar:{title:'تطبيق معدل خصم تحت الحساب غلط بناءً على فئة الدفعة', desc:'دفعة مقابل خدمات مهنية خضعت لمعدل الخصم تحت الحساب المخصص لمشتريات البضائع، بدل المعدل المطبق تحديدًا على الخدمات.',
+    opts:[{t:'ده تمام — معدلات الخصم تحت الحساب متشابهة تقريبًا بغض النظر عن فئة الدفعة.', ok:false, why:'فئات الدفعات المختلفة فعليًا عندها معدلات خصم تحت الحساب مختلفة تحت معظم القوانين الضريبية؛ استخدام معدل غلط بيطلّع خصم غير صحيح.'},{t:'طبّق معدل الخصم تحت الحساب المطبق تحديدًا على الطبيعة الحقيقية للدفعة (خدمات، في الحالة دي)، مش معدل فئة مختلفة.', ok:true, why:'صح — معدل الخصم الصحيح بيعتمد على تصنيف صحيح لما الدفعة فعليًا بتمثله.'},{t:'طبّق الأعلى من المعدلين المحتملين كحذر.', ok:false, why:'تطبيق معدل غلط وأعلى مش بديل صحيح للتصنيف الصحيح — ده بس بيخلق خطأ مختلف، خصم زيادة من المستفيد.'}]}},
+  {en:{title:'Not reconciling withholding tax deducted against amounts remitted', desc:'Withholding tax amounts recorded as deducted from supplier payments are never actually reconciled against what was genuinely remitted to the tax authority.',
+    opts:[{t:'That is fine — as long as the deduction was recorded correctly, remittance can be tracked separately with no formal reconciliation.', ok:false, why:'Without reconciliation, a genuine gap between deducted and remitted amounts could go undetected indefinitely, whether from error or misappropriation.'},{t:'Reconcile total withholding tax deducted against total amounts remitted to the tax authority every period.', ok:true, why:'Correct — this reconciliation is a basic control that catches both genuine errors and potential misappropriation of withheld amounts.'},{t:'Reconcile only once a year during the annual audit.', ok:false, why:'Waiting a full year to check means any gap has already existed undetected for months, at real financial and compliance risk.'}]},
+   ar:{title:'عدم مطابقة الخصم تحت الحساب المخصوم مقابل المبالغ المورّدة', desc:'مبالغ خصم تحت الحساب مسجلة كمخصومة من دفعات موردين أبدًا ما فعليًا اتطابقت مقابل اللي فعليًا اتورّد لمصلحة الضرائب.',
+    opts:[{t:'ده تمام — طالما الخصم اتسجل صح، التوريد ممكن يتتبّع منفصل من غير مطابقة رسمية.', ok:false, why:'من غير مطابقة، فجوة حقيقية بين المبالغ المخصومة والمورّدة ممكن تفوت اكتشافها لأجل غير مسمى، سواء من خطأ أو اختلاس.'},{t:'طابق إجمالي الخصم تحت الحساب المخصوم مقابل إجمالي المبالغ المورّدة لمصلحة الضرائب كل فترة.', ok:true, why:'صح — المطابقة دي ضابط أساسي بيكتشف الأخطاء الحقيقية والاختلاس المحتمل للمبالغ المخصومة الاتنين.'},{t:'طابق بس مرة في السنة أثناء المراجعة السنوية.', ok:false, why:'الانتظار سنة كاملة عشان تفحص معناه إن أي فجوة أصلًا موجودة من غير اكتشاف لشهور، بمخاطرة مالية والتزام حقيقية.'}]}},
+  {en:{title:'Recognizing a deferred tax asset without assessing future recoverability', desc:'A deferred tax asset arising from a temporary difference is recorded in full, without any assessment of whether the company will genuinely generate enough future taxable profit to use it.',
+    opts:[{t:'That is fine — any deferred tax asset calculated should be recorded in full, regardless of future prospects.', ok:false, why:'A deferred tax asset is only genuinely valuable if the company expects sufficient future taxable profit against which to use it — recording it without this assessment overstates assets.'},{t:'Assess whether sufficient future taxable profit is genuinely probable before recognizing the deferred tax asset in full.', ok:true, why:'Correct — recognition of a deferred tax asset requires a genuine assessment of future recoverability, not automatic full recording.'},{t:'Record the deferred tax asset at half its calculated value as a cautious default.', ok:false, why:'An arbitrary 50% reduction isn\'t a substitute for a genuine recoverability assessment based on real future profit projections.'}]},
+   ar:{title:'الاعتراف بأصل ضريبة مؤجلة من غير تقييم إمكانية الاسترداد المستقبلية', desc:'أصل ضريبة مؤجلة ناتج عن فرق مؤقت اتسجل بالكامل، من غير أي تقييم هل الشركة فعليًا هتولّد ربح خاضع للضريبة كافي مستقبلًا عشان تستخدمه.',
+    opts:[{t:'ده تمام — أي أصل ضريبة مؤجلة اتحسب المفروض يتسجل بالكامل، بغض النظر عن التوقعات المستقبلية.', ok:false, why:'أصل الضريبة المؤجلة بس بيكون قيّم فعليًا لو الشركة متوقعة ربح خاضع للضريبة مستقبلي كافي تستخدمه مقابله — تسجيله من غير التقييم ده بيضخّم الأصول.'},{t:'قيّم هل ربح خاضع للضريبة مستقبلي كافي فعليًا محتمل قبل ما تعترف بأصل الضريبة المؤجلة بالكامل.', ok:true, why:'صح — الاعتراف بأصل ضريبة مؤجلة بيتطلب تقييم حقيقي للاسترداد المستقبلي، مش تسجيل كامل أوتوماتيكي.'},{t:'سجّل أصل الضريبة المؤجلة بنص قيمته المحسوبة كافتراضي حذر.', ok:false, why:'تخفيض 50% عشوائي مش بديل لتقييم استرداد حقيقي مبني على توقعات ربح مستقبلي حقيقية.'}]}},
+  {en:{title:'Treating a related-party transaction\'s price as automatically acceptable for tax purposes', desc:'A transaction between related parties is priced significantly differently from market rates, but this is accepted for tax purposes without any benchmarking against arm\'s-length comparables.',
+    opts:[{t:'That is fine — related parties can agree on any price they choose, and tax authorities have no basis to question it.', ok:false, why:'Tax authorities specifically scrutinize related-party pricing precisely because it can be used to shift income between entities; unsupported pricing carries real audit risk.'},{t:'Benchmark the related-party transaction\'s pricing against genuine arm\'s-length market comparables before accepting it for tax purposes.', ok:true, why:'Correct — related-party transactions require documented justification that pricing reflects genuine market terms, not just internal agreement.'},{t:'Accept the price as long as both related parties are within the same tax jurisdiction.', ok:false, why:'Being in the same jurisdiction doesn\'t eliminate the need for arm\'s-length pricing — the concern is about genuine market-reflective pricing, not jurisdiction alone.'}]},
+   ar:{title:'معاملة سعر معاملة طرف ذي صلة كمقبول أوتوماتيكيًا لأغراض ضريبية', desc:'معاملة بين أطراف ذات صلة اتسعّرت بشكل مختلف بشكل كبير عن أسعار السوق، لكن ده اتقبل لأغراض ضريبية من غير أي مقارنة مع مقارنات سعر السوق المستقل.',
+    opts:[{t:'ده تمام — الأطراف ذات الصلة ممكن يتفقوا على أي سعر يختاروه، ومصلحة الضرائب مالهاش أساس تسأل عنه.', ok:false, why:'مصلحة الضرائب تحديدًا بتدقق في تسعير الأطراف ذات الصلة بالظبط لأنه ممكن يُستخدم لنقل دخل بين كيانات؛ تسعير غير مدعوم بيحمل مخاطرة مراجعة حقيقية.'},{t:'قارن تسعير معاملة الطرف ذي الصلة مقابل مقارنات سعر سوق مستقل حقيقية قبل قبوله لأغراض ضريبية.', ok:true, why:'صح — معاملات الأطراف ذات الصلة بتتطلب تبرير موثّق إن التسعير بيعكس شروط سوق حقيقية، مش مجرد اتفاق داخلي.'},{t:'اقبل السعر طالما الطرفين ذوي الصلة في نفس الولاية الضريبية.', ok:false, why:'كونهم في نفس الولاية مابيلغيش الحاجة لتسعير بسعر السوق المستقل — القلق حول تسعير حقيقي يعكس السوق، مش الولاية بس.'}]}},
+  {en:{title:'Claiming a personal expense as a deductible business expense with no documented purpose', desc:'An expense with no clear connection to genuine business activity is recorded and claimed as a tax-deductible business expense.',
+    opts:[{t:'That is fine — any expense the company pays for can be claimed as a business deduction.', ok:false, why:'Only expenses with a genuine, documented business purpose are legitimately deductible — claiming personal or unrelated expenses is a real compliance risk.'},{t:'Require a documented, genuine business purpose before claiming any expense as tax-deductible.', ok:true, why:'Correct — a defensible tax deduction requires clear documentation connecting the expense to genuine business activity.'},{t:'Claim the expense, but keep a mental note in case it\'s ever questioned.', ok:false, why:'An undocumented "mental note" provides no real evidence if the deduction is challenged during a tax audit.'}]},
+   ar:{title:'المطالبة بمصروف شخصي كمصروف تجاري قابل للخصم من غير غرض موثّق', desc:'مصروف مفيهوش علاقة واضحة بنشاط تجاري حقيقي بيتسجل ويتطالب بيه كمصروف تجاري قابل للخصم ضريبيًا.',
+    opts:[{t:'ده تمام — أي مصروف الشركة بتدفعه ممكن يتطالب بيه كخصم تجاري.', ok:false, why:'بس المصاريف اللي عندها غرض تجاري حقيقي وموثّق هي اللي فعليًا قابلة للخصم بشكل مشروع — المطالبة بمصاريف شخصية أو غير مرتبطة مخاطرة التزام حقيقية.'},{t:'اشترط غرض تجاري حقيقي وموثّق قبل المطالبة بأي مصروف كقابل للخصم ضريبيًا.', ok:true, why:'صح — خصم ضريبي قابل للدفاع عنه بيتطلب توثيق واضح بيربط المصروف بنشاط تجاري حقيقي.'},{t:'طالب بالمصروف، لكن احتفظ بملاحظة ذهنية في حالة ما يتساءل عنه يومًا.', ok:false, why:'ملاحظة ذهنية غير موثّقة مابتقدّمش أي دليل حقيقي لو الخصم اتحدى أثناء مراجعة ضريبية.'}]}},
+  {en:{title:'Not tracking upcoming tax filing deadlines systematically', desc:'Tax filing deadlines are tracked informally, relying on individual memory, rather than through a systematic calendar or tracking tool.',
+    opts:[{t:'That is fine — an experienced tax accountant should be able to remember all deadlines without a formal system.', ok:false, why:'Relying purely on memory across multiple tax types and deadlines creates real risk of a missed deadline, with resulting penalties.'},{t:'Maintain a systematic, documented calendar of all tax filing deadlines, reviewed regularly regardless of individual memory.', ok:true, why:'Correct — a formal tracking system reduces the real risk of missing a deadline due to competing priorities or staff turnover.'},{t:'Track only the largest tax filings systematically, relying on memory for smaller ones.', ok:false, why:'Smaller filings still carry real penalty risk if missed — a systematic approach should cover all filing obligations, not just the largest ones.'}]},
+   ar:{title:'عدم تتبّع مواعيد التقديم الضريبي القادمة بشكل منهجي', desc:'مواعيد التقديم الضريبي بتتتبّع بشكل غير رسمي، بالاعتماد على الذاكرة الفردية، بدل من خلال تقويم أو أداة تتبّع منهجية.',
+    opts:[{t:'ده تمام — محاسب ضرائب خبير المفروض يقدر يفتكر كل المواعيد من غير نظام رسمي.', ok:false, why:'الاعتماد بحتة على الذاكرة عبر أنواع ومواعيد ضريبية متعددة بيخلق مخاطرة حقيقية لموعد فايت، مع غرامات ناتجة.'},{t:'احتفظ بتقويم منهجي وموثّق لكل مواعيد التقديم الضريبي، بيتراجع بانتظام بغض النظر عن الذاكرة الفردية.', ok:true, why:'صح — نظام تتبّع رسمي بيقلل المخاطرة الحقيقية لتفويت موعد بسبب أولويات متنافسة أو تغيير موظفين.'},{t:'تتبّع بس أكبر الإقرارات الضريبية بشكل منهجي، بالاعتماد على الذاكرة للأصغر.', ok:false, why:'الإقرارات الأصغر لسه بتحمل مخاطرة غرامة حقيقية لو فاتت — الأسلوب المنهجي المفروض يغطي كل التزامات التقديم، مش الأكبر بس.'}]}}
 ];
-const SPOT_DESK_MAP = ['ar','gl','treasury','ap','hr','gl','ar','gl','ar','ar','ar','ap','gl','gl','gl','treasury','ar','treasury','gl','inv','gl','gl','ap','hr','gl','gl','gl','ap','ap','gl','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','gl','gl','gl','gl','gl','gl','gl','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv'];
-const spotIndexByDesk = {ar:0, ap:0, inv:0, treasury:0, hr:0, gl:0, ratios:0, bc:0, aud:0, cost:0, recv:0};
+const SPOT_DESK_MAP = ['ar','gl','treasury','ap','hr','gl','ar','gl','ar','ar','ar','ap','gl','gl','gl','treasury','ar','treasury','gl','inv','gl','gl','ap','hr','gl','gl','gl','ap','ap','gl','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','gl','gl','gl','gl','gl','gl','gl','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','ratios','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','bc','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','aud','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ar','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','ap','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','inv','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','treasury','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','hr','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','gl','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','cost','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','recv','constr','constr','constr','constr','constr','constr','constr','constr','constr','constr','constr','tax','tax','tax','tax','tax','tax','tax','tax','tax'];
+const spotIndexByDesk = {ar:0, ap:0, inv:0, treasury:0, hr:0, gl:0, ratios:0, bc:0, aud:0, cost:0, recv:0, constr:0, tax:0};
 const spotOrderByDesk = {};
 const spotSessionStats = {};
 function spotShuffle(arr){
@@ -13009,7 +13790,7 @@ function spotNextFor(desk){
   }
   spotRenderFor(desk);
 }
-function learnSpotRender(){ ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv'].forEach(spotRenderFor); }
+function learnSpotRender(){ ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv','constr','tax'].forEach(spotRenderFor); }
 
 /* ===== Advanced Challenge: Fix the Trial Balance ===== */
 const FIXTB_ROWS = [
@@ -13297,6 +14078,8 @@ learnRenderSoD();
 learnRenderRatios();
 learnRenderCostCalc();
 learnRenderRecvCalc();
+learnRenderConstrCalc();
+learnRenderTaxCalc();
 renderCapYears();
 learnRenderInterview();
 learnRenderComms();
@@ -13304,7 +14087,7 @@ learnSpotRender();
 
 /* ================= Home Command Center ================= */
 const HOME_VISITED_KEY = 'ayman_home_visited_v1';
-const HOME_STATIONS = ['ar','ap','inv','recv','cost','treasury','hr','gl','bc','ratios','aud','learn'];
+const HOME_STATIONS = ['ar','ap','inv','recv','cost','constr','treasury','hr','gl','tax','bc','ratios','aud','learn'];
 let homeVisited = {};
 function homeLoadVisited(){ try{ homeVisited = JSON.parse(localStorage.getItem(HOME_VISITED_KEY)||'{}'); }catch(_){ homeVisited = {}; } }
 function homeSaveVisited(){ try{ localStorage.setItem(HOME_VISITED_KEY, JSON.stringify(homeVisited)); }catch(_){} }
@@ -13427,7 +14210,7 @@ function openFocusPopup(){
     cta = ar?'ابدأ الآن →':'Start now →';
   } else if(unvisited){
     target = unvisited;
-    const names = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], recv:['محاسب الاستلام','Receiving Accountant'], learn:['المركز التعليمي','Learning Hub']};
+    const names = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], recv:['محاسب الاستلام','Receiving Accountant'], constr:['محاسب الموقع','Site Accountant'], tax:['محاسب الضرائب','Tax Accountant'], learn:['المركز التعليمي','Learning Hub']};
     title = (ar?'كمّل رحلتك: ':'Continue your journey: ') + (ar?names[unvisited][0]:names[unvisited][1]);
     desc = ar?'مكتب لسه ما زرتوش — كل مكتب مستقل بحالاته وتمارينه الخاصة.':'A desk you haven\'t visited yet — each one is independent with its own cases and drills.';
     cta = ar?'افتح المكتب →':'Open desk →';
@@ -13436,7 +14219,7 @@ function openFocusPopup(){
     const unmastered = unmasteredList.length ? unmasteredList[Math.floor(Math.random()*unmasteredList.length)] : null;
     if(unmastered){
       target = 'quiz-'+unmastered;
-      const names2 = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], recv:['محاسب الاستلام','Receiving Accountant']};
+      const names2 = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], recv:['محاسب الاستلام','Receiving Accountant'], constr:['محاسب الموقع','Site Accountant'], tax:['محاسب الضرائب','Tax Accountant']};
       title = (ar?'اثبت إتقانك: ':'Prove your mastery: ') + (ar?names2[unmastered][0]:names2[unmastered][1]);
       desc = ar?'زرت المكتب ده — دلوقتي جرّب اختبار الإتقان بتاعه (10 أسئلة).':'You\'ve visited this desk — now try its Mastery Quiz (10 questions).';
       cta = ar?'ابدأ الاختبار →':'Take the quiz →';
@@ -13490,9 +14273,11 @@ const WHEEL_DESKS = [
   {key:'inv', icon:'📦', color:'#cbb15a', names:{en:'Inventory', ar:'المخزون'}},
   {key:'recv', icon:'📥', color:'#4a90a4', names:{en:'Receiving Accountant', ar:'محاسب الاستلام'}},
   {key:'cost', icon:'🧮', color:'#c2703c', names:{en:'Cost Accountant', ar:'محاسب التكاليف'}},
+  {key:'constr', icon:'🏗️', color:'#d4a03c', names:{en:'Site Accountant', ar:'محاسب الموقع'}},
   {key:'treasury', icon:'🏦', color:'#a89ae0', names:{en:'Treasury & Banks', ar:'الخزينة والبنوك'}},
   {key:'hr', icon:'🧑‍💼', color:'#e08bb0', names:{en:'Payroll & HR', ar:'الرواتب والموارد البشرية'}},
   {key:'gl', icon:'📚', color:'#5fae9e', names:{en:'General Ledger', ar:'دفتر الأستاذ'}},
+  {key:'tax', icon:'🧾', color:'#6b8e6b', names:{en:'Tax Accountant', ar:'محاسب الضرائب'}},
   {key:'ratios', icon:'📐', color:'#5bb9c4', names:{en:'Financial Analyst', ar:'المحلل المالي'}},
   {key:'bc', icon:'📋', color:'#b08a4e', names:{en:'Budget Controller', ar:'مراقب الميزانية'}},
   {key:'aud', icon:'🧐', color:'#a58bd6', names:{en:'Internal Auditor', ar:'المراجع الداخلي'}},
@@ -13895,9 +14680,33 @@ recv: [
  {q:{en:'What is the purpose of tracking GRNI aging?', ar:'إيه الغرض من تتبّع أعمار GRNI؟'}, o:{en:['To identify long-outstanding items that may indicate a missing invoice, error, or unresolved discrepancy','To calculate how much profit the company made this quarter','To determine which suppliers offer the best prices'], ar:['تحديد البنود القديمة العالقة اللي ممكن تدل على فاتورة ناقصة أو خطأ أو فرق غير محلول','حساب قد إيه ربح الشركة حققته الربع ده','تحديد أنهي موردين بيقدموا أفضل أسعار']}, c:0, x:{en:'GRNI aging highlights items that have sat unresolved too long, which deserve investigation rather than being ignored.', ar:'أعمار GRNI بترصد البنود اللي قعدت من غير حل لمدة طويلة، واللي تستاهل تحقيق بدل ما تتجاهل.'}},
  {q:{en:'Why is \'in-full\' as important as \'on-time\' in supplier delivery performance (OTIF)?', ar:'ليه \'بالكامل\' مهمة بنفس قدر \'في الموعد\' في أداء تسليم الموردين (OTIF)؟'}, o:{en:['A delivery that arrives on schedule but incomplete still disrupts production or sales just as much as a late one','In-full doesn\'t actually matter as long as something arrived on the scheduled date','In-full is only relevant for international suppliers'], ar:['تسليم بيوصل في الموعد لكن ناقص لسه بيعطّل الإنتاج أو المبيعات بنفس قدر التسليم المتأخر','\'بالكامل\' فعليًا مش مهمة طالما حاجة وصلت في التاريخ المجدول','\'بالكامل\' بتهم بس للموردين الدوليين']}, c:0, x:{en:'OTIF requires both conditions together because either failure — late OR incomplete — can equally disrupt downstream operations.', ar:'OTIF بتشترط الشرطين مع بعض لأن أي فشل — تأخير أو نقص — ممكن يعطّل العمليات اللاحقة بنفس القدر.'}},
  {q:{en:'What should happen if a supplier invoice price differs from the agreed purchase order price?', ar:'إيه المفروض يحصل لو سعر فاتورة مورد اختلف عن سعر أمر الشراء المتفق عليه؟'}, o:{en:['The discrepancy should be flagged as a Purchase Price Variance and investigated/resolved before payment','The invoice should always be paid as billed since the supplier set the price','The goods should be returned immediately regardless of the amount'], ar:['الفرق المفروض يترصد كانحراف سعر شراء ويتحقق فيه/يتحل قبل السداد','الفاتورة المفروض دايمًا تتسدد زي ما اتفوترت لأن المورد هو اللي حدد السعر','البضاعة المفروض ترجع فورًا بغض النظر عن المبلغ']}, c:0, x:{en:'A price mismatch between invoice and PO is exactly what PPV is designed to catch — it needs resolution, not automatic payment or automatic rejection.', ar:'عدم تطابق السعر بين الفاتورة وأمر الشراء بالظبط اللي انحراف سعر الشراء مصمم يكتشفه — محتاج حل، مش سداد أوتوماتيكي أو رفض أوتوماتيكي.'}}
+],
+constr: [
+ {q:{en:'What does the cost-to-cost method use to measure percentage of completion?', ar:'إيه اللي طريقة تكلفة-لتكلفة بتستخدمه لقياس نسبة الإنجاز؟'}, o:{en:['Costs incurred to date divided by total estimated costs','The number of months elapsed divided by total contract months','The number of workers currently on site'], ar:['التكاليف المتكبدة لتاريخه مقسومة على إجمالي التكاليف التقديرية','عدد الشهور المنقضية مقسوم على إجمالي شهور العقد','عدد العمال الموجودين حاليًا في الموقع']}, c:0, x:{en:'Cost-to-cost ties progress measurement directly to genuine cost incurred, which is far more reliable than time elapsed alone.', ar:'تكلفة-لتكلفة بتربط قياس التقدّم مباشرة بالتكلفة المتكبدة فعليًا، وده أوثق بكتير من الوقت المنقضي بس.'}},
+ {q:{en:'What does \'underbilling\' on a WIP schedule represent?', ar:'إيه اللي \'عدم اكتمال الفوترة\' في جدول WIP بيمثله؟'}, o:{en:['An asset — the company has earned more revenue than it has billed the client so far','A liability — the company owes the client money','A type of expense that must be written off immediately'], ar:['أصل — الشركة كسبت إيراد أكتر مما فوترت للعميل لحد دلوقتي','التزام — الشركة مديونة للعميل بفلوس','نوع مصروف لازم يتشطب فورًا']}, c:0, x:{en:'Underbilling means work performed exceeds what\'s been invoiced — the company has a genuine right to bill for that excess later.', ar:'عدم اكتمال الفوترة معناه الشغل المنجز بيتخطى اللي اتفوتر — الشركة عندها حق حقيقي تفوتر الزيادة دي بعدين.'}},
+ {q:{en:'Why must an expected loss on a long-term contract be recognized immediately in full, once foreseeable?', ar:'ليه خسارة متوقعة على عقد طويل الأجل لازم يتم الاعتراف بيها فورًا وبالكامل، بمجرد ما تبقى متوقعة؟'}, o:{en:['Because accounting principles require full loss recognition as soon as a loss becomes probable, unlike profit which is recognized gradually','Because tax law requires it, with no accounting basis','Because clients legally require it in every contract'], ar:['لأن المبادئ المحاسبية بتشترط الاعتراف الكامل بالخسارة بمجرد ما تبقى محتملة، على عكس الربح اللي بيتم الاعتراف بيه تدريجيًا','لأن القانون الضريبي بيشترط كده، من غير أساس محاسبي','لأن العملاء بيشترطوها قانونيًا في كل عقد']}, c:0, x:{en:'This asymmetry (immediate full loss recognition vs. gradual profit recognition) is a core, deliberate principle in long-term contract accounting.', ar:'عدم التماثل ده (اعتراف فوري وكامل بالخسارة مقابل اعتراف تدريجي بالربح) مبدأ أساسي ومقصود في محاسبة العقود طويلة الأجل.'}},
+ {q:{en:'What is the purpose of retention in a construction contract?', ar:'إيه الغرض من الاحتجاز في عقد إنشاء؟'}, o:{en:['To hold back a portion of payment as security against defects, released after the defects liability period','To cover the contractor\'s income tax obligations','To pay for the client\'s own internal administrative costs'], ar:['حجز جزء من الدفع كضمان ضد العيوب، يتم الإفراج عنه بعد فترة ضمان العيوب','تغطية التزامات ضريبة دخل المقاول','دفع تكاليف إدارية داخلية للعميل نفسه']}, c:0, x:{en:'Retention specifically protects against defect risk during a defined period after work is nominally complete.', ar:'الاحتجاز بيحمي تحديدًا ضد مخاطرة العيوب خلال فترة محددة بعد ما الشغل يخلص اسميًا.'}},
+ {q:{en:'Why should the person recording a change order not also be the one approving it?', ar:'ليه الشخص اللي بيسجل أمر تغيير مايفروضش يكون هو نفسه اللي بيعتمده؟'}, o:{en:['To prevent a single person from inflating a change order\'s price or scope without independent check','Because recording and approving are legally required to be done on different days','Because only senior management is technically capable of data entry'], ar:['عشان يمنع شخص واحد من تضخيم سعر أو نطاق أمر تغيير من غير فحص مستقل','لأن التسجيل والاعتماد قانونيًا لازم يحصلوا في أيام مختلفة','لأن بس الإدارة العليا فنيًا قادرة على إدخال البيانات']}, c:0, x:{en:'This is a segregation-of-duties control — separating who records from who approves reduces the risk of unchecked manipulation.', ar:'ده ضابط فصل واجبات — فصل مين بيسجل عن مين بيعتمد بيقلل مخاطرة تلاعب غير مفحوص.'}},
+ {q:{en:'What should happen to an advance payment received from a client at contract signing?', ar:'إيه اللي المفروض يحصل لدفعة مقدمة اتستلمت من عميل وقت توقيع العقد؟'}, o:{en:['It should be recorded as a liability and recognized as revenue only as work is actually performed','It should be recognized as revenue immediately since cash was received','It should be recorded as an expense to reduce taxable income'], ar:['المفروض تتسجل كالتزام ويتم الاعتراف بيها كإيراد بس مع ما الشغل فعليًا يتم إنجازه','المفروض يتم الاعتراف بيها كإيراد فورًا طالما الكاش اتستلم','المفروض تتسجل كمصروف عشان تقلل الدخل الخاضع للضريبة']}, c:0, x:{en:'An advance payment represents an obligation to perform future work, making it a liability until earned, not immediate revenue.', ar:'الدفعة المقدمة بتمثل التزام بإنجاز شغل مستقبلي، وده بيخليها التزام لحد ما تتكسب، مش إيراد فوري.'}},
+ {q:{en:'What is the correct treatment when a change order is proposed but not yet formally approved?', ar:'إيه المعالجة الصحيحة لما أمر تغيير يكون مقترح لكن لسه ما اتاعتمدش رسميًا؟'}, o:{en:['Its cost and revenue impact should not be included in the official contract value or estimates yet','It should be included immediately since it will probably be approved','It should be split 50/50 between included and excluded'], ar:['أثر تكلفته وإيراده مايفروضش يتضمّن في قيمة العقد الرسمية أو التقديرات لسه','المفروض يتضمّن فورًا طالما على الأغلب هيتاعتمد','المفروض يتقسم 50/50 بين مضمّن ومستبعد']}, c:0, x:{en:'Only formally approved changes should affect the official contract value used for percentage of completion and revenue recognition.', ar:'بس التغييرات المعتمدة رسميًا المفروض تأثر على قيمة العقد الرسمية المستخدمة لنسبة الإنجاز والاعتراف بالإيراد.'}},
+ {q:{en:'What does \'estimated cost to complete\' measure?', ar:'إيه اللي \'التكلفة التقديرية للإكمال\' بتقيسه؟'}, o:{en:['The remaining cost genuinely expected to finish the project, from this point forward','The total cost of the project from its very start','The cost already spent on the project to date'], ar:['التكلفة المتبقية المتوقعة فعليًا لإكمال المشروع، من النقطة دي فصاعدًا','إجمالي تكلفة المشروع من بدايته','التكلفة اللي أصلًا اتصرفت على المشروع لتاريخه']}, c:0, x:{en:'This forward-looking figure is essential for spotting a project that\'s about to exceed its budget before it\'s too late.', ar:'الرقم المستقبلي ده أساسي لاكتشاف مشروع أوشك يتخطى موازنته قبل ما يبقى الوقت متأخر.'}},
+ {q:{en:'Why does a company need to verify a performance bond directly with the issuing bank?', ar:'ليه شركة محتاجة تتحقق من ضمان حسن تنفيذ مباشرة مع البنك المُصدر؟'}, o:{en:['Because a bond that was merely requested but never confirmed as genuinely issued provides no real protection if it doesn\'t actually exist','Because banks require an annual fee to keep any document on file','Because it\'s a purely formal step with no real risk implication'], ar:['لأن ضمان بس اتطلب لكن أبدًا ما اتأكدش إنه فعليًا اتصدر مابيقدّمش أي حماية حقيقية لو مش موجود فعليًا','لأن البنوك بتشترط رسوم سنوية عشان تحتفظ بأي مستند في ملف','لأنها خطوة شكلية بحتة من غير أي أثر مخاطرة حقيقي']}, c:0, x:{en:'A bond only provides genuine protection if it truly exists and is valid — this requires independent confirmation, not assumption.', ar:'الضمان بس بيقدّم حماية حقيقية لو فعليًا موجود وساري — ده بيتطلب تأكيد مستقل، مش افتراض.'}},
+ {q:{en:'Why should change order costs be tracked separately from original scope costs in job costing?', ar:'ليه تكاليف أوامر التغيير المفروض تتتبّع منفصلة عن تكاليف النطاق الأصلي في تكلفة العمل؟'}, o:{en:['So management can see whether change orders are being executed profitably, independent of the original scope','Because tax authorities require entirely separate ledgers for any project modification','Because change orders are never actually related to the same project'], ar:['عشان الإدارة تقدر تشوف هل أوامر التغيير بتتنفذ بربحية، بمعزل عن النطاق الأصلي','لأن السلطات الضريبية بتشترط دفاتر منفصلة تمامًا لأي تعديل مشروع','لأن أوامر التغيير أبدًا مالهاش علاقة فعليًا بنفس المشروع']}, c:0, x:{en:'Separate tracking gives management essential visibility into change order profitability, valuable for future pricing and negotiation.', ar:'التتبّع المنفصل بيدّي الإدارة رؤية أساسية لربحية أوامر التغيير، قيّمة للتسعير والتفاوض المستقبلي.'}}
+],
+tax: [
+ {q:{en:'What does \'output VAT\' represent?', ar:'إيه اللي \'ضريبة المخرجات\' بتمثله؟'}, o:{en:['VAT collected from customers on taxable sales, held on behalf of the tax authority','VAT the company itself paid on its own purchases','A tax refund owed to the company'], ar:['ضريبة اتحصلت من العملاء على مبيعات خاضعة، محتفظ بيها نيابة عن مصلحة الضرائب','ضريبة الشركة نفسها دفعتها على مشترياتها','استرداد ضريبي مستحق للشركة']}, c:0, x:{en:'Output VAT is the tax a business collects from customers, which it must remit to the tax authority, not revenue it keeps.', ar:'ضريبة المخرجات هي الضريبة اللي منشأة تجارية بتحصلها من العملاء، ولازم توردها لمصلحة الضرائب، مش إيراد بتحتفظ بيه.'}},
+ {q:{en:'If Output VAT is less than Input VAT for a period, what does this mean?', ar:'لو ضريبة المخرجات أقل من ضريبة المدخلات لفترة، إيه ده معناه؟'}, o:{en:['The company has a net VAT receivable — it is owed a refund or credit','The company owes additional VAT to the tax authority','The company must immediately close its VAT registration'], ar:['الشركة عندها صافي ضريبة قيمة مضافة مستردة — مستحق لها استرداد أو رصيد','الشركة مديونة بضريبة قيمة مضافة إضافية لمصلحة الضرائب','الشركة لازم تقفل تسجيلها الضريبي فورًا']}, c:0, x:{en:'When input VAT exceeds output VAT, the company has effectively overpaid relative to what it collected, creating a receivable position.', ar:'لما ضريبة المدخلات تتخطى ضريبة المخرجات، الشركة فعليًا دفعت زيادة مقارنة باللي حصلته، وده بيخلق موقف مدين.'}},
+ {q:{en:'Why is withholding tax deducted at source rather than paid directly by the payee?', ar:'ليه الخصم تحت الحساب بيتحصم من المصدر بدل ما يتم سداده مباشرة من المستفيد؟'}, o:{en:['To ensure the tax authority receives the tax directly, reducing the risk of non-collection from the ultimate taxpayer','Because payees are legally incapable of paying their own taxes','Because it eliminates the payee\'s tax obligation entirely'], ar:['عشان تضمن إن مصلحة الضرائب بتستلم الضريبة مباشرة، وده بيقلل مخاطرة عدم التحصيل من دافع الضريبة النهائي','لأن المستفيدين قانونيًا غير قادرين على دفع ضرائبهم بأنفسهم','لأنه بيلغي التزام المستفيد الضريبي بالكامل']}, c:0, x:{en:'Withholding at source is a collection mechanism that improves tax compliance by having the payer remit tax directly, rather than relying on the payee to do so later.', ar:'الخصم من المصدر آلية تحصيل بتحسّن الالتزام الضريبي بخلي الدافع يورّد الضريبة مباشرة، بدل الاعتماد على المستفيد يعملها بعدين.'}},
+ {q:{en:'What is the correct starting point for calculating taxable income?', ar:'إيه نقطة البداية الصحيحة لحساب الدخل الخاضع للضريبة؟'}, o:{en:['Accounting profit, adjusted for non-deductible expenses and tax-exempt income','Cash collected from customers during the period','Total revenue with no adjustments at all'], ar:['الربح المحاسبي، معدّل بالمصروفات غير القابلة للخصم والإيراد المعفى من الضريبة','الكاش المُحصّل من العملاء خلال الفترة','إجمالي الإيراد من غير أي تعديلات خالص']}, c:0, x:{en:'Taxable income starts from accounting profit but requires specific adjustments because tax law treats certain items differently than accounting standards.', ar:'الدخل الخاضع للضريبة بيبدأ من الربح المحاسبي لكن بيتطلب تعديلات محددة لأن القانون الضريبي بيعامل بنود معينة مختلف عن المعايير المحاسبية.'}},
+ {q:{en:'What creates a deferred tax liability or asset?', ar:'إيه اللي بيخلق التزام أو أصل ضريبة مؤجلة؟'}, o:{en:['A genuine temporary difference between an item\'s accounting carrying amount and its tax base','A permanent decision by management to defer paying any tax','A simple clerical error in the tax calculation'], ar:['فرق مؤقت حقيقي بين القيمة الدفترية المحاسبية لبند وأساسه الضريبي','قرار دائم من الإدارة بتأجيل دفع أي ضريبة','خطأ كتابي بسيط في الحساب الضريبي']}, c:0, x:{en:'Deferred tax arises specifically from temporary (not permanent) differences that will reverse over time, affecting future tax.', ar:'الضريبة المؤجلة بتنشأ تحديدًا من فروق مؤقتة (مش دائمة) هتتعكس بمرور الوقت، وبتأثر على الضريبة المستقبلية.'}},
+ {q:{en:'Why must a deferred tax asset be assessed for future recoverability before being recognized in full?', ar:'ليه أصل ضريبة مؤجلة لازم يتقيّم لإمكانية الاسترداد المستقبلية قبل ما يتم الاعتراف بيه بالكامل؟'}, o:{en:['Because it is only genuinely valuable if the company expects sufficient future taxable profit to use it against','Because tax authorities require a formal application for every deferred tax asset','Because deferred tax assets are always recognized at a fixed 50% of their calculated value'], ar:['لأنه بس بيكون قيّم فعليًا لو الشركة متوقعة ربح خاضع للضريبة مستقبلي كافي تستخدمه مقابله','لأن مصلحة الضرائب بتشترط طلب رسمي لكل أصل ضريبة مؤجلة','لأن أصول الضريبة المؤجلة دايمًا بيتم الاعتراف بيها بنسبة ثابتة 50% من قيمتها المحسوبة']}, c:0, x:{en:'A deferred tax asset represents a future tax benefit — but only if there will genuinely be enough future taxable profit for it to offset.', ar:'أصل الضريبة المؤجلة بيمثل فايدة ضريبية مستقبلية — لكن بس لو هيكون فيه فعليًا ربح خاضع للضريبة مستقبلي كافي يعوّضها.'}},
+ {q:{en:'What should happen when withholding tax is discovered to have been under-deducted due to an honest error?', ar:'إيه المفروض يحصل لما يتكتشف إن خصم تحت الحساب اتخصم أقل من المطلوب بسبب خطأ صادق؟'}, o:{en:['Correct the error and remit the shortfall as soon as it\'s discovered, to minimize penalty exposure','Wait for the tax authority to discover it independently before taking any action','Simply ignore it since it was an honest mistake, not deliberate fraud'], ar:['صحح الخطأ وورّد الفرق الناقص بمجرد اكتشافه، عشان تقلل التعرض للغرامات','استنى مصلحة الضرائب تكتشفه بشكل مستقل قبل ما تاخد أي إجراء','تجاهله ببساطة طالما كان غلطة صادقة، مش احتيال متعمد']}, c:0, x:{en:'Proactively correcting an honest error minimizes penalty exposure; waiting for discovery generally increases the eventual penalty and risk.', ar:'تصحيح خطأ صادق بشكل استباقي بيقلل التعرض للغرامة؛ انتظار الاكتشاف عمومًا بيزوّد الغرامة والمخاطرة النهائية.'}},
+ {q:{en:'Why should related-party transaction pricing be benchmarked against arm\'s-length comparables?', ar:'ليه تسعير معاملة طرف ذي صلة المفروض يتقارن بمقارنات سعر السوق المستقل؟'}, o:{en:['Because related-party pricing can be used to shift income between entities, and tax authorities specifically scrutinize this','Because it is a purely optional best practice with no real tax authority interest','Because arm\'s-length pricing is only relevant for transactions between unrelated companies in different countries'], ar:['لأن تسعير الطرف ذي الصلة ممكن يُستخدم لنقل دخل بين كيانات، ومصلحة الضرائب بتدقق في ده تحديدًا','لأنها ممارسة أفضل اختيارية بحتة من غير أي اهتمام حقيقي من مصلحة الضرائب','لأن تسعير السوق المستقل بس ذو صلة لمعاملات بين شركات غير ذات صلة في دول مختلفة']}, c:0, x:{en:'Related-party pricing receives special tax scrutiny precisely because of its potential to shift taxable income inappropriately between entities.', ar:'تسعير الطرف ذي الصلة بياخد تدقيق ضريبي خاص بالظبط بسبب إمكانيته لنقل دخل خاضع للضريبة بشكل غير مناسب بين كيانات.'}},
+ {q:{en:'What is required for an expense to be legitimately tax-deductible?', ar:'إيه اللي مطلوب عشان مصروف يبقى قابل للخصم ضريبيًا بشكل مشروع؟'}, o:{en:['A documented, genuine connection to actual business activity','Simply being paid for by the company\'s bank account','Being under a certain dollar amount, regardless of purpose'], ar:['اتصال حقيقي وموثّق بنشاط تجاري فعلي','مجرد إنه اتدفع من حساب بنك الشركة','إنه تحت مبلغ معين بالدولار، بغض النظر عن الغرض']}, c:0, x:{en:'A legitimate deduction requires genuine business purpose and documentation — not merely that the company paid for it.', ar:'خصم مشروع بيتطلب غرض تجاري حقيقي وتوثيق — مش مجرد إن الشركة دفعت مقابله.'}},
+ {q:{en:'Why is systematic tracking of tax filing deadlines important, rather than relying on individual memory?', ar:'ليه التتبّع المنهجي لمواعيد التقديم الضريبي مهم، بدل الاعتماد على الذاكرة الفردية؟'}, o:{en:['Because relying purely on memory across multiple tax types creates real risk of a missed deadline and resulting penalties','Because tax authorities legally require a specific software program for deadline tracking','Because deadlines change so frequently that no one could reasonably track them at all'], ar:['لأن الاعتماد بحتة على الذاكرة عبر أنواع ضريبية متعددة بيخلق مخاطرة حقيقية لموعد فايت وغرامات ناتجة','لأن مصلحة الضرائب قانونيًا بتشترط برنامج معين لتتبّع المواعيد','لأن المواعيد بتتغيّر بشكل متكرر جدًا لدرجة محدش يقدر يتتبّعها بشكل معقول خالص']}, c:0, x:{en:'A formal, systematic approach reduces the genuine risk of a missed filing due to competing priorities, staff turnover, or simple human memory limits.', ar:'أسلوب رسمي ومنهجي بيقلل المخاطرة الحقيقية لتقديم فايت بسبب أولويات متنافسة، أو تغيير موظفين، أو حدود ذاكرة بشرية بسيطة.'}}
 ]
 };
-const QUIZ_LABELS = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], recv:['محاسب الاستلام','Receiving Accountant']};
+const QUIZ_LABELS = {ar:['حسابات العملاء','Accounts Receivable'], ap:['حسابات الموردين','Accounts Payable'], inv:['المخزون','Inventory'], treasury:['الخزينة والبنوك','Treasury & Banks'], hr:['الرواتب والموارد البشرية','Payroll & HR'], gl:['دفتر الأستاذ العام','General Ledger'], ratios:['محلل مالي','Financial Analyst'], bc:['مراقب الميزانية','Budget Controller'], aud:['المراجع الداخلي','Internal Auditor'], cost:['محاسب التكاليف','Cost Accountant'], recv:['محاسب الاستلام','Receiving Accountant'], constr:['محاسب الموقع','Site Accountant'], tax:['محاسب الضرائب','Tax Accountant']};
 const QUIZ_KEY = 'ayman_quiz_progress_v1';
 var quizState = {};
 function quizLoad(){ try{ quizState = JSON.parse(localStorage.getItem(QUIZ_KEY)||'{}'); }catch(_){ quizState = {}; } }
@@ -14236,7 +15045,7 @@ function quizSubmit(station){
 quizLoad();
 csLoadAll();
 coverageLoad();
-['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv'].forEach(quizRender);
+['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv','constr','tax'].forEach(quizRender);
 
 /* ================= Fraud Catcher: AR, AP, HR, GL, Treasury (Cash & Bank) ================= */
 const RATIOS_FRAUD_SCHEMES = [
@@ -14402,6 +15211,35 @@ const RECV_FRAUD_SCHEMES = [
   {t:{en:'Diverting Rejected or Return-to-Vendor Goods for Personal Resale', ar:'تحويل بضاعة مرفوضة أو مرتجعة لمورد لإعادة البيع الشخصي'}, h:{en:'Goods rejected at receiving and slated for return to the vendor are instead diverted by an employee for personal resale, while the paperwork shows them as properly returned.', ar:'بضاعة اترفضت عند الاستلام ومقرر ترجيعها للمورد بدل كده بتتحول من موظف لإعادة البيع الشخصي، بينما الأوراق بتوضحها كمرتجعة صح.'}, f:{en:'A recorded return-to-vendor has no corresponding shipping confirmation or acknowledgment of receipt from the supplier.', ar:'إرجاع مسجل لمورد مفيهوش أي تأكيد شحن مقابل أو إقرار استلام من المورد.'}, c:{en:'Confirm the supplier\'s acknowledgment of receipt for any recorded return-to-vendor before closing out the rejection.', ar:'تأكد من إقرار المورد باستلام أي إرجاع مسجل لمورد قبل ما تقفل الرفض.'}},
   {t:{en:'Manipulating Invoice Currency to Disguise an Embedded Kickback', ar:'التلاعب بعملة الفاتورة لإخفاء عمولة مضمّنة'}, h:{en:'An invoice is deliberately issued in a less-common currency with an unfavorable, hard-to-verify conversion rate, embedding a hidden kickback within the apparent FX cost.', ar:'فاتورة بتتصدر بشكل متعمد بعملة أقل شيوعًا بسعر تحويل غير موات وصعب التحقق منه، ومضمّن جواها عمولة مخفية داخل تكلفة الصرف الظاهرية.'}, f:{en:'An invoice is issued in an unusual currency for that supplier relationship, with no clear business reason for the change.', ar:'فاتورة اتصدرت بعملة غير معتادة لعلاقة المورد دي، من غير سبب تجاري واضح للتغيير.'}, c:{en:'Require documented justification for any change in invoicing currency from a supplier\'s established, normal practice.', ar:'اشترط تبرير موثّق لأي تغيير في عملة الفوترة عن ممارسة المورد المعتادة والراسخة.'}},
   {t:{en:'Approving a Fabricated Supplier Performance Improvement Plan', ar:'اعتماد خطة تحسين أداء مورد ملفّقة'}, h:{en:'A poorly-performing but favored supplier is kept on the approved vendor list by fabricating a \'performance improvement plan\' that was never genuinely implemented or verified.', ar:'مورد ضعيف الأداء لكن مفضّل بيتفضل بيتحافظ عليه في قائمة الموردين المعتمدين عن طريق تلفيق \'خطة تحسين أداء\' أبدًا ما فعليًا اتنفذت أو اتحقق منها.'}, f:{en:'A supplier\'s performance improvement plan has no documented follow-up measurements showing genuine improvement over time.', ar:'خطة تحسين أداء مورد مفيهاش قياسات متابعة موثّقة بتوضح تحسن حقيقي بمرور الوقت.'}, c:{en:'Require documented, periodic follow-up measurements for any supplier performance improvement plan before continuing the relationship.', ar:'اشترط قياسات متابعة دورية وموثّقة لأي خطة تحسين أداء مورد قبل الاستمرار في العلاقة.'}}
+];
+
+const CONSTR_FRAUD_SCHEMES = [
+  {t:{en:'Overstating Percentage of Completion to Accelerate Revenue', ar:'تضخيم نسبة الإنجاز لتسريع الإيراد'}, h:{en:'A project\'s reported percentage of completion is deliberately inflated beyond what actual costs incurred or physical progress support, pulling future revenue into the current period.', ar:'نسبة الإنجاز المُبلَّغ عنها لمشروع بتتضخّم بشكل متعمد أكتر مما التكاليف المتكبدة فعليًا أو التقدّم المادي بيدعمه، وده بيسحب إيراد مستقبلي للفترة الحالية.'}, f:{en:'Reported percentage of completion is consistently higher than what a genuine cost-to-cost calculation or site inspection would support.', ar:'نسبة الإنجاز المُبلَّغ عنها باستمرار أعلى مما حساب تكلفة-لتكلفة حقيقي أو معاينة موقع كانت هتدعمه.'}, c:{en:'Periodically verify reported percentage of completion against an independent physical progress assessment or engineer\'s certification.', ar:'تحقق دوريًا من نسبة الإنجاز المُبلَّغ عنها مقابل تقييم تقدّم مادي مستقل أو اعتماد مهندس.'}},
+  {t:{en:'Delaying Recognition of an Expected Loss', ar:'تأجيل الاعتراف بخسارة متوقعة'}, h:{en:'A project genuinely trending toward a loss has its expected-loss recognition deliberately delayed to a later, more convenient period, hiding the problem from current results.', ar:'مشروع فعليًا متجه نحو خسارة بيتأجل الاعتراف بخسارته المتوقعة بشكل متعمد لفترة لاحقة وأنسب، وده بيخبي المشكلة عن النتائج الحالية.'}, f:{en:'A cost-to-complete estimate showing a project loss existed for a period before the loss was actually recognized in the accounts.', ar:'تقدير تكلفة للإكمال بيوضح خسارة مشروع كان موجود لفترة قبل ما الخسارة فعليًا اتحملت في الحسابات.'}, c:{en:'Require immediate recognition of any expected loss in the period it becomes foreseeable, with no discretion to delay.', ar:'اشترط الاعتراف الفوري بأي خسارة متوقعة في الفترة اللي بتبقى فيها متوقعة، من غير أي تقدير لتأجيلها.'}},
+  {t:{en:'Executing Unpriced Change Orders to Hide Cost Overruns', ar:'تنفيذ أوامر تغيير غير مسعّرة لإخفاء تجاوزات التكلفة'}, h:{en:'Extra work is performed and its cost buried within the general project budget without a formal, priced change order, disguising a genuine cost overrun as normal project spending.', ar:'شغل إضافي بيتنفذ وتكلفته بتتخبى جوه موازنة المشروع العامة من غير أمر تغيير رسمي ومسعّر، وده بيتنكر تجاوز تكلفة حقيقي كإنفاق مشروع عادي.'}, f:{en:'Significant unplanned work occurred with no corresponding formal change order or price adjustment on file.', ar:'شغل كبير غير مخطط حصل من غير أمر تغيير رسمي أو تعديل سعر مقابل في الملف.'}, c:{en:'Require any extra scope of work to have a formal change order raised and priced before or immediately after execution.', ar:'اشترط إن أي نطاق شغل إضافي يكون له أمر تغيير رسمي ومسعّر قبل التنفيذ أو فورًا بعده.'}},
+  {t:{en:'Certifying Subcontractor Payment for Uncompleted Work', ar:'اعتماد دفعة مقاول باطن لشغل غير مكتمل'}, h:{en:'A subcontractor\'s payment application is certified and paid for work that has not genuinely been completed on site, often in collusion with site staff.', ar:'طلب دفع مقاول باطن بيتاعتمد ويتسدد مقابل شغل أبدًا ما فعليًا اكتمل في الموقع، غالبًا بالتواطؤ مع فريق الموقع.'}, f:{en:'Certified subcontractor payments consistently exceed what an independent physical inspection of completed work would support.', ar:'دفعات مقاولي باطن معتمدة باستمرار بتتخطى اللي معاينة فعلية مستقلة للشغل المكتمل كانت هتدعمه.'}, c:{en:'Require independent site verification of physical progress before certifying any subcontractor payment application.', ar:'اشترط تحقق موقع مستقل من التقدّم المادي قبل اعتماد أي طلب دفع مقاول باطن.'}},
+  {t:{en:'Releasing Retention Before the Defects Liability Period Ends', ar:'الإفراج عن الاحتجاز قبل انتهاء فترة ضمان العيوب'}, h:{en:'Retention money is released to a subcontractor or supplier before the contractually defined defects liability period has genuinely expired, removing the company\'s protection against defect risk.', ar:'أموال الاحتجاز بيتم الإفراج عنها لمقاول باطن أو مورد قبل ما فترة ضمان العيوب المحددة تعاقديًا فعليًا تنتهي، وده بيشيل حماية الشركة ضد مخاطرة العيوب.'}, f:{en:'A retention release date on file precedes the contractually stated defects liability period end date.', ar:'تاريخ إفراج عن احتجاز في الملف بيسبق تاريخ انتهاء فترة ضمان العيوب المذكور تعاقديًا.'}, c:{en:'Verify the defects liability period has genuinely expired against the contract terms before approving any retention release.', ar:'تحقق من إن فترة ضمان العيوب فعليًا انتهت مقابل شروط العقد قبل اعتماد أي إفراج عن احتجاز.'}},
+  {t:{en:'Manipulating the Cost-to-Complete Estimate', ar:'التلاعب بتقدير التكلفة للإكمال'}, h:{en:'The estimated cost to complete a project is deliberately understated to make the project\'s percentage of completion and profitability look better than reality.', ar:'تقدير التكلفة لإكمال مشروع بيتقلل بشكل متعمد عشان نسبة إنجاز وربحية المشروع تبان أحسن من الواقع.'}, f:{en:'The cost-to-complete estimate has not been revised despite known, significant scope or cost changes on the project.', ar:'تقدير التكلفة للإكمال ما اتراجعش رغم تغييرات نطاق أو تكلفة معروفة وجوهرية على المشروع.'}, c:{en:'Require the cost-to-complete estimate to be reviewed and updated at least monthly, cross-checked with site management input.', ar:'اشترط مراجعة وتحديث تقدير التكلفة للإكمال شهريًا على الأقل، مع مطابقتها بمدخلات إدارة الموقع.'}},
+  {t:{en:'Colluding with a Client Representative to Approve Inflated Billings', ar:'التواطؤ مع ممثل عميل لاعتماد مستخلصات مضخّمة'}, h:{en:'A site accountant colludes with the client\'s site engineer or representative to certify progress billings above genuine physical progress, splitting the resulting overpayment.', ar:'محاسب موقع بيتواطأ مع مهندس أو ممثل موقع العميل عشان يعتمد مستخلصات تقدّم أعلى من التقدّم المادي الحقيقي، وبيقسّموا الدفع الزيادة الناتج.'}, f:{en:'Certified billing amounts consistently exceed what an independent, second engineer\'s assessment of physical progress would support.', ar:'مبالغ مستخلصات معتمدة باستمرار بتتخطى اللي تقييم مهندس تاني مستقل للتقدّم المادي كان هيدعمه.'}, c:{en:'Periodically rotate or independently verify site progress assessments used to certify billings, rather than relying on one relationship.', ar:'دوّر أو تحقق بشكل مستقل بشكل دوري من تقييمات تقدّم الموقع المستخدمة لاعتماد المستخلصات، بدل الاعتماد على علاقة واحدة.'}},
+  {t:{en:'Misallocating Costs Between Projects to Hide an Overrun', ar:'إعادة تخصيص تكاليف بين مشاريع لإخفاء تجاوز'}, h:{en:'Costs genuinely belonging to one over-budget project are deliberately charged to a different, healthier project to hide the true extent of the overrun.', ar:'تكاليف تخص فعليًا مشروع متجاوز الموازنة بتتحمل بشكل متعمد على مشروع تاني أصح عشان تخبي مدى التجاوز الحقيقي.'}, f:{en:'A cost entry\'s supporting documentation (delivery ticket, timesheet, invoice) references a different project than the one it was charged to.', ar:'توثيق مؤيد لقيد تكلفة (تذكرة تسليم، ورقة وقت، فاتورة) بيشير لمشروع مختلف عن اللي اتحمل عليه.'}, c:{en:'Periodically trace a sample of cost entries back to their original supporting documentation to confirm the correct project was charged.', ar:'تتبّع دوريًا عينة من قيود التكلفة رجوعًا للتوثيق المؤيد الأصلي عشان تأكد إن المشروع الصحيح هو اللي اتحمل.'}},
+  {t:{en:'Falsifying a Performance or Advance Payment Guarantee', ar:'تزوير ضمان حسن تنفيذ أو دفعة مقدمة'}, h:{en:'A performance bond or advance payment guarantee document is falsified or its expiry date altered to hide that genuine coverage has lapsed.', ar:'مستند ضمان حسن تنفيذ أو دفعة مقدمة بيتزوّر أو تاريخ انتهائه بيتغيّر عشان يخبي إن التغطية الحقيقية خلصت.'}, f:{en:'A guarantee document\'s stated expiry date cannot be independently confirmed with the issuing bank when checked.', ar:'تاريخ انتهاء مذكور في مستند ضمان مقدرش يتأكد بشكل مستقل مع البنك المُصدر لما يتفحص.'}, c:{en:'Periodically verify guarantee validity and expiry dates directly with the issuing bank, not just from the document on file.', ar:'تحقق دوريًا من صلاحية وتواريخ انتهاء الضمانات مباشرة مع البنك المُصدر، مش بس من المستند الموجود في الملف.'}},
+  {t:{en:'Approving a Change Order at an Inflated Price for a Kickback', ar:'اعتماد أمر تغيير بسعر مضخّم مقابل عمولة'}, h:{en:'A change order\'s price is deliberately approved above its genuine cost impact, with the excess amount kicked back to whoever approved it, in collusion with the contractor.', ar:'سعر أمر تغيير بيتاعتمد بشكل متعمد أعلى من أثر تكلفته الحقيقي، والمبلغ الزيادة بيترجع كعمولة لمين اعتمده، بالتواطؤ مع المقاول.'}, f:{en:'An approved change order price significantly exceeds what an independent cost estimate for the same scope of work would support.', ar:'سعر أمر تغيير معتمد بيتخطى بشكل كبير اللي تقدير تكلفة مستقل لنفس نطاق الشغل كان هيدعمه.'}, c:{en:'Require an independent cost estimate or second approval for any change order above a defined materiality threshold.', ar:'اشترط تقدير تكلفة مستقل أو اعتماد ثاني لأي أمر تغيير فوق حد جوهرية محدد.'}},
+  {t:{en:'Double-Billing the Client for the Same Scope of Work', ar:'فوترة العميل مرتين لنفس نطاق الشغل'}, h:{en:'The same completed work is included in more than one progress billing, effectively billing the client twice for identical scope.', ar:'نفس الشغل المكتمل بيتضمّن في أكتر من مستخلص تقدّم واحد، وده فعليًا بيفوتر العميل مرتين لنفس النطاق.'}, f:{en:'Two or more progress billings reference overlapping scope of work or line items without a clear reconciliation.', ar:'مستخلصين أو أكتر بيشيروا لنطاق شغل أو بنود متداخلة من غير مطابقة واضحة.'}, c:{en:'Reconcile each new progress billing against all prior billings to confirm no scope is being billed more than once.', ar:'طابق كل مستخلص جديد مقابل كل المستخلصات السابقة عشان تأكد إن مفيش نطاق بيتفوتر أكتر من مرة.'}},
+  {t:{en:'Manipulating Retention Rate Applied to a Billing', ar:'التلاعب بنسبة الاحتجاز المطبقة على مستخلص'}, h:{en:'A lower retention percentage than the contract specifies is deliberately applied to a progress billing, releasing more cash to a colluding subcontractor than they\'re genuinely entitled to at this stage.', ar:'نسبة احتجاز أقل مما العقد بيحددها بتتطبق بشكل متعمد على مستخلص، وده بيفرج كاش أكتر لمقاول باطن متواطئ مما فعليًا يستحقه في المرحلة دي.'}, f:{en:'The retention percentage applied to a specific billing doesn\'t match the rate stated in the governing subcontract.', ar:'نسبة الاحتجاز المطبقة على مستخلص محدد مش متطابقة مع النسبة المذكورة في العقد الفرعي الحاكم.'}, c:{en:'Verify the retention rate applied to every billing matches the contractually agreed rate before processing payment.', ar:'تحقق من إن نسبة الاحتجاز المطبقة على أي مستخلص بتطابق النسبة المتفق عليها تعاقديًا قبل معالجة السداد.'}}
+];
+
+const TAX_FRAUD_SCHEMES = [
+  {t:{en:'Claiming Input VAT on a Fictitious or Fake Invoice', ar:'المطالبة بضريبة مدخلات على فاتورة وهمية أو مزوّرة'}, h:{en:'Input VAT is claimed against an invoice from a supplier that never genuinely delivered goods or services, or from a shell company created purely to generate fake deductible VAT.', ar:'ضريبة مدخلات بتتطالب بيها مقابل فاتورة من مورد أبدًا ما فعليًا سلّم بضاعة أو خدمات، أو من شركة صورية اتعملت بغرض توليد ضريبة مدخلات وهمية قابلة للخصم.'}, f:{en:'A supplier invoice used to claim significant input VAT has no corresponding, independently verifiable delivery of goods or services.', ar:'فاتورة مورد بتُستخدم للمطالبة بضريبة مدخلات جوهرية مفيهاش تسليم بضاعة أو خدمات مقابل يمكن التحقق منه بشكل مستقل.'}, c:{en:'Verify genuine delivery of goods or services independently (receiving records, site confirmation) before claiming input VAT on any invoice.', ar:'تحقق من التسليم الحقيقي للبضاعة أو الخدمات بشكل مستقل (سجلات استلام، تأكيد موقع) قبل المطالبة بضريبة مدخلات على أي فاتورة.'}},
+  {t:{en:'Underreporting Sales to Reduce Output VAT and Corporate Tax', ar:'تقليل الإبلاغ عن المبيعات لتقليل ضريبة المخرجات وضريبة الشركات'}, h:{en:'A portion of genuine sales revenue is deliberately excluded from VAT returns and tax filings, understating both VAT liability and taxable income.', ar:'جزء من إيراد المبيعات الحقيقي بيتم استبعاده بشكل متعمد من إقرارات ضريبة القيمة المضافة والإقرارات الضريبية، وده بيقلل من التزام الضريبة والدخل الخاضع للضريبة الاتنين.'}, f:{en:'Reported sales in tax filings are consistently lower than sales recorded in the company\'s own internal accounting system.', ar:'المبيعات المُبلَّغ عنها في الإقرارات الضريبية باستمرار أقل من المبيعات المسجلة في نظام المحاسبة الداخلي للشركة نفسه.'}, c:{en:'Reconcile sales reported in tax filings against internal sales records and the general ledger on a regular basis.', ar:'طابق المبيعات المُبلَّغ عنها في الإقرارات الضريبية مقابل سجلات المبيعات الداخلية ودفتر الأستاذ العام بشكل منتظم.'}},
+  {t:{en:'Backdating an Invoice to Shift Tax Liability to a Different Period', ar:'تأريخ فاتورة بتاريخ سابق لنقل الالتزام الضريبي لفترة مختلفة'}, h:{en:'An invoice\'s date is deliberately altered to fall within a different tax period than when the transaction genuinely occurred, manipulating which period bears the tax liability.', ar:'تاريخ فاتورة بيتغيّر بشكل متعمد عشان يقع جوه فترة ضريبية مختلفة عن وقت ما المعاملة فعليًا حصلت، وده بيتلاعب بأنهي فترة بتتحمل الالتزام الضريبي.'}, f:{en:'An invoice\'s stated date doesn\'t match independent evidence (delivery records, correspondence) of when the transaction genuinely occurred.', ar:'تاريخ مذكور في فاتورة مش متطابق مع دليل مستقل (سجلات تسليم، مراسلات) لوقت ما المعاملة فعليًا حصلت.'}, c:{en:'Cross-check invoice dates against independent supporting evidence, especially for transactions near a period-end tax cutoff.', ar:'قارن تواريخ الفواتير مقابل دليل مؤيد مستقل، خصوصًا للمعاملات القريبة من قطع فترة ضريبية.'}},
+  {t:{en:'Structuring a Transaction Purely to Avoid Withholding Tax', ar:'تهيكلة معاملة بغرض تجنب الخصم تحت الحساب بس'}, h:{en:'A payment is deliberately restructured or reclassified into a category not subject to withholding tax, with no genuine change in what the payment actually represents.', ar:'دفعة بتتهيكل أو تتعاد تصنيفها بشكل متعمد لفئة مش خاضعة للخصم تحت الحساب، من غير أي تغيير حقيقي في اللي الدفعة فعليًا بتمثله.'}, f:{en:'A payment\'s classification for tax purposes doesn\'t match the genuine substance of the underlying service or transaction.', ar:'تصنيف دفعة لأغراض ضريبية مش متطابق مع الجوهر الحقيقي للخدمة أو المعاملة الأساسية.'}, c:{en:'Classify payments for withholding tax purposes based on their genuine substance, not a label chosen purely to avoid tax.', ar:'صنّف الدفعات لأغراض الخصم تحت الحساب بناءً على جوهرها الحقيقي، مش تسمية مختارة بغرض تجنب الضريبة بس.'}},
+  {t:{en:'Deliberately Delaying a Tax Filing to Manage Cash Flow', ar:'تأخير إقرار ضريبي بشكل متعمد لإدارة السيولة'}, h:{en:'A tax return that is genuinely ready is deliberately filed late, past the statutory deadline, purely to delay the associated cash payment, accepting the resulting penalty as a calculated cost.', ar:'إقرار ضريبي جاهز فعليًا بيتقدّم متأخر بشكل متعمد، بعد الموعد القانوني، بغرض تأجيل السداد النقدي المرتبط بس، وقبول الغرامة الناتجة كتكلفة محسوبة.'}, f:{en:'A pattern of consistently late tax filings exists despite the underlying calculations being completed well before the deadline.', ar:'نمط من إقرارات ضريبية متأخرة باستمرار موجود رغم إن الحسابات الأساسية اكتملت قبل الموعد بوقت كافي.'}, c:{en:'File tax returns by the statutory deadline regardless of cash flow considerations; manage cash flow through legitimate means instead.', ar:'قدّم الإقرارات الضريبية في الموعد القانوني بغض النظر عن اعتبارات السيولة؛ أدر السيولة من خلال وسائل مشروعة بدلًا من كده.'}},
+  {t:{en:'Falsifying Supporting Documentation for a Tax Audit', ar:'تزوير توثيق مؤيد لمراجعة ضريبية'}, h:{en:'Documents are fabricated or altered after the fact specifically to support a tax position during an audit, rather than representing genuine, contemporaneous evidence.', ar:'مستندات بتتلفق أو تتعدّل بعد ما الوقت يكون فات تحديدًا عشان تدعم موقف ضريبي أثناء مراجعة، بدل ما تمثل دليل حقيقي ومعاصر.'}, f:{en:'A document presented during a tax audit shows creation or modification dates inconsistent with when the underlying transaction supposedly occurred.', ar:'مستند مقدّم أثناء مراجعة ضريبية بيوضح تواريخ إنشاء أو تعديل غير متسقة مع وقت ما المعاملة الأساسية المفترض إنها حصلت فيه.'}, c:{en:'Maintain genuine, contemporaneous documentation for every tax position at the time the transaction occurs, not retrospectively.', ar:'احتفظ بتوثيق حقيقي ومعاصر لكل موقف ضريبي وقت ما المعاملة تحصل، مش بأثر رجعي.'}},
+  {t:{en:'Misclassifying an Employee as an Independent Contractor to Avoid Payroll Taxes', ar:'تصنيف موظف كمقاول مستقل بالغلط لتجنب ضرائب الرواتب'}, h:{en:'A genuine employee is deliberately classified as an independent contractor to avoid payroll tax withholding and related employer obligations, despite the working relationship having all the characteristics of employment.', ar:'موظف حقيقي بيتصنّف بشكل متعمد كمقاول مستقل عشان يتجنب خصم ضريبة الرواتب والالتزامات المرتبطة بصاحب العمل، رغم إن علاقة العمل عندها كل خصائص التوظيف.'}, f:{en:'A worker classified as an independent contractor works fixed hours, uses company equipment, and is supervised in a manner consistent with employment.', ar:'عامل مصنّف كمقاول مستقل بيشتغل ساعات ثابتة، بيستخدم معدات الشركة، وبيتم الإشراف عليه بطريقة متسقة مع التوظيف.'}, c:{en:'Classify workers based on the genuine substance of the working relationship, not a label chosen to minimize payroll tax obligations.', ar:'صنّف العمال بناءً على الجوهر الحقيقي لعلاقة العمل، مش تسمية مختارة لتقليل التزامات ضريبة الرواتب.'}},
+  {t:{en:'Hiding Taxable Income in an Undisclosed Related-Party Transaction', ar:'إخفاء دخل خاضع للضريبة في معاملة طرف ذي صلة غير مُفصح عنها'}, h:{en:'Taxable income is shifted to an undisclosed related party through a non-arm\'s-length transaction, reducing the company\'s own reported tax liability.', ar:'دخل خاضع للضريبة بيتحول لطرف ذي صلة غير مُفصح عنه من خلال معاملة مش بسعر السوق المستقل، وده بيقلل التزام الضريبة المُبلَّغ عنه للشركة نفسها.'}, f:{en:'A transaction\'s pricing significantly deviates from what an equivalent arm\'s-length transaction with an unrelated party would command.', ar:'تسعير معاملة بيختلف بشكل كبير عن اللي معاملة مكافئة بسعر السوق المستقل مع طرف غير ذي صلة كانت هتطلبه.'}, c:{en:'Disclose all related-party transactions and benchmark their pricing against genuine arm\'s-length market comparables.', ar:'أفصح عن كل معاملات الأطراف ذات الصلة وقارن تسعيرها مقابل مقارنات سوق مستقلة حقيقية.'}},
+  {t:{en:'Manipulating the Deferred Tax Calculation to Smooth Reported Earnings', ar:'التلاعب بحساب الضريبة المؤجلة لتنعيم الأرباح المُبلَّغ عنها'}, h:{en:'The deferred tax asset or liability calculation is deliberately manipulated period to period to smooth out reported net income, rather than reflecting genuine temporary differences.', ar:'حساب أصل أو التزام الضريبة المؤجلة بيتلاعب بيه بشكل متعمد من فترة لفترة عشان ينعّم صافي الدخل المُبلَّغ عنه، بدل ما يعكس فروق مؤقتة حقيقية.'}, f:{en:'Deferred tax balances change in ways that don\'t correspond to any genuine change in the underlying temporary differences.', ar:'أرصدة الضريبة المؤجلة بتتغيّر بطرق مش متسقة مع أي تغيير حقيقي في الفروق المؤقتة الأساسية.'}, c:{en:'Recalculate deferred tax balances directly from genuine temporary differences each period, with no discretionary smoothing.', ar:'أعد حساب أرصدة الضريبة المؤجلة مباشرة من الفروق المؤقتة الحقيقية كل فترة، من غير أي تنعيم تقديري.'}},
+  {t:{en:'Claiming a Personal Expense as a Deductible Business Expense', ar:'المطالبة بمصروف شخصي كمصروف تجاري قابل للخصم'}, h:{en:'A genuinely personal expense (unrelated to the business) is deliberately recorded and claimed as a deductible business expense, reducing taxable income without a genuine business justification.', ar:'مصروف شخصي فعليًا (ملهوش علاقة بالشغل) بيتسجل ويتطالب بيه بشكل متعمد كمصروف تجاري قابل للخصم، وده بيقلل الدخل الخاضع للضريبة من غير تبرير تجاري حقيقي.'}, f:{en:'An expense claimed as a business deduction has no clear, documented business purpose when examined.', ar:'مصروف اتطالب بيه كخصم تجاري مفيهوش غرض تجاري واضح وموثّق لما يتفحص.'}, c:{en:'Require a documented, genuine business purpose for every expense claimed as tax-deductible, especially for discretionary categories.', ar:'اشترط غرض تجاري حقيقي وموثّق لكل مصروف بيتطالب بيه كقابل للخصم الضريبي، خصوصًا للفئات التقديرية.'}},
+  {t:{en:'Failing to Remit Withholding Tax Already Deducted', ar:'عدم توريد خصم تحت الحساب أصلًا اتخصم'}, h:{en:'Withholding tax is correctly deducted from a supplier or employee payment, but the deducted amount is never actually remitted to the tax authority, effectively pocketing money that was never the company\'s to keep.', ar:'خصم تحت الحساب بيتخصم صح من دفعة مورد أو موظف، لكن المبلغ المخصوم أبدًا ما فعليًا بيتورّد لمصلحة الضرائب، وده فعليًا بيحوّز فلوس أبدًا ما كانت ملك الشركة.'}, f:{en:'Withholding tax amounts recorded as deducted don\'t reconcile with amounts actually remitted to the tax authority.', ar:'مبالغ خصم تحت الحساب مسجلة كمخصومة مش متطابقة مع المبالغ فعليًا المورّدة لمصلحة الضرائب.'}, c:{en:'Reconcile total withholding tax deducted against total amounts remitted to the tax authority every period, with no unexplained gap.', ar:'طابق إجمالي الخصم تحت الحساب المخصوم مقابل إجمالي المبالغ المورّدة لمصلحة الضرائب كل فترة، من غير أي فجوة غير مفسّرة.'}}
 ];
 
 const AR_FRAUD_SCHEMES = [
@@ -14647,7 +15485,9 @@ function renderFraudFor(key){
     bc: {schemes:BC_FRAUD_SCHEMES, list:'bc-fraud-list'},
     aud: {schemes:AUD_FRAUD_SCHEMES, list:'aud-fraud-list'},
     cost: {schemes:COST_FRAUD_SCHEMES, list:'cost-fraud-list'},
-    recv: {schemes:RECV_FRAUD_SCHEMES, list:'recv-fraud-list'}
+    recv: {schemes:RECV_FRAUD_SCHEMES, list:'recv-fraud-list'},
+    constr: {schemes:CONSTR_FRAUD_SCHEMES, list:'constr-fraud-list'},
+    tax: {schemes:TAX_FRAUD_SCHEMES, list:'tax-fraud-list'}
   };
   const entry = map[key]; if(!entry) return;
   const list = document.getElementById(entry.list); if(!list) return;
@@ -14662,7 +15502,7 @@ function renderFraudFor(key){
     </div></div>
   </details>`).join('');
 }
-function renderFraudAll(){ ['ar','ap','hr','gl','inv','treasury-cash','treasury-bank','ratios','bc','aud','cost','recv'].forEach(renderFraudFor); }
+function renderFraudAll(){ ['ar','ap','hr','gl','inv','treasury-cash','treasury-bank','ratios','bc','aud','cost','recv','constr','tax'].forEach(renderFraudFor); }
 renderFraudAll();
 
 function employeePayChanged(){const b=document.getElementById('ef-paybasis').value, f=document.getElementById('ef-fixed-field'),h=document.getElementById('ef-hourly-field'),sh=document.getElementById('ef-shift-field');f.style.display=(b==='Fixed'||b==='Both')?'':'none';h.style.display=(b==='HourlyShift'||b==='Both')?'':'none';sh.style.display=(b==='HourlyShift'||b==='Both')?'':'none';document.getElementById('ef-fixed').required=b==='Fixed'||b==='Both';}
@@ -14731,6 +15571,8 @@ function setLanguage(lang){
  if(typeof learnRenderRatios==='function') learnRenderRatios();
  if(typeof learnRenderCostCalc==='function') learnRenderCostCalc();
  if(typeof learnRenderRecvCalc==='function') learnRenderRecvCalc();
+ if(typeof learnRenderConstrCalc==='function') learnRenderConstrCalc();
+ if(typeof learnRenderTaxCalc==='function') learnRenderTaxCalc();
  if(typeof renderCapYears==='function') renderCapYears();
  if(typeof learnRenderBankRec==='function') learnRenderBankRec();
  if(typeof learnRenderInterview==='function') learnRenderInterview();
@@ -14741,7 +15583,7 @@ function setLanguage(lang){
  if(typeof homeRenderFocus==='function') homeRenderFocus();
  if(typeof brecRenderLists==='function') brecRenderLists();
  if(typeof brecRender==='function') brecRender();
- if(typeof quizRender==='function') ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv'].forEach(quizRender);
+ if(typeof quizRender==='function') ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv','constr','tax'].forEach(quizRender);
  if(typeof renderFraudAll==='function') renderFraudAll();
 // start on home floor
 if(typeof goHome==='function'){/* keep overview visible on home */}
