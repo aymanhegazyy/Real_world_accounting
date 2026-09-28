@@ -3091,6 +3091,114 @@ input[type="text"]:focus, input[type="number"]:focus{
   50%{ filter:drop-shadow(0 2px 12px rgba(201,148,31,.5)); }
 }
 #focus-cta[disabled]{ opacity:.6; cursor:not-allowed; }
+
+/* Sidebar name — shimmer/glow effect */
+.side-logo{ display:flex; flex-direction:column; gap:6px; }
+.side-logo-name{
+  position:relative;
+  display:inline-block;
+  background:linear-gradient(90deg, #ffffff 0%, #ffe9a8 25%, #ffd453 50%, #ffe9a8 75%, #ffffff 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:nameShimmer 4s linear infinite;
+  font-weight:800;
+}
+@keyframes nameShimmer{
+  0%{ background-position:200% center; }
+  100%{ background-position:-200% center; }
+}
+.side-social{
+  display:flex; gap:8px; margin-top:2px;
+}
+.side-social a{
+  display:flex; align-items:center; justify-content:center;
+  width:26px; height:26px;
+  border-radius:50%;
+  background:rgba(255,255,255,.12);
+  color:#cfe8e0;
+  transition:background .2s ease, color .2s ease, transform .2s ease;
+}
+.side-social a:hover{
+  background:var(--gold,#C9941F);
+  color:#1a2e28;
+  transform:translateY(-2px);
+}
+
+/* Quick Tools — bold colored frames */
+.mock-tool{ border-width:2px !important; border-style:solid !important; }
+.mock-tools-grid .mock-tool:nth-child(1){ border-color:#5b9bd5 !important; }
+.mock-tools-grid .mock-tool:nth-child(2){ border-color:#e0a458 !important; }
+.mock-tools-grid .mock-tool:nth-child(3){ border-color:#7cb87c !important; }
+.mock-tools-grid .mock-tool:nth-child(4){ border-color:#d47fb0 !important; }
+.mock-tools-grid .mock-tool:nth-child(5){ border-color:#9b8fd1 !important; }
+
+/* My Progress — badges and table */
+.progress-badges{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(84px, 1fr));
+  gap:10px;
+  margin-top:10px;
+}
+.progress-badge{
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  padding:10px 6px;
+  border-radius:12px;
+  border:2px solid var(--line);
+  background:var(--paper);
+  font-size:11.5px;
+  text-align:center;
+  transition:transform .15s ease;
+}
+.progress-badge:hover{ transform:translateY(-2px); }
+.progress-badge .pb-icon{ font-size:22px; }
+.progress-badge.pb-unvisited{ opacity:.55; }
+.progress-badge.pb-visited{ border-color:var(--gold,#C9941F); background:var(--gold-soft,#fff3d6); }
+.progress-badge.pb-mastered{ border-color:var(--brand-dark,#0b3d4a); background:var(--brand-soft,#e0f7f4); }
+.progress-badge .pb-trophy{ font-size:13px; }
+
+.progress-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13.5px;
+}
+.progress-table th{
+  text-align:start;
+  padding:8px 10px;
+  border-bottom:2px solid var(--line-strong,var(--line));
+  color:var(--muted);
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.progress-table td{
+  padding:9px 10px;
+  border-bottom:1px solid var(--line);
+}
+.progress-table tr:hover td{ background:var(--paper); }
+.pt-status-yes{ color:var(--brand-dark,#0b3d4a); font-weight:700; }
+.pt-status-no{ color:var(--muted); }
+.pt-quiz-pass{ color:#0d3b2e; font-weight:700; }
+.pt-quiz-fail{ color:var(--muted); }
+
+/* SoD chain — vertical steps instead of one flowing sentence */
+.sod-steps{ display:flex; flex-direction:column; gap:6px; margin:4px 0 2px; }
+.sod-step{ display:flex; align-items:flex-start; gap:8px; font-size:13.5px; line-height:1.5; }
+.sod-step-num{
+  flex:none; display:grid; place-items:center;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--brand-soft,#e0f7f4); color:var(--brand-dark,#0b3d4a);
+  font-size:11px; font-weight:800; margin-top:1px;
+}
+
+/* Fraud Catcher — distinct danger color, separate from Spot the Error / Quiz */
+.ws-practice-card.ws-pk-fraud{
+  border-color:#B23A2E !important;
+  background:linear-gradient(145deg,#FDEBE8 0%,#F5C4B8 100%) !important;
+  color:#5A1D14 !important;
+}
+.ws-practice-card.ws-pk-fraud .ws-pk-icon{ background:rgba(255,255,255,.8) !important; }
 </style>
 
 </head>
@@ -3100,7 +3208,18 @@ input[type="text"]:focus, input[type="number"]:focus{
 <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()" aria-hidden="true"></div>
 
 <aside class="sidebar" id="sidebar" aria-label="Master data and modules">
-  <div class="side-logo">AYMAN HEGAZY<small>ACCOUNTING WORKSPACE</small></div>
+  <div class="side-logo">
+    <span class="side-logo-name">AYMAN HEGAZY</span>
+    <small>ACCOUNTING WORKSPACE</small>
+    <div class="side-social">
+      <a href="https://www.facebook.com/share/1D2LFtmvfJ/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.53 17.52 2.04 12 2.04S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.89h-2.34V22c4.78-.75 8.44-4.88 8.44-9.94z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/ayman-hegazyy" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+    </div>
+  </div>
 
   <button class="side-item module-parent" type="button" onclick="goHome()" style="margin-top:0;margin-bottom:8px">
     <span data-en="Home floor" data-ar="الصفحة الرئيسية">Home floor</span>
@@ -3118,7 +3237,6 @@ input[type="text"]:focus, input[type="number"]:focus{
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="bc-home" onclick="openWorkspaceMenu('bc')"><span data-en="📋 Budget Controller" data-ar="📋 مراقب الميزانية">📋 Budget Controller</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="learn-ratios" onclick="openWorkspaceMenu('ratios')"><span data-en="📐 Financial Analyst" data-ar="📐 المحلل المالي">📐 Financial Analyst</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="aud-home" onclick="openWorkspaceMenu('aud')"><span data-en="🧐 Internal Auditor" data-ar="🧐 المراجع الداخلي">🧐 Internal Auditor</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="learn-home" onclick="showPanel('learn-home')"><span data-en="📊 My Progress" data-ar="📊 تقدّمي">📊 My Progress</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="overview" onclick="openWorkspaceMenu('settings')"><span data-en="⚙️ Settings" data-ar="⚙️ الإعدادات">⚙️ Settings</span></button>
   </div>
 
@@ -3142,7 +3260,6 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="mock-hero-copy">
       <h1><span data-en="Learn Accounting." data-ar="تعلّم المحاسبة.">Learn Accounting.</span><br><span data-en="Think Like an Accountant." data-ar="فكّر كمحاسب.">Think Like an Accountant.</span></h1>
       <p data-en="One company. Real desks. Daily exceptions and month-end work." data-ar="شركة واحدة. مكاتب حقيقية. استثناءات يومية وإقفال شهر.">One company. Real desks. Daily exceptions and month-end work.</p>
-      <a class="cta mock-cta" href="#homeClean" onclick="goHomeSection('homeClean');return false"><span data-en="Find Your Path. Choose a Desk →" data-ar="اختَر مسارك. افتح مكتبًا ←">Find Your Path. Choose a Desk →</span></a>
     </div>
     <div class="mock-hero-art" aria-hidden="true">
       <div class="mha-scene">
@@ -3371,11 +3488,11 @@ input[type="text"]:focus, input[type="number"]:focus{
         <span data-en="Quick Tools" data-ar="أدوات سريعة">Quick Tools</span>
       </div>
       <div class="mock-tools-grid">
-        <button type="button" class="mock-tool" onclick="showPanel('learn-glossary')"><span>📘</span><strong data-en="Glossary" data-ar="القاموس">Glossary</strong></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-tax')"><span>🧮</span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمين">Tax &amp; Insurance</strong></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-sod')"><span>⚖️</span><strong data-en="Segregation of Duties" data-ar="فصل الواجبات">Segregation of Duties</strong></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلة">Interview Prep</strong></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-glossary')"><span>📘</span><strong data-en="Glossary" data-ar="القاموس">Glossary</strong><small>القاموس</small></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-tax')"><span>🧮</span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمين">Tax &amp; Insurance</strong><small>الضرائب والتأمين</small></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-sod')"><span>⚖️</span><strong data-en="Segregation of Duties" data-ar="فصل المهام والواجبات">Segregation of Duties</strong><small>فصل المهام والواجبات</small></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلات">Interview Prep</strong><small>تجهيز المقابلات</small></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong><small>تواصل بيئة العمل</small></button>
       </div>
     </section>
 
@@ -3913,45 +4030,6 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="cycle-stage" style="border-inline-start-color:var(--gold)">
       <h4 data-en="Net Change in Cash — Reconciliation Check" data-ar="صافي التغير في النقدية — فحص المطابقة">Net Change in Cash — Reconciliation Check</h4>
       <p id="cf-check-status" style="font-weight:700"></p>
-    </div>
-  </div>
-
-  <div class="data-panel" id="learn-home">
-    <div class="module-head">
-      <span class="module-tag" data-en="📊 My Progress" data-ar="📊 تقدّمي">📊 My Progress</span>
-      <h3 data-en="My Progress" data-ar="تقدّمي">My Progress</h3>
-      <p class="panel-sub" data-en="A daily habit, not a one-time tour. Come back, keep your streak, and let the hub point you to what's next." data-ar="عادة يومية، مش جولة لمرة واحدة. ارجع كل يوم، حافظ على تتابعك، والمركز هيوجهك لأنهي حاجة تتعلمها بعد كده.">A daily habit, not a one-time tour. Come back, keep your streak, and let the hub point you to what's next.</p>
-    </div>
-
-    <div class="data-grid">
-      <div class="data-card" style="border-inline-start:3px solid var(--gold)">
-        <strong data-en="Current Streak" data-ar="التتابع الحالي">Current Streak</strong>
-        <span id="learn-streak-display">—</span>
-      </div>
-      <div class="data-card" style="border-inline-start:3px solid var(--brand)">
-        <strong data-en="Learning Score" data-ar="نقاط التعلّم">Learning Score</strong>
-        <span id="learn-score-display">—</span>
-      </div>
-      <div class="data-card" style="border-inline-start:3px solid var(--info)">
-        <strong data-en="Spot-the-Error Solved" data-ar="اكتشف الغلط — تم حلها">Spot-the-Error Solved</strong>
-        <span id="learn-spot-progress">—</span>
-      </div>
-    </div>
-
-    <div class="cycle-stage" style="border-inline-start-color:var(--gold)">
-      <h4 data-en="💡 Tip of the Day" data-ar="💡 نصيحة اليوم">💡 Tip of the Day</h4>
-      <p id="learn-daily-tip" style="font-size:14.5px;line-height:1.7"></p>
-    </div>
-
-    <div class="cycle-stage">
-      <h4 data-en="What should I learn next?" data-ar="أتعلم إيه بعد كده؟">What should I learn next?</h4>
-      <p id="learn-next-suggestion" class="stage-note"></p>
-    </div>
-
-    <div class="cycle-stage" style="border-inline-start-color:var(--debit)">
-      <h4 data-en="Reset all progress" data-ar="إعادة ضبط كل التقدّم">Reset all progress</h4>
-      <p class="stage-note" data-en="Clears your streak, points, level, visited desks, mastery quiz results and Spot-the-Error progress — everything starts fresh." data-ar="بيمسح الستريك والنقاط والمستوى والمكاتب اللي اتزارت ونتائج اختبارات الإتقان وتقدّم اكتشف الغلط — كل حاجة تبدأ من جديد.">Clears your streak, points, level, visited desks, mastery quiz results and Spot-the-Error progress — everything starts fresh.</p>
-      <button type="button" class="btn btn-ghost" style="border-color:var(--debit);color:var(--debit)" onclick="resetAllProgress()" data-en="Reset All Progress" data-ar="إعادة ضبط كل التقدّم">Reset All Progress</button>
     </div>
   </div>
 
@@ -7582,8 +7660,8 @@ const WORKSPACES = {
       {id:'recv-role', en:'Role & Procedures', ar:'الدور والإجراءات'},
       {id:'recv-cases', en:'Cases & Problems', ar:'حالات ومشاكل'},
       {id:'recv-calc', en:'Receiving Metrics & Formulas', ar:'مؤشرات ومعادلات الاستلام'},
-      {id:'recv-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'recv-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
+      {id:'recv-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'recv-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
   },
@@ -7647,14 +7725,6 @@ const WORKSPACES = {
       {id:'gl-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
   },
-  learn: {
-    kicker: ['MY PROGRESS', 'تقدّمي'],
-    title: ['My Progress', 'تقدّمي'],
-    subtitle: ['Track your visited desks, mastery quizzes and milestones.', 'تابع المكاتب اللي زرتها واختبارات الإتقان والإنجازات.'],
-    tabs: [
-      {id:'learn-home', en:'My Progress', ar:'تقدّمي'}
-    ]
-  },
   ratios: {
     kicker: ['FINANCIAL RATIOS', 'النسب المالية'],
     title: ['Financial Ratios Workspace', 'مساحة عمل النسب المالية'],
@@ -7663,8 +7733,8 @@ const WORKSPACES = {
       {id:'ratios-home', en:'Role & Procedures', ar:'الدور والإجراءات'},
       {id:'ratios-cases', en:'Cases & Problems', ar:'حالات ومشاكل'},
       {id:'learn-ratios', en:'Reference & Calculator', ar:'المرجع والحاسبة'},
-      {id:'ratios-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'ratios-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
+      {id:'ratios-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'ratios-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
   },
@@ -7676,8 +7746,8 @@ const WORKSPACES = {
       {id:'bc-home', en:'Role & Responsibilities', ar:'الدور والمسؤوليات'},
       {id:'bc-cases', en:'Practical Cases', ar:'حالات عملية'},
       {id:'bc-sod', en:'Segregation of Duties', ar:'فصل الواجبات'},
-      {id:'bc-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'bc-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
+      {id:'bc-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'bc-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
   },
@@ -7689,8 +7759,8 @@ const WORKSPACES = {
       {id:'aud-home', en:'Role & Audit Cycle', ar:'الدور ودورة المراجعة'},
       {id:'aud-program', en:'Audit Program', ar:'برنامج المراجعة'},
       {id:'aud-cases', en:'Cases & Problems', ar:'حالات ومشاكل'},
-      {id:'aud-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'aud-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
+      {id:'aud-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'aud-findings', en:'Writing Findings', ar:'كتابة الملاحظات'},
       {id:'aud-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
@@ -7706,8 +7776,8 @@ const WORKSPACES = {
       {id:'cost-calc', en:'Cost Accounting Formulas', ar:'معادلات محاسبة التكاليف'},
       {id:'cost-capital', en:'Capital Budgeting Tool', ar:'أداة الموازنة الرأسمالية'},
       {id:'cost-quality', en:'Quality & Life-Cycle', ar:'الجودة ودورة الحياة'},
-      {id:'cost-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'cost-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
+      {id:'cost-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'cost-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
   }
@@ -7716,7 +7786,7 @@ const WORKSPACES = {
 const PANEL_TO_WS = {
   overview:'settings', coa:'settings', departments:'settings',
   'gl-home':'gl', 'gl-role':'gl', 'gl-cases':'gl', 'gl-close':'gl', 'gl-trial-balance':'gl', 'gl-financials':'gl', 'gl-fixed-assets':'gl', 'gl-cashflow':'gl', 'gl-entries':'gl', 'gl-spot-error':'gl', 'gl-quiz':'gl', 'gl-fraud':'gl',
-  'learn-home':'learn', 'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn',
+  'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn',
   'learn-ratios':'ratios', 'ratios-quiz':'ratios', 'ratios-fraud':'ratios', 'ratios-spot-error':'ratios', 'ratios-home':'ratios', 'ratios-cases':'ratios',
   'bc-home':'bc', 'bc-cases':'bc', 'bc-sod':'bc', 'bc-quiz':'bc', 'bc-fraud':'bc', 'bc-spot-error':'bc',
   'aud-home':'aud', 'aud-program':'aud', 'aud-findings':'aud', 'aud-quiz':'aud', 'aud-fraud':'aud', 'aud-spot-error':'aud', 'aud-cases':'aud',
@@ -7944,7 +8014,7 @@ function showPanel(id, btn, isBack){
   const parentMap = {
     overview:'overview', coa:'overview', departments:'overview',
     'gl-home':'gl-home', 'gl-role':'gl-home', 'gl-cases':'gl-home', 'gl-close':'gl-home', 'gl-trial-balance':'gl-home', 'gl-financials':'gl-home', 'gl-fixed-assets':'gl-home', 'gl-cashflow':'gl-home', 'gl-entries':'gl-home', 'gl-spot-error':'gl-home', 'gl-quiz':'gl-home', 'gl-fraud':'gl-home',
-    'learn-home':'learn-home', 'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home',
+    'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home',
     'learn-ratios':'learn-ratios', 'ratios-quiz':'learn-ratios', 'ratios-fraud':'learn-ratios', 'ratios-spot-error':'learn-ratios', 'ratios-home':'learn-ratios', 'ratios-cases':'learn-ratios',
     'bc-home':'bc-home', 'bc-cases':'bc-home', 'bc-sod':'bc-home', 'bc-quiz':'bc-home', 'bc-fraud':'bc-home', 'bc-spot-error':'bc-home',
     'aud-home':'aud-home', 'aud-program':'aud-home', 'aud-findings':'aud-home', 'aud-quiz':'aud-home', 'aud-fraud':'aud-home', 'aud-spot-error':'aud-home', 'aud-cases':'aud-home',
@@ -9745,13 +9815,18 @@ const SOD_EXAMPLES = [
 function learnRenderSoD(){
   const list = document.getElementById('learn-sod-list'); if(!list) return;
   const ar = cycleAr();
-  list.innerHTML = SOD_EXAMPLES.map((s,i)=>`<details class="case-item">
+  list.innerHTML = SOD_EXAMPLES.map((s,i)=>{
+    const chainText = ar ? s.chain.ar : s.chain.en;
+    const steps = chainText.split(/→|≠/).map(x=>x.trim()).filter(Boolean);
+    const stepsHtml = steps.map((step,si)=>`<div class="sod-step"><span class="sod-step-num">${si+1}</span><span>${step}</span></div>`).join('');
+    return `<details class="case-item">
     <summary><span class="case-num">${i+1}</span><span>${ar?s.process.ar:s.process.en}</span></summary>
     <div class="case-body"><div class="case-block">
-      <p>${ar?s.chain.ar:s.chain.en}</p>
+      <div class="sod-steps">${stepsHtml}</div>
       <div style="margin-top:8px;padding:8px 10px;background:var(--debit-soft);border-radius:8px;font-size:12.5px"><strong style="color:var(--debit)">⚠️ ${ar?'الخطر: ':'Risk: '}</strong>${ar?s.risk.ar:s.risk.en}</div>
     </div></div>
-  </details>`).join('');
+  </details>`;
+  }).join('');
 }
 
 function learnRenderTax(){
@@ -13118,23 +13193,98 @@ function learnUpdateStreak(){
 }
 function learnAddScore(n){ learnState.score += n; learnSave(); learnRenderProgress(); if(typeof homeRenderCommandCard==='function') homeRenderCommandCard(); if(typeof homeRenderFocus==='function') homeRenderFocus(); }
 function learnMarkSpotSolved(){ learnState.spotSolved += 1; learnSave(); learnRenderProgress(); if(typeof homeRenderFocus==='function') homeRenderFocus(); }
+const PROGRESS_DESKS = [
+  {key:'ar', icon:'👥', en:'Accounts Receivable', ar:'حسابات العملاء'},
+  {key:'ap', icon:'🚚', en:'Accounts Payable', ar:'حسابات الموردين'},
+  {key:'inv', icon:'📦', en:'Inventory & Warehouse', ar:'المخزون والمخازن'},
+  {key:'recv', icon:'📥', en:'Receiving Accountant', ar:'محاسب الاستلام'},
+  {key:'cost', icon:'🧮', en:'Cost Accountant', ar:'محاسب التكاليف'},
+  {key:'treasury', icon:'🏦', en:'Treasury & Banks', ar:'الخزينة والبنوك'},
+  {key:'hr', icon:'🧑‍💼', en:'Payroll & HR', ar:'الرواتب والموارد البشرية'},
+  {key:'gl', icon:'📚', en:'General Ledger', ar:'دفتر الأستاذ'},
+  {key:'ratios', icon:'📐', en:'Financial Analyst', ar:'المحلل المالي'},
+  {key:'bc', icon:'📋', en:'Budget Controller', ar:'مراقب الميزانية'},
+  {key:'aud', icon:'🧐', en:'Internal Auditor', ar:'المراجع الداخلي'}
+];
+
 function learnRenderProgress(){
   const ar = cycleAr();
   const streakEl = document.getElementById('learn-streak-display');
   if(streakEl) streakEl.textContent = learnState.streak + ' ' + (ar?(learnState.streak===1?'يوم':'أيام'):(learnState.streak===1?'day':'days'));
   const scoreEl = document.getElementById('learn-score-display');
   if(scoreEl) scoreEl.textContent = learnState.score.toLocaleString() + ' ' + (ar?'نقطة':'points');
-  const spotEl = document.getElementById('learn-spot-progress');
-  if(spotEl) spotEl.textContent = learnState.spotSolved + ' / ' + LEARN_SPOT_SCENARIOS.length;
+
+  const deskStatus = PROGRESS_DESKS.map(d=>{
+    let visited = false;
+    try{ visited = !!(typeof homeVisited!=='undefined' && homeVisited[d.key]); }catch(e){}
+    let qs = null;
+    try{ qs = (typeof quizState!=='undefined') ? quizState[d.key] : null; }catch(e){}
+    const mastered = !!(qs && qs.passed);
+    const best = qs && qs.best ? qs.best : 0;
+    let totalQ = 20;
+    try{ if(typeof QUIZ_BANKS!=='undefined' && QUIZ_BANKS[d.key]) totalQ = QUIZ_BANKS[d.key].length; }catch(e){}
+    const pct = best ? Math.min(100, Math.round(best/totalQ*100)) : 0;
+    return {...d, visited, mastered, attempted: !!qs, pct};
+  });
+
+  const masteredCount = deskStatus.filter(d=>d.mastered).length;
+  const countEl = document.getElementById('learn-mastered-count');
+  if(countEl) countEl.textContent = masteredCount + ' / ' + PROGRESS_DESKS.length;
+
+  // Badges grid
+  const badgesEl = document.getElementById('progress-badges');
+  if(badgesEl){
+    badgesEl.innerHTML = deskStatus.map(d=>{
+      const cls = d.mastered ? 'pb-mastered' : (d.visited ? 'pb-visited' : 'pb-unvisited');
+      const trophy = d.mastered ? '<div class="pb-trophy">🏆</div>' : (d.visited ? '<div class="pb-trophy">✓</div>' : '');
+      return `<div class="progress-badge ${cls}" title="${ar?d.ar:d.en}">
+        <span class="pb-icon">${d.icon}</span>
+        <span>${(ar?d.ar:d.en).length>14 ? (ar?d.ar:d.en).slice(0,12)+'…' : (ar?d.ar:d.en)}</span>
+        ${trophy}
+      </div>`;
+    }).join('');
+  }
+
+  // Table body
+  const tbodyEl = document.getElementById('progress-table-body');
+  if(tbodyEl){
+    tbodyEl.innerHTML = deskStatus.map(d=>{
+      const visitedTxt = d.visited ? (ar?'✅ اتزار':'✅ Yes') : (ar?'⚪ لسه لأ':'⚪ Not yet');
+      const visitedCls = d.visited ? 'pt-status-yes' : 'pt-status-no';
+      let quizTxt, quizCls;
+      if(d.mastered){ quizTxt = (ar?'🏆 ناجح ('+d.pct+'%)':'🏆 Passed ('+d.pct+'%)'); quizCls='pt-quiz-pass'; }
+      else if(d.attempted){ quizTxt = (ar?'🔸 حاول ('+d.pct+'%)':'🔸 Attempted ('+d.pct+'%)'); quizCls='pt-quiz-fail'; }
+      else { quizTxt = (ar?'⚪ لسه ما جربتش':'⚪ Not attempted'); quizCls='pt-quiz-fail'; }
+      return `<tr>
+        <td>${d.icon} ${ar?d.ar:d.en}</td>
+        <td class="${visitedCls}">${visitedTxt}</td>
+        <td class="${quizCls}">${quizTxt}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Smart specific suggestion
   const nextEl = document.getElementById('learn-next-suggestion');
   if(nextEl){
+    const unvisited = deskStatus.find(d=>!d.visited);
+    const attemptedNotMastered = deskStatus.filter(d=>d.attempted && !d.mastered).sort((a,b)=>b.pct-a.pct)[0];
     let suggestion;
-    if(learnState.spotSolved < LEARN_SPOT_SCENARIOS.length) suggestion = ar?'جرّب "اكتشف الغلط" — لسه فيه سيناريوهات ما حليتهاش.':'Try "Spot the Error" — there are unsolved scenarios waiting.';
-    else if(learnState.score < 100) suggestion = ar?'راجع دليل القيود الشائعة وشوف كام قيد لسه محتاج تتقنه.':'Review the Common Journal Entries Guide and see which ones still feel unfamiliar.';
-    else suggestion = ar?'أداؤك ممتاز — جرّب تحضير المقابلات عشان تجهّز نفسك لسوق العمل.':'You\'re doing great — try Interview Prep to get ready for the job market.';
+    if(unvisited){
+      suggestion = (ar?`لسه ما زرتش مكتب "${unvisited.ar}" — افتحه وابدأ فيه.`:`You haven't visited "${unvisited.en}" yet — open it and get started.`);
+    } else if(attemptedNotMastered){
+      suggestion = (ar?`قريب من إتقان "${attemptedNotMastered.ar}" (${attemptedNotMastered.pct}%) — جرّب الاختبار تاني.`:`You're close to mastering "${attemptedNotMastered.en}" (${attemptedNotMastered.pct}%) — retry its Mastery Quiz.`);
+    } else if(masteredCount < PROGRESS_DESKS.length){
+      const notMastered = deskStatus.find(d=>!d.mastered);
+      suggestion = (ar?`جرّب اختبار الإتقان بتاع "${notMastered.ar}".`:`Try the Mastery Quiz for "${notMastered.en}".`);
+    } else {
+      suggestion = ar?'🎉 حققت إتقان في كل المكاتب الـ11! جرّب عجلة الحظ عشان تراجع بشكل عشوائي.':'🎉 You\'ve mastered all 11 desks! Try the Wheel of Fortune to review randomly.';
+    }
     nextEl.textContent = suggestion;
   }
 }
+
+let PROGRESS_DESKS_PLACEHOLDER_REMOVED = true;
+
 
 learnLoad();
 learnUpdateStreak();
