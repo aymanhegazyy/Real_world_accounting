@@ -3135,6 +3135,7 @@ input[type="text"]:focus, input[type="number"]:focus{
 .mock-tools-grid .mock-tool:nth-child(3){ border-color:#7cb87c !important; }
 .mock-tools-grid .mock-tool:nth-child(4){ border-color:#d47fb0 !important; }
 .mock-tools-grid .mock-tool:nth-child(5){ border-color:#9b8fd1 !important; }
+.mock-tools-grid .mock-tool:nth-child(6){ border-color:#4a90a4 !important; }
 
 /* My Progress — badges and table */
 .progress-badges{
@@ -3201,6 +3202,32 @@ input[type="text"]:focus, input[type="number"]:focus{
   color:#5A1D14 !important;
 }
 .ws-practice-card.ws-pk-fraud .ws-pk-icon{ background:rgba(255,255,255,.8) !important; }
+
+/* SOP Library — formal document styling */
+.sop-doc{ border:1px solid var(--line); border-radius:14px; margin-bottom:16px; background:var(--paper); overflow:hidden; }
+.sop-doc-summary{
+  display:flex; align-items:center; gap:10px; padding:14px 16px;
+  cursor:pointer; list-style:none; background:linear-gradient(180deg,#fff,var(--paper));
+  font-weight:700;
+}
+.sop-doc-summary::-webkit-details-marker{ display:none; }
+.sop-doc-icon{ font-size:20px; }
+.sop-doc-title{ flex:1; }
+.sop-doc-code{ font-size:11px; color:var(--muted); background:var(--line); padding:3px 8px; border-radius:6px; font-weight:700; }
+.sop-doc-body{ padding:18px 20px; border-top:1px solid var(--line); }
+.sop-control-table{ width:100%; border-collapse:collapse; margin-bottom:20px; font-size:13px; }
+.sop-control-table th{ text-align:start; padding:7px 10px; background:var(--brand-soft); color:var(--brand-dark); width:32%; border:1px solid var(--line); font-weight:700; }
+.sop-control-table td{ padding:7px 10px; border:1px solid var(--line); }
+.sop-section{ margin-bottom:20px; }
+.sop-section h4{ color:var(--brand-dark); border-inline-start:4px solid var(--gold); padding-inline-start:10px; margin-bottom:10px; }
+.sop-section ul, .sop-section ol{ padding-inline-start:22px; line-height:1.8; }
+.sop-sub-title{ font-weight:700; color:var(--ink); margin:12px 0 4px; }
+.sop-chapter{ font-weight:800; color:var(--brand-dark); margin:16px 0 6px; padding:4px 0; border-bottom:2px solid var(--line); }
+.sop-proc-table, .sop-forms-table{ width:100%; border-collapse:collapse; margin-bottom:16px; font-size:12.5px; }
+.sop-proc-table th, .sop-forms-table th{ background:var(--brand-soft); color:var(--brand-dark); padding:7px 8px; border:1px solid var(--line); text-align:start; }
+.sop-proc-table td, .sop-forms-table td{ padding:7px 8px; border:1px solid var(--line); vertical-align:top; }
+.sop-proc-table tr:nth-child(even) td, .sop-forms-table tr:nth-child(even) td{ background:var(--paper); }
+.sop-footer{ text-align:center; font-size:12px; color:var(--muted); font-style:italic; margin-top:10px; }
 </style>
 
 </head>
@@ -3527,6 +3554,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <button type="button" class="mock-tool" onclick="showPanel('learn-sod')"><span>⚖️</span><strong data-en="Segregation of Duties" data-ar="فصل المهام والواجبات">Segregation of Duties</strong><small>فصل المهام والواجبات</small></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلات">Interview Prep</strong><small>تجهيز المقابلات</small></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong><small>تواصل بيئة العمل</small></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-sops')"><span>📑</span><strong data-en="SOP Library" data-ar="مكتبة SOPs">SOP Library</strong><small>مكتبة SOPs</small></button>
       </div>
     </section>
 
@@ -5591,6 +5619,390 @@ input[type="text"]:focus, input[type="number"]:focus{
       <p class="panel-sub" data-en="How you say it matters as much as what you found. Weak vs. professional, side by side." data-ar="طريقة قولك للحاجة مهمة زي أهمية اللي اكتشفته. ضعيف مقابل احترافي، جنب بعض.">How you say it matters as much as what you found. Weak vs. professional, side by side.</p>
     </div>
     <div id="learn-comms-list"></div>
+  </div>
+
+  <div class="data-panel" id="learn-sops">
+    <div class="module-head">
+      <span class="module-tag" data-en="🛠️ Quick Tools" data-ar="🛠️ أدوات سريعة">🛠️ Quick Tools</span>
+      <h3 data-en="SOP Library" data-ar="مكتبة إجراءات العمل القياسية (SOPs)">SOP Library</h3>
+      <p class="panel-sub" data-en="Real, formally-structured Standard Operating Procedures — the kind of governing document an actual company keeps, complete with a document control block, policies, step-by-step procedure tables, and a form appendix." data-ar="وثائق إجراءات عمل قياسية حقيقية ومنسّقة رسميًا — نوع الوثيقة الحاكمة اللي شركة فعلية بتحتفظ بيها، كاملة بجدول تحكم بالوثيقة، وسياسات، وجداول خطوات إجرائية، وملحق نماذج.">Real, formally-structured Standard Operating Procedures — the kind of governing document an actual company keeps, complete with a document control block, policies, step-by-step procedure tables, and a form appendix.</p>
+    </div>
+    <div class="sop-list">
+      <details class="sop-doc">
+        <summary class="sop-doc-summary">
+          <span class="sop-doc-icon">👥</span>
+          <span class="sop-doc-title" data-en="Customer Credit, Billing &amp; Collections SOP" data-ar="دليل إجراءات الائتمان والفوترة وتحصيل العملاء">Customer Credit, Billing &amp; Collections SOP</span>
+          <span class="sop-doc-code">SOP-AR-01</span>
+        </summary>
+        <div class="sop-doc-body">
+
+          <table class="sop-control-table">
+            <tr><th data-en="Document No." data-ar="رقم الوثيقة">Document No.</th><td>SOP-AR-01</td></tr>
+            <tr><th data-en="Version" data-ar="رقم الإصدار">Version</th><td data-en="1.0" data-ar="1.0 — إصدار أول">1.0</td></tr>
+            <tr><th data-en="Effective Date" data-ar="تاريخ التفعيل">Effective Date</th><td data-en="01 / 01 / 2026" data-ar="01 / 01 / 2026">01 / 01 / 2026</td></tr>
+            <tr><th data-en="Owner Department" data-ar="القسم المسؤول">Owner Department</th><td data-en="Finance — Accounts Receivable" data-ar="المالية — حسابات العملاء">Finance — Accounts Receivable</td></tr>
+            <tr><th data-en="Prepared By" data-ar="أُعدّت بواسطة">Prepared By</th><td data-en="AR Supervisor" data-ar="مشرف حسابات العملاء">AR Supervisor</td></tr>
+            <tr><th data-en="Reviewed By" data-ar="روجعت بواسطة">Reviewed By</th><td data-en="Credit Manager and Internal Audit" data-ar="مدير الائتمان والمراجعة الداخلية">Credit Manager and Internal Audit</td></tr>
+            <tr><th data-en="Approved By" data-ar="اعتُمدت بواسطة">Approved By</th><td data-en="CFO" data-ar="المدير المالي">CFO</td></tr>
+            <tr><th data-en="Review Cycle" data-ar="دورية المراجعة">Review Cycle</th><td data-en="Annually, or upon any change to credit policy" data-ar="سنويًا، أو عند أي تعديل في سياسة الائتمان">Annually, or upon any change to credit policy</td></tr>
+            <tr><th data-en="Confidentiality" data-ar="مستوى السرية">Confidentiality</th><td data-en="Internal — Confidential" data-ar="سري — للاستخدام الداخلي فقط">Internal — Confidential</td></tr>
+          </table>
+
+          <div class="sop-section">
+            <h4 data-en="1. Purpose" data-ar="1. الغرض">1. Purpose</h4>
+            <ul>
+              <li data-en="Ensure no sale is shipped or invoiced to a customer without an approved, current credit limit." data-ar="ضمان إن مفيش بيع بيتشحن أو يتفوتر لعميل من غير حد ائتمان معتمد وساري.">Ensure no sale is shipped or invoiced to a customer without an approved, current credit limit.</li>
+              <li data-en="Ensure every invoice genuinely matches an approved order, delivery and price." data-ar="ضمان إن كل فاتورة فعليًا بتطابق أوردر واستلام وسعر معتمد.">Ensure every invoice genuinely matches an approved order, delivery and price.</li>
+              <li data-en="Maximize timely collection and minimize genuine bad debt exposure." data-ar="زيادة التحصيل في الميعاد وتقليل التعرض الحقيقي لديون معدومة.">Maximize timely collection and minimize genuine bad debt exposure.</li>
+              <li data-en="Maintain segregation of duties between the person granting credit, the person billing, and the person collecting/applying cash." data-ar="الحفاظ على فصل الواجبات بين اللي بيمنح الائتمان، واللي بيفوتر، واللي بيحصّل ويوزّع الكاش.">Maintain segregation of duties between the person granting credit, the person billing, and the person collecting/applying cash.</li>
+            </ul>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="2. Scope" data-ar="2. نطاق التطبيق">2. Scope</h4>
+            <ul>
+              <li data-en="All credit-based sales to existing and new customers." data-ar="كل المبيعات الآجلة للعملاء الحاليين والجداد.">All credit-based sales to existing and new customers.</li>
+              <li data-en="Sales, Credit Control, AR Accounting, and Collections functions." data-ar="المبيعات، مراقبة الائتمان، محاسبة العملاء، وفريق التحصيل.">Sales, Credit Control, AR Accounting, and Collections functions.</li>
+              <li data-en="Every stage: credit approval, order-to-invoice, cash application, and write-off." data-ar="كل مرحلة: اعتماد الائتمان، من الأوردر للفاتورة، توزيع الكاش، والشطب.">Every stage: credit approval, order-to-invoice, cash application, and write-off.</li>
+            </ul>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="3. General Policies" data-ar="3. السياسات العامة">3. General Policies</h4>
+            <p class="sop-sub-title" data-en="3.1 Credit Approval Governance" data-ar="3.1 حوكمة اعتماد الائتمان">3.1 Credit Approval Governance</p>
+            <ol>
+              <li data-en="Every new customer requires a completed credit application and a formally approved credit limit before the first credit sale." data-ar="كل عميل جديد بيتطلب طلب ائتمان مكتمل وحد ائتمان معتمد رسميًا قبل أول بيع آجل.">Every new customer requires a completed credit application and a formally approved credit limit before the first credit sale.</li>
+              <li data-en="Credit Control — not Sales — holds authority to approve or increase a credit limit." data-ar="مراقبة الائتمان — مش المبيعات — هي اللي عندها صلاحية اعتماد أو زيادة حد الائتمان.">Credit Control — not Sales — holds authority to approve or increase a credit limit.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.2 Billing &amp; Invoicing" data-ar="3.2 الفوترة">3.2 Billing &amp; Invoicing</p>
+            <ol>
+              <li data-en="An invoice is issued only after order, delivery confirmation, price and tax are matched." data-ar="الفاتورة بتتصدر بس بعد ما الأوردر وتأكيد التسليم والسعر والضريبة يتطابقوا.">An invoice is issued only after order, delivery confirmation, price and tax are matched.</li>
+              <li data-en="Any credit note above a set threshold requires supervisor approval." data-ar="أي إشعار دائن فوق حد معين بيتطلب اعتماد مشرف.">Any credit note above a set threshold requires supervisor approval.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.3 Collections &amp; Write-off" data-ar="3.3 التحصيل والشطب">3.3 Collections &amp; Write-off</p>
+            <ol>
+              <li data-en="Overdue accounts are followed up per the aging escalation schedule." data-ar="الحسابات المتأخرة بتتابع حسب جدول تصعيد الـaging.">Overdue accounts are followed up per the aging escalation schedule.</li>
+              <li data-en="No balance is written off without documented approval from the CFO." data-ar="مفيش رصيد بيتشطب من غير اعتماد موثّق من المدير المالي.">No balance is written off without documented approval from the CFO.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.4 Cash Application" data-ar="3.4 توزيع الكاش">3.4 Cash Application</p>
+            <ol>
+              <li data-en="Unidentified receipts are parked in suspense — never guessed onto a customer account." data-ar="التحصيلات المجهولة بتتحط في suspense — أبدًا مش بتتخمن على حساب عميل.">Unidentified receipts are parked in suspense — never guessed onto a customer account.</li>
+            </ol>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="4. Detailed Procedure Steps" data-ar="4. الخطوات الإجرائية التفصيلية">4. Detailed Procedure Steps</h4>
+
+            <p class="sop-chapter" data-en="Chapter 1 — New Customer Credit Setup" data-ar="الفصل الأول — إعداد ائتمان عميل جديد">Chapter 1 — New Customer Credit Setup</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td data-en="Sales submits the Credit Application Form with the customer's trade references." data-ar="المبيعات بتقدّم نموذج طلب الائتمان مع المراجع التجارية للعميل.">Sales submits the Credit Application Form with the customer's trade references.</td><td data-en="Sales" data-ar="المبيعات">Sales</td><td data-en="Before first order" data-ar="قبل أول أوردر">Before first order</td></tr>
+                <tr><td>2</td><td data-en="Credit Control assesses the application and sets the initial credit limit." data-ar="مراقبة الائتمان بتقيّم الطلب وتحدد حد الائتمان الأولي.">Credit Control assesses the application and sets the initial credit limit.</td><td data-en="Credit Control" data-ar="مراقبة الائتمان">Credit Control</td><td data-en="Within 3 working days" data-ar="خلال 3 أيام عمل">Within 3 working days</td></tr>
+                <tr><td>3</td><td data-en="Approved limit is entered onto the customer master and communicated to Sales." data-ar="الحد المعتمد بيتسجل على بيانات العميل الأساسية ويتبلّغ للمبيعات.">Approved limit is entered onto the customer master and communicated to Sales.</td><td data-en="AR Accounting" data-ar="محاسبة العملاء">AR Accounting</td><td data-en="Upon approval" data-ar="فور الاعتماد">Upon approval</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 2 — Order to Invoice" data-ar="الفصل الثاني — من الأوردر للفاتورة">Chapter 2 — Order to Invoice</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>4</td><td data-en="System checks the order against the customer's available credit before release." data-ar="النظام بيفحص الأوردر مقابل الائتمان المتاح للعميل قبل الإفراج عنه.">System checks the order against the customer's available credit before release.</td><td data-en="System / Sales" data-ar="النظام / المبيعات">System / Sales</td><td data-en="At order entry" data-ar="وقت إدخال الأوردر">At order entry</td></tr>
+                <tr><td>5</td><td data-en="AR matches order, delivery proof, price and tax before issuing the invoice." data-ar="العملاء بتطابق الأوردر ودليل التسليم والسعر والضريبة قبل ما تصدر الفاتورة.">AR matches order, delivery proof, price and tax before issuing the invoice.</td><td data-en="AR Accounting" data-ar="محاسبة العملاء">AR Accounting</td><td data-en="Upon delivery" data-ar="فور التسليم">Upon delivery</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 3 — Cash Application &amp; Collections" data-ar="الفصل الثالث — توزيع الكاش والتحصيل">Chapter 3 — Cash Application &amp; Collections</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>6</td><td data-en="Bank receipts are matched to open invoices using the remittance advice." data-ar="التحصيلات البنكية بتتطابق مع الفواتير المفتوحة باستخدام إشعار التحويل.">Bank receipts are matched to open invoices using the remittance advice.</td><td data-en="AR Accounting" data-ar="محاسبة العملاء">AR Accounting</td><td data-en="Daily" data-ar="يوميًا">Daily</td></tr>
+                <tr><td>7</td><td data-en="Overdue accounts are contacted per the aging escalation schedule." data-ar="الحسابات المتأخرة بتتصل بيها حسب جدول تصعيد الـaging.">Overdue accounts are contacted per the aging escalation schedule.</td><td data-en="Collections" data-ar="التحصيل">Collections</td><td data-en="Weekly" data-ar="أسبوعيًا">Weekly</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 4 — Write-off &amp; Bad Debt" data-ar="الفصل الرابع — الشطب والديون المعدومة">Chapter 4 — Write-off &amp; Bad Debt</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>8</td><td data-en="AR proposes a write-off with full collection history attached." data-ar="العملاء بتقترح شطب مع إرفاق تاريخ التحصيل الكامل.">AR proposes a write-off with full collection history attached.</td><td data-en="AR Accounting" data-ar="محاسبة العملاء">AR Accounting</td><td data-en="When exhausted" data-ar="لما التحصيل يستنفد">When exhausted</td></tr>
+                <tr><td>9</td><td data-en="CFO reviews and approves the write-off before it is posted." data-ar="المدير المالي بيراجع ويعتمد الشطب قبل ما يترحّل.">CFO reviews and approves the write-off before it is posted.</td><td data-en="CFO" data-ar="المدير المالي">CFO</td><td data-en="Before posting" data-ar="قبل الترحيل">Before posting</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="5. Appendices &amp; Forms" data-ar="5. الملاحق والنماذج">5. Appendices &amp; Forms</h4>
+            <table class="sop-forms-table">
+              <thead><tr><th data-en="Code" data-ar="الكود">Code</th><th data-en="Form Name" data-ar="اسم النموذج">Form Name</th><th data-en="Purpose" data-ar="الغرض">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>AR-01-F01</td><td data-en="Credit Application Form" data-ar="نموذج طلب ائتمان">Credit Application Form</td><td data-en="Trade references and requested limit" data-ar="المراجع التجارية والحد المطلوب">Trade references and requested limit</td></tr>
+                <tr><td>AR-01-F02</td><td data-en="Credit Limit Approval" data-ar="اعتماد حد الائتمان">Credit Limit Approval</td><td data-en="Documents the approved limit and reviewer" data-ar="بيوثّق الحد المعتمد والمراجع">Documents the approved limit and reviewer</td></tr>
+                <tr><td>AR-01-F03</td><td data-en="Collection Call Log" data-ar="سجل مكالمات التحصيل">Collection Call Log</td><td data-en="Tracks every collection follow-up made" data-ar="بيتتبّع كل متابعة تحصيل بتتم">Tracks every collection follow-up made</td></tr>
+                <tr><td>AR-01-F04</td><td data-en="Write-off Approval Form" data-ar="نموذج اعتماد شطب">Write-off Approval Form</td><td data-en="CFO sign-off with collection history attached" data-ar="اعتماد المدير المالي مع تاريخ التحصيل مرفق">CFO sign-off with collection history attached</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="sop-footer" data-en="End of document — any amendment requires a new, approved version per the Document Control Block above." data-ar="نهاية الوثيقة — أي تعديل بيتطلب إصدار جديد ومعتمد حسب جدول التحكم بالوثيقة أعلاه.">End of document — any amendment requires a new, approved version per the Document Control Block above.</p>
+
+        </div>
+      </details>
+
+      <details class="sop-doc">
+        <summary class="sop-doc-summary">
+          <span class="sop-doc-icon">🚚</span>
+          <span class="sop-doc-title" data-en="Supplier Invoice Processing &amp; Payment SOP" data-ar="دليل إجراءات معالجة فواتير الموردين والسداد">Supplier Invoice Processing &amp; Payment SOP</span>
+          <span class="sop-doc-code">SOP-AP-01</span>
+        </summary>
+        <div class="sop-doc-body">
+
+          <table class="sop-control-table">
+            <tr><th data-en="Document No." data-ar="رقم الوثيقة">Document No.</th><td>SOP-AP-01</td></tr>
+            <tr><th data-en="Version" data-ar="رقم الإصدار">Version</th><td data-en="1.0" data-ar="1.0 — إصدار أول">1.0</td></tr>
+            <tr><th data-en="Effective Date" data-ar="تاريخ التفعيل">Effective Date</th><td data-en="01 / 01 / 2026" data-ar="01 / 01 / 2026">01 / 01 / 2026</td></tr>
+            <tr><th data-en="Owner Department" data-ar="القسم المسؤول">Owner Department</th><td data-en="Finance — Accounts Payable" data-ar="المالية — حسابات الموردين">Finance — Accounts Payable</td></tr>
+            <tr><th data-en="Prepared By" data-ar="أُعدّت بواسطة">Prepared By</th><td data-en="AP Supervisor" data-ar="مشرف حسابات الموردين">AP Supervisor</td></tr>
+            <tr><th data-en="Reviewed By" data-ar="روجعت بواسطة">Reviewed By</th><td data-en="Procurement Manager and Internal Audit" data-ar="مدير المشتريات والمراجعة الداخلية">Procurement Manager and Internal Audit</td></tr>
+            <tr><th data-en="Approved By" data-ar="اعتُمدت بواسطة">Approved By</th><td data-en="CFO" data-ar="المدير المالي">CFO</td></tr>
+            <tr><th data-en="Review Cycle" data-ar="دورية المراجعة">Review Cycle</th><td data-en="Annually, or upon any change to approval thresholds" data-ar="سنويًا، أو عند أي تعديل في حدود الاعتماد">Annually, or upon any change to approval thresholds</td></tr>
+            <tr><th data-en="Confidentiality" data-ar="مستوى السرية">Confidentiality</th><td data-en="Internal — Confidential" data-ar="سري — للاستخدام الداخلي فقط">Internal — Confidential</td></tr>
+          </table>
+
+          <div class="sop-section">
+            <h4 data-en="1. Purpose" data-ar="1. الغرض">1. Purpose</h4>
+            <ul>
+              <li data-en="Prevent duplicate, unauthorized or premature supplier payments." data-ar="منع مدفوعات مورد مكررة أو غير مصرح بيها أو قبل ميعادها.">Prevent duplicate, unauthorized or premature supplier payments.</li>
+              <li data-en="Ensure every invoice is genuinely matched to an approved purchase order and goods receipt (three-way match)." data-ar="ضمان إن كل فاتورة فعليًا بتطابق أمر شراء معتمد وإذن استلام (مطابقة ثلاثية).">Ensure every invoice is genuinely matched to an approved purchase order and goods receipt (three-way match).</li>
+              <li data-en="Maintain segregation of duties between requisitioning, receiving, invoice processing and payment approval." data-ar="الحفاظ على فصل الواجبات بين طلب الشراء والاستلام ومعالجة الفاتورة واعتماد السداد.">Maintain segregation of duties between requisitioning, receiving, invoice processing and payment approval.</li>
+            </ul>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="2. Scope" data-ar="2. نطاق التطبيق">2. Scope</h4>
+            <ul>
+              <li data-en="All purchases of goods and services on credit terms." data-ar="كل مشتريات البضائع والخدمات بشروط آجلة.">All purchases of goods and services on credit terms.</li>
+              <li data-en="Purchasing, Warehouse/Receiving, AP Accounting, and Treasury." data-ar="المشتريات، المخازن/الاستلام، محاسبة الموردين، والخزينة.">Purchasing, Warehouse/Receiving, AP Accounting, and Treasury.</li>
+              <li data-en="Every stage: requisition, PO issuance, receiving, invoice matching, and payment." data-ar="كل مرحلة: طلب الشراء، إصدار أمر الشراء، الاستلام، مطابقة الفاتورة، والسداد.">Every stage: requisition, PO issuance, receiving, invoice matching, and payment.</li>
+            </ul>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="3. General Policies" data-ar="3. السياسات العامة">3. General Policies</h4>
+            <p class="sop-sub-title" data-en="3.1 Purchase Order Governance" data-ar="3.1 حوكمة أمر الشراء">3.1 Purchase Order Governance</p>
+            <ol>
+              <li data-en="No invoice is processed for payment without a valid, approved purchase order on file." data-ar="مفيش فاتورة بتتعالج للسداد من غير أمر شراء صحيح ومعتمد في الملف.">No invoice is processed for payment without a valid, approved purchase order on file.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.2 Three-Way Match" data-ar="3.2 المطابقة الثلاثية">3.2 Three-Way Match</p>
+            <ol>
+              <li data-en="Every invoice is matched against the PO and the goods receipt note for quantity, price and tax before posting." data-ar="كل فاتورة بتتطابق مع أمر الشراء وإذن الاستلام من ناحية الكمية والسعر والضريبة قبل الترحيل.">Every invoice is matched against the PO and the goods receipt note for quantity, price and tax before posting.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.3 Payment Authorization" data-ar="3.3 تفويض السداد">3.3 Payment Authorization</p>
+            <ol>
+              <li data-en="Whoever prepares a payment proposal is never the same person who gives final approval." data-ar="اللي بيجهّز مقترح السداد أبدًا مش نفس الشخص اللي بيدّي الاعتماد النهائي.">Whoever prepares a payment proposal is never the same person who gives final approval.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.4 Supplier Master Data" data-ar="3.4 بيانات الموردين الأساسية">3.4 Supplier Master Data</p>
+            <ol>
+              <li data-en="Any change to a supplier's bank details requires independent verification before it takes effect." data-ar="أي تغيير في بيانات بنك مورد بيتطلب تحقق مستقل قبل ما يسري.">Any change to a supplier's bank details requires independent verification before it takes effect.</li>
+            </ol>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="4. Detailed Procedure Steps" data-ar="4. الخطوات الإجرائية التفصيلية">4. Detailed Procedure Steps</h4>
+
+            <p class="sop-chapter" data-en="Chapter 1 — Requisition to Purchase Order" data-ar="الفصل الأول — من طلب الشراء لأمر الشراء">Chapter 1 — Requisition to Purchase Order</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td data-en="Department submits a purchase requisition with quantity, specification and budget line." data-ar="القسم بيقدّم طلب شراء موضّح فيه الكمية والمواصفة وبند الموازنة.">Department submits a purchase requisition with quantity, specification and budget line.</td><td data-en="Requesting Department" data-ar="القسم الطالب">Requesting Department</td><td data-en="As needed" data-ar="عند الحاجة">As needed</td></tr>
+                <tr><td>2</td><td data-en="Purchasing selects the supplier and issues an approved PO." data-ar="المشتريات بتختار المورد وتصدر أمر شراء معتمد.">Purchasing selects the supplier and issues an approved PO.</td><td data-en="Purchasing" data-ar="المشتريات">Purchasing</td><td data-en="Within 2 working days" data-ar="خلال يومي عمل">Within 2 working days</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 2 — Receiving &amp; Invoice Matching" data-ar="الفصل الثاني — الاستلام ومطابقة الفاتورة">Chapter 2 — Receiving &amp; Invoice Matching</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>3</td><td data-en="Warehouse inspects and records the goods receipt note against the PO." data-ar="المخزن بيفحص ويسجل إذن الاستلام مقابل أمر الشراء.">Warehouse inspects and records the goods receipt note against the PO.</td><td data-en="Warehouse" data-ar="المخزن">Warehouse</td><td data-en="Upon delivery" data-ar="فور التسليم">Upon delivery</td></tr>
+                <tr><td>4</td><td data-en="AP performs the three-way match and resolves any price or quantity exception." data-ar="الموردين بتعمل المطابقة الثلاثية وتحل أي استثناء سعر أو كمية.">AP performs the three-way match and resolves any price or quantity exception.</td><td data-en="AP Accounting" data-ar="محاسبة الموردين">AP Accounting</td><td data-en="Upon invoice receipt" data-ar="فور استلام الفاتورة">Upon invoice receipt</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 3 — Payment Preparation &amp; Approval" data-ar="الفصل الثالث — تجهيز واعتماد السداد">Chapter 3 — Payment Preparation &amp; Approval</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>5</td><td data-en="AP prepares the payment proposal listing only matched, approved invoices." data-ar="الموردين بتجهّز مقترح السداد بس بالفواتير المتطابقة والمعتمدة.">AP prepares the payment proposal listing only matched, approved invoices.</td><td data-en="AP Accounting" data-ar="محاسبة الموردين">AP Accounting</td><td data-en="Weekly" data-ar="أسبوعيًا">Weekly</td></tr>
+                <tr><td>6</td><td data-en="Treasury independently approves and executes the payment run." data-ar="الخزينة بتعتمد وتنفّذ تشغيل السداد بشكل مستقل.">Treasury independently approves and executes the payment run.</td><td data-en="Treasury" data-ar="الخزينة">Treasury</td><td data-en="Per payment cycle" data-ar="حسب دورة السداد">Per payment cycle</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 4 — Supplier Master Data Management" data-ar="الفصل الرابع — إدارة بيانات الموردين الأساسية">Chapter 4 — Supplier Master Data Management</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>7</td><td data-en="Any request to change a supplier's bank details is verified directly with the supplier via a known contact channel." data-ar="أي طلب تغيير بيانات بنك مورد بيتحقق منه مباشرة مع المورد عبر قناة تواصل معروفة.">Any request to change a supplier's bank details is verified directly with the supplier via a known contact channel.</td><td data-en="Procurement" data-ar="المشتريات">Procurement</td><td data-en="Before any change" data-ar="قبل أي تغيير">Before any change</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="5. Appendices &amp; Forms" data-ar="5. الملاحق والنماذج">5. Appendices &amp; Forms</h4>
+            <table class="sop-forms-table">
+              <thead><tr><th data-en="Code" data-ar="الكود">Code</th><th data-en="Form Name" data-ar="اسم النموذج">Form Name</th><th data-en="Purpose" data-ar="الغرض">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>AP-01-F01</td><td data-en="Purchase Requisition Form" data-ar="نموذج طلب شراء">Purchase Requisition Form</td><td data-en="Documents quantity, specification and budget line" data-ar="بيوثّق الكمية والمواصفة وبند الموازنة">Documents quantity, specification and budget line</td></tr>
+                <tr><td>AP-01-F02</td><td data-en="Goods Receipt Note (GRN)" data-ar="إذن استلام بضاعة">Goods Receipt Note (GRN)</td><td data-en="Confirms physical receipt against the PO" data-ar="بيأكد الاستلام الفعلي مقابل أمر الشراء">Confirms physical receipt against the PO</td></tr>
+                <tr><td>AP-01-F03</td><td data-en="Invoice Exception Form" data-ar="نموذج استثناء فاتورة">Invoice Exception Form</td><td data-en="Documents any price/quantity mismatch and its resolution" data-ar="بيوثّق أي فرق سعر/كمية وحله">Documents any price/quantity mismatch and its resolution</td></tr>
+                <tr><td>AP-01-F04</td><td data-en="Supplier Master Change Form" data-ar="نموذج تغيير بيانات مورد">Supplier Master Change Form</td><td data-en="Requires independent verification before any bank detail change" data-ar="بيشترط تحقق مستقل قبل أي تغيير في بيانات البنك">Requires independent verification before any bank detail change</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="sop-footer" data-en="End of document — any amendment requires a new, approved version per the Document Control Block above." data-ar="نهاية الوثيقة — أي تعديل بيتطلب إصدار جديد ومعتمد حسب جدول التحكم بالوثيقة أعلاه.">End of document — any amendment requires a new, approved version per the Document Control Block above.</p>
+
+        </div>
+      </details>
+
+      <details class="sop-doc" open>
+        <summary class="sop-doc-summary">
+          <span class="sop-doc-icon">🧑‍💼</span>
+          <span class="sop-doc-title" data-en="Payroll, Timekeeping &amp; Benefits SOP" data-ar="دليل إجراءات دورة الرواتب وضبط الوقت والاستحقاقات">Payroll, Timekeeping &amp; Benefits SOP</span>
+          <span class="sop-doc-code">SOP-HR-01</span>
+        </summary>
+        <div class="sop-doc-body">
+
+          <table class="sop-control-table">
+            <tr><th data-en="Document No." data-ar="رقم الوثيقة">Document No.</th><td>SOP-HR-01</td></tr>
+            <tr><th data-en="Version" data-ar="رقم الإصدار">Version</th><td data-en="1.0" data-ar="1.0 — إصدار أول">1.0</td></tr>
+            <tr><th data-en="Effective Date" data-ar="تاريخ التفعيل">Effective Date</th><td data-en="01 / 01 / 2026" data-ar="01 / 01 / 2026">01 / 01 / 2026</td></tr>
+            <tr><th data-en="Owner Department" data-ar="القسم المسؤول">Owner Department</th><td data-en="HR, in coordination with Finance" data-ar="الموارد البشرية بالتنسيق مع الإدارة المالية">HR, in coordination with Finance</td></tr>
+            <tr><th data-en="Prepared By" data-ar="أُعدّت بواسطة">Prepared By</th><td data-en="HR Manager" data-ar="مدير الموارد البشرية">HR Manager</td></tr>
+            <tr><th data-en="Reviewed By" data-ar="روجعت بواسطة">Reviewed By</th><td data-en="CFO and Internal Audit" data-ar="المدير المالي والمراجعة الداخلية">CFO and Internal Audit</td></tr>
+            <tr><th data-en="Approved By" data-ar="اعتُمدت بواسطة">Approved By</th><td data-en="General Manager" data-ar="المدير العام">General Manager</td></tr>
+            <tr><th data-en="Review Cycle" data-ar="دورية المراجعة">Review Cycle</th><td data-en="Annually, or upon any change to labor law or the salary structure" data-ar="سنويًا، أو عند أي تعديل في قانون العمل أو هيكل المرتبات">Annually, or upon any change to labor law or the salary structure</td></tr>
+            <tr><th data-en="Confidentiality" data-ar="مستوى السرية">Confidentiality</th><td data-en="Internal — Confidential" data-ar="سري — للاستخدام الداخلي فقط">Internal — Confidential</td></tr>
+          </table>
+
+          <div class="sop-section">
+            <h4 data-en="1. Purpose" data-ar="1. الغرض">1. Purpose</h4>
+            <ul>
+              <li data-en="Ensure no addition, change or removal happens to payroll or headcount without prior, budget-aligned approval." data-ar="ضمان إن مفيش إضافة أو تغيير أو إلغاء يحصل في الرواتب أو عدد العاملين من غير اعتماد مسبق ومتماشي مع الموازنة.">Ensure no addition, change or removal happens to payroll or headcount without prior, budget-aligned approval.</li>
+              <li data-en="Ensure pay is based strictly on actual hours worked, as evidenced by attendance records." data-ar="ضمان إن الدفع مبني بدقة على ساعات العمل الفعلية، زي ما موثّق في سجلات الحضور.">Ensure pay is based strictly on actual hours worked, as evidenced by attendance records.</li>
+              <li data-en="Govern the use of temporary and casual labor and its separate payment cycle." data-ar="تنظيم استخدام العمالة المؤقتة واليومية ودورة دفعها المنفصلة.">Govern the use of temporary and casual labor and its separate payment cycle.</li>
+              <li data-en="Ensure every employee receives their genuine leave and benefit entitlement — no more, no less." data-ar="ضمان إن كل موظف بياخد استحقاقه الحقيقي من الإجازات والمزايا — لا زيادة ولا نقصان.">Ensure every employee receives their genuine leave and benefit entitlement — no more, no less.</li>
+              <li data-en="Maintain segregation of duties across the full payroll cycle between HR, Finance and department heads." data-ar="الحفاظ على فصل الواجبات عبر دورة الرواتب كاملة بين الموارد البشرية والمالية ورؤساء الأقسام.">Maintain segregation of duties across the full payroll cycle between HR, Finance and department heads.</li>
+            </ul>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="2. Scope" data-ar="2. نطاق التطبيق">2. Scope</h4>
+            <ul>
+              <li data-en="All permanent employees at every level, including managers." data-ar="كل الموظفين الدائمين على كل المستويات، شامل المديرين.">All permanent employees at every level, including managers.</li>
+              <li data-en="Temporary, seasonal and casual (day) workers." data-ar="العمالة المؤقتة والموسمية واليومية.">Temporary, seasonal and casual (day) workers.</li>
+              <li data-en="HR, Finance, department heads and Security — each within their role in the payroll cycle." data-ar="الموارد البشرية والمالية ورؤساء الأقسام والأمن — كل واحد في حدود دوره في دورة الرواتب.">HR, Finance, department heads and Security — each within their role in the payroll cycle.</li>
+              <li data-en="Every stage: headcount requests, payroll additions/amendments/removals, attendance control, pay computation, and all leave and benefit types." data-ar="كل مرحلة: طلبات العمالة، الإضافة/التعديل/الإلغاء بالمرتبات، ضبط الحضور، احتساب الأجور، وكل أنواع الإجازات والمزايا.">Every stage: headcount requests, payroll additions/amendments/removals, attendance control, pay computation, and all leave and benefit types.</li>
+            </ul>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="3. General Policies" data-ar="3. السياسات العامة">3. General Policies</h4>
+            <p class="sop-sub-title" data-en="3.1 Headcount &amp; Payroll Governance" data-ar="3.1 حوكمة عدد العاملين والمرتبات">3.1 Headcount &amp; Payroll Governance</p>
+            <ol>
+              <li data-en="Prior approval is mandatory for every payroll addition or change, aligned with the approved headcount and salary budget." data-ar="الاعتماد المسبق إلزامي لأي إضافة أو تغيير في الرواتب، بما يتماشى مع موازنة عدد العاملين والمرتبات المعتمدة.">Prior approval is mandatory for every payroll addition or change, aligned with the approved headcount and salary budget.</li>
+              <li data-en="Finance verifies that HR's supporting paperwork genuinely matches the payroll before any entry is made." data-ar="المالية بتتحقق إن أوراق الموارد البشرية المؤيدة فعليًا متطابقة مع الرواتب قبل أي قيد.">Finance verifies that HR's supporting paperwork genuinely matches the payroll before any entry is made.</li>
+              <li data-en="Access to payroll data is restricted strictly to authorized personnel." data-ar="الوصول لبيانات الرواتب مقصور بدقة على الأفراد المصرح لهم.">Access to payroll data is restricted strictly to authorized personnel.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.2 Temporary &amp; Casual Labor" data-ar="3.2 العمالة المؤقتة واليومية">3.2 Temporary &amp; Casual Labor</p>
+            <ol>
+              <li data-en="Temporary staff are added to the regular payroll for their contracted period." data-ar="العمالة المؤقتة بتتضاف للرواتب العادية للفترة المتعاقد عليها.">Temporary staff are added to the regular payroll for their contracted period.</li>
+              <li data-en="Casual (day) workers are never added to the payroll — they are paid only upon confirmed completion of the assigned task." data-ar="عمال اليومية أبدًا ما بيتضافوش للرواتب — بيتم الدفع ليهم بس بعد تأكيد إنجاز المهمة المحددة.">Casual (day) workers are never added to the payroll — they are paid only upon confirmed completion of the assigned task.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.3 Timekeeping" data-ar="3.3 ضبط الوقت">3.3 Timekeeping</p>
+            <ol>
+              <li data-en="All employees, including managers, are paid strictly on the hours their time card or approved attendance record shows." data-ar="كل الموظفين، شامل المديرين، بيتقاضوا أجرهم بدقة على الساعات اللي كارت الحضور أو سجل الحضور المعتمد بيوضحها.">All employees, including managers, are paid strictly on the hours their time card or approved attendance record shows.</li>
+              <li data-en="Payroll computation is based only on actual worked hours — never assumed or estimated." data-ar="حساب الرواتب مبني بس على ساعات العمل الفعلية — أبدًا مش مفترضة أو مقدّرة.">Payroll computation is based only on actual worked hours — never assumed or estimated.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.4 Leave &amp; Benefits" data-ar="3.4 الإجازات والمزايا">3.4 Leave &amp; Benefits</p>
+            <ol>
+              <li data-en="Every employee receives a Benefits Handbook at hire, detailing their full entitlement." data-ar="كل موظف بياخد كتيب مزايا وقت التعيين، بيوضح استحقاقه الكامل.">Every employee receives a Benefits Handbook at hire, detailing their full entitlement.</li>
+              <li data-en="HR owns responsibility for ensuring every employee receives exactly their due entitlement." data-ar="الموارد البشرية مسؤولة عن ضمان إن كل موظف بياخد استحقاقه بالظبط، لا أكتر ولا أقل.">HR owns responsibility for ensuring every employee receives exactly their due entitlement.</li>
+            </ol>
+            <p class="sop-sub-title" data-en="3.5 Payment Method" data-ar="3.5 وسيلة الدفع">3.5 Payment Method</p>
+            <ol>
+              <li data-en="Payment is made by bank transfer or cheque through a dedicated, separate payroll bank account — cash payment is avoided under normal circumstances." data-ar="السداد بيتم بتحويل بنكي أو شيك من خلال حساب رواتب بنكي منفصل ومخصص — الدفع النقدي بيتفادى في الظروف العادية.">Payment is made by bank transfer or cheque through a dedicated, separate payroll bank account — cash payment is avoided under normal circumstances.</li>
+            </ol>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="4. Detailed Procedure Steps" data-ar="4. الخطوات الإجرائية التفصيلية">4. Detailed Procedure Steps</h4>
+
+            <p class="sop-chapter" data-en="Chapter 1 — Headcount Request &amp; Addition" data-ar="الفصل الأول — طلب وإضافة عمالة">Chapter 1 — Headcount Request &amp; Addition</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td data-en="Department head submits a headcount request stating role, headcount needed, justification and target salary." data-ar="رئيس القسم بيقدّم طلب عمالة موضّح فيه الوظيفة والعدد المطلوب والمبرر والراتب المستهدف.">Department head submits a headcount request stating role, headcount needed, justification and target salary.</td><td data-en="Department Head" data-ar="رئيس القسم">Department Head</td><td data-en="As needed" data-ar="عند الحاجة">As needed</td></tr>
+                <tr><td>2</td><td data-en="Request requires General Manager approval before HR begins sourcing." data-ar="الطلب بيحتاج اعتماد المدير العام قبل ما الموارد البشرية تبدأ البحث عن المرشحين.">Request requires General Manager approval before HR begins sourcing.</td><td data-en="General Manager" data-ar="المدير العام">General Manager</td><td data-en="Before sourcing" data-ar="قبل البحث">Before sourcing</td></tr>
+                <tr><td>3</td><td data-en="HR confirms Finance that all employment terms are approved and complete before payroll entry." data-ar="الموارد البشرية بتأكد للمالية إن كل شروط التوظيف معتمدة ومكتملة قبل قيد الرواتب.">HR confirms Finance that all employment terms are approved and complete before payroll entry.</td><td data-en="HR" data-ar="الموارد البشرية">HR</td><td data-en="Before entry" data-ar="قبل القيد">Before entry</td></tr>
+                <tr><td>4</td><td data-en="Finance enters the new employee onto payroll using the Employment Requisition Form." data-ar="المالية بتدخل بيانات الموظف الجديد على الرواتب باستخدام نموذج طلب التوظيف.">Finance enters the new employee onto payroll using the Employment Requisition Form.</td><td data-en="Finance" data-ar="المالية">Finance</td><td data-en="Upon confirmation" data-ar="فور التأكيد">Upon confirmation</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 2 — Payroll Amendment &amp; Removal" data-ar="الفصل الثاني — تعديل وإلغاء من الرواتب">Chapter 2 — Payroll Amendment &amp; Removal</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>5</td><td data-en="Any promotion, transfer or salary change is submitted via the Payroll Amendment Request, requiring CFO and GM sign-off." data-ar="أي ترقية أو نقل أو تغيير راتب بيتقدّم بيه من خلال طلب تعديل الرواتب، ومحتاج اعتماد المدير المالي والمدير العام.">Any promotion, transfer or salary change is submitted via the Payroll Amendment Request, requiring CFO and GM sign-off.</td><td data-en="HR / CFO / GM" data-ar="الموارد البشرية / المالي / العام">HR / CFO / GM</td><td data-en="Before change" data-ar="قبل التغيير">Before change</td></tr>
+                <tr><td>6</td><td data-en="Upon approval, Finance updates the payroll system directly." data-ar="بعد الاعتماد، المالية بتحدّث نظام الرواتب مباشرة.">Upon approval, Finance updates the payroll system directly.</td><td data-en="Finance" data-ar="المالية">Finance</td><td data-en="Upon approval" data-ar="فور الاعتماد">Upon approval</td></tr>
+                <tr><td>7</td><td data-en="Upon termination, HR notifies Finance of the final settlement due, including any deductions." data-ar="عند إنهاء الخدمة، الموارد البشرية بتخطر المالية بالتسوية النهائية المستحقة، شاملة أي خصومات.">Upon termination, HR notifies Finance of the final settlement due, including any deductions.</td><td data-en="HR" data-ar="الموارد البشرية">HR</td><td data-en="Upon termination" data-ar="فور الإنهاء">Upon termination</td></tr>
+                <tr><td>8</td><td data-en="HR reviews every payroll run to confirm no employee was overpaid or under-deducted." data-ar="الموارد البشرية بتراجع كل دورة رواتب عشان تتأكد إن مفيش موظف اتصرفله زيادة أو اتخصم منه أقل من المستحق.">HR reviews every payroll run to confirm no employee was overpaid or under-deducted.</td><td data-en="HR" data-ar="الموارد البشرية">HR</td><td data-en="Each pay period" data-ar="كل فترة دفع">Each pay period</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 3 — Casual Labor Cycle" data-ar="الفصل الثالث — دورة العمالة اليومية">Chapter 3 — Casual Labor Cycle</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>9</td><td data-en="Department head submits a Casual Labor Request at least one week ahead, stating task, headcount, hours and rate." data-ar="رئيس القسم بيقدّم طلب عمالة يومية قبل أسبوع على الأقل، موضّح فيه المهمة والعدد والساعات والأجر.">Department head submits a Casual Labor Request at least one week ahead, stating task, headcount, hours and rate.</td><td data-en="Department Head" data-ar="رئيس القسم">Department Head</td><td data-en="1 week prior" data-ar="قبل أسبوع">1 week prior</td></tr>
+                <tr><td>10</td><td data-en="Security tracks daily attendance for the duration of the task." data-ar="الأمن بيتابع الحضور اليومي طول مدة المهمة.">Security tracks daily attendance for the duration of the task.</td><td data-en="Security" data-ar="الأمن">Security</td><td data-en="Throughout the task" data-ar="طول المهمة">Throughout the task</td></tr>
+                <tr><td>11</td><td data-en="Upon task completion, Finance calculates the amount due per worker based on actual hours." data-ar="عند إنجاز المهمة، المالية بتحسب المبلغ المستحق لكل عامل بناءً على الساعات الفعلية.">Upon task completion, Finance calculates the amount due per worker based on actual hours.</td><td data-en="Finance" data-ar="المالية">Finance</td><td data-en="Upon completion" data-ar="عند الإنجاز">Upon completion</td></tr>
+                <tr><td>12</td><td data-en="Payment is made against a signed voucher, with ID verification at the point of cash handover." data-ar="السداد بيتم مقابل إيصال موقّع، مع التحقق من الهوية وقت تسليم النقدية.">Payment is made against a signed voucher, with ID verification at the point of cash handover.</td><td data-en="Cashier" data-ar="الصراف">Cashier</td><td data-en="At payment" data-ar="وقت الدفع">At payment</td></tr>
+              </tbody>
+            </table>
+
+            <p class="sop-chapter" data-en="Chapter 4 — Leave &amp; Benefits" data-ar="الفصل الرابع — الإجازات والمزايا">Chapter 4 — Leave &amp; Benefits</p>
+            <table class="sop-proc-table">
+              <thead><tr><th>#</th><th data-en="Step" data-ar="الخطوة">Step</th><th data-en="Responsible" data-ar="المسؤول">Responsible</th><th data-en="Timing" data-ar="التوقيت">Timing</th></tr></thead>
+              <tbody>
+                <tr><td>13</td><td data-en="Employee submits a Leave Request signed by their direct manager." data-ar="الموظف بيقدّم طلب إجازة موقّع من مديره المباشر.">Employee submits a Leave Request signed by their direct manager.</td><td data-en="Employee / Manager" data-ar="الموظف / المدير">Employee / Manager</td><td data-en="Before leave" data-ar="قبل الإجازة">Before leave</td></tr>
+                <tr><td>14</td><td data-en="HR verifies the requested leave doesn't exceed the employee's remaining balance." data-ar="الموارد البشرية بتتحقق إن الإجازة المطلوبة مش بتتخطى رصيد الموظف المتبقي.">HR verifies the requested leave doesn't exceed the employee's remaining balance.</td><td data-en="HR" data-ar="الموارد البشرية">HR</td><td data-en="At request" data-ar="وقت الطلب">At request</td></tr>
+                <tr><td>15</td><td data-en="Finance maintains a leave provision, reviewed each period against amounts genuinely due." data-ar="المالية بتحتفظ بمخصص إجازات، بتراجعه كل فترة مقابل المبالغ فعليًا المستحقة.">Finance maintains a leave provision, reviewed each period against amounts genuinely due.</td><td data-en="Finance" data-ar="المالية">Finance</td><td data-en="Ongoing" data-ar="مستمر">Ongoing</td></tr>
+                <tr><td>16</td><td data-en="Sick leave requires a medical certificate stating the illness date and duration." data-ar="الإجازة المرضية بتتطلب شهادة طبية موضّح فيها تاريخ ومدة المرض.">Sick leave requires a medical certificate stating the illness date and duration.</td><td data-en="Employee" data-ar="الموظف">Employee</td><td data-en="At each case" data-ar="عند كل حالة">At each case</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sop-section">
+            <h4 data-en="5. Appendices &amp; Forms" data-ar="5. الملاحق والنماذج">5. Appendices &amp; Forms</h4>
+            <table class="sop-forms-table">
+              <thead><tr><th data-en="Code" data-ar="الكود">Code</th><th data-en="Form Name" data-ar="اسم النموذج">Form Name</th><th data-en="Purpose" data-ar="الغرض">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>HR-01-F01</td><td data-en="Headcount Request Form" data-ar="نموذج طلب عمالة">Headcount Request Form</td><td data-en="Documents role, count, justification and target salary" data-ar="بيوثّق الوظيفة والعدد والمبرر والراتب المستهدف">Documents role, count, justification and target salary</td></tr>
+                <tr><td>HR-01-F02</td><td data-en="Employment Requisition Form" data-ar="نموذج طلب التوظيف">Employment Requisition Form</td><td data-en="Enters a new employee's data onto payroll" data-ar="بيدخل بيانات موظف جديد على الرواتب">Enters a new employee's data onto payroll</td></tr>
+                <tr><td>HR-01-F03</td><td data-en="Payroll Amendment Request" data-ar="طلب تعديل الرواتب">Payroll Amendment Request</td><td data-en="Approves promotions, transfers and salary changes" data-ar="بيعتمد الترقيات والنقل وتغييرات الراتب">Approves promotions, transfers and salary changes</td></tr>
+                <tr><td>HR-01-F04</td><td data-en="Casual Labor Request Form" data-ar="نموذج طلب عمالة يومية">Casual Labor Request Form</td><td data-en="One request per task: headcount, hours, rate, reason" data-ar="طلب واحد لكل مهمة: العدد، الساعات، الأجر، السبب">One request per task: headcount, hours, rate, reason</td></tr>
+                <tr><td>HR-01-F05</td><td data-en="Attendance Report" data-ar="تقرير الحضور والانصراف">Attendance Report</td><td data-en="The base document payroll is computed from" data-ar="المستند الأساس اللي الرواتب بتتحسب عليه">The base document payroll is computed from</td></tr>
+                <tr><td>HR-01-F06</td><td data-en="Leave Request Form" data-ar="نموذج طلب إجازة">Leave Request Form</td><td data-en="Signed by employee and direct manager" data-ar="موقّع من الموظف والمدير المباشر">Signed by employee and direct manager</td></tr>
+                <tr><td>HR-01-F07</td><td data-en="Benefits Handbook" data-ar="كتيب المزايا">Benefits Handbook</td><td data-en="Given at hire, details full entitlement" data-ar="بيتّاخد وقت التعيين، بيوضح الاستحقاق الكامل">Given at hire, details full entitlement</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="sop-footer" data-en="End of document — any amendment requires a new, approved version per the Document Control Block above." data-ar="نهاية الوثيقة — أي تعديل بيتطلب إصدار جديد ومعتمد حسب جدول التحكم بالوثيقة أعلاه.">End of document — any amendment requires a new, approved version per the Document Control Block above.</p>
+
+        </div>
+      </details>
+    </div>
   </div>
 
     <div class="data-panel" id="gl-home">
@@ -8215,7 +8627,7 @@ const PANEL_TO_WS = {
   overview:'settings', coa:'settings', departments:'settings',
   'gl-home':'gl', 'gl-role':'gl', 'gl-cases':'gl', 'gl-close':'gl', 'gl-trial-balance':'gl', 'gl-financials':'gl', 'gl-fixed-assets':'gl', 'gl-cashflow':'gl', 'gl-entries':'gl', 'gl-spot-error':'gl', 'gl-quiz':'gl', 'gl-fraud':'gl',
   'tax-home':'tax', 'tax-role':'tax', 'tax-cases':'tax', 'tax-calc':'tax', 'tax-spot-error':'tax', 'tax-fraud':'tax', 'tax-quiz':'tax',
-  'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn',
+  'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn', 'learn-sops':'learn',
   'learn-ratios':'ratios', 'ratios-quiz':'ratios', 'ratios-fraud':'ratios', 'ratios-spot-error':'ratios', 'ratios-home':'ratios', 'ratios-cases':'ratios',
   'bc-home':'bc', 'bc-cases':'bc', 'bc-sod':'bc', 'bc-quiz':'bc', 'bc-fraud':'bc', 'bc-spot-error':'bc',
   'aud-home':'aud', 'aud-program':'aud', 'aud-findings':'aud', 'aud-quiz':'aud', 'aud-fraud':'aud', 'aud-spot-error':'aud', 'aud-cases':'aud',
@@ -8445,7 +8857,7 @@ function showPanel(id, btn, isBack){
     overview:'overview', coa:'overview', departments:'overview',
     'gl-home':'gl-home', 'gl-role':'gl-home', 'gl-cases':'gl-home', 'gl-close':'gl-home', 'gl-trial-balance':'gl-home', 'gl-financials':'gl-home', 'gl-fixed-assets':'gl-home', 'gl-cashflow':'gl-home', 'gl-entries':'gl-home', 'gl-spot-error':'gl-home', 'gl-quiz':'gl-home', 'gl-fraud':'gl-home',
     'tax-home':'tax-home', 'tax-role':'tax-home', 'tax-cases':'tax-home', 'tax-calc':'tax-home', 'tax-spot-error':'tax-home', 'tax-fraud':'tax-home', 'tax-quiz':'tax-home',
-    'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home',
+    'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home', 'learn-sops':'learn-home',
     'learn-ratios':'learn-ratios', 'ratios-quiz':'learn-ratios', 'ratios-fraud':'learn-ratios', 'ratios-spot-error':'learn-ratios', 'ratios-home':'learn-ratios', 'ratios-cases':'learn-ratios',
     'bc-home':'bc-home', 'bc-cases':'bc-home', 'bc-sod':'bc-home', 'bc-quiz':'bc-home', 'bc-fraud':'bc-home', 'bc-spot-error':'bc-home',
     'aud-home':'aud-home', 'aud-program':'aud-home', 'aud-findings':'aud-home', 'aud-quiz':'aud-home', 'aud-fraud':'aud-home', 'aud-spot-error':'aud-home', 'aud-cases':'aud-home',
