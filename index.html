@@ -3201,6 +3201,7 @@ input[type="text"]:focus, input[type="number"]:focus{
 .mock-tools-grid .mock-tool:nth-child(4){ border-color:#d47fb0 !important; }
 .mock-tools-grid .mock-tool:nth-child(5){ border-color:#9b8fd1 !important; }
 .mock-tools-grid .mock-tool:nth-child(6){ border-color:#4a90a4 !important; }
+.mock-tools-grid .mock-tool:nth-child(7){ border-color:#8b5fbf !important; }
 
 /* My Progress — badges and table */
 .progress-badges{
@@ -3293,6 +3294,26 @@ input[type="text"]:focus, input[type="number"]:focus{
 .sop-proc-table td, .sop-forms-table td{ padding:7px 8px; border:1px solid var(--line); vertical-align:top; }
 .sop-proc-table tr:nth-child(even) td, .sop-forms-table tr:nth-child(even) td{ background:var(--paper); }
 .sop-footer{ text-align:center; font-size:12px; color:var(--muted); font-style:italic; margin-top:10px; }
+
+/* Accounting Mysteries */
+.mystery-card{ border:2px solid var(--line); border-radius:14px; margin-bottom:14px; background:var(--paper); overflow:hidden; }
+.mystery-summary{ display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer; list-style:none; background:linear-gradient(180deg,#fff,var(--paper)); font-weight:700; }
+.mystery-summary::-webkit-details-marker{ display:none; }
+.mystery-icon{ font-size:20px; }
+.mystery-title{ flex:1; }
+.mystery-badge{ font-size:10px; font-weight:800; padding:3px 9px; border-radius:7px; letter-spacing:.03em; }
+.mystery-green{ background:#D7F3E3; color:#146C43; }
+.mystery-yellow{ background:#FCEFC7; color:#92610A; }
+.mystery-red{ background:#FADBD8; color:#A13329; }
+.mystery-body{ padding:16px 20px; border-top:1px solid var(--line); }
+.mystery-block{ margin-bottom:14px; }
+.mystery-block h5{ color:var(--brand-dark); margin-bottom:4px; font-size:13px; }
+.mystery-block p{ font-size:14px; line-height:1.7; margin:0; }
+.mystery-reveal{ border:2px dashed #B5A0E8; border-radius:10px; padding:4px 12px; background:#F7F4FD; margin-top:16px; }
+.mystery-reveal summary{ cursor:pointer; font-weight:700; color:#5B3FA8; padding:8px 0; list-style:none; }
+.mystery-reveal summary::-webkit-details-marker{ display:none; }
+.mystery-reveal-body{ padding:6px 2px 12px; }
+.mystery-reveal-body p{ font-size:13.5px; line-height:1.7; margin-bottom:10px; }
 
 /* Operational register status pills */
 .type-pill.status-ok{ background:var(--brand-soft,#e0f7f4); color:var(--brand-dark,#0b3d4a); }
@@ -3624,6 +3645,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلات">Interview Prep</strong><small>تجهيز المقابلات</small></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong><small>تواصل بيئة العمل</small></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-sops')" style="position:relative"><span>📑</span><strong data-en="SOP Library" data-ar="مكتبة SOPs">SOP Library</strong><small>مكتبة SOPs</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-mysteries')" style="position:relative"><span>🧩</span><strong data-en="Accounting Mysteries" data-ar="ألغاز محاسبية">Accounting Mysteries</strong><small>ألغاز محاسبية</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#0f766e;color:#fff;padding:2px 6px;border-radius:6px;font-weight:800" data-en="COMPLETE" data-ar="مكتمل">COMPLETE</span></button>
       </div>
     </section>
 
@@ -5307,7 +5329,9 @@ input[type="text"]:focus, input[type="number"]:focus{
       <h3 data-en="Tax Formulas &amp; Metrics" data-ar="معادلات ومؤشرات ضريبية">Tax Formulas &amp; Metrics</h3>
       <p class="panel-sub" data-en="VAT, withholding tax, corporate income tax, deferred tax and tax planning. Formula, meaning and a live calculator for each." data-ar="ضريبة القيمة المضافة، الخصم تحت الحساب، ضريبة دخل الشركات، الضريبة المؤجلة والتخطيط الضريبي. الصيغة والمعنى وحاسبة حية لكل واحدة.">VAT, withholding tax, corporate income tax, deferred tax and tax planning. Formula, meaning and a live calculator for each.</p>
     </div>
+    
     <div id="tax-calc-list"></div>
+    
   </div>
 
   <div class="data-panel" id="tax-spot-error">
@@ -7897,7 +7921,616 @@ input[type="text"]:focus, input[type="number"]:focus{
     </div>
   </div>
 
-    <div class="data-panel" id="gl-home">
+      <div class="data-panel" id="learn-mysteries">
+    <div class="module-head">
+      <span class="module-tag" data-en="🛠️ Quick Tools" data-ar="🛠️ أدوات سريعة">🛠️ Quick Tools</span>
+      <h3 data-en="Accounting Mysteries — Can You Spot What Changed?" data-ar="ألغاز محاسبية — تقدر تكتشف إيه اللي اتغيّر؟">Accounting Mysteries — Can You Spot What Changed?</h3>
+      <span style="display:inline-block;font-size:11px;background:#0f766e;color:#fff;padding:3px 10px;border-radius:8px;font-weight:800;margin-top:4px" data-en="✅ 20 mysteries — 16 from the original series + 4 bonus cases" data-ar="✅ 20 لغز — 16 من السلسلة الأصلية + 4 حالات إضافية">✅ 20 mysteries — 16 from the original series + 4 bonus cases</span>
+      <p class="panel-sub" data-en="A KPI moved in a great-looking direction. Before you celebrate, work out whether it's genuine economics or just accounting classification. Read the scenario, think it through, then reveal the investigation." data-ar="مؤشر اتحرّك في اتجاه شكله كويس. قبل ما تفرح، اكتشف هل ده اقتصادي حقيقي ولا مجرد تصنيف محاسبي. اقرا الموقف، فكّر فيه، وبعدين اكشف التحقيق.">A KPI moved in a great-looking direction. Before you celebrate, work out whether it's genuine economics or just accounting classification. Read the scenario, think it through, then reveal the investigation.</p>
+    </div>
+    <div class="mystery-list">
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #17 — Payroll Expense Dropped With No Layoffs" data-ar="لغز #17 — مصروف الرواتب نزل من غير أي تسريح">Mystery #17 — Payroll Expense Dropped With No Layoffs</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Payroll expense dropped noticeably this period. Headcount is exactly the same as last period — no layoffs, no salary cuts." data-ar="مصروف الرواتب نزل بشكل ملحوظ الفترة دي. عدد الموظفين بالظبط زي الفترة اللي فاتت — مفيش تسريح، مفيش تخفيض رواتب.">Payroll expense dropped noticeably this period. Headcount is exactly the same as last period — no layoffs, no salary cuts.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We're running a leaner operation this quarter — great cost control.”" data-ar="“بنشغّل بكفاءة أكتر الربع ده — ضبط تكلفة ممتاز.”">"We're running a leaner operation this quarter — great cost control."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="If headcount and salaries didn't change, where exactly did the expense reduction come from?" data-ar="لو عدد الموظفين والرواتب ما اتغيّرش، نقص المصروف جه منين بالظبط؟">If headcount and salaries didn't change, where exactly did the expense reduction come from?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="A month-end payroll accrual that should have been booked this period — for days worked but not yet paid — was simply not recorded, and will show up as a jump in next period's expense instead." data-ar="استحقاق رواتب آخر الشهر اللي المفروض كان يتسجل الفترة دي — عن أيام اشتغلت بس لسه ما اتسددتش — ببساطة ما اتسجّلش، وهيظهر كقفزة في مصروف الفترة الجاية بدل كده.">A month-end payroll accrual that should have been booked this period — for days worked but not yet paid — was simply not recorded, and will show up as a jump in next period's expense instead.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 This is a genuine cut-off error, not a cost improvement. Whether it was an honest oversight or a deliberate move to flatter this period's numbers, the expense belongs in this period, not the next one." data-ar="🔴 ده خطأ قطع فترة حقيقي، مش تحسّن تكلفة. سواء كان سهو صادق أو تحرّك متعمد لتجميل أرقام الفترة دي، المصروف مكانه الفترة دي، مش اللي بعدها.">🔴 This is a genuine cut-off error, not a cost improvement. Whether it was an honest oversight or a deliberate move to flatter this period's numbers, the expense belongs in this period, not the next one.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="A cost KPI that improves with unchanged headcount and salaries is a red flag for accrual cut-off, not a reason to praise cost discipline. Always trace a payroll expense drop back to the actual accrual trail." data-ar="مؤشر تكلفة بيتحسّن مع عدد موظفين ورواتب ثابتة علامة تحذير لقطع استحقاق، مش سبب تمدح انضباط التكلفة. دايمًا تتبّع نقص مصروف الرواتب لمسار الاستحقاق الفعلي.">Lesson: A cost KPI that improves with unchanged headcount and salaries is a red flag for accrual cut-off, not a reason to praise cost discipline. Always trace a payroll expense drop back to the actual accrual trail.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #18 — Days Payable Outstanding Suddenly Jumps" data-ar="لغز #18 — أيام سداد الموردين بتقفز فجأة">Mystery #18 — Days Payable Outstanding Suddenly Jumps</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Days Payable Outstanding (DPO) jumps significantly this period, improving the working capital picture." data-ar="أيام سداد الموردين (DPO) بتقفز بشكل ملحوظ الفترة دي، وده بيحسّن صورة رأس المال العامل.">Days Payable Outstanding (DPO) jumps significantly this period, improving the working capital picture.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We negotiated much better payment terms with our suppliers.”" data-ar="“اتفاوضنا على شروط سداد أحسن بكتير مع مورّدينا.”">"We negotiated much better payment terms with our suppliers."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did suppliers genuinely agree to longer terms, or is the company simply paying later than agreed?" data-ar="هل المورّدين فعليًا وافقوا على شروط أطول، ولا الشركة بس بتسدد متأخر عن المتفق عليه؟">Did suppliers genuinely agree to longer terms, or is the company simply paying later than agreed?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="No contracts were renegotiated. The company is simply holding payments past their original due dates — and two suppliers have already placed the account on credit hold." data-ar="مفيش عقود اتعاد التفاوض عليها. الشركة بس بتمسك المدفوعات بعد مواعيد استحقاقها الأصلية — واتنين من المورّدين خلاص حطّوا الحساب تحت إيقاف ائتماني.">No contracts were renegotiated. The company is simply holding payments past their original due dates — and two suppliers have already placed the account on credit hold.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 A longer DPO can be a genuine negotiating win or a sign of cash strain — the ratio alone can't distinguish between them. Here, the supplier credit holds are the evidence that tips it toward strain." data-ar="🟡 الـDPO الأطول ممكن يكون انتصار تفاوضي حقيقي أو علامة ضغط كاش — النسبة لوحدها مش هتفرّق بينهم. هنا، إيقافات الائتمان من المورّدين هي الدليل اللي بيرجّح كفة الضغط.">🟡 A longer DPO can be a genuine negotiating win or a sign of cash strain — the ratio alone can't distinguish between them. Here, the supplier credit holds are the evidence that tips it toward strain.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="A working capital KPI that improves from the buyer's side can quietly signal financial stress rather than negotiating strength. Always check actual payment behavior against contractual terms, and watch for supplier relationship warning signs." data-ar="مؤشر رأس مال عامل بيتحسّن من ناحية المشتري ممكن يبعت إشارة ضغط مالي بهدوء بدل قوة تفاوضية. دايمًا افحص سلوك السداد الفعلي مقابل الشروط التعاقدية، وراقب علامات تحذير علاقة الموردين.">Lesson: A working capital KPI that improves from the buyer's side can quietly signal financial stress rather than negotiating strength. Always check actual payment behavior against contractual terms, and watch for supplier relationship warning signs.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #19 — A New “Management Fee” Between Sister Companies" data-ar="لغز #19 — “رسوم إدارية” جديدة بين شركات شقيقة">Mystery #19 — A New "Management Fee" Between Sister Companies</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="A struggling subsidiary starts reporting meaningful “management fee” income from a profitable sister company this period, improving its own results." data-ar="شركة تابعة بتعاني بدأت تقرّر إيراد “رسوم إدارية” ملموس من شركة شقيقة مربحة الفترة دي، وده بيحسّن نتايجها هي.">A struggling subsidiary starts reporting meaningful "management fee" income from a profitable sister company this period, improving its own results.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We're providing real shared-service support, so we're now charging for it — smart diversification.”" data-ar="“إحنا بنقدّم دعم خدمات مشتركة حقيقي، فدلوقتي بندفع مقابله — تنويع ذكي.”">"We're providing real shared-service support, so we're now charging for it — smart diversification."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Is this a genuine, arm's-length service with real substance — or a mechanism to shift profit from one entity to another?" data-ar="ده خدمة حقيقية بسعر موضوعي ولها جوهر فعلي — ولا آلية لنقل الربح من كيان لتاني؟">Is this a genuine, arm's-length service with real substance — or a mechanism to shift profit from one entity to another?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="There's no service agreement, no documented basis for the fee amount, and no evidence of actual work performed — the fee appears to exist mainly to move profit into the entity that needed it." data-ar="مفيش اتفاقية خدمة، ومفيش أساس موثّق لمبلغ الرسوم، ومفيش دليل على شغل فعلي اتنفذ — الرسوم شكلها موجودة بالأساس عشان تنقل ربح للكيان اللي محتاجه.">There's no service agreement, no documented basis for the fee amount, and no evidence of actual work performed — the fee appears to exist mainly to move profit into the entity that needed it.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 Intercompany management fees without genuine substance and arm's-length pricing are exactly the kind of arrangement tax authorities and auditors scrutinize closely — this needs real documentation before it can be accepted." data-ar="🔴 رسوم إدارية بين الشركات من غير جوهر حقيقي وتسعير موضوعي هي بالظبط نوع الترتيب اللي مصلحة الضرائب والمراجعين بيفحصوه بدقة — ده يحتاج توثيق حقيقي قبل ما يتقبل.">🔴 Intercompany management fees without genuine substance and arm's-length pricing are exactly the kind of arrangement tax authorities and auditors scrutinize closely — this needs real documentation before it can be accepted.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Any intercompany fee needs a real service agreement, evidence of actual services rendered, and pricing that would hold up between unrelated parties. Without that, it's a profit-shifting mechanism, not revenue." data-ar="أي رسوم بين الشركات محتاجة اتفاقية خدمة حقيقية، ودليل على خدمات فعليًا اتقدّمت، وتسعير يصمد بين أطراف غير مرتبطة. من غير كده، دي آلية نقل ربح، مش إيراد.">Lesson: Any intercompany fee needs a real service agreement, evidence of actual services rendered, and pricing that would hold up between unrelated parties. Without that, it's a profit-shifting mechanism, not revenue.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #20 — A Large Warranty Provision Gets Released" data-ar="لغز #20 — مخصص ضمان كبير بيتفرّج عنه">Mystery #20 — A Large Warranty Provision Gets Released</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="A large warranty provision is released back to profit this period, in a quarter where operating results were otherwise disappointing." data-ar="مخصص ضمان كبير بيتفرّج عنه ويرجع للربح الفترة دي، في ربع سنة كانت النتايج التشغيلية فيه مخيّبة للآمال لولا كده.">A large warranty provision is released back to profit this period, in a quarter where operating results were otherwise disappointing.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Our product quality has improved so much that we no longer need such a large reserve.”" data-ar="“جودة منتجاتنا اتحسّنت لدرجة إننا مابقناش محتاجين مخصص كبير زي كده.”">"Our product quality has improved so much that we no longer need such a large reserve."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did actual warranty claims genuinely decline, or was the provision simply re-estimated with no new supporting evidence?" data-ar="هل مطالبات الضمان الفعلية فعليًا نقصت، ولا المخصص بس اتعاد تقديره من غير أي دليل داعم جديد؟">Did actual warranty claims genuinely decline, or was the provision simply re-estimated with no new supporting evidence?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Actual warranty claims this period are roughly the same as prior periods — there's no underlying evidence of improved quality. The provision was re-estimated downward in the exact quarter profit needed a boost." data-ar="مطالبات الضمان الفعلية الفترة دي تقريبًا زي الفترات السابقة — مفيش دليل حقيقي وراه على تحسّن الجودة. المخصص اتعاد تقديره لتحت بالظبط في الربع اللي الربح كان محتاج فيه دفعة.">Actual warranty claims this period are roughly the same as prior periods — there's no underlying evidence of improved quality. The provision was re-estimated downward in the exact quarter profit needed a boost.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 A provision release can be entirely legitimate when claims experience genuinely improves — the problem here is the timing and absence of supporting evidence, which looks like earnings smoothing rather than a real reassessment." data-ar="🟡 الإفراج عن مخصص ممكن يكون مشروع تمامًا لما تجربة المطالبات فعليًا تتحسّن — المشكلة هنا في التوقيت وغياب الدليل الداعم، وده شكله تنعيم أرباح مش إعادة تقييم حقيقية.">🟡 A provision release can be entirely legitimate when claims experience genuinely improves — the problem here is the timing and absence of supporting evidence, which looks like earnings smoothing rather than a real reassessment.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Provision releases must be tied to genuine changes in the underlying risk or claims experience, with real evidence — not used opportunistically as a reserve to smooth a weak quarter's earnings." data-ar="الإفراج عن المخصصات لازم يترتبط بتغييرات حقيقية في المخاطر أو تجربة المطالبات الأساسية، بدليل فعلي — مش يتستخدم بشكل انتهازي كاحتياطي لتنعيم أرباح ربع سنة ضعيف.">Lesson: Provision releases must be tied to genuine changes in the underlying risk or claims experience, with real evidence — not used opportunistically as a reserve to smooth a weak quarter's earnings.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #13 — Revenue Up 25%, Customers Flat" data-ar="لغز #13 — الإيراد زاد 25%، العملاء ثابتين">Mystery #13 — Revenue Up 25%, Customers Flat</span>
+          <span class="mystery-badge mystery-green" data-en="LEGITIMATE" data-ar="مشروع">LEGITIMATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Revenue is up 25% this period. But the customer count has barely changed." data-ar="الإيراد زاد 25% الفترة دي. لكن عدد العملاء بالكاد اتغيّر.">Revenue is up 25% this period. But the customer count has barely changed.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We're growing fast — revenue is up 25%!”" data-ar="“بنكبر بسرعة — الإيراد زاد 25%!”">"We're growing fast — revenue is up 25%!"</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="What actually drove this revenue growth — price, volume, mix, a single large contract, or something else?" data-ar="إيه اللي فعليًا دفع النمو ده في الإيراد — السعر، الحجم، المزيج، عقد كبير واحد، ولا حاجة تانية؟">What actually drove this revenue growth — price, volume, mix, a single large contract, or something else?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Breaking the growth into drivers shows it came from a genuine price increase plus a larger order from one existing customer — not new customer acquisition, and not an accounting trick." data-ar="تفكيك النمو لمسبباته بيوضح إنه جه من زيادة سعر حقيقية مع أوردر أكبر من عميل حالي — مش استقطاب عملاء جداد، ومش حيلة محاسبية.">Breaking the growth into drivers shows it came from a genuine price increase plus a larger order from one existing customer — not new customer acquisition, and not an accounting trick.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟢 This is a legitimate, explainable growth story once decomposed — but a flat customer count paired with revenue growth is exactly the kind of combination that deserves a quick check before it's celebrated." data-ar="🟢 ده نمو مشروع وقابل للتفسير بمجرد ما بيتفكك — لكن عدد عملاء ثابت مع نمو إيراد هو بالظبط نوع التركيبة اللي تستاهل فحص سريع قبل ما يتحتفل بيها.">🟢 This is a legitimate, explainable growth story once decomposed — but a flat customer count paired with revenue growth is exactly the kind of combination that deserves a quick check before it's celebrated.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Revenue Growth must be decomposed into drivers — price, volume, mix, large customers, one-off contracts, timing, revenue recognition, or FX — never read as a single undifferentiated number." data-ar="نمو الإيراد لازم يتفكك لمسبباته — السعر، الحجم، المزيج، العملاء الكبار، العقود الاستثنائية، التوقيت، الاعتراف بالإيراد، أو فروق العملة — أبدًا ما يتقراش كرقم واحد غير مميّز.">Lesson: Revenue Growth must be decomposed into drivers — price, volume, mix, large customers, one-off contracts, timing, revenue recognition, or FX — never read as a single undifferentiated number.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #14 — Inventory Turnover Improved" data-ar="لغز #14 — معدل دوران المخزون اتحسّن">Mystery #14 — Inventory Turnover Improved</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Inventory Days has dropped this period." data-ar="أيام المخزون نزلت الفترة دي.">Inventory Days has dropped this period.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Inventory management improved significantly this quarter.”" data-ar="“إدارة المخزون اتحسّنت بشكل كبير الربع ده.”">"Inventory management improved significantly this quarter."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Why did inventory actually decrease — better sales, better purchasing, or something less flattering like a write-down?" data-ar="المخزون نزل ليه فعليًا — مبيعات أحسن، شراء أحسن، ولا حاجة أقل جمالًا زي شطب قيمة؟">Why did inventory actually decrease — better sales, better purchasing, or something less flattering like a write-down?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Part of the inventory decrease is genuine stronger sales — but part of it is a write-down of slow-moving stock that was quietly disposed of, not a purchasing improvement." data-ar="جزء من نقص المخزون فعليًا مبيعات أقوى — لكن جزء منه شطب قيمة لمخزون راكد اتخلّص منه بهدوء، مش تحسّن في الشراء.">Part of the inventory decrease is genuine stronger sales — but part of it is a write-down of slow-moving stock that was quietly disposed of, not a purchasing improvement.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 A genuinely improved turnover and a write-down-driven turnover look identical in the ratio — but they mean very different things for next period's planning." data-ar="🟡 دوران محسّن فعليًا ودوران مدفوع بشطب قيمة بيبانوا نفس الشكل في النسبة — لكن بيدّوا معنى مختلف جدًا لتخطيط الفترة الجاية.">🟡 A genuinely improved turnover and a write-down-driven turnover look identical in the ratio — but they mean very different things for next period's planning.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="An improved KPI doesn't explain itself. For Inventory Days, always check: better sales, better purchasing, production planning, write-downs, disposals, reclassification, or a change in product mix." data-ar="المؤشر المتحسّن مش بيفسّر نفسه. لأيام المخزون، دايمًا افحص: مبيعات أحسن، شراء أحسن، تخطيط إنتاج، شطب قيمة، تخلّص، إعادة تصنيف، أو تغيير في مزيج المنتجات.">Lesson: An improved KPI doesn't explain itself. For Inventory Days, always check: better sales, better purchasing, production planning, write-downs, disposals, reclassification, or a change in product mix.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #15 — Debt “Disappeared”" data-ar="لغز #15 — الدين “اختفى”">Mystery #15 — Debt "Disappeared"</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="The Debt balance has dropped this period." data-ar="رصيد الدين نزل الفترة دي.">The Debt balance has dropped this period.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Excellent — we reduced our leverage this quarter.”" data-ar="“ممتاز — قللنا الرافعة المالية الربع ده.”">"Excellent — we reduced our leverage this quarter."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did the economic obligation actually decrease — was it genuinely repaid — or did something else happen to the balance?" data-ar="هل الالتزام الاقتصادي فعليًا نقص — هل اتسدد فعليًا — ولا حاجة تانية حصلت للرصيد؟">Did the economic obligation actually decrease — was it genuinely repaid — or did something else happen to the balance?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="No cash repayment occurred. The debt was refinanced through a related entity, and the obligation still genuinely exists — just recorded differently." data-ar="مفيش سداد كاش حصل. الدين اتعاد تمويله من خلال كيان ذي علاقة، والالتزام لسه موجود فعليًا — بس متسجل بطريقة مختلفة.">No cash repayment occurred. The debt was refinanced through a related entity, and the obligation still genuinely exists — just recorded differently.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 This needs real investigation: was there an actual repayment, a refinancing, a restructuring, a reclassification, a transfer, a settlement, or a modification? Each has a very different economic meaning." data-ar="🔴 ده يستاهل تحقيق حقيقي: هل كان فيه سداد فعلي، إعادة تمويل، إعادة هيكلة، إعادة تصنيف، تحويل، تسوية، ولا تعديل؟ كل واحدة فيهم معناها الاقتصادي مختلف جدًا.">🔴 This needs real investigation: was there an actual repayment, a refinancing, a restructuring, a reclassification, a transfer, a settlement, or a modification? Each has a very different economic meaning.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Any Balance Sheet movement must be linked to the Cash Flow Statement and the contractual position. A lower debt balance without matching cash movement is a flag, not a celebration." data-ar="أي حركة في الميزانية لازم تترتبط بقائمة التدفقات النقدية والموقف التعاقدي. رصيد دين أقل من غير حركة كاش مطابقة علامة تحذير، مش احتفال.">Lesson: Any Balance Sheet movement must be linked to the Cash Flow Statement and the contractual position. A lower debt balance without matching cash movement is a flag, not a celebration.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">👑</span>
+          <span class="mystery-title" data-en="Mystery #16 — The Final Boss" data-ar="لغز #16 — الوحش النهائي">Mystery #16 — The Final Boss</span>
+          <span class="mystery-badge mystery-red" data-en="WALK ME THROUGH IT" data-ar="اشرحلي كل حركة">WALK ME THROUGH IT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Everything, all at once: Revenue up, Gross Margin up, EBITDA up, Operating Profit up, Current Ratio up, Inventory Days down, Receivable Days down, Debt down. Nearly every KPI is moving in the “ideal” direction." data-ar="كل حاجة، كلها مرة واحدة: الإيراد زاد، هامش الربح الإجمالي زاد، الـEBITDA زادت، الربح التشغيلي زاد، نسبة التداول زادت، أيام المخزون نزلت، أيام التحصيل نزلت، الدين نزل. كل تقريبًا كل مؤشر بيتحرك في الاتجاه “المثالي”.">Everything, all at once: Revenue up, Gross Margin up, EBITDA up, Operating Profit up, Current Ratio up, Inventory Days down, Receivable Days down, Debt down. Nearly every KPI is moving in the "ideal" direction.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Amazing month! 😂 Everything is up and to the right.”" data-ar="“شهر رائع! 😂 كل حاجة طالعة ومتجهة لفوق.”">"Amazing month! 😂 Everything is up and to the right."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ The Real Finance Manager's Reaction" data-ar="❓ رد فعل مدير المالية الحقيقي">The Real Finance Manager's Reaction</h5>
+            <p data-en="“Walk me through every single movement — one at a time.” Revenue: why did it increase? Gross Margin: what changed in COGS? EBITDA: were classifications or adjustments changed? Operating Profit: did operating economics genuinely improve? Current Ratio: did liquidity improve, or did classification change? Inventory Days: did efficiency genuinely improve? Receivable Days: did customers pay, or were balances reclassified? Debt: was it actually repaid?" data-ar="“اشرحلي كل حركة لوحدها — واحدة واحدة.” الإيراد: زاد ليه؟ هامش الربح الإجمالي: إيه اللي اتغيّر في تكلفة البضاعة المباعة؟ الـEBITDA: التصنيفات أو التسويات اتغيّرت؟ الربح التشغيلي: اقتصاديات التشغيل فعليًا اتحسّنت؟ نسبة التداول: السيولة اتحسّنت ولا التصنيف اتغيّر؟ أيام المخزون: الكفاءة فعليًا اتحسّنت؟ أيام التحصيل: العملاء دفعوا ولا الأرصدة اتعاد تصنيفها؟ الدين: فعليًا اتسدد؟">"Walk me through every single movement — one at a time." Revenue: why did it increase? Gross Margin: what changed in COGS? EBITDA: were classifications or adjustments changed? Operating Profit: did operating economics genuinely improve? Current Ratio: did liquidity improve, or did classification change? Inventory Days: did efficiency genuinely improve? Receivable Days: did customers pay, or were balances reclassified? Debt: was it actually repaid?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Final Question &amp; Lesson" data-ar="🔍 اكشف السؤال الأخير والدرس">🔍 Reveal the Final Question &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="The Final Question:" data-ar="السؤال الأخير:">The Final Question:</strong> <span data-en="Do all these movements tell one consistent economic story? If yes, this may simply be genuinely strong performance. If some KPIs improved because of accounting classifications, estimates, timing, or one-off transactions, that is critically important information for management — not a reason to stop asking." data-ar="هل كل الحركات دي بتحكي قصة اقتصادية واحدة متسقة؟ لو الإجابة أيوه، ده ممكن يكون ببساطة أداء قوي فعليًا. لو بعض المؤشرات اتحسّنت بسبب تصنيفات محاسبية، أو تقديرات، أو توقيت، أو معاملات استثنائية، دي معلومة مهمة جدًا للإدارة — مش سبب تتوقف عن السؤال.">Do all these movements tell one consistent economic story? If yes, this may simply be genuinely strong performance. If some KPIs improved because of accounting classifications, estimates, timing, or one-off transactions, that is critically important information for management — not a reason to stop asking.</span></p>
+              <p><strong data-en="The Core Lesson of This Entire Series:" data-ar="الدرس الأساسي للسلسلة كلها:">The Core Lesson of This Entire Series:</strong> <span data-en="Never manage the KPI alone. For every number, ask: What changed? Why did it change? Was it economic or accounting? Is it recurring? Is it cash-generating? Is it consistent with prior periods? What is the accounting basis? What happens next period? A strong Finance Manager isn't the person who memorizes the most KPIs — it's the person who can look at any KPI and genuinely say: “I understand what is behind this number.”" data-ar="أبدًا ما تدير المؤشر لوحده. لأي رقم، اسأل: إيه اللي اتغيّر؟ ليه اتغيّر؟ كان اقتصادي ولا محاسبي؟ متكرر؟ بيولّد كاش؟ متسق مع الفترات السابقة؟ إيه الأساس المحاسبي؟ هيحصل إيه الفترة الجاية؟ أقوى مدير مالي مش اللي بيحفظ أكبر عدد مؤشرات — ده اللي يقدر يبص لأي مؤشر ويقول فعليًا: “أنا فاهم إيه اللي ورا الرقم ده.”">Never manage the KPI alone. For every number, ask: What changed? Why did it change? Was it economic or accounting? Is it recurring? Is it cash-generating? Is it consistent with prior periods? What is the accounting basis? What happens next period? A strong Finance Manager isn't the person who memorizes the most KPIs — it's the person who can look at any KPI and genuinely say: "I understand what is behind this number."</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #9 — Bad Debts “Disappeared”" data-ar="لغز #9 — الديون المعدومة “اختفت”">Mystery #9 — Bad Debts "Disappeared"</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="The Expected Credit Loss (ECL) / Bad Debt Provision has dropped this period. Lower provision means higher profit." data-ar="مخصص خسائر الائتمان المتوقعة (ECL) نزل الفترة دي. مخصص أقل معناه ربح أعلى.">The Expected Credit Loss (ECL) / Bad Debt Provision has dropped this period. Lower provision means higher profit.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Our customer base is lower-risk now — credit quality has improved.”" data-ar="“قاعدة عملائنا بقت أقل خطورة دلوقتي — جودة الائتمان اتحسّنت.”">"Our customer base is lower-risk now — credit quality has improved."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did credit risk genuinely improve, or did the assumptions behind the estimate simply change?" data-ar="هل مخاطر الائتمان فعليًا اتحسّنت، ولا الافتراضات وراء التقدير بس اتغيّرت؟">Did credit risk genuinely improve, or did the assumptions behind the estimate simply change?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="The probability-of-default assumptions and forward-looking information used in the ECL model were updated — along with the customer segmentation methodology." data-ar="افتراضات احتمالية التعثر والمعلومات المستقبلية المستخدمة في نموذج الـECL اتحدثت — مع منهجية تقسيم العملاء كمان.">The probability-of-default assumptions and forward-looking information used in the ECL model were updated — along with the customer segmentation methodology.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 Updating assumptions is a normal part of ECL estimation — but a lower provision driven by assumption changes, not by genuinely lower risk, needs to be understood and disclosed, not just celebrated." data-ar="🟡 تحديث الافتراضات جزء طبيعي من تقدير الـECL — لكن مخصص أقل مدفوع بتغيير الافتراضات، مش بمخاطر أقل فعليًا، محتاج يتفهم ويتفصح عنه، مش بس يتحتفل بيه.">🟡 Updating assumptions is a normal part of ECL estimation — but a lower provision driven by assumption changes, not by genuinely lower risk, needs to be understood and disclosed, not just celebrated.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="ECL is not just a number dropped into the P&amp;L. Always understand the assumptions and evidence supporting the estimate before accepting a provision movement at face value." data-ar="الـECL مش مجرد رقم بيتحط في قائمة الدخل. دايمًا افهم الافتراضات والأدلة الداعمة للتقدير قبل ما تقبل تحرك المخصص على ظاهره.">Lesson: ECL is not just a number dropped into the P&amp;L. Always understand the assumptions and evidence supporting the estimate before accepting a provision movement at face value.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #10 — Loss-Making Operation... But Net Profit" data-ar="لغز #10 — عملية خاسرة... لكن ربح صافي">Mystery #10 — Loss-Making Operation... But Net Profit</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Operating activities show a Loss this period. Yet the company announces a Net Profit." data-ar="الأنشطة التشغيلية بتوضح خسارة الفترة دي. مع ذلك الشركة بتعلن صافي ربح.">Operating activities show a Loss this period. Yet the company announces a Net Profit.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We closed the year profitable — a solid result.”" data-ar="“قفلنا السنة بربح — نتيجة قوية.”">"We closed the year profitable — a solid result."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Where did the profit actually come from?" data-ar="الربح جه منين فعليًا؟">Where did the profit actually come from?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="There was a large gain from a disposal, investment, or other non-operating/exceptional item that more than offset a genuine operating loss." data-ar="كان فيه مكسب كبير من تخريد أو استثمار أو بند استثنائي/غير تشغيلي تاني عوّض وزيادة خسارة تشغيلية حقيقية.">There was a large gain from a disposal, investment, or other non-operating/exceptional item that more than offset a genuine operating loss.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 The Net Profit figure alone hides a real operating problem — the company is not necessarily operationally profitable, and this needs to be flagged clearly to management, not buried in a single headline number." data-ar="🔴 رقم صافي الربح لوحده بيخبّي مشكلة تشغيلية حقيقية — الشركة مش بالضرورة مربحة تشغيليًا، وده محتاج يترصد بوضوح للإدارة، مش يتدفن في رقم رئيسي واحد.">🔴 The Net Profit figure alone hides a real operating problem — the company is not necessarily operationally profitable, and this needs to be flagged clearly to management, not buried in a single headline number.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Always separate Operating Performance from non-operating/one-off effects. A good Net Profit can hide a genuinely struggling core business." data-ar="دايمًا افصل الأداء التشغيلي عن التأثيرات غير التشغيلية/الاستثنائية. صافي ربح كويس ممكن يخبّي نشاط أساسي بيعاني فعليًا.">Lesson: Always separate Operating Performance from non-operating/one-off effects. A good Net Profit can hide a genuinely struggling core business.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #11 — Working Capital Improved Without Cash" data-ar="لغز #11 — رأس المال العامل اتحسّن من غير كاش">Mystery #11 — Working Capital Improved Without Cash</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="A Current Liability moves to Non-current Liability once conditions permit. Current Liabilities fall, and Working Capital and the Current Ratio both improve." data-ar="التزام متداول بينتقل لالتزام غير متداول لما الظروف تسمح. الالتزامات المتداولة بتنزل، ورأس المال العامل ونسبة التداول الاتنين بيتحسّنوا.">A Current Liability moves to Non-current Liability once conditions permit. Current Liabilities fall, and Working Capital and the Current Ratio both improve.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Our liquidity position strengthened significantly this period.”" data-ar="“موقف السيولة بتاعنا اتقوّى بشكل كبير الفترة دي.”">"Our liquidity position strengthened significantly this period."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did the company's actual liquidity improve, or did the maturity classification simply change?" data-ar="هل السيولة الفعلية للشركة اتحسّنت، ولا تصنيف الاستحقاق بس اتغيّر؟">Did the company's actual liquidity improve, or did the maturity classification simply change?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="No cash came in and no obligation was settled. A debt's contractual maturity simply crossed the 12-month line, or was refinanced, moving it to non-current." data-ar="مفيش كاش دخل ومفيش التزام اتسدد. استحقاق دين تعاقدي بس عدّى خط الـ12 شهر، أو اتعاد تمويله، وده نقله لغير متداول.">No cash came in and no obligation was settled. A debt's contractual maturity simply crossed the 12-month line, or was refinanced, moving it to non-current.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 This can be entirely legitimate if the reclassification genuinely meets the accounting criteria (e.g. a real refinancing agreement in place) — but it needs verification, not an automatic assumption that liquidity actually improved." data-ar="🔴 ده ممكن يكون مشروع تمامًا لو إعادة التصنيف فعليًا مستوفية المعايير المحاسبية (زي اتفاق إعادة تمويل حقيقي موجود) — لكن محتاج تحقق، مش افتراض تلقائي إن السيولة فعليًا اتحسّنت.">🔴 This can be entirely legitimate if the reclassification genuinely meets the accounting criteria (e.g. a real refinancing agreement in place) — but it needs verification, not an automatic assumption that liquidity actually improved.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Working Capital KPIs must be analyzed alongside debt maturity, contractual terms, rights at the reporting date, refinancing arrangements, and actual liquidity." data-ar="مؤشرات رأس المال العامل لازم تتحلل جنب استحقاق الدين، والشروط التعاقدية، والحقوق في تاريخ التقرير، وترتيبات إعادة التمويل، والسيولة الفعلية.">Lesson: Working Capital KPIs must be analyzed alongside debt maturity, contractual terms, rights at the reporting date, refinancing arrangements, and actual liquidity.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #12 — Expense “Disappeared”" data-ar="لغز #12 — المصروف “اختفى”">Mystery #12 — Expense "Disappeared"</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="A large cost that would normally have hit the P&amp;L directly was instead capitalized. Current-period profit is higher." data-ar="تكلفة كبيرة كانت المفروض تتحمل مباشرة على قائمة الدخل اتعمل لها رسملة بدل كده. ربح الفترة الحالية أعلى.">A large cost that would normally have hit the P&amp;L directly was instead capitalized. Current-period profit is higher.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We invested in a long-term asset this period — it's a strategic spend.”" data-ar="“استثمرنا في أصل طويل الأجل الفترة دي — ده صرف استراتيجي.”">"We invested in a long-term asset this period — it's a strategic spend."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Does this expenditure actually meet the recognition criteria for an asset?" data-ar="هل الصرف ده فعليًا مستوفي معايير الاعتراف كأصل؟">Does this expenditure actually meet the recognition criteria for an asset?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="The expense didn't disappear economically — its timing was shifted to future depreciation or amortization periods instead of hitting profit now." data-ar="المصروف ما اختفاش اقتصاديًا — توقيته اتنقل لفترات إهلاك أو استهلاك مستقبلية بدل ما يتحمل على الربح دلوقتي.">The expense didn't disappear economically — its timing was shifted to future depreciation or amortization periods instead of hitting profit now.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 Capitalization is not automatically manipulation — it can be entirely correct if recognition criteria are genuinely met. But it must be tested against the nature of the expenditure, future economic benefits, and documentation — not accepted just because it flatters this period's profit." data-ar="🟡 الرسملة مش تلاعب تلقائيًا — ممكن تكون صحيحة تمامًا لو معايير الاعتراف فعليًا مستوفية. لكن لازم تتختبر مقابل طبيعة الصرف، والمنافع الاقتصادية المستقبلية، والتوثيق — مش تتقبل بس لأنها بتجمّل ربح الفترة دي.">🟡 Capitalization is not automatically manipulation — it can be entirely correct if recognition criteria are genuinely met. But it must be tested against the nature of the expenditure, future economic benefits, and documentation — not accepted just because it flatters this period's profit.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Test every capitalization decision against the nature of the expenditure, future economic benefits, recognition criteria, documentation, and consistency with past practice." data-ar="اختبر كل قرار رسملة مقابل طبيعة الصرف، والمنافع الاقتصادية المستقبلية، ومعايير الاعتراف، والتوثيق، والاتساق مع الممارسة السابقة.">Lesson: Test every capitalization decision against the nature of the expenditure, future economic benefits, recognition criteria, documentation, and consistency with past practice.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #5 — Inventory Disappeared... Profit Appeared" data-ar="لغز #5 — المخزون اختفى... الربح ظهر">Mystery #5 — Inventory Disappeared... Profit Appeared</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Inventory is transferred or sold to a Group Company. The individual entity's books show: Inventory down, Revenue up, and Profit may be up too." data-ar="المخزون بيتنقل أو يتباع لشركة في نفس المجموعة. دفاتر الكيان الفردي بتوضح: المخزون نزل، الإيراد زاد، والربح ممكن يكون زاد كمان.">Inventory is transferred or sold to a Group Company. The individual entity's books show: Inventory down, Revenue up, and Profit may be up too.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“This entity closed a strong sale this month — profit is up.”" data-ar="“الكيان ده قفل بيعة قوية الشهر ده — الربح زاد.”">"This entity closed a strong sale this month — profit is up."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Was new economic value genuinely created, or did the group just move inventory from one of its own companies to another?" data-ar="هل اتخلقت قيمة اقتصادية جديدة فعلًا، ولا المجموعة بس نقلت مخزون من شركة بتاعتها لشركة تانية؟">Was new economic value genuinely created, or did the group just move inventory from one of its own companies to another?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="No sale occurred to a genuine external party — the inventory simply moved within the same group of companies under common ownership." data-ar="مفيش بيع حقيقي حصل لطرف خارجي فعليًا — المخزون بس اتنقل جوه نفس المجموعة تحت ملكية مشتركة.">No sale occurred to a genuine external party — the inventory simply moved within the same group of companies under common ownership.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 At the individual-entity level this may look like a real sale, but at the group level it's an internal transfer that must be eliminated on consolidation — otherwise the group reports profit that never actually happened." data-ar="🔴 على مستوى الكيان الفردي ده ممكن يبان بيع حقيقي، لكن على مستوى المجموعة ده نقل داخلي لازم يتستبعد وقت التجميع — وإلا المجموعة هتقرّر ربح ما حصلش فعليًا خالص.">🔴 At the individual-entity level this may look like a real sale, but at the group level it's an internal transfer that must be eliminated on consolidation — otherwise the group reports profit that never actually happened.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Always separate Individual Entity Reporting from Group Economics. A transaction can be real at the legal-entity level and economically meaningless at the group level — both views matter, for different reasons." data-ar="دايمًا افصل بين تقرير الكيان الفردي واقتصاديات المجموعة. المعاملة ممكن تكون حقيقية على مستوى الكيان القانوني وبلا معنى اقتصادي على مستوى المجموعة — الاتنين مهمين، كل واحد لسبب مختلف.">Always separate Individual Entity Reporting from Group Economics. A transaction can be real at the legal-entity level and economically meaningless at the group level — both views matter, for different reasons.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #6 — EBITDA Improved Without More Sales" data-ar="لغز #6 — الـEBITDA اتحسّن من غير مبيعات أكتر">Mystery #6 — EBITDA Improved Without More Sales</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Revenue hasn't improved much. But EBITDA has risen noticeably this period." data-ar="الإيراد ما تحسّنش كتير. لكن الـEBITDA ارتفعت بشكل ملحوظ الفترة دي.">Revenue hasn't improved much. But EBITDA has risen noticeably this period.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We've become a much more efficient company this quarter.”" data-ar="“بقينا شركة أكفأ بكتير الربع ده.”">"We've become a much more efficient company this quarter."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="What exactly is included in this EBITDA figure — and was it constructed consistently with prior periods?" data-ar="إيه بالظبط اللي داخل في رقم الـEBITDA ده — وهل اتحسب بنفس الطريقة المتسقة مع الفترات اللي فاتت؟">What exactly is included in this EBITDA figure — and was it constructed consistently with prior periods?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Some costs were reclassified, and certain one-off items were excluded from this period's “Adjusted EBITDA” that weren't excluded last period." data-ar="بعض المصاريف اتعاد تصنيفها، وبعض البنود الاستثنائية اتستبعدت من “الـEBITDA المعدّل” الفترة دي اللي ما كانتش بتتستبعد الفترة اللي فاتت.">Some costs were reclassified, and certain one-off items were excluded from this period's "Adjusted EBITDA" that weren't excluded last period.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 Using a management-defined “Adjusted EBITDA” isn't wrong by itself, but changing what's excluded between periods, without disclosing it, makes the trend misleading." data-ar="🟡 استخدام “EBITDA معدّل” بتعريف الإدارة مش غلط بمفرده، لكن تغيير إيه اللي بيتستبعد بين الفترات، من غير إفصاح، بيخلّي الاتجاه مضلّل.">🟡 Using a management-defined "Adjusted EBITDA" isn't wrong by itself, but changing what's excluded between periods, without disclosing it, makes the trend misleading.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="EBITDA is not one “natural” number when management-defined measures are used. Always ask: how was EBITDA constructed this period, and was that construction consistent with prior periods?" data-ar="الـEBITDA مش رقم “طبيعي” واحد لما مقاييس الإدارة المعرّفة بتتستخدم. دايمًا اسأل: إزاي الـEBITDA اتحسبت الفترة دي، وهل الحساب ده متسق مع الفترات اللي فاتت؟">Lesson: EBITDA is not one "natural" number when management-defined measures are used. Always ask: how was EBITDA constructed this period, and was that construction consistent with prior periods?</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #7 — Gross Margin Suddenly Jumps" data-ar="لغز #7 — هامش الربح الإجمالي بيقفز فجأة">Mystery #7 — Gross Margin Suddenly Jumps</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Gross Margin jumps noticeably this period, with no obvious change in pricing or volume." data-ar="هامش الربح الإجمالي بيقفز بشكل ملحوظ الفترة دي، من غير تغيير واضح في التسعير أو الحجم.">Gross Margin jumps noticeably this period, with no obvious change in pricing or volume.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Our products became much more profitable this quarter.”" data-ar="“منتجاتنا بقت أكتر ربحية بكتير الربع ده.”">"Our products became much more profitable this quarter."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did product economics genuinely improve, or did some costs simply move to below the gross profit line?" data-ar="هل اقتصاديات المنتج فعليًا اتحسّنت، ولا بعض التكاليف بس اتنقلت تحت خط الربح الإجمالي؟">Did product economics genuinely improve, or did some costs simply move to below the gross profit line?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Costs that used to sit inside COGS now appear elsewhere on the income statement. Total expenses likely haven't changed — just their position relative to gross profit." data-ar="تكاليف كانت بتقعد جوه تكلفة البضاعة المباعة دلوقتي ظاهرة في مكان تاني في قائمة الدخل. إجمالي المصاريف على الأرجح ما اتغيّرش — بس مكانها نسبة للربح الإجمالي.">Costs that used to sit inside COGS now appear elsewhere on the income statement. Total expenses likely haven't changed — just their position relative to gross profit.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 This can be a legitimate reclassification under a consistent cost accounting policy, or an inconsistent change made to flatter the margin trend." data-ar="🟡 ده ممكن يكون إعادة تصنيف مشروعة تحت سياسة محاسبة تكاليف متسقة، أو تغيير غير متسق اتعمل عشان يجمّل اتجاه الهامش.">🟡 This can be a legitimate reclassification under a consistent cost accounting policy, or an inconsistent change made to flatter the margin trend.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Analyze Gross Margin alongside COGS composition, cost allocation, product mix, pricing, volume, and classification consistency — never as an isolated percentage." data-ar="حلّل هامش الربح الإجمالي جنب تركيبة تكلفة البضاعة المباعة، وتوزيع التكلفة، ومزيج المنتجات، والتسعير، والحجم، واتساق التصنيف — أبدًا كنسبة منفردة.">Lesson: Analyze Gross Margin alongside COGS composition, cost allocation, product mix, pricing, volume, and classification consistency — never as an isolated percentage.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #8 — Profit Is Strong... Cash Is Weak" data-ar="لغز #8 — الربح قوي... الكاش ضعيف">Mystery #8 — Profit Is Strong... Cash Is Weak</span>
+          <span class="mystery-badge mystery-green" data-en="LEGITIMATE" data-ar="مشروع">LEGITIMATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">What Changed</h5>
+            <p data-en="Net Profit looks excellent. But Receivables are up, Inventory is up, and Operating Cash Flow is down." data-ar="صافي الربح شكله ممتاز. لكن الذمم المدينة زادت، والمخزون زاد، والتدفق النقدي التشغيلي نزل.">Net Profit looks excellent. But Receivables are up, Inventory is up, and Operating Cash Flow is down.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Best profit quarter we've had all year!”" data-ar="“أحسن ربع سنوي من ناحية الربح السنة كلها!”">"Best profit quarter we've had all year!"</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="How much of this profit has actually converted into cash?" data-ar="قد إيه من الربح ده فعليًا اتحوّل لكاش؟">How much of this profit has actually converted into cash?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Sales grew — genuinely — but mostly on credit, and inventory was built up to support future orders. The profit is real; it just hasn't turned into cash yet." data-ar="المبيعات زادت — فعليًا — لكن أغلبها آجل، والمخزون اتبنى عشان يدعم أوردرات مستقبلية. الربح حقيقي؛ بس لسه ما اتحوّلش لكاش.">Sales grew — genuinely — but mostly on credit, and inventory was built up to support future orders. The profit is real; it just hasn't turned into cash yet.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟢 This is a completely normal and legitimate pattern during a genuine growth period — but it still needs active working capital management, not just celebration of the profit number." data-ar="🟢 ده نمط طبيعي ومشروع تمامًا خلال فترة نمو حقيقية — لكن لسه محتاج إدارة فعّالة لرأس المال العامل، مش بس الاحتفال برقم الربح.">🟢 This is a completely normal and legitimate pattern during a genuine growth period — but it still needs active working capital management, not just celebration of the profit number.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Profitability is not Cash Generation. Always analyze working capital, receivables, inventory, payables, operating cash flow, and the cash conversion cycle alongside the profit figure." data-ar="الربحية مش توليد كاش. دايمًا حلّل رأس المال العامل، والذمم المدينة، والمخزون، والذمم الدائنة، والتدفق النقدي التشغيلي، ودورة تحويل الكاش جنب رقم الربح.">Lesson: Profitability is not Cash Generation. Always analyze working capital, receivables, inventory, payables, operating cash flow, and the cash conversion cycle alongside the profit figure.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #1 — Receivables That Disappeared" data-ar="لغز #1 — الذمم المدينة اللي اختفت">Mystery #1 — Receivables That Disappeared</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">📊 What Changed</h5>
+            <p data-en="Trade Receivables on the balance sheet look much better this period. Balances over 120 days old, in particular, no longer show up under Customer Receivables." data-ar="الذمم المدينة التجارية في الميزانية شكلها أحسن بكتير الفترة دي. الأرصدة اللي عدت على 120 يوم، بالذات، مابقتش تظهر تحت ذمم العملاء خالص.">Trade Receivables on the balance sheet look much better this period. Balances over 120 days old, in particular, no longer show up under Customer Receivables.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Our collection team did great work this quarter — aging looks so much cleaner.”" data-ar="“فريق التحصيل عمل شغل ممتاز الربع ده — الـaging شكله أنضف بكتير.”">"Our collection team did great work this quarter — aging looks so much cleaner."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did collection risk genuinely improve, or did classification just change? Where exactly did the old balance go on the GL?" data-ar="هل مخاطر التحصيل فعليًا اتحسّنت، ولا التصنيف بس اتغيّر؟ الرصيد القديم راح فين بالظبط في الـGL؟">Did collection risk genuinely improve, or did classification just change? Where exactly did the old balance go on the GL?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Reviewing the GL shows part of the old balances were reclassified to “Other Receivables” — not collected, not written off, just moved to a different line." data-ar="مراجعة الـGL بتوضح إن جزء من الأرصدة القديمة اتنقل لـ“ذمم مدينة أخرى” — مش متحصّل، ومش مشطوب، بس اتنقل لبند تاني.">Reviewing the GL shows part of the old balances were reclassified to “Other Receivables” — not collected, not written off, just moved to a different line.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 This could be a legitimate reclassification (e.g. a disputed amount genuinely isn't a trade receivable anymore) — or a presentation choice designed to flatter aging. The number alone can't tell you which." data-ar="🟡 ده ممكن يكون إعادة تصنيف مشروعة (مثلًا مبلغ متنازع عليه فعليًا مابقاش ذمة مدينة تجارية) — أو اختيار عرض قصده يجمّل الـaging. الرقم لوحده مش هيقولك أنهي واحدة فيهم.">🟡 This could be a legitimate reclassification (e.g. a disputed amount genuinely isn't a trade receivable anymore) — or a presentation choice designed to flatter aging. The number alone can't tell you which.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="An improved aging report doesn't automatically mean improved receivable quality. Always check: the original customer balance, the reclassification entries, the new aging, the ECL/provision, and whether cash was actually collected." data-ar="تحسّن تقرير الـaging مش معناه تلقائيًا تحسّن جودة الذمم المدينة. دايمًا افحص: رصيد العميل الأصلي، قيود إعادة التصنيف، الـaging الجديد، المخصص (ECL)، وهل الكاش فعليًا اتحصّل.">An improved aging report doesn't automatically mean improved receivable quality. Always check: the original customer balance, the reclassification entries, the new aging, the ECL/provision, and whether cash was actually collected.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #2 — Current Ratio Magic" data-ar="لغز #2 — سحر نسبة التداول">Mystery #2 — Current Ratio Magic</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">📊 What Changed</h5>
+            <p data-en="The company has a large debit balance in a Partner/Shareholder Current Account — sizeable relative to the partner's actual contribution. It's presented under Other Receivables, changing the picture of Current Assets, and the Current Ratio improves." data-ar="الشركة عندها رصيد مدين كبير في حساب جاري شريك/مساهم — كبير نسبيًا مقارنة بمساهمة الشريك الفعلية. بيتعرض تحت ذمم مدينة أخرى، وده بيغيّر صورة الأصول المتداولة، ونسبة التداول بتتحسّن.">The company has a large debit balance in a Partner/Shareholder Current Account — sizeable relative to the partner's actual contribution. It's presented under Other Receivables, changing the picture of Current Assets, and the Current Ratio improves.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Our liquidity position is strong this quarter — look at the Current Ratio.”" data-ar="“موقف السيولة بتاعنا قوي الربع ده — بص على نسبة التداول.”">"Our liquidity position is strong this quarter — look at the Current Ratio."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did cash actually come in? Was this balance ever collected? Or did liquidity only look better on paper?" data-ar="هل الكاش فعليًا دخل؟ هل الرصيد ده اتحصّل فعلًا في أي وقت؟ ولا السيولة بس شكلها اتحسّن على الورق؟">Did cash actually come in? Was this balance ever collected? Or did liquidity only look better on paper?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="No cash came in. The balance was never collected. Only the liquidity KPI moved, driven purely by where the item sits on the balance sheet." data-ar="مفيش كاش دخل خالص. الرصيد ما اتحصّلش أبدًا. بس مؤشر السيولة اللي اتحرّك، مدفوع بس بمكان البند في الميزانية.">No cash came in. The balance was never collected. Only the liquidity KPI moved, driven purely by where the item sits on the balance sheet.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 A related-party balance this size, presented as a routine current receivable, deserves real scrutiny — recoverability, true current/non-current classification, and related-party disclosure requirements all matter here." data-ar="🔴 رصيد طرف ذي علاقة بالحجم ده، معروض كذمة متداولة عادية، يستاهل فحص حقيقي — القابلية للتحصيل، والتصنيف الصحيح متداول/غير متداول، ومتطلبات إفصاح الأطراف ذات العلاقة كلهم مهمين هنا.">🔴 A related-party balance this size, presented as a routine current receivable, deserves real scrutiny — recoverability, true current/non-current classification, and related-party disclosure requirements all matter here.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="The Current Ratio is never independent of the nature of the balances behind it. Always examine the nature of the receivable, expected settlement, correct classification, recoverability, and related-party implications." data-ar="نسبة التداول أبدًا مش مستقلة عن طبيعة الأرصدة اللي وراها. دايمًا افحص طبيعة الذمة، التسوية المتوقعة، التصنيف الصحيح، إمكانية التحصيل، وتبعات الطرف ذي العلاقة.">The Current Ratio is never independent of the nature of the balances behind it. Always examine the nature of the receivable, expected settlement, correct classification, recoverability, and related-party implications.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #3 — The Operating Manager's “Bad Performance”" data-ar="لغز #3 — “أداء ضعيف” لمدير التشغيل">Mystery #3 — The Operating Manager's "Bad Performance"</span>
+          <span class="mystery-badge mystery-yellow" data-en="JUDGMENT" data-ar="حكم مهني">JUDGMENT</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">📊 What Changed</h5>
+            <p data-en="Operating Profit looks very weak this period." data-ar="الربح التشغيلي شكله ضعيف جدًا الفترة دي.">Operating Profit looks very weak this period.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“Operations underperformed badly this quarter — we need to address this with the ops team.”" data-ar="“التشغيل كان ضعيف جدًا الربع ده — لازم نتكلم مع فريق التشغيل في الموضوع ده.”">"Operations underperformed badly this quarter — we need to address this with the ops team."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did operational performance actually deteriorate, or did the allocation of costs simply change?" data-ar="هل الأداء التشغيلي فعليًا ساء، ولا توزيع التكاليف بس اتغيّر؟">Did operational performance actually deteriorate, or did the allocation of costs simply change?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="Depreciation belonging to administrative/G&amp;A assets was loaded into Operating Expenses this period — there may be no real operational problem at all. The issue is cost allocation, not execution." data-ar="إهلاك خاص بأصول إدارية/مصاريف عمومية اتحمّل على المصاريف التشغيلية الفترة دي — ممكن يكون مفيش مشكلة تشغيلية حقيقية خالص. المشكلة في توزيع التكلفة، مش في التنفيذ.">Depreciation belonging to administrative/G&amp;A assets was loaded into Operating Expenses this period — there may be no real operational problem at all. The issue is cost allocation, not execution.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🟡 Misallocation can be an honest error or an inconsistent methodology — but either way it's unfair to judge the operating manager on a number that doesn't reflect their actual area." data-ar="🟡 سوء التوزيع ممكن يكون غلطة صادقة أو منهجية غير متسقة — لكن في الحالتين مش عدل نحكم على مدير التشغيل برقم مش بيعكس مجاله الفعلي.">🟡 Misallocation can be an honest error or an inconsistent methodology — but either way it's unfair to judge the operating manager on a number that doesn't reflect their actual area.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="Before judging Operating Profit, understand the nature of costs, the allocation methodology, functional vs. nature-of-expense presentation, and consistency over time. Moving a cost's location can shift a KPI even when total company expense hasn't changed at all." data-ar="قبل ما تحكم على الربح التشغيلي، افهم طبيعة التكاليف، ومنهجية التوزيع، وعرض الوظيفة مقابل طبيعة المصروف، والاتساق عبر الوقت. نقل مكان تكلفة ممكن يحرّك مؤشر حتى لو إجمالي مصروف الشركة ما اتغيّرش خالص.">Before judging Operating Profit, understand the nature of costs, the allocation methodology, functional vs. nature-of-expense presentation, and consistency over time. Moving a cost's location can shift a KPI even when total company expense hasn't changed at all.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="mystery-card">
+        <summary class="mystery-summary">
+          <span class="mystery-icon">🧩</span>
+          <span class="mystery-title" data-en="Mystery #4 — Sister Company Becomes a “Customer”" data-ar="لغز #4 — الشركة الشقيقة بتبقى “عميل”">Mystery #4 — Sister Company Becomes a "Customer"</span>
+          <span class="mystery-badge mystery-red" data-en="INVESTIGATE" data-ar="يستحق التحقيق">INVESTIGATE</span>
+        </summary>
+        <div class="mystery-body">
+          <div class="mystery-block">
+            <h5 data-en="📊 What Changed" data-ar="📊 إيه اللي اتغيّر">📊 What Changed</h5>
+            <p data-en="Inventory is transferred to a Sister Company. Instead of recording it as an intercompany movement based on its real nature, a Sales Invoice is issued — and Revenue rises." data-ar="المخزون بيتنقل لشركة شقيقة. بدل ما يتسجل كحركة بين شركات حسب طبيعته الحقيقية، فاتورة بيع بتتصدر — والإيراد بيزيد.">Inventory is transferred to a Sister Company. Instead of recording it as an intercompany movement based on its real nature, a Sales Invoice is issued — and Revenue rises.</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="🗣️ Management's Story" data-ar="🗣️ قصة الإدارة">Management's Story</h5>
+            <p data-en="“We grew sales to a new customer this period.”" data-ar="“زوّدنا المبيعات لعميل جديد الفترة دي.”">"We grew sales to a new customer this period."</p>
+          </div>
+          <div class="mystery-block">
+            <h5 data-en="❓ Your Question as Analyst" data-ar="❓ سؤالك كمحلل">Your Question as Analyst</h5>
+            <p data-en="Did a genuine sale happen? Did control actually transfer? Or is the invoice just a document that doesn't change the real nature of the transaction?" data-ar="هل بيع حقيقي حصل؟ هل السيطرة فعليًا اتنقلت؟ ولا الفاتورة مجرد مستند مش بيغيّر طبيعة المعاملة الحقيقية؟">Did a genuine sale happen? Did control actually transfer? Or is the invoice just a document that doesn't change the real nature of the transaction?</p>
+          </div>
+          <details class="mystery-reveal">
+            <summary data-en="🔍 Reveal the Investigation &amp; Lesson" data-ar="🔍 اكشف التحقيق والدرس">🔍 Reveal the Investigation &amp; Lesson</summary>
+            <div class="mystery-reveal-body">
+              <p><strong data-en="What actually happened:" data-ar="اللي حصل فعليًا:">What actually happened:</strong> <span data-en="The sister company is under common control — not a genuine external customer. The invoice is a document; it doesn't by itself create real revenue or establish that control genuinely transferred." data-ar="الشركة الشقيقة تحت سيطرة مشتركة — مش عميل خارجي حقيقي. الفاتورة مستند؛ هي مش بمفردها بتخلق إيراد حقيقي أو تثبت إن السيطرة فعليًا اتنقلت.">The sister company is under common control — not a genuine external customer. The invoice is a document; it doesn't by itself create real revenue or establish that control genuinely transferred.</span></p>
+              <p><strong data-en="Classification:" data-ar="التصنيف:">Classification:</strong> <span data-en="🔴 This needs real investigation: was there commercial substance, did control transfer, and critically — how will this be treated on consolidation? Intercompany sales get eliminated at the group level regardless of how they're invoiced." data-ar="🔴 ده يستاهل تحقيق حقيقي: هل فيه جوهر تجاري، هل السيطرة اتنقلت، والأهم — إزاي هيتعامل معاها وقت التجميع؟ المبيعات بين الشركات بتتستبعد على مستوى المجموعة بغض النظر عن طريقة الفوترة.">🔴 This needs real investigation: was there commercial substance, did control transfer, and critically — how will this be treated on consolidation? Intercompany sales get eliminated at the group level regardless of how they're invoiced.</span></p>
+              <p><strong data-en="Lesson:" data-ar="الدرس:">Lesson:</strong> <span data-en="An invoice does not automatically create genuine revenue. What matters is the substance of the transaction and the actual revenue recognition requirements — and in consolidated statements, intercompany eliminations must be applied." data-ar="الفاتورة مش بتخلق إيراد حقيقي تلقائيًا. المهم هو جوهر المعاملة ومتطلبات الاعتراف بالإيراد الفعلية — وفي القوائم الموحّدة، استبعادات المعاملات بين الشركات لازم تتطبق.">An invoice does not automatically create genuine revenue. What matters is the substance of the transaction and the actual revenue recognition requirements — and in consolidated statements, intercompany eliminations must be applied.</span></p>
+            </div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+<div class="data-panel" id="gl-home">
     <div class="desk-day">
       <div class="desk-hero">
         <div>
@@ -10583,7 +11216,7 @@ const PANEL_TO_WS = {
   overview:'settings', coa:'settings', departments:'settings',
   'gl-home':'gl', 'gl-role':'gl', 'gl-cases':'gl', 'gl-close':'gl', 'gl-trial-balance':'gl', 'gl-financials':'gl', 'gl-fixed-assets':'gl', 'gl-cashflow':'gl', 'gl-entries':'gl', 'gl-spot-error':'gl', 'gl-quiz':'gl', 'gl-fraud':'gl',
   'tax-home':'tax', 'tax-register':'tax', 'tax-role':'tax', 'tax-cases':'tax', 'tax-calc':'tax', 'tax-spot-error':'tax', 'tax-fraud':'tax', 'tax-quiz':'tax',
-  'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn', 'learn-sops':'learn',
+  'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn', 'learn-sops':'learn', 'learn-mysteries':'learn',
   'learn-ratios':'ratios', 'ratios-quiz':'ratios', 'ratios-fraud':'ratios', 'ratios-spot-error':'ratios', 'ratios-home':'ratios', 'ratios-role':'ratios', 'ratios-cases':'ratios',
   'bc-home':'bc', 'bc-register':'bc', 'bc-role':'bc', 'bc-cases':'bc', 'bc-sod':'bc', 'bc-quiz':'bc', 'bc-fraud':'bc', 'bc-spot-error':'bc',
   'aud-home':'aud', 'aud-role':'aud', 'aud-program':'aud', 'aud-findings':'aud', 'aud-quiz':'aud', 'aud-fraud':'aud', 'aud-spot-error':'aud', 'aud-cases':'aud',
@@ -10862,7 +11495,7 @@ function showPanel(id, btn, isBack){
     overview:'overview', coa:'overview', departments:'overview',
     'gl-home':'gl-home', 'gl-role':'gl-home', 'gl-cases':'gl-home', 'gl-close':'gl-home', 'gl-trial-balance':'gl-home', 'gl-financials':'gl-home', 'gl-fixed-assets':'gl-home', 'gl-cashflow':'gl-home', 'gl-entries':'gl-home', 'gl-spot-error':'gl-home', 'gl-quiz':'gl-home', 'gl-fraud':'gl-home',
     'tax-home':'tax-home', 'tax-register':'tax-home', 'tax-role':'tax-home', 'tax-cases':'tax-home', 'tax-calc':'tax-home', 'tax-spot-error':'tax-home', 'tax-fraud':'tax-home', 'tax-quiz':'tax-home',
-    'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home', 'learn-sops':'learn-home',
+    'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home', 'learn-sops':'learn-home', 'learn-mysteries':'learn-home',
     'learn-ratios':'ratios-home', 'ratios-quiz':'ratios-home', 'ratios-fraud':'ratios-home', 'ratios-spot-error':'ratios-home', 'ratios-home':'ratios-home', 'ratios-role':'ratios-home', 'ratios-cases':'ratios-home',
     'bc-home':'bc-home', 'bc-register':'bc-home', 'bc-role':'bc-home', 'bc-cases':'bc-home', 'bc-sod':'bc-home', 'bc-quiz':'bc-home', 'bc-fraud':'bc-home', 'bc-spot-error':'bc-home',
     'aud-home':'aud-home', 'aud-role':'aud-home', 'aud-program':'aud-home', 'aud-findings':'aud-home', 'aud-quiz':'aud-home', 'aud-fraud':'aud-home', 'aud-spot-error':'aud-home', 'aud-cases':'aud-home',
