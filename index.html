@@ -6,7 +6,7 @@
 <title>Ayman Hegazy | Real World Accounting</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    TOKENS — a ledger-book palette: warm paper, deep ink-green,
@@ -22,8 +22,8 @@
   --line:#DCD5C4;
   --line-strong:#c9bfa0;
 
-  --brand:#0f766e;
-  --brand-dark:#0b3d4a;
+  --brand:#14544B;
+  --brand-dark:#0a2e2a;
   --brand-soft:#e0f7f4;
   --brand-tint:#b8ebe4;
 
@@ -37,6 +37,14 @@
   --liability-soft:#ffedd5;
 
   --focus:#2563eb;
+
+  /* —— Semantic status colors — independent of brand identity —— */
+  --success:#10B981;
+  --success-soft:#D1FAE5;
+  --warning:#F59E0B;
+  --warning-soft:#FEF3C7;
+  --danger:#EF4444;
+  --danger-soft:#FEE2E2;
 
   --info:#0284c7;
   --info-soft:#e0f2fe;
@@ -59,9 +67,52 @@
   --radius-sm:12px;
   --glow:0 0 0 4px rgba(15,118,110,.20);
 }
+
+/* —— Display toggle buttons —— */
+.display-toggles{ display:flex; gap:6px; }
+.display-toggle-btn{
+  width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.12); color:#fff; font-size:16px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .2s ease, transform .15s ease;
+}
+.display-toggle-btn:hover{ background:rgba(255,255,255,.25); transform:scale(1.08); }
+.display-toggle-btn.active{ background:#fff; color:var(--brand-dark); border-color:#fff; }
+
+/* —— Eye Protection Mode (warm filter, like phone night-light) —— */
+body.eye-mode{
+  filter:sepia(18%) saturate(82%) brightness(97%) hue-rotate(-3deg);
+}
+
+/* —— Animated glowing + moving name —— */
+.logo{ position:relative; display:inline-block; animation:logoDance 5s ease-in-out infinite; }
+@keyframes logoDance{
+  0%,100%{ transform:translateX(0) scale(1); }
+  25%{ transform:translateX(5px) scale(1.06); }
+  50%{ transform:translateX(0) scale(0.97); }
+  75%{ transform:translateX(-5px) scale(1.06); }
+}
+.logo::before{
+  content:"Ayman Hegazy";
+  position:absolute; inset:-6px -10px auto -10px;
+  z-index:-1; pointer-events:none;
+  background:linear-gradient(90deg,#F0B429,#fff176,#F0B429,#fff176);
+  background-size:300% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:blur(14px); opacity:.85;
+  animation:logoGlowShift 2.8s ease-in-out infinite;
+}
+
+@keyframes logoGlowShift{
+  0%,100%{ background-position:0% 50%; opacity:.65; transform:scale(1); }
+  50%{ background-position:150% 50%; opacity:1; transform:scale(1.03); }
+}
+@keyframes logoTextShimmer{
+  0%,100%{ text-shadow:0 0 6px rgba(240,180,41,.4), 0 0 14px rgba(240,180,41,.2); }
+  50%{ text-shadow:0 0 14px rgba(240,180,41,.9), 0 0 28px rgba(240,180,41,.5), 0 0 40px rgba(240,180,41,.25); }
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{margin:0;overflow-x:hidden;background:var(--paper);background-image:radial-gradient(ellipse 120% 80% at 0% -20%,rgba(13,143,99,.07),transparent 50%),radial-gradient(ellipse 90% 60% at 100% 0%,rgba(201,146,20,.06),transparent 45%);color:var(--ink);font-family:"IBM Plex Sans",Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{margin:0;overflow-x:hidden;background:var(--paper);background-image:radial-gradient(ellipse 120% 80% at 0% -20%,rgba(13,143,99,.07),transparent 50%),radial-gradient(ellipse 90% 60% at 100% 0%,rgba(201,146,20,.06),transparent 45%);color:var(--ink);font-family:"Plus Jakarta Sans","IBM Plex Sans",Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:"Fraunces",Georgia,serif;color:var(--brand-dark)}
 ::selection{background:var(--gold-soft)}
 
@@ -305,7 +356,7 @@ footer strong{color:var(--brand-dark)}
 .approval-control{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.approval-control label{font-size:11px;color:var(--muted);font-weight:600}.approver-select{padding:7px 9px;border:1px solid var(--line-strong);border-radius:7px;background:var(--paper);font:inherit;font-size:12px;color:var(--ink)}.btn-add-ref{padding:7px 9px;font-size:11px}
 .status-pill{font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px}
 .status-draft{background:#eee9dc;color:var(--muted)}
-.status-pending{background:var(--gold-soft);color:var(--gold)}
+.status-pending{background:var(--warning-soft);color:#92400e}
 .status-approved{background:var(--brand-soft);color:var(--brand-dark)}
 .status-rejected{background:var(--debit-soft);color:var(--debit)}
 .btn{border:0;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;font-size:13.5px}
@@ -1369,16 +1420,19 @@ body:not(.is-workspace) .hero,
 .focus-inner{
   background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%) !important;
   border:2px solid rgba(232,163,23,.35) !important;
-  border-radius:20px !important;
-  padding:20px 24px !important;
-  box-shadow:0 20px 48px rgba(15,23,42,.12),0 0 0 1px rgba(255,255,255,.8) inset !important;
+  border-radius:16px !important;
+  padding:10px 16px !important;
+  box-shadow:0 10px 28px rgba(15,23,42,.1),0 0 0 1px rgba(255,255,255,.8) inset !important;
 }
 .focus-badge{
   background:linear-gradient(135deg,var(--gold),#f0b84a) !important;
   color:var(--navy-deep) !important;
   box-shadow:0 4px 14px rgba(232,163,23,.4) !important;
+  font-size:10px !important; padding:3px 9px !important;
 }
-.focus-text strong{font-size:18px !important;color:var(--navy-deep) !important}
+.focus-text strong{font-size:13px !important;color:var(--navy-deep) !important}
+.focus-text span{font-size:10.5px !important;}
+#focus-cta{padding:7px 14px !important;font-size:12.5px !important;}
 .focus-inner .btn{
   background:linear-gradient(135deg,var(--navy-deep),var(--brand)) !important;
   border-radius:12px !important;
@@ -1613,7 +1667,7 @@ body:not(.is-workspace) .hero,
 
 /* Status pills & tags refresh */
 .status-approved,.type-DocClosed,.type-Asset{background:var(--brand-soft) !important;color:var(--brand-dark) !important}
-.status-pending,.type-DocPartial,.type-Revenue{background:var(--gold-soft) !important;color:#92400e !important}
+.status-pending,.type-DocPartial,.type-Revenue{background:var(--warning-soft) !important;color:#92400e !important}
 .status-rejected,.type-DocCancelled,.type-Expense{background:var(--debit-soft) !important;color:var(--debit) !important}
 
 /* Case / problem banner */
@@ -2131,10 +2185,10 @@ body:not(.is-workspace) .mock-hero.hero{
 .focus-inner{
   background:linear-gradient(120deg,#fff8e6,#fde9b0) !important;
   border:1px solid rgba(201,146,20,.4) !important;
-  border-radius:18px !important;
-  padding:18px 22px !important;
-  box-shadow:0 14px 32px rgba(169,120,31,.18) !important;
-  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  border-radius:12px !important;
+  padding:6px 14px !important;
+  box-shadow:0 4px 12px rgba(169,120,31,.12) !important;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
 }
 .focus-badge{
   background:var(--gold) !important;color:#2a2208 !important;
@@ -2860,12 +2914,15 @@ body:not(.is-workspace) .workspace-chrome{
 }
 .home-clean .ledger-eyebrow{
   font-family:'Fraunces',serif;
-  font-size:13px;
-  font-weight:600;
-  color:var(--ledger-ink-soft);
-  margin:30px 0 10px;
-  padding-bottom:8px;
-  border-bottom:1px solid var(--ledger-rule);
+  font-size:19px;
+  font-weight:700;
+  color:var(--brand-dark);
+  margin:30px 0 14px;
+  padding:10px 16px;
+  border:2px solid var(--brand);
+  border-radius:12px;
+  background:var(--brand-soft);
+  display:inline-block;
 }
 .mock-desks{
   display:block !important;
@@ -2935,7 +2992,7 @@ body:not(.is-workspace) .workspace-chrome{
   font-size:14.5px; font-weight:600;
   color:var(--ledger-ink);
   flex:1; min-width:0;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  white-space:normal; line-height:1.25;
 }
 .md-bar{
   flex:none;
@@ -3134,7 +3191,7 @@ input[type="text"]:focus, input[type="number"]:focus{
 .wheel-card .focus-inner{ flex-wrap:wrap !important; }
 .wheel-mini-wrap{
   position:relative;
-  width:74px; height:74px;
+  width:36px; height:36px;
   flex:none;
 }
 .wheel-mini-svg{
@@ -3169,7 +3226,7 @@ input[type="text"]:focus, input[type="number"]:focus{
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  animation:nameShimmer 4s linear infinite;
+  animation:nameShimmer 4s linear infinite, logoDance 5s ease-in-out infinite;
   font-weight:800;
 }
 @keyframes nameShimmer{
@@ -3195,12 +3252,15 @@ input[type="text"]:focus, input[type="number"]:focus{
 
 /* Quick Tools — bold colored frames */
 .mock-tool{ border-width:2px !important; border-style:solid !important; }
-.mock-tools-grid .mock-tool:nth-child(1){ border-color:#5b9bd5 !important; }
-.mock-tools-grid .mock-tool:nth-child(2){ border-color:#e0a458 !important; }
-.mock-tools-grid .mock-tool:nth-child(3){ border-color:#7cb87c !important; }
-.mock-tools-grid .mock-tool:nth-child(4){ border-color:#d47fb0 !important; }
-.mock-tools-grid .mock-tool:nth-child(5){ border-color:#9b8fd1 !important; }
-.mock-tools-grid .mock-tool:nth-child(6){ border-color:#4a90a4 !important; }
+/* Reference &amp; knowledge tools — brand teal */
+.mock-tools-grid .mock-tool:nth-child(1),
+.mock-tools-grid .mock-tool:nth-child(2),
+.mock-tools-grid .mock-tool:nth-child(3){ border-color:var(--brand) !important; }
+/* Career &amp; soft-skills tools — warm gold */
+.mock-tools-grid .mock-tool:nth-child(4),
+.mock-tools-grid .mock-tool:nth-child(5){ border-color:var(--gold) !important; }
+/* Growing libraries (in progress) — consistent purple */
+.mock-tools-grid .mock-tool:nth-child(6),
 .mock-tools-grid .mock-tool:nth-child(7){ border-color:#8b5fbf !important; }
 
 /* My Progress — badges and table */
@@ -3316,8 +3376,9 @@ input[type="text"]:focus, input[type="number"]:focus{
 .mystery-reveal-body p{ font-size:13.5px; line-height:1.7; margin-bottom:10px; }
 
 /* Operational register status pills */
-.type-pill.status-ok{ background:var(--brand-soft,#e0f7f4); color:var(--brand-dark,#0b3d4a); }
-.type-pill.status-bad{ background:#fdebe8; color:#b23a2e; }
+.type-pill.status-ok{ background:var(--success-soft); color:#065f46; }
+.type-pill.status-bad{ background:var(--danger-soft); color:#991b1b; }
+.type-pill.status-pending{ background:var(--warning-soft); color:#92400e; }
 </style>
 
 </head>
@@ -3328,7 +3389,7 @@ input[type="text"]:focus, input[type="number"]:focus{
 
 <aside class="sidebar" id="sidebar" aria-label="Master data and modules">
   <div class="side-logo">
-    <span class="side-logo-name">AYMAN HEGAZY</span>
+    <span class="side-logo-name">Ayman Hegazy</span>
     <small>ACCOUNTING WORKSPACE</small>
     <div class="side-social">
       <a href="https://www.facebook.com/share/1D2LFtmvfJ/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
@@ -3366,11 +3427,15 @@ input[type="text"]:focus, input[type="number"]:focus{
 <div class="page">
 
 <header>
-  <div class="logo">AYMAN HEGAZY<small>REAL WORLD ACCOUNTING</small></div>
+  <div class="logo">Ayman Hegazy<small>REAL WORLD ACCOUNTING</small></div>
   <div style="display:flex;align-items:center;gap:18px">
     <div class="lang-switch">
       <button class="lang-btn active" id="enBtn" onclick="setLanguage('en')">EN</button>
       <button class="lang-btn" id="arBtn" onclick="setLanguage('ar')">عربي</button>
+    </div>
+    <div class="display-toggles">
+      <button type="button" class="display-toggle-btn" id="eyeModeBtn" onclick="toggleEyeMode()" title="Eye Protection" data-en-title="Eye Protection" data-ar-title="راحة العين">👁️</button>
+      <button type="button" class="display-toggle-btn" id="aboutBtn" onclick="openAboutPopup()" title="About" data-en-title="About" data-ar-title="عن الموقع">ℹ️</button>
     </div>
   </div>
 </header>
@@ -3645,7 +3710,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلات">Interview Prep</strong><small>تجهيز المقابلات</small></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong><small>تواصل بيئة العمل</small></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-sops')" style="position:relative"><span>📑</span><strong data-en="SOP Library" data-ar="مكتبة SOPs">SOP Library</strong><small>مكتبة SOPs</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-mysteries')" style="position:relative"><span>🧩</span><strong data-en="Accounting Mysteries" data-ar="ألغاز محاسبية">Accounting Mysteries</strong><small>ألغاز محاسبية</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#0f766e;color:#fff;padding:2px 6px;border-radius:6px;font-weight:800" data-en="COMPLETE" data-ar="مكتمل">COMPLETE</span></button>
+        <button type="button" class="mock-tool" onclick="showPanel('learn-mysteries')" style="position:relative"><span>🧩</span><strong data-en="Accounting Mysteries" data-ar="ألغاز محاسبية">Accounting Mysteries</strong><small>ألغاز محاسبية</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
       </div>
     </section>
 
@@ -3802,8 +3867,8 @@ input[type="text"]:focus, input[type="number"]:focus{
       <span><i style="background:var(--info)"></i>Company</span>
       <span><i style="background:var(--indigo)"></i>Individual</span>
       <span><i style="background:var(--muted)"></i>End Consumer</span>
-      <span style="margin-inline-start:10px"><i style="background:var(--brand)"></i>Retail</span>
-      <span><i style="background:var(--gold)"></i>Wholesale</span>
+      <span style="margin-inline-start:10px"><i style="background:var(--success)"></i>Retail</span>
+      <span><i style="background:var(--warning)"></i>Wholesale</span>
       <span><i style="background:var(--services)"></i>Distributor</span>
     </div>
     <div class="table-toolbar">
@@ -3843,8 +3908,8 @@ input[type="text"]:focus, input[type="number"]:focus{
   <div class="data-panel" id="suppliers">
     <h3>Suppliers — <span id="suppliers-h-count">20</span></h3>
     <div class="legend">
-      <span><i style="background:var(--brand)"></i>Raw Materials</span>
-      <span><i style="background:var(--gold)"></i>Packaging</span>
+      <span><i style="background:var(--success)"></i>Raw Materials</span>
+      <span><i style="background:var(--warning)"></i>Packaging</span>
       <span><i style="background:var(--info)"></i>Supplies</span>
       <span><i style="background:var(--liability)"></i>Fixed Assets</span>
       <span><i style="background:var(--services)"></i>Services</span>
@@ -3886,13 +3951,13 @@ input[type="text"]:focus, input[type="number"]:focus{
   <div class="data-panel" id="inventory">
     <h3>Inventory Items — <span id="inventory-h-count">20</span></h3>
     <div class="legend">
-      <span><i style="background:var(--brand)"></i>Raw Materials</span>
-      <span><i style="background:var(--gold)"></i>Packaging</span>
+      <span><i style="background:var(--success)"></i>Raw Materials</span>
+      <span><i style="background:var(--warning)"></i>Packaging</span>
       <span><i style="background:var(--info)"></i>Printing Supplies</span>
       <span><i style="background:var(--teal)"></i>Cleaning Supplies</span>
       <span><i style="background:var(--liability)"></i>Furniture</span>
       <span><i style="background:var(--indigo)"></i>Electronics</span>
-      <span><i style="background:var(--debit)"></i>Safety</span>
+      <span><i style="background:var(--danger)"></i>Safety</span>
       <span><i style="background:var(--muted)"></i>Maintenance</span>
     </div>
     <div class="table-toolbar">
@@ -3983,10 +4048,10 @@ input[type="text"]:focus, input[type="number"]:focus{
     </div>
 
     <div class="legend">
-      <span><i style="background:var(--brand)"></i>Asset</span>
+      <span><i style="background:var(--success)"></i>Asset</span>
       <span><i style="background:var(--liability)"></i>Liability</span>
-      <span><i style="background:var(--gold)"></i>Revenue</span>
-      <span><i style="background:var(--debit)"></i>Expense</span>
+      <span><i style="background:var(--warning)"></i>Revenue</span>
+      <span><i style="background:var(--danger)"></i>Expense</span>
       <span><i style="background:#7256a0"></i>Equity</span>
     </div>
     <div class="table-wrap">
@@ -4553,9 +4618,9 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="data-panel" id="bc-register">
     <h3 data-en="Budget Line Register — " data-ar="سجل بنود الموازنة — "><span data-en="Budget Line Register — " data-ar="سجل بنود الموازنة — ">Budget Line Register — </span><span id="bc-h-count">10</span></h3>
     <div class="legend">
-      <span><i style="background:var(--brand)"></i><span data-en="On Track" data-ar="على المسار">On Track</span></span>
-      <span><i style="background:var(--gold)"></i><span data-en="Underspent" data-ar="أقل من المخصص">Underspent</span></span>
-      <span><i style="background:var(--debit)"></i><span data-en="Over Budget" data-ar="تجاوز الموازنة">Over Budget</span></span>
+      <span><i style="background:var(--success)"></i><span data-en="On Track" data-ar="على المسار">On Track</span></span>
+      <span><i style="background:var(--warning)"></i><span data-en="Underspent" data-ar="أقل من المخصص">Underspent</span></span>
+      <span><i style="background:var(--danger)"></i><span data-en="Over Budget" data-ar="تجاوز الموازنة">Over Budget</span></span>
     </div>
     <div class="table-toolbar">
       <div class="search-wrap">
@@ -4983,9 +5048,9 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="data-panel" id="recv-register">
     <h3 data-en="GRN Register — " data-ar="سجل إذون الاستلام — "><span data-en="GRN Register — " data-ar="سجل إذون الاستلام — ">GRN Register — </span><span id="recv-h-count">18</span></h3>
     <div class="legend">
-      <span><i style="background:var(--brand)"></i><span data-en="Matched" data-ar="متطابقة">Matched</span></span>
-      <span><i style="background:var(--gold)"></i><span data-en="Pending Invoice" data-ar="بانتظار الفاتورة">Pending Invoice</span></span>
-      <span><i style="background:var(--debit)"></i><span data-en="Disputed" data-ar="متنازع عليها">Disputed</span></span>
+      <span><i style="background:var(--success)"></i><span data-en="Matched" data-ar="متطابقة">Matched</span></span>
+      <span><i style="background:var(--warning)"></i><span data-en="Pending Invoice" data-ar="بانتظار الفاتورة">Pending Invoice</span></span>
+      <span><i style="background:var(--danger)"></i><span data-en="Disputed" data-ar="متنازع عليها">Disputed</span></span>
     </div>
     <div class="table-toolbar">
       <div class="search-wrap">
@@ -5214,9 +5279,9 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="data-panel" id="tax-register">
     <h3 data-en="Tax Filing Tracker — " data-ar="متتبّع الإقرارات الضريبية — "><span data-en="Tax Filing Tracker — " data-ar="متتبّع الإقرارات الضريبية — ">Tax Filing Tracker — </span><span id="tax-h-count">10</span></h3>
     <div class="legend">
-      <span><i style="background:var(--brand)"></i><span data-en="Filed" data-ar="مُقدَّم">Filed</span></span>
-      <span><i style="background:var(--gold)"></i><span data-en="Pending" data-ar="معلّق">Pending</span></span>
-      <span><i style="background:var(--debit)"></i><span data-en="Overdue" data-ar="متأخر">Overdue</span></span>
+      <span><i style="background:var(--success)"></i><span data-en="Filed" data-ar="مُقدَّم">Filed</span></span>
+      <span><i style="background:var(--warning)"></i><span data-en="Pending" data-ar="معلّق">Pending</span></span>
+      <span><i style="background:var(--danger)"></i><span data-en="Overdue" data-ar="متأخر">Overdue</span></span>
     </div>
     <div class="table-toolbar">
       <div class="search-wrap">
@@ -5435,9 +5500,9 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="data-panel" id="constr-register">
     <h3 data-en="Project Register — " data-ar="سجل المشاريع — "><span data-en="Project Register — " data-ar="سجل المشاريع — ">Project Register — </span><span id="constr-h-count">10</span></h3>
     <div class="legend">
-      <span><i style="background:var(--brand)"></i><span data-en="On Track" data-ar="على المسار">On Track</span></span>
-      <span><i style="background:var(--gold)"></i><span data-en="Watch" data-ar="تحت المتابعة">Watch</span></span>
-      <span><i style="background:var(--debit)"></i><span data-en="At Risk" data-ar="في خطر">At Risk</span></span>
+      <span><i style="background:var(--success)"></i><span data-en="On Track" data-ar="على المسار">On Track</span></span>
+      <span><i style="background:var(--warning)"></i><span data-en="Watch" data-ar="تحت المتابعة">Watch</span></span>
+      <span><i style="background:var(--danger)"></i><span data-en="At Risk" data-ar="في خطر">At Risk</span></span>
     </div>
     <div class="table-toolbar">
       <div class="search-wrap">
@@ -5656,9 +5721,9 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="data-panel" id="cost-register">
     <h3 data-en="Cost Center Register — " data-ar="سجل مراكز التكلفة — "><span data-en="Cost Center Register — " data-ar="سجل مراكز التكلفة — ">Cost Center Register — </span><span id="cost-h-count">10</span></h3>
     <div class="legend">
-      <span><i style="background:var(--brand)"></i><span data-en="On Budget" data-ar="على الموازنة">On Budget</span></span>
-      <span><i style="background:var(--gold)"></i><span data-en="Underspent" data-ar="أقل من المخصص">Underspent</span></span>
-      <span><i style="background:var(--debit)"></i><span data-en="Over Budget" data-ar="تجاوز الموازنة">Over Budget</span></span>
+      <span><i style="background:var(--success)"></i><span data-en="On Budget" data-ar="على الموازنة">On Budget</span></span>
+      <span><i style="background:var(--warning)"></i><span data-en="Underspent" data-ar="أقل من المخصص">Underspent</span></span>
+      <span><i style="background:var(--danger)"></i><span data-en="Over Budget" data-ar="تجاوز الموازنة">Over Budget</span></span>
     </div>
     <div class="table-toolbar">
       <div class="search-wrap">
@@ -7925,7 +7990,7 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="module-head">
       <span class="module-tag" data-en="🛠️ Quick Tools" data-ar="🛠️ أدوات سريعة">🛠️ Quick Tools</span>
       <h3 data-en="Accounting Mysteries — Can You Spot What Changed?" data-ar="ألغاز محاسبية — تقدر تكتشف إيه اللي اتغيّر؟">Accounting Mysteries — Can You Spot What Changed?</h3>
-      <span style="display:inline-block;font-size:11px;background:#0f766e;color:#fff;padding:3px 10px;border-radius:8px;font-weight:800;margin-top:4px" data-en="✅ 20 mysteries — 16 from the original series + 4 bonus cases" data-ar="✅ 20 لغز — 16 من السلسلة الأصلية + 4 حالات إضافية">✅ 20 mysteries — 16 from the original series + 4 bonus cases</span>
+      <span style="display:inline-block;font-size:11px;background:#e8a317;color:#1a1a1a;padding:3px 10px;border-radius:8px;font-weight:800;margin-top:4px" data-en="🚧 IN PROGRESS — 20 mysteries so far" data-ar="🚧 قيد الإنشاء — 20 لغز لحد دلوقتي">🚧 IN PROGRESS — 20 mysteries so far</span>
       <p class="panel-sub" data-en="A KPI moved in a great-looking direction. Before you celebrate, work out whether it's genuine economics or just accounting classification. Read the scenario, think it through, then reveal the investigation." data-ar="مؤشر اتحرّك في اتجاه شكله كويس. قبل ما تفرح، اكتشف هل ده اقتصادي حقيقي ولا مجرد تصنيف محاسبي. اقرا الموقف، فكّر فيه، وبعدين اكشف التحقيق.">A KPI moved in a great-looking direction. Before you celebrate, work out whether it's genuine economics or just accounting classification. Read the scenario, think it through, then reveal the investigation.</p>
     </div>
     <div class="mystery-list">
@@ -18841,6 +18906,19 @@ function populateEmployeeSelect(select){if(!select)return;const current=select.v
 function openAddNewEmployee(){const b=document.querySelector('[role="tab"][aria-controls="hr-new-employee"]');showPanel('hr-new-employee',b)}
 function fillReferenceSelect(id,table,formatter){const select=document.getElementById(id), rows=document.querySelectorAll('#'+table+' tbody tr');if(!select||!rows.length)return;const current=select.value;select.innerHTML='<option value="">— Select active record —</option>';rows.forEach(r=>{const o=document.createElement('option');o.value=r.cells[0]?.textContent.trim()||'';o.textContent=formatter(r);select.appendChild(o)});if([...select.options].some(o=>o.value===current))select.value=current}
 function refreshReferencePickers(){fillReferenceSelect('ar-context-customer','table-customers',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());fillReferenceSelect('ap-context-supplier','table-suppliers',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());fillReferenceSelect('inv-context-item','table-inventory',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());fillReferenceSelect('treasury-context-bank','table-banks',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());}
+function toggleEyeMode(){
+  const on = document.body.classList.toggle('eye-mode');
+  document.getElementById('eyeModeBtn').classList.toggle('active', on);
+  try{ localStorage.setItem('ayman-eye-mode', on ? '1' : '0'); }catch(e){}
+}
+(function restoreDisplayModes(){
+  try{
+    if(localStorage.getItem('ayman-eye-mode')==='1'){
+      document.body.classList.add('eye-mode');
+      document.addEventListener('DOMContentLoaded', ()=>{ const b=document.getElementById('eyeModeBtn'); if(b) b.classList.add('active'); });
+    }
+  }catch(e){}
+})();
 function setLanguage(lang){
  document.documentElement.lang=lang;
  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
@@ -19944,7 +20022,7 @@ window.addEventListener('resize', function(){
 
 <section class="e2e-shell" id="e2eMission" aria-label="End-to-End Accounting Mission">
   <div class="e2e-head">
-    <div class="e2e-kicker" data-en="REAL-WORLD CASE · AYMAN HEGAZY" data-ar="حالة عملية · AYMAN HEGAZY">REAL-WORLD CASE · AYMAN HEGAZY</div>
+    <div class="e2e-kicker" data-en="REAL-WORLD CASE · Ayman Hegazy" data-ar="حالة عملية · Ayman Hegazy">REAL-WORLD CASE · Ayman Hegazy</div>
     <h2 data-en="From Customer Order to Month-End Close" data-ar="من طلب العميل إلى إقفال الشهر">From Customer Order to Month-End Close</h2>
     <p data-en="You are the accountant moving one transaction through the company. Use evidence, make the decision, post the entry, reconcile the control account, then close the month. No shortcut entries." data-ar="أنت المحاسب الذي يحرك عملية واحدة داخل الشركة. استخدم المستندات، خذ القرار، رحّل القيد، طابق حساب المراقبة، ثم أقفل الشهر. بدون قيود مختصرة بلا دليل.">You are the accountant moving one transaction through the company. Use evidence, make the decision, post the entry, reconcile the control account, then close the month. No shortcut entries.</p>
     <div class="e2e-progress" id="e2eProgress"></div>
@@ -21383,6 +21461,202 @@ function submitInteractiveAnswer(){
   setTimeout(bindButtons, 800);
 })(window);
 </script>
+
+<div class="tip-popup-overlay" id="tipPopupOverlay">
+  <div class="tip-popup-card" id="tipPopupCard">
+    <button type="button" class="tip-popup-close" onclick="closeTipPopup()">✕</button>
+    <div class="tip-popup-icon" id="tipPopupIcon">💡</div>
+    <div class="tip-popup-kicker" id="tipPopupKicker" data-en="Quick Tip!" data-ar="نصيحة سريعة!">Quick Tip!</div>
+    <h3 class="tip-popup-title" id="tipPopupTitle"></h3>
+    <p class="tip-popup-body" id="tipPopupBody"></p>
+    <div class="tip-popup-extra" id="tipPopupExtra" style="display:none"></div>
+    <button type="button" class="tip-popup-got-it" id="tipPopupBtn" onclick="closeTipPopup()" data-en="Got it! 👍" data-ar="فهمت! 👍">Got it! 👍</button>
+  </div>
+</div>
+
+<style>
+.tip-popup-overlay{
+  position:fixed; inset:0; z-index:9000; display:none;
+  background:rgba(10,20,18,.55); backdrop-filter:blur(3px);
+  align-items:center; justify-content:center; padding:20px;
+}
+.tip-popup-overlay.is-open{ display:flex; animation:tipFadeIn .3s ease; }
+@keyframes tipFadeIn{ from{opacity:0} to{opacity:1} }
+.tip-popup-card{
+  background:linear-gradient(160deg,#fff 0%,var(--brand-soft,#e0f7f4) 100%);
+  border-radius:22px; max-width:420px; width:100%; padding:30px 26px 26px;
+  position:relative; text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.4) inset;
+  animation:tipPopIn .45s cubic-bezier(.34,1.56,.64,1);
+  border:3px solid var(--gold);
+}
+@keyframes tipPopIn{
+  0%{ transform:scale(.7) translateY(30px); opacity:0; }
+  100%{ transform:scale(1) translateY(0); opacity:1; }
+}
+.tip-popup-close{
+  position:absolute; top:12px; inset-inline-end:14px; border:none; background:rgba(0,0,0,.08);
+  width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:13px; color:var(--ink-soft);
+  display:flex; align-items:center; justify-content:center; transition:background .15s;
+}
+.tip-popup-close:hover{ background:rgba(0,0,0,.18); }
+.tip-popup-icon{
+  font-size:46px; margin-bottom:4px; display:inline-block;
+  animation:tipIconBounce 1.6s ease-in-out infinite;
+}
+@keyframes tipIconBounce{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-6px) rotate(-4deg)} }
+.tip-popup-kicker{
+  font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--gold); background:var(--gold-soft); display:inline-block; padding:4px 12px;
+  border-radius:20px; margin-bottom:10px;
+}
+.tip-popup-title{ font-family:"Fraunces",serif; color:var(--brand-dark); font-size:20px; margin:4px 0 10px; }
+.tip-popup-body{ font-size:14px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+.tip-popup-extra{
+  font-size:13px; background:#fff; border:1px dashed var(--line-strong); border-radius:10px;
+  padding:10px 12px; margin-bottom:16px; text-align:start; color:var(--ink);
+}
+.tip-popup-got-it{
+  background:var(--brand); color:#fff; border:none; padding:11px 28px; border-radius:30px;
+  font-weight:800; font-size:14px; cursor:pointer; transition:transform .15s, box-shadow .15s;
+  box-shadow:0 6px 16px rgba(15,118,110,.3);
+}
+.tip-popup-got-it:hover{ transform:translateY(-2px) scale(1.03); box-shadow:0 10px 22px rgba(15,118,110,.4); }
+</style>
+
+<script>
+function pickRandomTip(){
+  const ar = document.documentElement.lang==='ar';
+  const pools = [];
+
+  if(typeof SOD_EXAMPLES !== 'undefined' && SOD_EXAMPLES.length){
+    pools.push(()=>{
+      const x = SOD_EXAMPLES[Math.floor(Math.random()*SOD_EXAMPLES.length)];
+      return {
+        icon:'⚖️', kicker_en:'Segregation of Duties', kicker_ar:'فصل الواجبات',
+        title: ar?x.process.ar:x.process.en,
+        body: (ar?x.chain.ar:x.chain.en),
+        extraLabel_en:'Risk if combined:', extraLabel_ar:'المخاطرة لو اتجمعوا:',
+        extra: ar?x.risk.ar:x.risk.en
+      };
+    });
+  }
+  if(typeof FINANCIAL_RATIOS !== 'undefined' && FINANCIAL_RATIOS.length){
+    pools.push(()=>{
+      const x = FINANCIAL_RATIOS[Math.floor(Math.random()*FINANCIAL_RATIOS.length)];
+      return {
+        icon:'📊', kicker_en:'Financial Ratio', kicker_ar:'نسبة مالية',
+        title: ar?x.name_ar:x.name_en,
+        body: ar?x.explain_ar:x.explain_en,
+        extraLabel_en:'Formula:', extraLabel_ar:'الصيغة:',
+        extra: ar?x.formula_ar:x.formula_en
+      };
+    });
+  }
+  if(typeof RATIOS_FRAUD_SCHEMES !== 'undefined' && RATIOS_FRAUD_SCHEMES.length){
+    pools.push(()=>{
+      const x = RATIOS_FRAUD_SCHEMES[Math.floor(Math.random()*RATIOS_FRAUD_SCHEMES.length)];
+      return {
+        icon:'🕵️', kicker_en:'Fraud Catcher', kicker_ar:'صائد الاحتيال',
+        title: ar?x.t.ar:x.t.en,
+        body: ar?x.h.ar:x.h.en,
+        extraLabel_en:'🛡️ How to catch it:', extraLabel_ar:'🛡️ إزاي تكتشفها:',
+        extra: ar?x.c.ar:x.c.en
+      };
+    });
+  }
+  if(typeof TAX_FORMULAS !== 'undefined' && TAX_FORMULAS.length){
+    pools.push(()=>{
+      const x = TAX_FORMULAS[Math.floor(Math.random()*TAX_FORMULAS.length)];
+      return {
+        icon:'🧾', kicker_en:'Tax &amp; Finance Formula', kicker_ar:'معادلة ضريبية ومالية',
+        title: ar?x.name_ar:x.name_en,
+        body: ar?x.explain_ar:x.explain_en,
+        extraLabel_en:'Formula:', extraLabel_ar:'الصيغة:',
+        extra: ar?x.formula_ar:x.formula_en
+      };
+    });
+  }
+  // Pull a random revealed lesson from the Accounting Mysteries already in the DOM
+  const mysteryCards = document.querySelectorAll('.mystery-card');
+  if(mysteryCards.length){
+    pools.push(()=>{
+      const card = mysteryCards[Math.floor(Math.random()*mysteryCards.length)];
+      const titleEl = card.querySelector('.mystery-title');
+      const lessonEls = card.querySelectorAll('.mystery-reveal-body p');
+      const lessonEl = lessonEls[lessonEls.length-1];
+      const title = titleEl ? (ar? titleEl.getAttribute('data-ar') : titleEl.getAttribute('data-en')) : '';
+      let body = lessonEl ? lessonEl.textContent.trim() : '';
+      body = body.replace(/^(Lesson:|الدرس:)\s*/,'');
+      return {
+        icon:'🧩', kicker_en:'Accounting Mystery', kicker_ar:'لغز محاسبي',
+        title: title,
+        body: body,
+        extraLabel_en:'', extraLabel_ar:'', extra:''
+      };
+    });
+  }
+
+  if(!pools.length) return null;
+  const chosen = pools[Math.floor(Math.random()*pools.length)]();
+  return chosen;
+}
+
+function showTipPopup(){
+  const tip = pickRandomTip();
+  if(!tip) return;
+  const ar = document.documentElement.lang==='ar';
+  document.getElementById('tipPopupIcon').textContent = tip.icon;
+  document.getElementById('tipPopupKicker').textContent = ar?tip.kicker_ar:tip.kicker_en;
+  document.getElementById('tipPopupTitle').textContent = tip.title;
+  document.getElementById('tipPopupBody').textContent = tip.body;
+  const extraEl = document.getElementById('tipPopupExtra');
+  if(tip.extra){
+    extraEl.style.display = 'block';
+    extraEl.innerHTML = '<strong>' + (ar?tip.extraLabel_ar:tip.extraLabel_en) + '</strong> ' + tip.extra;
+  } else {
+    extraEl.style.display = 'none';
+  }
+  document.getElementById('tipPopupOverlay').classList.add('is-open');
+}
+function closeTipPopup(){
+  document.getElementById('tipPopupOverlay').classList.remove('is-open');
+}
+(function initTipPopupTimer(){
+  const TEN_MINUTES = 10 * 60 * 1000;
+  setInterval(showTipPopup, TEN_MINUTES);
+})();
+function openAboutPopup(){ document.getElementById('aboutPopupOverlay').classList.add('is-open'); }
+function closeAboutPopup(){ document.getElementById('aboutPopupOverlay').classList.remove('is-open'); }
+</script>
+
+<div class="tip-popup-overlay" id="aboutPopupOverlay">
+  <div class="tip-popup-card about-popup-card">
+    <button type="button" class="tip-popup-close" onclick="closeAboutPopup()">✕</button>
+    <div class="tip-popup-icon">👤</div>
+    <div class="tip-popup-kicker" data-en="About the Author" data-ar="عن صاحب المشروع">About the Author</div>
+    <h3 class="tip-popup-title" data-en="Ayman Hegazy" data-ar="أيمن حجازي">Ayman Hegazy</h3>
+    <p class="tip-popup-body" style="text-align:start"
+       data-en="Financial Manager, Financial Controller, and Accounting Manager, CMA-certified and a DipIFR candidate. Passionate about precision, accounting process engineering, SOP design, and continuous improvement (Kaizen) — with a strong belief that every system he works with can become better, clearer, and more effective. He enjoys sharing knowledge with colleagues, and that is part of the motivation behind this platform: if the resource he needed didn't exist, he built it himself — and shared it with others."
+       data-ar="Financial Manager وFinancial Controller وAccounting Manager، حاصل على شهادة CMA، ومرشح لامتحان DipIFR. شغوف بالدقة، وهندسة العمليات المحاسبية، وتصميم الـSOPs، ومؤمن بفلسفة التطوير المستمر (Kaizen) — وبأن أي نظام يشتغل عليه يقدر يبقى أفضل وأوضح وأكتر فاعلية. بيحب يشارك المعرفة مع زمايله، وده جزء من الدافع وراء المنصة دي: لو المصدر اللي محتاجه مش موجود، بيبنيه بنفسه — ويشاركه مع غيره.">Financial Manager, Financial Controller, and Accounting Manager, CMA-certified and a DipIFR candidate. Passionate about precision, accounting process engineering, SOP design, and continuous improvement (Kaizen) — with a strong belief that every system he works with can become better, clearer, and more effective. He enjoys sharing knowledge with colleagues, and that is part of the motivation behind this platform: if the resource he needed didn't exist, he built it himself — and shared it with others.</p>
+    <div class="about-popup-links">
+      <a href="https://www.linkedin.com/in/ayman-hegazyy" target="_blank" rel="noopener">🔗 LinkedIn</a>
+      <a href="https://www.facebook.com/share/1D2LFtmvfJ/" target="_blank" rel="noopener">📘 Facebook</a>
+      <a href="mailto:ayman.hegazyy@yahoo.com">✉️ ayman.hegazyy@yahoo.com</a>
+    </div>
+    <button type="button" class="tip-popup-got-it" onclick="closeAboutPopup()" data-en="Close" data-ar="إغلاق">Close</button>
+  </div>
+</div>
+<style>
+.about-popup-card{ max-width:460px; }
+.about-popup-links{ display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+.about-popup-links a{
+  display:block; text-decoration:none; background:#fff; border:1px solid var(--line);
+  border-radius:10px; padding:9px 14px; font-size:13.5px; font-weight:700; color:var(--brand-dark);
+  transition:background .15s, transform .15s;
+}
+.about-popup-links a:hover{ background:var(--brand-soft); transform:translateX(3px); }
+</style>
 
 </body>
 </html>
