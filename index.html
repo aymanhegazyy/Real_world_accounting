@@ -1065,6 +1065,10 @@ header{position:relative}
   transition:background .15s,color .15s,transform .12s !important;
 }
 .ws-tabs button:hover{transform:translateY(-1px)}
+@keyframes heroGradientDrift{
+  0%,100%{ background-position:0% 50%; }
+  50%{ background-position:100% 50%; }
+}
 
 .case.home-view#problem,
 #problem.case{
@@ -2426,7 +2430,9 @@ body:not(.is-workspace){
 .hero.mock-hero,.mock-hero{
   display:block !important;visibility:visible !important;opacity:1 !important;
   min-height:140px !important;
-  background:linear-gradient(135deg,#0B3D3A 0%,#155E56 45%,#1A7A6D 100%) !important;
+  background:linear-gradient(135deg,#0B3D3A 0%,#155E56 40%,#1A7A6D 70%,#0B3D3A 100%) !important;
+  background-size:300% 300% !important;
+  animation:heroGradientDrift 18s ease-in-out infinite !important;
   color:#fff !important;position:relative !important;z-index:2 !important;
   padding:24px 18px 28px !important;margin:0 !important;
   border-radius:0 0 24px 24px !important;
@@ -2473,6 +2479,22 @@ body.is-workspace .mock-home{
   background:linear-gradient(120deg,#fff 0%,var(--brand-soft) 100%);
   border:2px solid var(--brand); display:flex; align-items:center; justify-content:space-between;
   gap:14px; flex-wrap:wrap;
+  animation:homeCardFadeIn .5s ease .1s both;
+}
+@keyframes homeCardFadeIn{
+  0%{ opacity:0; transform:translateY(-10px); }
+  100%{ opacity:1; transform:translateY(0); }
+}
+#homeContinueCard{ animation:homeCardFadeIn .5s ease both; }
+.badge-celebrate{ animation:badgePop .9s cubic-bezier(.34,1.56,.64,1); }
+@keyframes confettiFall{
+  0%{ transform:translateY(0) rotate(0deg); opacity:1; }
+  100%{ transform:translateY(100vh) rotate(540deg); opacity:0; }
+}
+@keyframes badgePop{
+  0%{ transform:scale(0); }
+  50%{ transform:scale(1.6); box-shadow:0 0 0 8px rgba(16,185,129,.25); }
+  100%{ transform:scale(1); box-shadow:0 0 0 0 transparent; }
 }
 .home-inspiration-text{ font-size:14.5px; font-weight:700; color:var(--brand-dark); display:flex; align-items:center; gap:10px; flex:1; min-width:200px; line-height:1.5; }
 .hiq-icon{ font-size:22px; flex:none; }
@@ -3004,6 +3026,14 @@ body:not(.is-workspace) .workspace-chrome{
   background:var(--ledger-paper) !important;
   margin:0 !important;
   min-height:0 !important;
+  transition:transform .25s ease !important;
+}
+.mock-desk:hover .md-art{ animation:deskIconWiggle .5s ease; }
+@keyframes deskIconWiggle{
+  0%,100%{ transform:scale(1) rotate(0deg); }
+  25%{ transform:scale(1.18) rotate(-8deg); }
+  50%{ transform:scale(1.18) rotate(6deg); }
+  75%{ transform:scale(1.1) rotate(-3deg); }
 }
 .md-body{
   flex:1 !important; min-width:0;
@@ -11676,6 +11706,7 @@ function goHome(isBack){
   window.scrollTo({top:0, behavior:'smooth'});
   if(typeof homeRenderContinueCard==='function') homeRenderContinueCard();
   if(typeof homeRenderInspirationQuote==='function') homeRenderInspirationQuote();
+  if(typeof homeRenderVisitedBadges==='function') setTimeout(homeRenderVisitedBadges, 50);
 }
 function goBack(){
   if(navHistory.length === 0){ goHome(true); return; }
@@ -12719,7 +12750,88 @@ const INVESTIGATION_SCENARIOS = [
       {v:'life',en:'Wrong useful life was used',ar:'عمر إنتاجي غلط اتستخدم'},
       {v:'method',en:'Wrong depreciation method applied',ar:'طريقة إهلاك غلط اتطبقت'},
       {v:'dup',en:'Asset listed twice',ar:'الأصل متسجل مرتين'}
-    ], correct:'calc' }
+    ], correct:'calc' },
+
+  { id:'recv-overrcpt', title_en:'April Goods Received vs Purchase Orders', title_ar:'استلام بضاعة أبريل مقابل أوامر الشراء',
+    intro_en:'12 GRNs were matched against their POs this month. One GRN shows a received quantity that doesn\u2019t match what was ordered \u2014 and nobody approved the difference. Click the line you suspect.',
+    intro_ar:'اتطابق 12 إذن استلام مع أوامر الشراء بتاعتهم الشهر ده. إذن استلام واحد فيه كمية مستلمة مش مطابقة للمطلوب \u2014 ومحدش اعتمد الفرق. دوس على البند اللي بتشك فيه.',
+    cols:[{k:'po',en:'PO #',ar:'رقم أمر الشراء'},{k:'grn',en:'GRN #',ar:'رقم إذن الاستلام'},{k:'item',en:'Item',ar:'الصنف'},{k:'ordered',en:'Qty Ordered',ar:'الكمية المطلوبة',num:true},{k:'received',en:'Qty Received',ar:'الكمية المستلمة',num:true}],
+    rows:[
+      {po:'PO-301',grn:'GRN-501',item:'Steel Sheets',ordered:500,received:500},
+      {po:'PO-302',grn:'GRN-502',item:'Copper Wire',ordered:200,received:200},
+      {po:'PO-303',grn:'GRN-503',item:'Aluminum Rods',ordered:350,received:350},
+      {po:'PO-304',grn:'GRN-504',item:'Steel Sheets',ordered:450,received:450},
+      {po:'PO-305',grn:'GRN-505',item:'Plastic Pellets',ordered:800,received:950,err:true},
+      {po:'PO-306',grn:'GRN-506',item:'Copper Wire',ordered:150,received:150},
+      {po:'PO-307',grn:'GRN-507',item:'Aluminum Rods',ordered:275,received:275},
+      {po:'PO-308',grn:'GRN-508',item:'Steel Sheets',ordered:600,received:600},
+      {po:'PO-309',grn:'GRN-509',item:'Plastic Pellets',ordered:400,received:400},
+      {po:'PO-310',grn:'GRN-510',item:'Copper Wire',ordered:180,received:180},
+      {po:'PO-311',grn:'GRN-511',item:'Aluminum Rods',ordered:320,received:320},
+      {po:'PO-312',grn:'GRN-512',item:'Steel Sheets',ordered:275,received:275}
+    ],
+    explain_en:'GRN-505 received 950 units of Plastic Pellets against a PO for only 800 \u2014 150 units (19%) more than ordered, with no approved change order on file. That\u2019s exactly the kind of unauthorized over-receipt that can hide excess billing or diverted stock.',
+    explain_ar:'إذن الاستلام GRN-505 استلم 950 وحدة من حبيبات البلاستيك مقابل أمر شراء بـ800 بس \u2014 150 وحدة (19%) زيادة عن المطلوب، من غير أي أمر تعديل معتمد. ده بالظبط نوع الاستلام الزايد الغير مُصرّح بيه اللي ممكن يخبّي فوترة زيادة أو مخزون محوّل.',
+    types:[
+      {v:'overrcpt',en:'Received more than the PO authorized, with no approval',ar:'اتستلم أكتر من المصرّح بيه في أمر الشراء، من غير اعتماد'},
+      {v:'wrongitem',en:'Wrong item received',ar:'صنف غلط اتستلم'},
+      {v:'dup',en:'Duplicate GRN for the same delivery',ar:'إذن استلام مكرر لنفس التسليمة'},
+      {v:'missing',en:'A GRN is missing',ar:'إذن استلام ناقص'}
+    ], correct:'overrcpt' },
+
+  { id:'constr-overbill', title_en:'April Construction Projects \u2014 Billing vs Revenue Earned', title_ar:'مشاريع المقاولات أبريل — الفوترة مقابل الإيراد المكتسب',
+    intro_en:'12 active projects are billed against their percentage of completion. Billing should track revenue earned fairly closely. One project is billed way ahead of its actual progress. Click the project you suspect.',
+    intro_ar:'12 مشروع نشط بيتفوتر حسب نسبة إنجازه. المفروض الفوترة تقارب الإيراد المكتسب بشكل معقول. مشروع واحد اتفوتر قدام إنجازه الفعلي بمسافة كبيرة. دوس على المشروع اللي بتشك فيه.',
+    cols:[{k:'proj',en:'Project',ar:'المشروع'},{k:'contract',en:'Contract Value',ar:'قيمة العقد',num:true},{k:'pct',en:'% Complete',ar:'نسبة الإنجاز'},{k:'earned',en:'Revenue Earned',ar:'الإيراد المكتسب',num:true},{k:'billed',en:'Billed to Date',ar:'المفوتر حتى تاريخه',num:true}],
+    rows:[
+      {proj:'Project Alpha',contract:5000000,pct:'60%',earned:3000000,billed:3100000},
+      {proj:'Project Beta',contract:3200000,pct:'45%',earned:1440000,billed:1400000},
+      {proj:'Project Gamma',contract:8500000,pct:'30%',earned:2550000,billed:2600000},
+      {proj:'Project Delta',contract:2100000,pct:'75%',earned:1575000,billed:1550000},
+      {proj:'Project Epsilon',contract:6000000,pct:'40%',earned:2400000,billed:4200000,err:true},
+      {proj:'Project Zeta',contract:4500000,pct:'55%',earned:2475000,billed:2450000},
+      {proj:'Project Eta',contract:3800000,pct:'25%',earned:950000,billed:980000},
+      {proj:'Project Theta',contract:7200000,pct:'65%',earned:4680000,billed:4700000},
+      {proj:'Project Iota',contract:1900000,pct:'80%',earned:1520000,billed:1500000},
+      {proj:'Project Kappa',contract:5500000,pct:'35%',earned:1925000,billed:1950000},
+      {proj:'Project Lambda',contract:4200000,pct:'50%',earned:2100000,billed:2080000},
+      {proj:'Project Mu',contract:3000000,pct:'70%',earned:2100000,billed:2120000}
+    ],
+    explain_en:'Project Epsilon earned only EGP 2,400,000 (40% of 6,000,000) but was billed EGP 4,200,000 \u2014 a gap of EGP 1,800,000, far beyond every other project\u2019s small, normal variance. That\u2019s a serious overbilling liability.',
+    explain_ar:'مشروع إبسيلون كسب بس 2,400,000 جنيه (40% من 6,000,000) لكن اتفوتر بـ4,200,000 جنيه \u2014 فجوة 1,800,000 جنيه، أكبر بكتير من الفرق الطبيعي الصغير في كل مشروع تاني. ده التزام فوترة زايدة خطير.',
+    types:[
+      {v:'overbill',en:'Billed far ahead of actual progress \u2014 serious overbilling',ar:'اتفوتر قدام الإنجاز الفعلي بمسافة كبيرة — فوترة زايدة خطيرة'},
+      {v:'calc',en:'Percentage of completion miscalculated',ar:'نسبة الإنجاز محسوبة غلط'},
+      {v:'contract',en:'Wrong contract value used',ar:'قيمة عقد غلط اتستخدمت'},
+      {v:'dup',en:'Duplicate billing entry',ar:'قيد فوترة مكرر'}
+    ], correct:'overbill' },
+
+  { id:'capitalize-error', title_en:'April Expenditure Classification', title_ar:'تصنيف مصروفات أبريل',
+    intro_en:'12 expenditures were classified as either a period Expense or a capitalized Asset this month. One was clearly classified wrong, and it\u2019s quietly inflating profit. Click the line you suspect.',
+    intro_ar:'اتصنفت 12 مصروف إما كمصروف دوري أو أصل اترسمل الشهر ده. واحد منهم اتصنف غلط بوضوح، وده بيضخّم الربح بهدوء. دوس على البند اللي بتشك فيه.',
+    cols:[{k:'date',en:'Date',ar:'التاريخ'},{k:'desc',en:'Description',ar:'الوصف'},{k:'amt',en:'Amount (EGP)',ar:'المبلغ (جنيه)',num:true},{k:'class',en:'Classification',ar:'التصنيف'}],
+    rows:[
+      {date:'02-Apr',desc:'Office cleaning supplies',amt:3200,class:'Expense'},
+      {date:'05-Apr',desc:'New delivery van',amt:380000,class:'Asset'},
+      {date:'08-Apr',desc:'Routine equipment repair',amt:15000,class:'Expense'},
+      {date:'11-Apr',desc:'Software license (1 year)',amt:24000,class:'Expense'},
+      {date:'14-Apr',desc:'Building extension construction',amt:950000,class:'Asset'},
+      {date:'17-Apr',desc:'Marketing consultancy fees',amt:45000,class:'Asset',err:true},
+      {date:'20-Apr',desc:'Office furniture',amt:68000,class:'Asset'},
+      {date:'23-Apr',desc:'Monthly internet bill',amt:2800,class:'Expense'},
+      {date:'26-Apr',desc:'Staff training workshop',amt:18500,class:'Expense'},
+      {date:'29-Apr',desc:'Factory machine overhaul',amt:220000,class:'Asset'},
+      {date:'02-May',desc:'Legal fees for routine matter',amt:32000,class:'Expense'},
+      {date:'05-May',desc:'Computer server upgrade',amt:145000,class:'Asset'}
+    ],
+    explain_en:'\u201cMarketing consultancy fees\u201d creates no long-term asset \u2014 it\u2019s a period cost that should hit the income statement immediately. Capitalizing it instead keeps EGP 45,000 off expenses this period, quietly overstating profit.',
+    explain_ar:'\u201cأتعاب استشارات تسويقية\u201d مابتخلقش أصل طويل الأجل \u2014 دي تكلفة دورية المفروض تنزل في قائمة الدخل على طول. ترسيملها بدل كده بيسحب 45,000 جنيه بره المصروفات الفترة دي، وبيضخّم الربح بهدوء.',
+    types:[
+      {v:'capitalize',en:'A period expense was wrongly capitalized as an asset',ar:'مصروف دوري اترسمل غلط كأصل'},
+      {v:'amt',en:'Wrong amount recorded',ar:'مبلغ غلط اتسجل'},
+      {v:'dup',en:'Duplicate entry',ar:'قيد مكرر'},
+      {v:'period',en:'Posted in the wrong period',ar:'اترحّل في فترة غلط'}
+    ], correct:'capitalize' }
 
 ];
 
@@ -12807,6 +12919,24 @@ function investigationClickRow(idx){
   }
 }
 
+function fireConfetti(){
+  const colors = ['#F0B429','#38BDF8','#fb7185','#10B981','#a78bfa'];
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden';
+  document.body.appendChild(container);
+  for(let i=0;i<36;i++){
+    const piece = document.createElement('div');
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    const left = Math.random()*100;
+    const size = 6+Math.random()*6;
+    const duration = 1.8+Math.random()*1.2;
+    const delay = Math.random()*0.3;
+    const rotate = Math.random()*360;
+    piece.style.cssText = `position:absolute;top:-20px;left:${left}vw;width:${size}px;height:${size*0.6}px;background:${color};opacity:.9;transform:rotate(${rotate}deg);animation:confettiFall ${duration}s ease-in ${delay}s forwards;border-radius:2px`;
+    container.appendChild(piece);
+  }
+  setTimeout(()=>container.remove(), 3200);
+}
 function investigationCheckType(){
   if(investigationCompleted) return;
   const scenario = INVESTIGATION_SCENARIOS[investigationScenarioIdx];
@@ -12815,6 +12945,7 @@ function investigationCheckType(){
   const el = document.getElementById('investigation-type-result');
   if(sel===scenario.correct){
     investigationCompleted = true;
+    fireConfetti();
     el.innerHTML = `<p class="msg msg-success">${ar?'\u2713 صح تمامًا! فاهم المشكلة فعليًا.':'\u2713 Exactly right! You genuinely understand the issue.'}</p>`;
     document.getElementById('investigation-type').disabled = true;
     document.querySelector('#investigation-reveal .workflow-bar button').disabled = true;
@@ -18734,9 +18865,11 @@ function toggleHomeGroup(gid){
 }
 function homeLoadVisited(){ try{ homeVisited = JSON.parse(localStorage.getItem(HOME_VISITED_KEY)||'{}'); }catch(_){ homeVisited = {}; } }
 function homeSaveVisited(){ try{ localStorage.setItem(HOME_VISITED_KEY, JSON.stringify(homeVisited)); }catch(_){} }
+window._freshlyVisited = window._freshlyVisited || {};
 function homeMarkVisited(station){
   if(homeVisited[station]) return;
   homeVisited[station] = true;
+  window._freshlyVisited[station] = true;
   homeSaveVisited();
   homeRenderVisitedBadges();
   homeRenderFocus();
@@ -18749,7 +18882,13 @@ function homeRenderVisitedBadges(){
     const mastered = qs && qs.passed;
     btn.classList.toggle('is-mastered', !!mastered);
     const badge = btn.querySelector('.hd-visited-badge');
-    if(badge){ badge.textContent = mastered ? '🏆' : (homeVisited[st] ? '✓' : ''); }
+    if(badge){
+      badge.textContent = mastered ? '🏆' : (homeVisited[st] ? '✓' : '');
+      if(window._freshlyVisited[st]){
+        badge.classList.add('badge-celebrate');
+        setTimeout(()=>{ badge.classList.remove('badge-celebrate'); delete window._freshlyVisited[st]; }, 900);
+      }
+    }
     const barFill = btn.querySelector('.md-bar i');
     if(barFill){
       let totalQ = 20;
@@ -19720,6 +19859,7 @@ function quizSubmit(station){
   if(passed){
     if(typeof learnAddScore==='function') learnAddScore(30);
     if(typeof homeMarkMastered==='function') homeMarkMastered(station);
+    if(typeof fireConfetti==='function') fireConfetti();
   }
   resEl.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
