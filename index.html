@@ -80,7 +80,7 @@
 
 /* —— Eye Protection Mode (warm filter, like phone night-light) —— */
 body.eye-mode{
-  filter:sepia(18%) saturate(82%) brightness(97%) hue-rotate(-3deg);
+  filter:sepia(55%) saturate(78%) brightness(94%) contrast(102%) hue-rotate(-8deg);
 }
 
 /* —— Animated glowing + moving name —— */
@@ -2546,6 +2546,19 @@ body:not(.is-workspace) main#main-content{display:block !important;visibility:vi
   border-top:1px dashed var(--line,#e3e8e5);padding-top:9px;text-align:center;
 }
 
+.ratio-gauge-wrap{ margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); }
+.ratio-gauge-track{ position:relative; height:10px; background:#eee; border-radius:6px; margin-bottom:6px; }
+.ratio-gauge-zone{ position:absolute; top:0; height:100%; background:var(--success-soft); border-radius:6px; }
+.ratio-gauge-marker{ position:absolute; top:-4px; width:4px; height:18px; background:var(--brand-dark); border-radius:2px; transform:translateX(-50%); transition:left .3s ease; }
+.ratio-gauge-labels{ display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px; }
+.ratio-gauge-range{ font-size:11px; color:var(--muted); }
+
+.investigation-row:hover{ background:var(--brand-soft) !important; }
+.investigation-wrong-pick{ background:var(--danger-soft) !important; }
+.investigation-correct-pick{ background:var(--success-soft) !important; font-weight:700; }
+
+
+
 </style>
 <style id="modalForceOpen">
 #modal.open, .modal.open{display:flex !important; z-index:2147483646 !important; position:fixed !important; inset:0 !important; align-items:center !important; justify-content:center !important; background:rgba(10,20,18,.55) !important;}
@@ -3278,6 +3291,9 @@ input[type="text"]:focus, input[type="number"]:focus{
 /* Growing libraries (in progress) — consistent purple */
 .mock-tools-grid .mock-tool:nth-child(6),
 .mock-tools-grid .mock-tool:nth-child(7){ border-color:#8b5fbf !important; }
+.mock-tools-grid .mock-tool:nth-child(8){ border-color:#4a90a4 !important; }
+.mock-tools-grid .mock-tool:nth-child(9){ border-color:#d4454c !important; }
+.mock-tools-grid .mock-tool:nth-child(10){ border-color:#2e9e5b !important; }
 
 /* My Progress — badges and table */
 .progress-badges{
@@ -3462,6 +3478,7 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="mock-hero-copy">
       <h1><span data-en="Learn Accounting." data-ar="تعلّم المحاسبة.">Learn Accounting.</span><br><span data-en="Think Like an Accountant." data-ar="فكّر كمحاسب.">Think Like an Accountant.</span></h1>
       <p data-en="One company. Real desks. Daily exceptions and month-end work." data-ar="شركة واحدة. مكاتب حقيقية. استثناءات يومية وإقفال شهر.">One company. Real desks. Daily exceptions and month-end work.</p>
+      <div id="studentGreeting" class="student-greeting-frame" style="display:none"></div>
       <span style="display:inline-block;margin-top:10px;font-size:12px;font-weight:800;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;padding:5px 14px;border-radius:20px" data-en="✍️ NEW — all 13 desks now let you post real transactions yourself" data-ar="✍️ جديد — كل الـ13 مكتب دلوقتي تقدر ترحّل معاملات حقيقية بنفسك">✍️ NEW — all 13 desks now let you post real transactions yourself</span>
     </div>
     <div class="mock-hero-art" aria-hidden="true">
@@ -3760,6 +3777,9 @@ input[type="text"]:focus, input[type="number"]:focus{
         <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong><small>تواصل بيئة العمل</small></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-sops')" style="position:relative"><span>📑</span><strong data-en="SOP Library" data-ar="مكتبة SOPs">SOP Library</strong><small>مكتبة SOPs</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-mysteries')" style="position:relative"><span>🧩</span><strong data-en="Accounting Mysteries" data-ar="ألغاز محاسبية">Accounting Mysteries</strong><small>ألغاز محاسبية</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
+        <button type="button" class="mock-tool" onclick="showPanel('cross-tickets')"><span>🔄</span><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><small>التسليم للقسم المختص</small></button>
+        <button type="button" class="mock-tool" onclick="investigationRenderPicker();investigationRender();showPanel('learn-investigation')"><span>🔎</span><strong data-en="Full Investigation" data-ar="تحقيق كامل">Full Investigation</strong><small>تحقيق كامل</small></button>
+        <button type="button" class="mock-tool" onclick="learnRenderBasics();showPanel('learn-basics')"><span>🧮</span><strong data-en="Basic Commercial Formulas" data-ar="معادلات تجارية أساسية">Basic Commercial Formulas</strong><small>معادلات تجارية أساسية</small></button>
       </div>
     </section>
 
@@ -8798,6 +8818,29 @@ input[type="text"]:focus, input[type="number"]:focus{
     </div>
   </div>
 
+<div class="data-panel" id="learn-investigation">
+    <div class="module-head">
+      <span class="module-tag" data-en="🔎 Quick Tools" data-ar="🔎 أدوات سريعة">🔎 Quick Tools</span>
+      <h3 data-en="Full Investigation — Find the Planted Error" data-ar="تحقيق كامل — اكتشف الخطأ المزروع">Full Investigation — Find the Planted Error</h3>
+      <span style="display:inline-block;font-size:11px;background:#e8a317;color:#1a1a1a;padding:3px 10px;border-radius:8px;font-weight:800;margin-top:4px" data-en="✅ 5 scenarios" data-ar="✅ 5 سيناريوهات">✅ 5 scenarios</span>
+      <p class="panel-sub" data-en="Real data, not multiple choice. Somewhere in each real dataset, one line is wrong. Examine it like a real auditor would, click the line you suspect, and explain what's wrong." data-ar="بيانات حقيقية، مش اختيار من متعدد. حد في كل مجموعة بيانات حقيقية، فيه بند غلط. افحصها زي مراجع حقيقي، دوس على البند اللي بتشك فيه، واشرح إيه الغلط.">Real data, not multiple choice. Somewhere in each real dataset, one line is wrong. Examine it like a real auditor would, click the line you suspect, and explain what's wrong.</p>
+    </div>
+
+    <div class="sop-block">
+      <div id="investigation-picker" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px"></div>
+      <div id="investigation-scenario-wrap"></div>
+    </div>
+  </div>
+
+<div class="data-panel" id="learn-basics">
+    <div class="module-head">
+      <span class="module-tag" data-en="🧮 Quick Tools" data-ar="🧮 أدوات سريعة">🧮 Quick Tools</span>
+      <h3 data-en="Basic Commercial Accounting Formulas" data-ar="معادلات المحاسبة التجارية الأساسية">Basic Commercial Accounting Formulas</h3>
+      <p class="panel-sub" data-en="Cost of goods sold, inventory roll-forward, direct-method cash flow, and markup pricing — type your own numbers to see each one work." data-ar="تكلفة البضاعة المباعة، حركة المخزون، التدفقات النقدية بالطريقة المباشرة، والتسعير بالربح والخسارة — اكتب أرقامك وشوف كل معادلة بتشتغل.">Cost of goods sold, inventory roll-forward, direct-method cash flow, and markup pricing — type your own numbers to see each one work.</p>
+    </div>
+    <div id="learn-basics-list"></div>
+  </div>
+
 <div class="data-panel" id="gl-home">
     <div class="desk-day">
       <div class="desk-hero">
@@ -11329,12 +11372,11 @@ const WORKSPACES = {
       {id:'ar-home', en:'Daily desk', ar:'المكتب اليومي'},
       {id:'customers', en:'Customers', ar:'العملاء', group:'data'},
       {id:'ar-new-customer', en:'New customer', ar:'عميل جديد', group:'data'},
-      {id:'ar-statement', en:'Customer Statement', ar:'كشف حساب عميل', group:'reports'},
-      {id:'ar-aging', en:'Aging Report', ar:'تقرير aging الديون', group:'reports'},
-      {id:'ar-cycle', en:'Sales Cycle &amp; Daily Workflow', ar:'دورة المبيعات وسير العمل اليومي', group:'ops'},
+      {id:'ar-statement', en:'Customer Statement', ar:'كشف حساب عميل', group:'data'},
+      {id:'ar-aging', en:'Aging Report', ar:'تقرير aging الديون', group:'data'},
+      {id:'ar-cycle', en:'Sales Cycle &amp; Daily Workflow', ar:'دورة المبيعات وسير العمل اليومي', group:'learn'},
       {id:'ar-create', en:'✍️ Create Sales Documents', ar:'✍️ إنشاء مستندات المبيعات', group:'ops'},
       {id:'ar-bridge', en:'AR bridge', ar:'جسر التسوية', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'ar-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'ar-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
       {id:'ar-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
@@ -11351,11 +11393,10 @@ const WORKSPACES = {
       {id:'ap-home', en:'Daily desk', ar:'المكتب اليومي'},
       {id:'suppliers', en:'Suppliers', ar:'الموردون', group:'data'},
       {id:'ap-new-supplier', en:'New supplier', ar:'مورد جديد', group:'data'},
-      {id:'ap-statement', en:'Supplier Statement', ar:'كشف حساب مورد', group:'reports'},
-      {id:'ap-aging', en:'Aging Report', ar:'تقرير aging الالتزامات', group:'reports'},
+      {id:'ap-statement', en:'Supplier Statement', ar:'كشف حساب مورد', group:'data'},
+      {id:'ap-aging', en:'Aging Report', ar:'تقرير aging الالتزامات', group:'data'},
       {id:'ap-cycle', en:'Purchase Cycle &amp; Daily Workflow', ar:'دورة المشتريات وسير العمل اليومي', group:'ops'},
       {id:'ap-bridge', en:'AP bridge', ar:'جسر التسوية', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'ap-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'ap-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
       {id:'ap-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
@@ -11373,7 +11414,6 @@ const WORKSPACES = {
       {id:'inventory', en:'Items', ar:'الأصناف', group:'data'},
       {id:'inv-new-item', en:'New item', ar:'صنف جديد', group:'data'},
       {id:'inv-workflow', en:'Operating cycle', ar:'دورة التشغيل', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'inv-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'inv-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
       {id:'inv-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
@@ -11390,7 +11430,6 @@ const WORKSPACES = {
       {id:'recv-home', en:'Daily Desk', ar:'المكتب اليومي'},
       {id:'recv-register', en:'GRN Register', ar:'سجل إذون الاستلام', group:'data'},
       {id:'recv-calc', en:'Receiving Metrics & Formulas', ar:'مؤشرات ومعادلات الاستلام', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'recv-role', en:'Role & Procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'recv-cases', en:'Cases & Problems', ar:'حالات ومشاكل', group:'learn'},
       {id:'recv-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
@@ -11406,9 +11445,8 @@ const WORKSPACES = {
       {id:'treasury-home', en:'Daily desk', ar:'المكتب اليومي'},
       {id:'banks', en:'Bank accounts', ar:'الحسابات البنكية', group:'data'},
       {id:'bank-new-account', en:'New bank account', ar:'حساب بنكي جديد', group:'data'},
-      {id:'treasury-bank-rec', en:'Bank Reconciliation — Concept to Practice', ar:'المطابقة البنكية — من المفهوم للتطبيق', group:'reports'},
+      {id:'treasury-bank-rec', en:'Bank Reconciliation — Concept to Practice', ar:'المطابقة البنكية — من المفهوم للتطبيق', group:'data'},
       {id:'treasury-cycle', en:'Cash &amp; Bank Workflow and Ledger', ar:'سير عمل ودفتر الخزينة والبنوك', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'treasury-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'treasury-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
       {id:'treasury-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
@@ -11431,7 +11469,6 @@ const WORKSPACES = {
       {id:'hr-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
       {id:'hr-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
       {id:'hr-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص'},
       {id:'hr-spot-error', en:'🔍 Spot the Error', ar:'🔍 اكتشف الغلط'},
       {id:'hr-quiz', en:'🏆 Mastery Quiz', ar:'🏆 اختبار الإتقان'}
     ]
@@ -11447,7 +11484,6 @@ const WORKSPACES = {
       {id:'gl-fixed-assets', en:'Fixed Assets Register', ar:'سجل الأصول الثابتة', group:'reports'},
       {id:'gl-cashflow', en:'Cash Flow Statement', ar:'قائمة التدفقات النقدية', group:'reports'},
       {id:'gl-close', en:'Close calendar', ar:'تقويم الإقفال', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'gl-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'gl-cases', en:'Cases & problems', ar:'حالات ومشكلات', group:'learn'},
       {id:'gl-entries', en:'Common Journal Entries', ar:'دليل القيود الشائعة', group:'learn'},
@@ -11464,7 +11500,6 @@ const WORKSPACES = {
       {id:'tax-home', en:'Daily Desk', ar:'المكتب اليومي'},
       {id:'tax-register', en:'Tax Filing Tracker', ar:'متتبّع الإقرارات الضريبية', group:'data'},
       {id:'tax-calc', en:'Tax Formulas &amp; Metrics', ar:'معادلات ومؤشرات ضريبية', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'tax-role', en:'Role & Procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'tax-cases', en:'Cases & Problems', ar:'حالات ومشاكل', group:'learn'},
       {id:'tax-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
@@ -11479,7 +11514,6 @@ const WORKSPACES = {
     tabs: [
       {id:'ratios-home', en:'Daily Desk', ar:'المكتب اليومي'},
       {id:'learn-ratios', en:'Reference &amp; Calculator', ar:'المرجع والحاسبة', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'ratios-role', en:'Role & Procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'ratios-cases', en:'Cases & Problems', ar:'حالات ومشاكل', group:'learn'},
       {id:'ratios-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
@@ -11495,7 +11529,6 @@ const WORKSPACES = {
       {id:'bc-home', en:'Daily Desk', ar:'المكتب اليومي'},
       {id:'bc-register', en:'Budget Line Register', ar:'سجل بنود الموازنة', group:'data'},
       {id:'bc-sod', en:'Segregation of Duties', ar:'فصل الواجبات', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'bc-role', en:'Role & Responsibilities', ar:'الدور والمسؤوليات', group:'learn'},
       {id:'bc-cases', en:'Practical Cases', ar:'حالات عملية', group:'learn'},
       {id:'bc-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
@@ -11510,7 +11543,6 @@ const WORKSPACES = {
     tabs: [
       {id:'aud-home', en:'Daily Desk', ar:'المكتب اليومي'},
       {id:'aud-program', en:'Audit Program', ar:'برنامج المراجعة', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'aud-role', en:'Role & Audit Cycle', ar:'الدور ودورة المراجعة', group:'learn'},
       {id:'aud-cases', en:'Cases & Problems', ar:'حالات ومشاكل', group:'learn'},
       {id:'aud-findings', en:'Writing Findings', ar:'كتابة الملاحظات', group:'learn'},
@@ -11529,7 +11561,6 @@ const WORKSPACES = {
       {id:'cost-calc', en:'Cost Accounting Formulas', ar:'معادلات محاسبة التكاليف', group:'ops'},
       {id:'cost-capital', en:'Capital Budgeting Tool', ar:'أداة الموازنة الرأسمالية', group:'ops'},
       {id:'cost-quality', en:'Quality & Life-Cycle', ar:'الجودة ودورة الحياة', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'cost-role', en:'Role & Procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'cost-cases', en:'Cases & Problems', ar:'حالات ومشاكل', group:'learn'},
       {id:'cost-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
@@ -11545,7 +11576,6 @@ const WORKSPACES = {
       {id:'constr-home', en:'Daily Desk', ar:'المكتب اليومي'},
       {id:'constr-register', en:'Project Register', ar:'سجل المشاريع', group:'data'},
       {id:'constr-calc', en:'Construction Accounting Formulas', ar:'معادلات محاسبة المقاولات', group:'ops'},
-      {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'constr-role', en:'Role & Procedures', ar:'الدور والإجراءات', group:'learn'},
       {id:'constr-cases', en:'Cases & Problems', ar:'حالات ومشاكل', group:'learn'},
       {id:'constr-fraud', en:'🕵️ Fraud Catcher', ar:'🕵️ صائد الاحتيال'},
@@ -11559,13 +11589,13 @@ const PANEL_TO_WS = {
   overview:'settings', coa:'settings', departments:'settings',
   'gl-home':'gl', 'gl-role':'gl', 'gl-cases':'gl', 'gl-close':'gl', 'gl-trial-balance':'gl', 'gl-financials':'gl', 'gl-fixed-assets':'gl', 'gl-cashflow':'gl', 'gl-entries':'gl', 'gl-spot-error':'gl', 'gl-quiz':'gl', 'gl-fraud':'gl',
   'tax-home':'tax', 'tax-register':'tax', 'tax-role':'tax', 'tax-cases':'tax', 'tax-calc':'tax', 'tax-spot-error':'tax', 'tax-fraud':'tax', 'tax-quiz':'tax',
-  'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn', 'learn-sops':'learn', 'learn-mysteries':'learn',
+  'learn-glossary':'learn', 'learn-tax':'learn', 'learn-sod':'learn', 'learn-interview':'learn', 'learn-comms':'learn', 'learn-sops':'learn', 'learn-mysteries':'learn', 'learn-investigation':'learn', 'learn-basics':'learn',
   'learn-ratios':'ratios', 'ratios-quiz':'ratios', 'ratios-fraud':'ratios', 'ratios-spot-error':'ratios', 'ratios-home':'ratios', 'ratios-role':'ratios', 'ratios-cases':'ratios',
   'bc-home':'bc', 'bc-register':'bc', 'bc-role':'bc', 'bc-cases':'bc', 'bc-sod':'bc', 'bc-quiz':'bc', 'bc-fraud':'bc', 'bc-spot-error':'bc',
   'aud-home':'aud', 'aud-role':'aud', 'aud-program':'aud', 'aud-findings':'aud', 'aud-quiz':'aud', 'aud-fraud':'aud', 'aud-spot-error':'aud', 'aud-cases':'aud',
   'cost-home':'cost', 'cost-register':'cost', 'cost-role':'cost', 'cost-cases':'cost', 'cost-calc':'cost', 'cost-capital':'cost', 'cost-quality':'cost', 'cost-spot-error':'cost', 'cost-fraud':'cost', 'cost-quiz':'cost',
   'constr-home':'constr', 'constr-register':'constr', 'constr-role':'constr', 'constr-cases':'constr', 'constr-calc':'constr', 'constr-spot-error':'constr', 'constr-fraud':'constr', 'constr-quiz':'constr',
-  'ar-home':'ar', customers:'ar', 'ar-new-customer':'ar', 'ar-cycle':'ar', 'ar-create':'ar', 'ar-entries':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'ar-statement':'ar', 'ar-aging':'ar', 'ar-role':'ar', 'ar-cases':'ar', 'ar-bridge':'ar', 'cross-tickets':'ar',
+  'ar-home':'ar', customers:'ar', 'ar-new-customer':'ar', 'ar-cycle':'ar', 'ar-create':'ar', 'ar-entries':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'ar-statement':'ar', 'ar-aging':'ar', 'ar-role':'ar', 'ar-cases':'ar', 'ar-bridge':'ar', 'cross-tickets':'learn',
   'ap-home':'ap', suppliers:'ap', 'ap-new-supplier':'ap', 'ap-cycle':'ap', 'ap-entries':'ap', 'ap-spot-error':'ap', 'ap-quiz':'ap', 'ap-fraud':'ap', 'ap-statement':'ap', 'ap-aging':'ap', 'ap-role':'ap', 'ap-cases':'ap', 'ap-bridge':'ap',
   'inv-home':'inv', inventory:'inv', 'inv-new-item':'inv', 'inv-workflow':'inv', 'inv-entries':'inv', 'inv-spot-error':'inv', 'inv-fraud':'inv', 'inv-quiz':'inv', 'inv-role':'inv', 'inv-cases':'inv',
   'recv-home':'recv', 'recv-register':'recv', 'recv-role':'recv', 'recv-cases':'recv', 'recv-calc':'recv', 'recv-spot-error':'recv', 'recv-fraud':'recv', 'recv-quiz':'recv',
@@ -11722,10 +11752,10 @@ function renderWorkspaceChrome(wsKey, activeId){
     nav.appendChild(db);
   }
 
-  const GROUP_ORDER = ['', 'data', 'reports', 'ops', 'learn'];
+  const GROUP_ORDER = ['', 'learn', 'ops', 'data', 'reports'];
   const GROUP_LABELS = {
     '': null,
-    data: {en:'Master Data', ar:'البيانات الأساسية'},
+    data: {en:'Master Data &amp; Reports', ar:'البيانات الأساسية والتقارير'},
     reports: {en:'Reports & Documents', ar:'التقارير والمستندات'},
     ops: {en:'Operations & Cycle', ar:'العمليات والدورة'},
     learn: {en:'Learning & Reference', ar:'التعلّم والمرجع'}
@@ -11850,13 +11880,13 @@ function showPanel(id, btn, isBack){
     overview:'overview', coa:'overview', departments:'overview',
     'gl-home':'gl-home', 'gl-role':'gl-home', 'gl-cases':'gl-home', 'gl-close':'gl-home', 'gl-trial-balance':'gl-home', 'gl-financials':'gl-home', 'gl-fixed-assets':'gl-home', 'gl-cashflow':'gl-home', 'gl-entries':'gl-home', 'gl-spot-error':'gl-home', 'gl-quiz':'gl-home', 'gl-fraud':'gl-home',
     'tax-home':'tax-home', 'tax-register':'tax-home', 'tax-role':'tax-home', 'tax-cases':'tax-home', 'tax-calc':'tax-home', 'tax-spot-error':'tax-home', 'tax-fraud':'tax-home', 'tax-quiz':'tax-home',
-    'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home', 'learn-sops':'learn-home', 'learn-mysteries':'learn-home',
+    'learn-glossary':'learn-home', 'learn-tax':'learn-home', 'learn-sod':'learn-home', 'learn-interview':'learn-home', 'learn-comms':'learn-home', 'learn-sops':'learn-home', 'learn-mysteries':'learn-home', 'learn-investigation':'learn-home', 'learn-basics':'learn-home',
     'learn-ratios':'ratios-home', 'ratios-quiz':'ratios-home', 'ratios-fraud':'ratios-home', 'ratios-spot-error':'ratios-home', 'ratios-home':'ratios-home', 'ratios-role':'ratios-home', 'ratios-cases':'ratios-home',
     'bc-home':'bc-home', 'bc-register':'bc-home', 'bc-role':'bc-home', 'bc-cases':'bc-home', 'bc-sod':'bc-home', 'bc-quiz':'bc-home', 'bc-fraud':'bc-home', 'bc-spot-error':'bc-home',
     'aud-home':'aud-home', 'aud-role':'aud-home', 'aud-program':'aud-home', 'aud-findings':'aud-home', 'aud-quiz':'aud-home', 'aud-fraud':'aud-home', 'aud-spot-error':'aud-home', 'aud-cases':'aud-home',
     'cost-home':'cost-home', 'cost-register':'cost-home', 'cost-role':'cost-home', 'cost-cases':'cost-home', 'cost-calc':'cost-home', 'cost-capital':'cost-home', 'cost-quality':'cost-home', 'cost-spot-error':'cost-home', 'cost-fraud':'cost-home', 'cost-quiz':'cost-home',
     'constr-home':'constr-home', 'constr-register':'constr-home', 'constr-role':'constr-home', 'constr-cases':'constr-home', 'constr-calc':'constr-home', 'constr-spot-error':'constr-home', 'constr-fraud':'constr-home', 'constr-quiz':'constr-home',
-    'ar-home':'ar-home', customers:'ar-home', 'ar-new-customer':'ar-home', 'ar-cycle':'ar-home', 'ar-create':'ar-home', 'ar-entries':'ar-home', 'ar-spot-error':'ar-home', 'ar-quiz':'ar-home', 'ar-fraud':'ar-home', 'ar-statement':'ar-home', 'ar-aging':'ar-home', 'ar-role':'ar-home', 'ar-cases':'ar-home', 'ar-bridge':'ar-home', 'cross-tickets':'ar-home',
+    'ar-home':'ar-home', customers:'ar-home', 'ar-new-customer':'ar-home', 'ar-cycle':'ar-home', 'ar-create':'ar-home', 'ar-entries':'ar-home', 'ar-spot-error':'ar-home', 'ar-quiz':'ar-home', 'ar-fraud':'ar-home', 'ar-statement':'ar-home', 'ar-aging':'ar-home', 'ar-role':'ar-home', 'ar-cases':'ar-home', 'ar-bridge':'ar-home', 'cross-tickets':'learn-home',
     'ap-home':'ap-home', suppliers:'ap-home', 'ap-new-supplier':'ap-home', 'ap-cycle':'ap-home', 'ap-entries':'ap-home', 'ap-spot-error':'ap-home', 'ap-quiz':'ap-home', 'ap-fraud':'ap-home', 'ap-statement':'ap-home', 'ap-aging':'ap-home', 'ap-role':'ap-home', 'ap-cases':'ap-home', 'ap-bridge':'ap-home',
     'inv-home':'inv-home', inventory:'inv-home', 'inv-new-item':'inv-home', 'inv-workflow':'inv-home', 'inv-entries':'inv-home', 'inv-spot-error':'inv-home', 'inv-fraud':'inv-home', 'inv-quiz':'inv-home', 'inv-role':'inv-home', 'inv-cases':'inv-home',
     'recv-home':'recv-home', 'recv-register':'recv-home', 'recv-role':'recv-home', 'recv-cases':'recv-home', 'recv-calc':'recv-home', 'recv-spot-error':'recv-home', 'recv-fraud':'recv-home', 'recv-quiz':'recv-home',
@@ -12410,6 +12440,410 @@ function glManualPost(){
   if(dr.toLowerCase() === cr.toLowerCase()){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'الحساب المدين والدائن مينفعش يكونوا نفس الحساب.':'Debit and credit accounts cannot be the same account.')+'</p>'; return; }
   const id = glPost([{account:dr,debit:amount},{account:cr,credit:amount}], desc || (ar?'قيد يدوي':'Manual entry'));
   msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم ترحيل القيد. ':'Entry posted. ')+'</strong>'+(ar?'مدين ':'Dr ')+dr+' '+amount.toLocaleString()+' / '+(ar?'دائن ':'Cr ')+cr+' '+amount.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>';
+}
+
+
+const INVESTIGATION_SCENARIOS = [
+  { id:'ap-dup', title_en:'March Supplier Payment Run', title_ar:'دورة سداد الموردين لشهر مارس',
+    intro_en:'14 payments were processed this month. The Finance Manager asked you to review the run before it\u2019s filed \u2014 something doesn\u2019t look right. Click any row you suspect.',
+    intro_ar:'اتعالجت 14 دفعة الشهر ده. مدير المالية طلب منك تراجع الدورة قبل ما تتحفظ \u2014 فيه حاجة شكلها مش مظبوط. دوس على أي صف بتشك فيه.',
+    cols:[{k:'id',en:'Payment #',ar:'رقم الدفعة'},{k:'date',en:'Date',ar:'التاريخ'},{k:'supplier',en:'Supplier',ar:'المورد'},{k:'inv',en:'Invoice Ref',ar:'مرجع الفاتورة'},{k:'amt',en:'Amount (EGP)',ar:'المبلغ (جنيه)',num:true}],
+    rows:[
+      {id:'PAY-001',date:'15-Mar',supplier:'Al-Noor Trading',inv:'INV-4471',amt:35156.25},
+      {id:'PAY-002',date:'16-Mar',supplier:'Delta Packaging',inv:'INV-7734',amt:30780.00},
+      {id:'PAY-003',date:'17-Mar',supplier:'Modern Steel Co',inv:'INV-2201',amt:128500.00},
+      {id:'PAY-004',date:'18-Mar',supplier:'Al-Noor Trading',inv:'INV-4502',amt:18900.00},
+      {id:'PAY-005',date:'19-Mar',supplier:'City Logistics',inv:'INV-0099',amt:7250.00},
+      {id:'PAY-006',date:'20-Mar',supplier:'Delta Packaging',inv:'INV-7734',amt:30780.00,err:true},
+      {id:'PAY-007',date:'21-Mar',supplier:'Gulf Equipment',inv:'INV-3390',amt:95400.00},
+      {id:'PAY-008',date:'22-Mar',supplier:'Modern Steel Co',inv:'INV-2245',amt:42100.00},
+      {id:'PAY-009',date:'23-Mar',supplier:'Al-Noor Trading',inv:'INV-4555',amt:12300.00},
+      {id:'PAY-010',date:'24-Mar',supplier:'Prime Logistics',inv:'INV-1120',amt:8900.00},
+      {id:'PAY-011',date:'25-Mar',supplier:'Delta Packaging',inv:'INV-7801',amt:15600.00},
+      {id:'PAY-012',date:'26-Mar',supplier:'Gulf Equipment',inv:'INV-3410',amt:22750.00},
+      {id:'PAY-013',date:'27-Mar',supplier:'City Logistics',inv:'INV-0145',amt:6300.00},
+      {id:'PAY-014',date:'28-Mar',supplier:'Modern Steel Co',inv:'INV-2290',amt:51200.00}
+    ],
+    explain_en:'Payment PAY-006 to Delta Packaging for INV-7734, EGP 30,780.00 is a duplicate \u2014 the exact same invoice was already paid 4 days earlier in PAY-002.',
+    explain_ar:'الدفعة PAY-006 لـDelta Packaging عن الفاتورة INV-7734 بمبلغ 30,780.00 جنيه مكررة \u2014 نفس الفاتورة بالظبط اتسددت قبل كده بـ4 أيام في PAY-002.',
+    types:[
+      {v:'dup',en:'Duplicate payment \u2014 same invoice paid twice',ar:'دفعة مكررة \u2014 نفس الفاتورة اتسددت مرتين'},
+      {v:'amt',en:'Wrong amount entered',ar:'مبلغ خطأ اتسجل'},
+      {v:'unauth',en:'Payment to an unauthorized supplier',ar:'سداد لمورد غير معتمد'},
+      {v:'date',en:'Payment posted in the wrong period',ar:'دفعة اترحّلت في فترة غلط'}
+    ], correct:'dup' },
+
+  { id:'ar-wrong-amt', title_en:'Al-Fajr Trading — Customer Statement', title_ar:'كشف حساب العميل \u2014 الفجر للتجارة',
+    intro_en:'This customer\u2019s statement looks mostly clean, but one collection doesn\u2019t match what it was supposed to settle. Click the line you suspect.',
+    intro_ar:'كشف الحساب ده شكله نضيف في الأغلب، لكن تحصيل واحد مش متطابق مع اللي المفروض يقفله. دوس على البند اللي بتشك فيه.',
+    cols:[{k:'date',en:'Date',ar:'التاريخ'},{k:'type',en:'Type',ar:'النوع'},{k:'ref',en:'Reference',ar:'المرجع'},{k:'note',en:'Against',ar:'مقابل'},{k:'amt',en:'Amount (EGP)',ar:'المبلغ (جنيه)',num:true}],
+    rows:[
+      {date:'01-Apr',type:'Invoice',ref:'INV-5501',note:'\u2014',amt:45000},
+      {date:'03-Apr',type:'Invoice',ref:'INV-5512',note:'\u2014',amt:28500},
+      {date:'06-Apr',type:'Payment',ref:'RCT-1201',note:'INV-5501',amt:-54000,err:true},
+      {date:'08-Apr',type:'Invoice',ref:'INV-5530',note:'\u2014',amt:19200},
+      {date:'10-Apr',type:'Payment',ref:'RCT-1215',note:'INV-5512',amt:-28500},
+      {date:'12-Apr',type:'Invoice',ref:'INV-5545',note:'\u2014',amt:33750},
+      {date:'15-Apr',type:'Payment',ref:'RCT-1230',note:'INV-5530',amt:-19200},
+      {date:'18-Apr',type:'Invoice',ref:'INV-5560',note:'\u2014',amt:22100},
+      {date:'20-Apr',type:'Payment',ref:'RCT-1245',note:'INV-5545',amt:-33750},
+      {date:'23-Apr',type:'Invoice',ref:'INV-5575',note:'\u2014',amt:15800},
+      {date:'25-Apr',type:'Payment',ref:'RCT-1260',note:'INV-5560',amt:-22100},
+      {date:'28-Apr',type:'Invoice',ref:'INV-5590',note:'\u2014',amt:27400}
+    ],
+    explain_en:'RCT-1201 was recorded as EGP 54,000 against INV-5501, but that invoice was only EGP 45,000 \u2014 a classic transposition (45 \u2192 54) that overstates the collection by EGP 9,000.',
+    explain_ar:'RCT-1201 اتسجلت بـ54,000 جنيه مقابل INV-5501، لكن الفاتورة دي كانت بس 45,000 جنيه \u2014 خطأ قلب أرقام كلاسيكي (45 إلى 54) بيضخّم التحصيل بـ9,000 جنيه.',
+    types:[
+      {v:'transpose',en:'Transposed digits \u2014 collection doesn\u2019t match the invoice it settles',ar:'قلب أرقام \u2014 التحصيل مش مطابق للفاتورة اللي بيقفلها'},
+      {v:'dup',en:'Duplicate collection',ar:'تحصيل مكرر'},
+      {v:'wrongcust',en:'Posted to the wrong customer',ar:'اترحّل لعميل غلط'},
+      {v:'missing',en:'A missing invoice',ar:'فاتورة ناقصة'}
+    ], correct:'transpose' },
+
+  { id:'je-reversed', title_en:'April Journal Entries', title_ar:'قيود يومية أبريل',
+    intro_en:'12 journal entries were posted this month. One entry has its debit and credit sides reversed. Click the entry you suspect.',
+    intro_ar:'اتسجلت 12 قيد الشهر ده. قيد واحد فيه المدين والدائن مقلوبين. دوس على القيد اللي بتشك فيه.',
+    cols:[{k:'id',en:'Entry #',ar:'رقم القيد'},{k:'date',en:'Date',ar:'التاريخ'},{k:'dr',en:'Debit Account',ar:'الحساب المدين'},{k:'cr',en:'Credit Account',ar:'الحساب الدائن'},{k:'amt',en:'Amount (EGP)',ar:'المبلغ (جنيه)',num:true}],
+    rows:[
+      {id:'JE-101',date:'01-Apr',dr:'Cash',cr:'Sales Revenue',amt:125000},
+      {id:'JE-102',date:'03-Apr',dr:'Accounts Receivable',cr:'Sales Revenue',amt:85000},
+      {id:'JE-103',date:'05-Apr',dr:'Rent Expense',cr:'Cash',amt:40000},
+      {id:'JE-104',date:'07-Apr',dr:'Salaries Expense',cr:'Cash',amt:95000},
+      {id:'JE-105',date:'09-Apr',dr:'Cash',cr:'Office Supplies Expense',amt:12500,err:true},
+      {id:'JE-106',date:'11-Apr',dr:'Utilities Expense',cr:'Cash',amt:18000},
+      {id:'JE-107',date:'13-Apr',dr:'Accounts Payable',cr:'Cash',amt:60000},
+      {id:'JE-108',date:'15-Apr',dr:'Cash',cr:'Accounts Receivable',amt:85000},
+      {id:'JE-109',date:'17-Apr',dr:'Insurance Expense',cr:'Cash',amt:22000},
+      {id:'JE-110',date:'19-Apr',dr:'Marketing Expense',cr:'Cash',amt:15500},
+      {id:'JE-111',date:'21-Apr',dr:'Cash',cr:'Sales Revenue',amt:68200},
+      {id:'JE-112',date:'23-Apr',dr:'Depreciation Expense',cr:'Accumulated Depreciation',amt:30000}
+    ],
+    explain_en:'JE-105 debits Cash and credits Office Supplies Expense for a supplies purchase \u2014 that\u2019s backward. Buying supplies should debit the expense (or asset) and credit Cash, the opposite of what was posted.',
+    explain_ar:'JE-105 مدين نقدية ودائن مصروف مهمات مكتبية مقابل شراء مهمات \u2014 ده مقلوب. شراء مهمات المفروض يكون مدين المصروف (أو الأصل) ودائن النقدية، عكس اللي اترحّل.',
+    types:[
+      {v:'reversed',en:'Debit and credit sides reversed',ar:'المدين والدائن مقلوبين'},
+      {v:'wrongacct',en:'Posted to the wrong account',ar:'اترحّل لحساب غلط'},
+      {v:'dup',en:'Duplicate entry',ar:'قيد مكرر'},
+      {v:'amt',en:'Wrong amount',ar:'مبلغ غلط'}
+    ], correct:'reversed' },
+
+  { id:'bank-dup', title_en:'April Bank Deposits Log', title_ar:'سجل الإيداعات البنكية لأبريل',
+    intro_en:'12 deposits were logged in the company\u2019s books this month. The bank statement shows one fewer deposit than the books do. Click the line you suspect.',
+    intro_ar:'اتسجلت 12 إيداع في دفاتر الشركة الشهر ده. كشف البنك فيه إيداع واحد أقل من الدفاتر. دوس على البند اللي بتشك فيه.',
+    cols:[{k:'id',en:'Entry #',ar:'رقم القيد'},{k:'date',en:'Date',ar:'التاريخ'},{k:'desc',en:'Description',ar:'الوصف'},{k:'ref',en:'Reference',ar:'المرجع'},{k:'amt',en:'Amount (EGP)',ar:'المبلغ (جنيه)',num:true}],
+    rows:[
+      {id:'DEP-01',date:'02-Apr',desc:'Customer collection',ref:'RCT-301',amt:42000},
+      {id:'DEP-02',date:'05-Apr',desc:'Customer collection',ref:'RCT-302',amt:28500},
+      {id:'DEP-03',date:'08-Apr',desc:'Cash sale deposit',ref:'CS-114',amt:15200},
+      {id:'DEP-04',date:'10-Apr',desc:'Customer collection',ref:'RCT-303',amt:36750},
+      {id:'DEP-05',date:'12-Apr',desc:'Customer collection',ref:'RCT-302',amt:28500,err:true},
+      {id:'DEP-06',date:'15-Apr',desc:'Cash sale deposit',ref:'CS-115',amt:19800},
+      {id:'DEP-07',date:'18-Apr',desc:'Customer collection',ref:'RCT-304',amt:51200},
+      {id:'DEP-08',date:'20-Apr',desc:'Customer collection',ref:'RCT-305',amt:22900},
+      {id:'DEP-09',date:'23-Apr',desc:'Cash sale deposit',ref:'CS-116',amt:17400},
+      {id:'DEP-10',date:'25-Apr',desc:'Customer collection',ref:'RCT-306',amt:33600},
+      {id:'DEP-11',date:'28-Apr',desc:'Customer collection',ref:'RCT-307',amt:29100},
+      {id:'DEP-12',date:'30-Apr',desc:'Cash sale deposit',ref:'CS-117',amt:24300}
+    ],
+    explain_en:'DEP-05 uses the exact same reference (RCT-302) and amount as DEP-02 \u2014 the same bank deposit was logged twice in the books, so the books show more cash than the bank actually received.',
+    explain_ar:'DEP-05 بنفس المرجع بالظبط (RCT-302) وبنفس المبلغ زي DEP-02 \u2014 نفس الإيداع البنكي اتسجل مرتين في الدفاتر، فالدفاتر بتوري كاش أكتر من اللي البنك استلمه فعليًا.',
+    types:[
+      {v:'dup',en:'Same deposit logged twice in the books',ar:'نفس الإيداع اتسجل مرتين في الدفاتر'},
+      {v:'missing',en:'A deposit is missing from the books',ar:'إيداع ناقص من الدفاتر'},
+      {v:'amt',en:'Wrong amount logged',ar:'مبلغ غلط اتسجل'},
+      {v:'timing',en:'Deposit logged in the wrong period',ar:'إيداع اتسجل في فترة غلط'}
+    ], correct:'dup' },
+
+  { id:'inv-shrink', title_en:'Warehouse Physical Count \u2014 April', title_ar:'الجرد الفعلي للمخزن \u2014 أبريل',
+    intro_en:'12 items were counted this month. Normal shrinkage is usually under 3%. One item is way outside that pattern. Click the item you suspect.',
+    intro_ar:'اتجرد 12 صنف الشهر ده. العجز الطبيعي عادة أقل من 3%. صنف واحد خارج النمط ده خالص. دوس على الصنف اللي بتشك فيه.',
+    cols:[{k:'id',en:'Item Code',ar:'كود الصنف'},{k:'name',en:'Item Name',ar:'اسم الصنف'},{k:'sys',en:'System Qty',ar:'الكمية بالنظام',num:true},{k:'count',en:'Physical Count',ar:'الجرد الفعلي',num:true},{k:'var',en:'Variance %',ar:'نسبة الفرق'}],
+    rows:[
+      {id:'I001',name:'Industrial Pump A',sys:45,count:44,var:'-2.2%'},
+      {id:'I002',name:'Steel Rod 12mm',sys:1200,count:1185,var:'-1.3%'},
+      {id:'I003',name:'Copper Wire Roll',sys:85,count:83,var:'-2.4%'},
+      {id:'I004',name:'Valve Assembly B',sys:220,count:218,var:'-0.9%'},
+      {id:'I005',name:'Industrial Pump B',sys:38,count:6,var:'-84.2%',err:true},
+      {id:'I006',name:'Steel Rod 16mm',sys:950,count:940,var:'-1.1%'},
+      {id:'I007',name:'Bearing Set C',sys:310,count:305,var:'-1.6%'},
+      {id:'I008',name:'Gasket Pack',sys:540,count:532,var:'-1.5%'},
+      {id:'I009',name:'Motor Unit D',sys:28,count:27,var:'-3.6%'},
+      {id:'I010',name:'Steel Rod 20mm',sys:680,count:672,var:'-1.2%'},
+      {id:'I011',name:'Valve Assembly C',sys:165,count:160,var:'-3.0%'},
+      {id:'I012',name:'Industrial Pump C',sys:52,count:50,var:'-3.8%'}
+    ],
+    explain_en:'Industrial Pump B is missing 32 of 38 units \u2014 an 84% shortage, versus roughly 1\u20134% for every other item. That scale of gap points to theft or a serious recording error, not normal shrinkage.',
+    explain_ar:'المضخة الصناعية B ناقصة 32 من أصل 38 وحدة \u2014 عجز 84%، مقابل تقريبًا 1-4% لكل صنف تاني. فجوة بالحجم ده بتشير لسرقة أو خطأ تسجيل خطير، مش عجز طبيعي.',
+    types:[
+      {v:'theft',en:'Possible theft or serious loss \u2014 variance far beyond normal shrinkage',ar:'سرقة محتملة أو فقد جسيم \u2014 الفرق أكبر بكتير من العجز الطبيعي'},
+      {v:'miscount',en:'Just a counting mistake',ar:'مجرد غلطة عد'},
+      {v:'wrongitem',en:'Wrong item code used',ar:'كود صنف غلط اتستخدم'},
+      {v:'normal',en:'Within normal shrinkage',ar:'جوه العجز الطبيعي'}
+    ], correct:'theft' }
+];
+
+let investigationScenarioIdx = 0;
+let investigationFound = false;
+let investigationAttempts = 0;
+let investigationCompleted = false;
+
+function investigationGoTo(idx){
+  investigationScenarioIdx = idx;
+  investigationFound = false;
+  investigationAttempts = 0;
+  investigationCompleted = false;
+  investigationRenderPicker();
+  investigationRender();
+  const wrap = document.getElementById('investigation-scenario-wrap');
+  if(wrap) wrap.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function investigationRenderPicker(){
+  const picker = document.getElementById('investigation-picker'); if(!picker) return;
+  const ar = cycleAr();
+  picker.innerHTML = INVESTIGATION_SCENARIOS.map((s,i)=>{
+    const active = i===investigationScenarioIdx;
+    return `<button type="button" onclick="investigationGoTo(${i})" style="padding:7px 14px;border-radius:20px;font-size:12.5px;font-weight:700;cursor:pointer;border:2px solid ${active?'var(--brand)':'var(--line-strong)'};background:${active?'var(--brand)':'#fff'};color:${active?'#fff':'var(--ink)'}">${i+1}. ${ar?s.title_ar:s.title_en}</button>`;
+  }).join('');
+}
+
+function investigationRender(){
+  const scenario = INVESTIGATION_SCENARIOS[investigationScenarioIdx];
+  const wrap = document.getElementById('investigation-scenario-wrap'); if(!wrap) return;
+  const ar = cycleAr();
+  const theadHtml = scenario.cols.map(c=>`<th${c.num?' style="text-align:right"':''}>${ar?c.ar:c.en}</th>`).join('');
+  const tbodyHtml = scenario.rows.map((r,i)=>{
+    const tds = scenario.cols.map(c=>{
+      let v = r[c.k];
+      if(c.num && typeof v === 'number') v = v.toLocaleString();
+      return `<td${c.num?' style="text-align:right"':''}>${v}</td>`;
+    }).join('');
+    return `<tr class="investigation-row" data-idx="${i}" onclick="investigationClickRow(${i})" style="cursor:pointer">${tds}</tr>`;
+  }).join('');
+  const typeOptions = scenario.types.map(t=>`<option value="${t.v}">${ar?t.ar:t.en}</option>`).join('');
+
+  wrap.innerHTML = `
+    <h4>${ar?scenario.title_ar:scenario.title_en}</h4>
+    <p class="stage-note">${ar?scenario.intro_ar:scenario.intro_en}</p>
+    <div class="table-wrap"><table class="data-table"><thead><tr>${theadHtml}</tr></thead><tbody id="investigation-tbody">${tbodyHtml}</tbody></table></div>
+    <div id="investigation-feedback" style="margin-top:14px"></div>
+    <div id="investigation-reveal" style="display:none;margin-top:16px">
+      <div class="entry-box" style="border-color:var(--success);background:var(--success-soft)">
+        <strong>${ar?'\u2713 لقيتها!':'\u2713 Found it!'}</strong>
+        <p style="margin:8px 0">${ar?scenario.explain_ar:scenario.explain_en}</p>
+      </div>
+      <div class="field" style="margin-top:12px">
+        <label>${ar?'إيه نوع المشكلة دي؟ (اختار عشان تأكّد إنك فاهم السبب)':'What type of issue is this? (select to confirm you understand why)'}</label>
+        <select id="investigation-type"><option value="">${ar?'\u2014 اختر \u2014':'\u2014 Select \u2014'}</option>${typeOptions}</select>
+      </div>
+      <div class="workflow-bar"><button class="btn btn-primary" onclick="investigationCheckType()">${ar?'تأكيد':'Confirm'}</button></div>
+      <div id="investigation-type-result"></div>
+    </div>`;
+}
+
+function investigationClickRow(idx){
+  if(investigationFound) return;
+  const ar = cycleAr();
+  const scenario = INVESTIGATION_SCENARIOS[investigationScenarioIdx];
+  const row = scenario.rows[idx];
+  const fb = document.getElementById('investigation-feedback');
+  const trEl = document.querySelector(`#investigation-tbody tr[data-idx="${idx}"]`);
+  document.querySelectorAll('.investigation-row').forEach(r=>r.classList.remove('investigation-wrong-pick'));
+  investigationAttempts++;
+  if(row.err){
+    investigationFound = true;
+    trEl.classList.add('investigation-correct-pick');
+    fb.innerHTML = '';
+    document.getElementById('investigation-reveal').style.display = 'block';
+    document.getElementById('investigation-reveal').scrollIntoView({behavior:'smooth', block:'center'});
+  } else {
+    trEl.classList.add('investigation-wrong-pick');
+    let hint = '';
+    if(investigationAttempts>=3){
+      hint = ar?' تلميح: قارن كل الصفوف ببعض بعناية \u2014 فيه حاجة باينة لو فحصتها كويس.':' Hint: compare every row carefully against the others \u2014 something stands out once you check closely.';
+    }
+    fb.innerHTML = `<p class="msg msg-error">${ar?'مش دي. ده بند عادي سليم.':'Not this one. This line is a normal, valid entry.'}${hint}</p>`;
+  }
+}
+
+function investigationCheckType(){
+  if(investigationCompleted) return;
+  const scenario = INVESTIGATION_SCENARIOS[investigationScenarioIdx];
+  const sel = document.getElementById('investigation-type').value;
+  const ar = cycleAr();
+  const el = document.getElementById('investigation-type-result');
+  if(sel===scenario.correct){
+    investigationCompleted = true;
+    el.innerHTML = `<p class="msg msg-success">${ar?'\u2713 صح تمامًا! فاهم المشكلة فعليًا.':'\u2713 Exactly right! You genuinely understand the issue.'}</p>`;
+    document.getElementById('investigation-type').disabled = true;
+    document.querySelector('#investigation-reveal .workflow-bar button').disabled = true;
+    const isLast = investigationScenarioIdx === INVESTIGATION_SCENARIOS.length - 1;
+    const complete = document.createElement('div');
+    complete.className = 'entry-box';
+    complete.style.cssText = 'margin-top:14px;border-color:var(--gold);background:var(--gold-soft);text-align:center';
+    complete.innerHTML = isLast
+      ? `<strong style="font-size:16px">\ud83c\udfc6 ${ar?'التحقيق اكتمل!':'Investigation Complete!'}</strong><p style="margin:8px 0 0">${ar?'خلّصت كل السيناريوهات المتاحة دلوقتي — سيناريوهات تانية جاية قريب.':'You\u2019ve finished every scenario available for now \u2014 more are coming soon.'}</p>`
+      : `<strong style="font-size:16px">\ud83c\udfc6 ${ar?'سيناريو اكتمل!':'Scenario Complete!'}</strong><p style="margin:8px 0 10px">${ar?'جاهز للسيناريو اللي بعده؟':'Ready for the next one?'}</p><button class="btn btn-primary" onclick="investigationGoTo(${investigationScenarioIdx+1})">${ar?'السيناريو الجاي \u2192':'Next Scenario \u2192'}</button>`;
+    el.after(complete);
+  } else if(!sel){
+    el.innerHTML = `<p class="msg msg-error">${ar?'اختار نوع المشكلة الأول.':'Select the issue type first.'}</p>`;
+  } else {
+    el.innerHTML = `<p class="msg msg-error">${ar?'مش بالظبط \u2014 راجع التفسير فوق تاني.':'Not quite \u2014 review the explanation above again.'}</p>`;
+  }
+}
+
+
+const BASICS_FORMULAS = [
+  {category:'cogs', cat_en:'Cost of Sales &amp; Profit', cat_ar:'تكلفة المبيعات والربح',
+   name_en:'Net Purchases', name_ar:'صافي المشتريات',
+   formula_en:'Gross Purchases \u2212 (Purchase Discounts + Purchase Returns)', formula_ar:'إجمالي المشتريات − (خصم المشتريات + مردودات المشتريات)',
+   explain_en:'What the business actually ends up paying for goods, after discounts earned and anything sent back to suppliers.', explain_ar:'اللي الشركة بتدفعه فعليًا تمن البضاعة، بعد الخصم المكتسب وأي حاجة اترجعت للموردين.',
+   inputs:[{key:'gp',en:'Gross Purchases',ar:'إجمالي المشتريات'},{key:'pd',en:'Purchase Discounts',ar:'خصم المشتريات'},{key:'pr',en:'Purchase Returns',ar:'مردودات المشتريات'}],
+   compute:v=>v.gp-(v.pd+v.pr), format:'value'},
+  {category:'cogs', cat_en:'Cost of Sales &amp; Profit', cat_ar:'تكلفة المبيعات والربح',
+   name_en:'Cost of Goods Available for Sale', name_ar:'تكلفة البضاعة المتاحة للبيع',
+   formula_en:'Beginning Inventory + Net Purchases', formula_ar:'مخزون أول المدة + صافي المشتريات',
+   explain_en:'Everything the business had on hand to sell this period, before any of it actually sold.', explain_ar:'كل اللي كان متاح للشركة تبيعه الفترة دي، قبل ما يتباع فعليًا.',
+   inputs:[{key:'bi',en:'Beginning Inventory',ar:'مخزون أول المدة'},{key:'np',en:'Net Purchases',ar:'صافي المشتريات'}],
+   compute:v=>v.bi+v.np, format:'value'},
+  {category:'cogs', cat_en:'Cost of Sales &amp; Profit', cat_ar:'تكلفة المبيعات والربح',
+   name_en:'Cost of Goods Sold (Merchandising)', name_ar:'تكلفة البضاعة المباعة (تجاري)',
+   formula_en:'Cost of Goods Available for Sale \u2212 Ending Inventory', formula_ar:'تكلفة البضاعة المتاحة للبيع − مخزون آخر المدة',
+   explain_en:'Of everything available to sell, what actually left as sold goods rather than staying on the shelf.', explain_ar:'من كل اللي كان متاح للبيع، إيه اللي فعليًا خرج كمبيعات بدل ما يفضل على الرف.',
+   inputs:[{key:'goods',en:'Goods Available for Sale',ar:'البضاعة المتاحة للبيع'},{key:'ei',en:'Ending Inventory',ar:'مخزون آخر المدة'}],
+   compute:v=>v.goods-v.ei, format:'value'},
+  {category:'cogs', cat_en:'Cost of Sales &amp; Profit', cat_ar:'تكلفة المبيعات والربح',
+   name_en:'Net Sales', name_ar:'صافي المبيعات',
+   formula_en:'Gross Sales \u2212 (Sales Discounts + Sales Returns)', formula_ar:'إجمالي المبيعات − (خصم المبيعات + مردودات المبيعات)',
+   explain_en:'What the business genuinely earned from sales, after allowances given to customers and goods sent back.', explain_ar:'اللي الشركة كسبته فعليًا من المبيعات، بعد الخصومات الممنوحة للعملاء والبضاعة المرتجعة.',
+   inputs:[{key:'gs',en:'Gross Sales',ar:'إجمالي المبيعات'},{key:'sd',en:'Sales Discounts',ar:'خصم المبيعات'},{key:'sr',en:'Sales Returns',ar:'مردودات المبيعات'}],
+   compute:v=>v.gs-(v.sd+v.sr), format:'value'},
+  {category:'cogs', cat_en:'Cost of Sales &amp; Profit', cat_ar:'تكلفة المبيعات والربح',
+   name_en:'Gross Profit', name_ar:'مجمل الربح',
+   formula_en:'Net Sales \u2212 Cost of Goods Sold', formula_ar:'صافي المبيعات − تكلفة البضاعة المباعة',
+   explain_en:'What\u2019s left from sales after covering what the goods themselves cost \u2014 before any other business expense.', explain_ar:'اللي فاضل من المبيعات بعد تغطية تكلفة البضاعة نفسها \u2014 قبل أي مصروف تاني للشركة.',
+   inputs:[{key:'ns',en:'Net Sales',ar:'صافي المبيعات'},{key:'cogs',en:'Cost of Goods Sold',ar:'تكلفة البضاعة المباعة'}],
+   compute:v=>v.ns-v.cogs, format:'value'},
+  {category:'cogs', cat_en:'Cost of Sales &amp; Profit', cat_ar:'تكلفة المبيعات والربح',
+   name_en:'Net Profit', name_ar:'صافي الربح',
+   formula_en:'Gross Profit \u2212 Operating Expenses', formula_ar:'مجمل الربح − المصروفات التشغيلية',
+   explain_en:'The real bottom line after running the whole business, not just after covering the cost of the goods sold.', explain_ar:'صافي النتيجة الحقيقي بعد تشغيل الشركة كلها، مش بس بعد تغطية تكلفة البضاعة المباعة.',
+   inputs:[{key:'gp',en:'Gross Profit',ar:'مجمل الربح'},{key:'oe',en:'Operating Expenses',ar:'المصروفات التشغيلية'}],
+   compute:v=>v.gp-v.oe, format:'value'},
+
+  {category:'inv', cat_en:'Inventory Roll-Forward', cat_ar:'حركة المخزون',
+   name_en:'Beginning Inventory (from Available Goods)', name_ar:'مخزون أول المدة (من البضاعة المتاحة)',
+   formula_en:'Cost of Goods Available for Sale \u2212 Net Purchases', formula_ar:'تكلفة البضاعة المتاحة للبيع − صافي المشتريات',
+   explain_en:'Working backward: if you know what was available and what came in this period, what must have started the period on the shelf.', explain_ar:'بالعكس: لو عارف اللي كان متاح واللي دخل الفترة دي، تقدر تعرف اللي كان أول المدة على الرف.',
+   inputs:[{key:'goods',en:'Goods Available for Sale',ar:'البضاعة المتاحة للبيع'},{key:'np',en:'Net Purchases',ar:'صافي المشتريات'}],
+   compute:v=>v.goods-v.np, format:'value'},
+  {category:'inv', cat_en:'Inventory Roll-Forward', cat_ar:'حركة المخزون',
+   name_en:'Ending Inventory (Roll-Forward)', name_ar:'مخزون آخر المدة (حركة المخزون)',
+   formula_en:'Beginning Inventory + Net Purchases \u2212 Cost of Goods Sold', formula_ar:'مخزون أول المدة + صافي المشتريات − تكلفة البضاعة المباعة',
+   explain_en:'What should be left on the shelf once you add this period\u2019s purchases and subtract what actually sold.', explain_ar:'اللي المفروض يفضل على الرف بعد ما تضيف مشتريات الفترة وتطرح اللي اتباع فعليًا.',
+   inputs:[{key:'bi',en:'Beginning Inventory',ar:'مخزون أول المدة'},{key:'np',en:'Net Purchases',ar:'صافي المشتريات'},{key:'cogs',en:'Cost of Goods Sold',ar:'تكلفة البضاعة المباعة'}],
+   compute:v=>v.bi+v.np-v.cogs, format:'value'},
+  {category:'inv', cat_en:'Inventory Roll-Forward', cat_ar:'حركة المخزون',
+   name_en:'Net Purchases (from COGS)', name_ar:'صافي المشتريات (من تكلفة المبيعات)',
+   formula_en:'Cost of Goods Sold + Ending Inventory \u2212 Beginning Inventory', formula_ar:'تكلفة البضاعة المباعة + مخزون آخر المدة − مخزون أول المدة',
+   explain_en:'Working backward from the inventory count: if you know what sold and how the shelf changed, you can find what must have been bought.', explain_ar:'بالعكس من الجرد: لو عارف اللي اتباع وإزاي الرف اتغيّر، تقدر تعرف اللي المفروض اتشترى.',
+   inputs:[{key:'cogs',en:'Cost of Goods Sold',ar:'تكلفة البضاعة المباعة'},{key:'ei',en:'Ending Inventory',ar:'مخزون آخر المدة'},{key:'bi',en:'Beginning Inventory',ar:'مخزون أول المدة'}],
+   compute:v=>v.cogs+v.ei-v.bi, format:'value'},
+
+  {category:'cash', cat_en:'Cash Flow \u2014 Direct Method', cat_ar:'التدفقات النقدية — الطريقة المباشرة',
+   name_en:'Cash Receipts from Customers', name_ar:'المقبوضات النقدية من العملاء',
+   formula_en:'Net Credit Sales + Beginning Accounts Receivable \u2212 Ending Accounts Receivable', formula_ar:'صافي المبيعات الآجلة + مدينون أول المدة − مدينون آخر المدة',
+   explain_en:'Converts an accrual sales figure into the actual cash a business collected from customers this period.', explain_ar:'بيحوّل رقم المبيعات على أساس الاستحقاق لكاش فعلي اتحصّل من العملاء الفترة دي.',
+   inputs:[{key:'ncs',en:'Net Credit Sales',ar:'صافي المبيعات الآجلة'},{key:'bar',en:'Beginning Accounts Receivable',ar:'مدينون أول المدة'},{key:'ear',en:'Ending Accounts Receivable',ar:'مدينون آخر المدة'}],
+   compute:v=>v.ncs+v.bar-v.ear, format:'value'},
+  {category:'cash', cat_en:'Cash Flow \u2014 Direct Method', cat_ar:'التدفقات النقدية — الطريقة المباشرة',
+   name_en:'Cash Paid to Suppliers', name_ar:'المدفوعات النقدية للموردين',
+   formula_en:'Net Purchases + Beginning Accounts Payable \u2212 Ending Accounts Payable', formula_ar:'صافي المشتريات + دائنون أول المدة − دائنون آخر المدة',
+   explain_en:'Converts an accrual purchases figure into the actual cash a business paid out to suppliers this period.', explain_ar:'بيحوّل رقم المشتريات على أساس الاستحقاق لكاش فعلي اتدفع للموردين الفترة دي.',
+   inputs:[{key:'np',en:'Net Purchases',ar:'صافي المشتريات'},{key:'bap',en:'Beginning Accounts Payable',ar:'دائنون أول المدة'},{key:'eap',en:'Ending Accounts Payable',ar:'دائنون آخر المدة'}],
+   compute:v=>v.np+v.bap-v.eap, format:'value'},
+
+  {category:'pricing', cat_en:'Markup, Margin &amp; Pricing', cat_ar:'الربح والخسارة والتسعير',
+   name_en:'Profit (on a Sale)', name_ar:'الربح (على عملية بيع)',
+   formula_en:'Selling Price \u2212 Cost', formula_ar:'سعر البيع − سعر التكلفة',
+   explain_en:'The simplest possible profit check on one item or one deal.', explain_ar:'أبسط فحص ربح ممكن على صنف واحد أو صفقة واحدة.',
+   inputs:[{key:'sp',en:'Selling Price',ar:'سعر البيع'},{key:'cost',en:'Cost',ar:'سعر التكلفة'}],
+   compute:v=>v.sp-v.cost, format:'value'},
+  {category:'pricing', cat_en:'Markup, Margin &amp; Pricing', cat_ar:'الربح والخسارة والتسعير',
+   name_en:'Profit % on Cost', name_ar:'نسبة الربح على التكلفة',
+   formula_en:'(Profit \u00f7 Cost) \u00d7 100', formula_ar:'(الربح ÷ سعر التكلفة) × 100',
+   explain_en:'How big the profit is relative to what the item cost \u2014 the markup percentage used to set prices.', explain_ar:'الربح قد إيه بالنسبة لتكلفة الصنف — نسبة الزيادة المستخدمة في تسعير المنتجات.',
+   inputs:[{key:'profit',en:'Profit',ar:'الربح'},{key:'cost',en:'Cost',ar:'سعر التكلفة'}],
+   compute:v=>v.cost?(v.profit/v.cost):null, format:'pct'},
+  {category:'pricing', cat_en:'Markup, Margin &amp; Pricing', cat_ar:'الربح والخسارة والتسعير',
+   name_en:'Loss % on Cost', name_ar:'نسبة الخسارة على التكلفة',
+   formula_en:'(Loss \u00f7 Cost) \u00d7 100', formula_ar:'(الخسارة ÷ سعر التكلفة) × 100',
+   explain_en:'How big a loss is relative to what the item cost \u2014 useful for deciding how deep a clearance discount can safely go.', explain_ar:'الخسارة قد إيه بالنسبة لتكلفة الصنف — مفيدة لتحديد أقصى خصم تصفية ممكن تعمله بأمان.',
+   inputs:[{key:'loss',en:'Loss',ar:'الخسارة'},{key:'cost',en:'Cost',ar:'سعر التكلفة'}],
+   compute:v=>v.cost?(v.loss/v.cost):null, format:'pct'},
+  {category:'pricing', cat_en:'Markup, Margin &amp; Pricing', cat_ar:'الربح والخسارة والتسعير',
+   name_en:'Selling Price (Target Profit % on Cost)', name_ar:'سعر البيع (نسبة ربح مستهدفة على التكلفة)',
+   formula_en:'Cost \u00d7 (100 + Profit %) \u00f7 100', formula_ar:'سعر التكلفة × (100 + نسبة الربح) ÷ 100',
+   explain_en:'Set a selling price directly from the cost and the markup percentage you want to earn.', explain_ar:'حدّد سعر البيع مباشرة من التكلفة ونسبة الربح اللي عايز تكسبها.',
+   inputs:[{key:'cost',en:'Cost',ar:'سعر التكلفة'},{key:'ppct',en:'Target Profit % (e.g. 25)',ar:'نسبة الربح المستهدفة (مثلًا 25)'}],
+   compute:v=>v.cost*(100+v.ppct)/100, format:'value'},
+  {category:'pricing', cat_en:'Markup, Margin &amp; Pricing', cat_ar:'الربح والخسارة والتسعير',
+   name_en:'Selling Price (Target Loss % on Cost)', name_ar:'سعر البيع (نسبة خسارة مستهدفة على التكلفة)',
+   formula_en:'Cost \u00d7 (100 \u2212 Loss %) \u00f7 100', formula_ar:'سعر التكلفة × (100 − نسبة الخسارة) ÷ 100',
+   explain_en:'Set a clearance or distressed-sale price that accepts a known, deliberate loss percentage.', explain_ar:'حدّد سعر تصفية أو بيع اضطراري بيقبل نسبة خسارة معروفة ومتعمدة.',
+   inputs:[{key:'cost',en:'Cost',ar:'سعر التكلفة'},{key:'lpct',en:'Target Loss % (e.g. 10)',ar:'نسبة الخسارة المستهدفة (مثلًا 10)'}],
+   compute:v=>v.cost*(100-v.lpct)/100, format:'value'},
+  {category:'pricing', cat_en:'Markup, Margin &amp; Pricing', cat_ar:'الربح والخسارة والتسعير',
+   name_en:'Cost (Back-Solved from Profit %)', name_ar:'سعر التكلفة (رجوعًا من نسبة الربح)',
+   formula_en:'Selling Price \u00d7 100 \u00f7 (100 + Profit %)', formula_ar:'سعر البيع × 100 ÷ (100 + نسبة الربح)',
+   explain_en:'If you know the selling price and the markup percentage used, work backward to find what the item actually cost.', explain_ar:'لو عارف سعر البيع ونسبة الربح المستخدمة، ارجع بالعكس تعرف الصنف كلّف قد إيه فعليًا.',
+   inputs:[{key:'sp',en:'Selling Price',ar:'سعر البيع'},{key:'ppct',en:'Profit % Used (e.g. 25)',ar:'نسبة الربح المستخدمة (مثلًا 25)'}],
+   compute:v=>(100+v.ppct)?v.sp*100/(100+v.ppct):null, format:'value'},
+  {category:'pricing', cat_en:'Markup, Margin &amp; Pricing', cat_ar:'الربح والخسارة والتسعير',
+   name_en:'Cost (Back-Solved from Loss %)', name_ar:'سعر التكلفة (رجوعًا من نسبة الخسارة)',
+   formula_en:'Selling Price \u00d7 100 \u00f7 (100 \u2212 Loss %)', formula_ar:'سعر البيع × 100 ÷ (100 − نسبة الخسارة)',
+   explain_en:'If you know a distressed selling price and the loss percentage taken, work backward to find the original cost.', explain_ar:'لو عارف سعر البيع الاضطراري ونسبة الخسارة المأخوذة، ارجع بالعكس تعرف التكلفة الأصلية.',
+   inputs:[{key:'sp',en:'Selling Price',ar:'سعر البيع'},{key:'lpct',en:'Loss % Taken (e.g. 10)',ar:'نسبة الخسارة المأخوذة (مثلًا 10)'}],
+   compute:v=>(100-v.lpct)?v.sp*100/(100-v.lpct):null, format:'value'}
+];
+window._basicsRegistry = {};
+function learnRenderBasics(){
+  const list = document.getElementById('learn-basics-list'); if(!list) return;
+  const ar = cycleAr();
+  const cats = [];
+  BASICS_FORMULAS.forEach(r=>{ if(!cats.includes(r.category)) cats.push(r.category); });
+  window._basicsRegistry = {};
+  list.innerHTML = cats.map(cat=>{
+    const items = BASICS_FORMULAS.filter(r=>r.category===cat);
+    const catLabel = ar ? items[0].cat_ar : items[0].cat_en;
+    const cards = items.map((r,i)=>{
+      const uid = cat+'-'+i;
+      window._basicsRegistry[uid] = r;
+      const inputsHtml = r.inputs.map(inp=>`<label>${ar?inp.ar:inp.en}<input type="number" inputmode="decimal" id="bi-${uid}-${inp.key}" oninput="basicsCalc('${uid}')" placeholder="0"></label>`).join('');
+      return `<div class="ratio-card">
+        <strong>${ar?r.name_ar:r.name_en}</strong>
+        <div class="ratio-formula">${ar?r.formula_ar:r.formula_en}</div>
+        <p class="ratio-explain">${ar?r.explain_ar:r.explain_en}</p>
+        <div class="ratio-calc">${inputsHtml}</div>
+        <div class="ratio-result" id="br-${uid}">\u2014</div>
+      </div>`;
+    }).join('');
+    return `<div class="ratio-category" data-cat="${cat}"><span class="ratio-cat-title">${catLabel}</span><div class="ratio-cards">${cards}</div></div>`;
+  }).join('');
+}
+function basicsCalc(uid){
+  const item = window._basicsRegistry[uid]; if(!item) return;
+  const values = {};
+  item.inputs.forEach(inp=>{
+    const el = document.getElementById(`bi-${uid}-${inp.key}`);
+    values[inp.key] = el ? (parseFloat(el.value)||0) : 0;
+  });
+  const result = item.compute(values);
+  const el = document.getElementById(`br-${uid}`); if(!el) return;
+  if(result===null || result===undefined || !isFinite(result)){ el.textContent = '\u2014'; return; }
+  const ar = cycleAr();
+  if(item.format==='pct') el.textContent = (result*100).toFixed(1)+'%';
+  else el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2});
 }
 
 function cyclePopulateSelects(){
@@ -14229,8 +14663,146 @@ const FINANCIAL_RATIOS = [
    explain_en:'The accounting net worth attributable to each share, useful as a floor reference against the market price.',
    explain_ar:'صافي القيمة المحاسبية اللي بتخص كل سهم، مفيدة كمرجع أرضي مقابل سعر السوق.',
    inputs:[{key:'te',en:'Total Equity',ar:'إجمالي حقوق الملكية'},{key:'shares',en:'Shares Outstanding',ar:'عدد الأسهم القائمة'}],
-   compute:v=>v.shares?v.te/v.shares:null, format:'value'}
+   compute:v=>v.shares?v.te/v.shares:null, format:'value'},
+  {category:'activity', cat_en:'Activity &amp; Efficiency', cat_ar:'النشاط والكفاءة',
+   name_en:'Working Capital Turnover', name_ar:'معدل دوران رأس المال العامل',
+   formula_en:'Net Sales ÷ Working Capital', formula_ar:'صافي المبيعات ÷ رأس المال العامل',
+   explain_en:'How efficiently working capital is being used to generate sales. Very high can mean undercapitalization; very low can mean idle capital.',
+   explain_ar:'كفاءة استخدام رأس المال العامل في توليد المبيعات. مرتفع جدًا ممكن يعني نقص تمويل؛ منخفض جدًا ممكن يعني رأس مال راكد.',
+   inputs:[{key:'sales',en:'Net Sales',ar:'صافي المبيعات'},{key:'wc',en:'Working Capital',ar:'رأس المال العامل'}],
+   compute:v=>v.wc?v.sales/v.wc:null, format:'x'},
+  {category:'activity', cat_en:'Activity &amp; Efficiency', cat_ar:'النشاط والكفاءة',
+   name_en:'Operating Cycle', name_ar:'دورة التشغيل',
+   formula_en:'Days Inventory Outstanding + Days Sales Outstanding', formula_ar:'أيام المخزون + أيام التحصيل',
+   explain_en:'Total days from buying inventory to collecting cash from the sale — before subtracting supplier credit (that final subtraction gives the Cash Conversion Cycle).',
+   explain_ar:'إجمالي الأيام من شراء المخزون لحد تحصيل الكاش من البيع — قبل ما نطرح ائتمان المورد (الطرح ده بيدّينا الدورة النقدية).',
+   inputs:[{key:'dio',en:'Days Inventory Outstanding',ar:'أيام المخزون'},{key:'dso',en:'Days Sales Outstanding',ar:'أيام التحصيل'}],
+   compute:v=>v.dio+v.dso, format:'days'},
+  {category:'activity', cat_en:'Activity &amp; Efficiency', cat_ar:'النشاط والكفاءة',
+   name_en:'Cash Turnover', name_ar:'معدل دوران النقدية',
+   formula_en:'Net Sales ÷ Average Cash Balance', formula_ar:'صافي المبيعات ÷ متوسط رصيد النقدية',
+   explain_en:'How many times cash balances are “turned over” by sales activity in a period — a high number can mean lean cash management or genuine cash-flow risk.',
+   explain_ar:'كام مرة رصيد النقدية “بيدور” بفعل نشاط المبيعات في الفترة — رقم مرتفع ممكن يعني إدارة نقدية رشيقة أو مخاطرة سيولة حقيقية.',
+   inputs:[{key:'sales',en:'Net Sales',ar:'صافي المبيعات'},{key:'cash',en:'Average Cash Balance',ar:'متوسط رصيد النقدية'}],
+   compute:v=>v.cash?v.sales/v.cash:null, format:'x'},
+  {category:'profitability', cat_en:'Profitability', cat_ar:'الربحية',
+   name_en:'Return on Invested Capital (ROIC)', name_ar:'العائد على رأس المال المستثمر (ROIC)',
+   formula_en:'(Net Profit After Tax − Dividends) ÷ Total Invested Capital × 100', formula_ar:'(الربح بعد الضريبة − توزيعات الأرباح) ÷ إجمالي رأس المال المستثمر × 100',
+   explain_en:'The return generated on the capital actually invested by both shareholders and lenders — a core test of whether the business creates real economic value.',
+   explain_ar:'العائد المتولّد على رأس المال اللي فعليًا استثمره المساهمين والمقرضين — اختبار أساسي هل النشاط بيخلق قيمة اقتصادية حقيقية.',
+   inputs:[{key:'npat',en:'Net Profit After Tax',ar:'الربح بعد الضريبة'},{key:'div',en:'Dividends',ar:'توزيعات الأرباح'},{key:'ic',en:'Total Invested Capital',ar:'إجمالي رأس المال المستثمر'}],
+   compute:v=>v.ic?((v.npat-v.div)/v.ic):null, format:'pct'},
+  {category:'profitability', cat_en:'Profitability', cat_ar:'الربحية',
+   name_en:'Return on Capital Employed (ROCE)', name_ar:'العائد على رأس المال المستخدم (ROCE)',
+   formula_en:'Operating Profit (EBIT) ÷ Capital Employed × 100', formula_ar:'الربح التشغيلي (EBIT) ÷ رأس المال المستخدم × 100',
+   explain_en:'How efficiently the business generates operating profit from all capital employed (equity + long-term debt) — widely used to compare capital-intensive businesses.',
+   explain_ar:'كفاءة توليد الربح التشغيلي من كل رأس المال المستخدم (حقوق الملكية + الدين طويل الأجل) — مستخدمة على نطاق واسع لمقارنة الأنشطة كثيفة رأس المال.',
+   inputs:[{key:'ebit',en:'Operating Profit (EBIT)',ar:'الربح التشغيلي (EBIT)'},{key:'ce',en:'Capital Employed',ar:'رأس المال المستخدم'}],
+   compute:v=>v.ce?(v.ebit/v.ce):null, format:'pct'},
+  {category:'profitability', cat_en:'Profitability', cat_ar:'الربحية',
+   name_en:'EBIT Margin', name_ar:'هامش EBIT',
+   formula_en:'EBIT ÷ Net Sales × 100', formula_ar:'EBIT ÷ صافي المبيعات × 100',
+   explain_en:'Operating profitability before interest and tax — strips out financing structure and tax jurisdiction to compare core operations.',
+   explain_ar:'الربحية التشغيلية قبل الفوائد والضريبة — بتستبعد هيكل التمويل والاختصاص الضريبي عشان تقارن النشاط الأساسي بس.',
+   inputs:[{key:'ebit',en:'EBIT',ar:'EBIT'},{key:'sales',en:'Net Sales',ar:'صافي المبيعات'}],
+   compute:v=>v.sales?(v.ebit/v.sales):null, format:'pct'},
+  {category:'cashflow', cat_en:'Cash Flow', cat_ar:'التدفقات النقدية',
+   name_en:'Cash Flow to Sales Ratio', name_ar:'نسبة التدفق النقدي للمبيعات',
+   formula_en:'Operating Cash Flow ÷ Net Sales × 100', formula_ar:'التدفق النقدي التشغيلي ÷ صافي المبيعات × 100',
+   explain_en:'How much of every sale genuinely converts into cash — a persistent gap versus the profit margin is a real earnings-quality flag.',
+   explain_ar:'قد إيه من كل مبيعة بتتحوّل فعليًا لكاش — فجوة مستمرة مقابل هامش الربح علامة تحذير حقيقية لجودة الأرباح.',
+   inputs:[{key:'ocf',en:'Operating Cash Flow',ar:'التدفق النقدي التشغيلي'},{key:'sales',en:'Net Sales',ar:'صافي المبيعات'}],
+   compute:v=>v.sales?(v.ocf/v.sales):null, format:'pct'},
+  {category:'profitability', cat_en:'Profitability', cat_ar:'الربحية',
+   name_en:'Return on Sales (ROS)', name_ar:'العائد على المبيعات (ROS)',
+   formula_en:'Operating Profit ÷ Net Sales × 100', formula_ar:'الربح التشغيلي ÷ صافي المبيعات × 100',
+   explain_en:'What share of each sales EGP survives as operating profit after running the core business — management’s direct area of control.',
+   explain_ar:'قد إيه من كل جنيه مبيعات فاضل كربح تشغيلي بعد تشغيل النشاط الأساسي — المنطقة اللي الإدارة بتتحكم فيها مباشرة.',
+   inputs:[{key:'op',en:'Operating Profit',ar:'الربح التشغيلي'},{key:'sales',en:'Net Sales',ar:'صافي المبيعات'}],
+   compute:v=>v.sales?(v.op/v.sales):null, format:'pct'},
+  {category:'profitability', cat_en:'Profitability', cat_ar:'الربحية',
+   name_en:'Operating Expense Ratio', name_ar:'نسبة المصروفات التشغيلية',
+   formula_en:'Operating Expenses ÷ Net Sales × 100', formula_ar:'المصروفات التشغيلية ÷ صافي المبيعات × 100',
+   explain_en:'How much of each sales EGP is consumed by operating expenses — rising ratio over time can signal cost discipline slipping.',
+   explain_ar:'قد إيه من كل جنيه مبيعات بتستهلكه المصروفات التشغيلية — نسبة بتزيد مع الوقت ممكن تدل على انضباط تكلفة بيتراخى.',
+   inputs:[{key:'opex',en:'Operating Expenses',ar:'المصروفات التشغيلية'},{key:'sales',en:'Net Sales',ar:'صافي المبيعات'}],
+   compute:v=>v.sales?(v.opex/v.sales):null, format:'pct'},
+  {category:'liquidity', cat_en:'Liquidity', cat_ar:'السيولة',
+   name_en:'Working Capital Ratio', name_ar:'نسبة رأس المال العامل',
+   formula_en:'Current Assets ÷ Total Assets × 100', formula_ar:'الأصول المتداولة ÷ إجمالي الأصول × 100',
+   explain_en:'What share of total assets sits in the current/liquid bucket — shows the balance sheet’s overall liquidity profile, not just a single-point ratio.',
+   explain_ar:'قد إيه من إجمالي الأصول قاعد في الشريحة المتداولة/السائلة — بيوضح الملمح العام لسيولة الميزانية، مش نسبة لحظية بس.',
+   inputs:[{key:'ca',en:'Current Assets',ar:'الأصول المتداولة'},{key:'ta',en:'Total Assets',ar:'إجمالي الأصول'}],
+   compute:v=>v.ta?(v.ca/v.ta):null, format:'pct'},
+  {category:'liquidity', cat_en:'Liquidity', cat_ar:'السيولة',
+   name_en:'Operating Cash Flow to Current Liabilities', name_ar:'قدرة التدفق النقدي على تغطية الالتزامات المتداولة',
+   formula_en:'Operating Cash Flow ÷ Current Liabilities', formula_ar:'التدفق النقدي التشغيلي ÷ الالتزامات المتداولة',
+   explain_en:'Can genuine operating cash — not just accounting profit — cover short-term obligations as they fall due?',
+   explain_ar:'هل الكاش التشغيلي الحقيقي — مش مجرد الربح المحاسبي — قادر يغطي الالتزامات قصيرة الأجل وقت استحقاقها؟',
+   inputs:[{key:'ocf',en:'Operating Cash Flow',ar:'التدفق النقدي التشغيلي'},{key:'cl',en:'Current Liabilities',ar:'الالتزامات المتداولة'}],
+   compute:v=>v.cl?v.ocf/v.cl:null, format:'x'},
+  {category:'leverage', cat_en:'Leverage &amp; Solvency', cat_ar:'الرفع المالي والملاءة',
+   name_en:'Equity to Assets', name_ar:'نسبة حقوق الملكية إلى الأصول',
+   formula_en:'Total Equity ÷ Total Assets × 100', formula_ar:'إجمالي حقوق الملكية ÷ إجمالي الأصول × 100',
+   explain_en:'What share of the asset base is financed by owners rather than creditors — the mirror image of the debt ratio.',
+   explain_ar:'قد إيه من قاعدة الأصول ممّوَّل من الملاك مش الدائنين — صورة المرآة لنسبة الدين.',
+   inputs:[{key:'te',en:'Total Equity',ar:'إجمالي حقوق الملكية'},{key:'ta',en:'Total Assets',ar:'إجمالي الأصول'}],
+   compute:v=>v.ta?(v.te/v.ta):null, format:'pct'},
+  {category:'leverage', cat_en:'Leverage &amp; Solvency', cat_ar:'الرفع المالي والملاءة',
+   name_en:'Debt to Capital Structure', name_ar:'نسبة الدين إلى هيكل رأس المال',
+   formula_en:'Total Debt ÷ (Total Debt + Total Equity) × 100', formula_ar:'إجمالي الدين ÷ (إجمالي الدين + إجمالي حقوق الملكية) × 100',
+   explain_en:'What portion of the company’s permanent financing structure comes from debt versus equity — a cleaner capital-structure view than debt-to-equity alone.',
+   explain_ar:'قد إيه من هيكل التمويل الدائم للشركة جاي من الدين مقابل حقوق الملكية — رؤية أنضف لهيكل رأس المال من نسبة الدين لحقوق الملكية لوحدها.',
+   inputs:[{key:'debt',en:'Total Debt',ar:'إجمالي الدين'},{key:'equity',en:'Total Equity',ar:'إجمالي حقوق الملكية'}],
+   compute:v=>(v.debt+v.equity)?(v.debt/(v.debt+v.equity)):null, format:'pct'}
 ];
+
+const RATIO_HEALTHY_RANGES = {
+  'Current Ratio':[1.5,3.0], 'Quick Ratio (Acid-Test)':[1.0,1.5], 'Cash Ratio':[0.2,0.5],
+  'Gross Profit Margin':[0.20,0.50], 'Net Profit Margin':[0.05,0.20],
+  'Return on Assets (ROA)':[0.05,0.15], 'Return on Equity (ROE)':[0.10,0.25],
+  'Inventory Turnover':[4,8], 'Receivables Turnover':[6,12], 'Days Sales Outstanding (DSO)':[30,60],
+  'Total Asset Turnover':[0.5,2.0], 'Debt-to-Equity':[0.5,1.5], 'Debt Ratio':[0.3,0.6],
+  'Interest Coverage':[3,6], 'Operating Profit Margin':[0.10,0.20], 'EBITDA Margin':[0.15,0.30],
+  'Days Inventory Outstanding (DIO)':[30,90], 'Payables Turnover':[6,12], 'Days Payable Outstanding (DPO)':[30,60],
+  'Cash Conversion Cycle':[0,60], 'Fixed Asset Turnover':[2,5], 'Equity Multiplier':[1.5,2.5],
+  'Long-Term Debt to Equity':[0.3,1.0], 'Dividend Payout Ratio':[0.20,0.50],
+  'Working Capital Turnover':[4,8], 'Operating Cycle':[60,120], 'Cash Turnover':[10,20],
+  'Return on Invested Capital (ROIC)':[0.10,0.20], 'Return on Capital Employed (ROCE)':[0.10,0.20],
+  'EBIT Margin':[0.10,0.20], 'Cash Flow to Sales Ratio':[0.08,0.15], 'Return on Sales (ROS)':[0.05,0.15],
+  'Operating Expense Ratio':[0.15,0.30], 'Working Capital Ratio':[0.30,0.60],
+  'Operating Cash Flow to Current Liabilities':[0.4,1.0], 'Equity to Assets':[0.40,0.60],
+  'Debt to Capital Structure':[0.30,0.50]
+};
+function renderRatioGauge(uid, ratio, rawResult){
+  const el = document.getElementById(`rg-${uid}`); if(!el) return;
+  const range = RATIO_HEALTHY_RANGES[ratio.name_en];
+  if(!range || rawResult===null || rawResult===undefined || !isFinite(rawResult)){ el.innerHTML = ''; return; }
+  const ar = cycleAr();
+  const [lo, hi] = range;
+  const isPct = ratio.format==='pct';
+  const val = isPct ? rawResult*100 : rawResult;
+  const loDisp = isPct ? lo*100 : lo;
+  const hiDisp = isPct ? hi*100 : hi;
+  const span = hiDisp - loDisp;
+  const padded = { min: loDisp - span*0.6, max: hiDisp + span*0.6 };
+  const clampPct = (x)=> Math.max(2, Math.min(98, ((x - padded.min)/(padded.max-padded.min))*100));
+  const zoneStart = clampPct(loDisp), zoneEnd = clampPct(hiDisp);
+  const markerPos = clampPct(val);
+  const inRange = val>=loDisp && val<=hiDisp;
+  const status = inRange ? (ar?'جوه النطاق الصحي':'Within the healthy range') : (val<loDisp ? (ar?'أقل من النطاق الصحي':'Below the healthy range') : (ar?'أعلى من النطاق الصحي':'Above the healthy range'));
+  const statusColor = inRange ? 'var(--success)' : 'var(--warning)';
+  el.innerHTML = `
+    <div class="ratio-gauge-wrap">
+      <div class="ratio-gauge-track">
+        <div class="ratio-gauge-zone" style="left:${zoneStart}%;width:${zoneEnd-zoneStart}%"></div>
+        <div class="ratio-gauge-marker" style="left:${markerPos}%" title="${val.toFixed(1)}"></div>
+      </div>
+      <div class="ratio-gauge-labels"><span>${ar?'أنت هنا':'You'}: <strong>${val.toFixed(1)}${isPct?'%':''}</strong></span><span style="color:${statusColor};font-weight:800">${status}</span></div>
+      <div class="ratio-gauge-range">${ar?'النطاق الصحي المعتاد':'Typical healthy range'}: ${loDisp.toFixed(1)}${isPct?'%':''} – ${hiDisp.toFixed(1)}${isPct?'%':''}</div>
+    </div>`;
+}
+
 window._ratioRegistry = {};
 function learnRenderRatios(){
   const list = document.getElementById('learn-ratios-list'); if(!list) return;
@@ -14251,6 +14823,7 @@ function learnRenderRatios(){
         <p class="ratio-explain">${ar?r.explain_ar:r.explain_en}</p>
         <div class="ratio-calc">${inputsHtml}</div>
         <div class="ratio-result" id="rr-${uid}">—</div>
+        <div id="rg-${uid}"></div>
       </div>`;
     }).join('');
     return `<div class="ratio-category" data-cat="${cat}"><span class="ratio-cat-title">${catLabel}</span><div class="ratio-cards">${cards}</div></div>`;
@@ -14272,6 +14845,7 @@ function ratioCalc(uid){
   else if(ratio.format==='daysvalue') el.textContent = result.toFixed(0) + (ar?' يوم':' days');
   else if(ratio.format==='value') el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2});
   else el.textContent = result.toFixed(2)+'x';
+  renderRatioGauge(uid, ratio, result);
 }
 
 
@@ -19532,6 +20106,7 @@ function setLanguage(lang){
  if(typeof payrollShowPayable==='function') payrollShowPayable();
  if(typeof learnRenderProgress==='function') learnRenderProgress();
  if(typeof learnRenderDailyTip==='function') learnRenderDailyTip();
+ if(typeof applyStudentNameGreeting==='function') applyStudentNameGreeting();
  if(typeof learnRenderEntries==='function') learnRenderEntries();
  if(typeof learnRenderGlossary==='function') learnRenderGlossary();
  if(typeof learnRenderTax==='function') learnRenderTax();
@@ -22227,7 +22802,73 @@ function closeAboutPopup(){ document.getElementById('aboutPopupOverlay').classLi
   transition:background .15s, transform .15s;
 }
 .about-popup-links a:hover{ background:var(--brand-soft); transform:translateX(3px); }
+
+.student-greeting-frame{
+  display:inline-block; padding:8px 18px; border-radius:14px; margin-top:8px;
+  font-size:15px; font-weight:800; color:#fff;
+  background:rgba(255,255,255,.1);
+  border:2.5px solid #F0B429;
+  animation:greetingFrameColors 3.5s linear infinite, greetingPopIn .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes greetingFrameColors{
+  0%,100%{ border-color:#F0B429; box-shadow:0 0 12px rgba(240,180,41,.55); }
+  33%{ border-color:#fb7185; box-shadow:0 0 12px rgba(251,113,133,.55); }
+  66%{ border-color:#38BDF8; box-shadow:0 0 12px rgba(56,189,248,.55); }
+}
+@keyframes greetingPopIn{
+  0%{ opacity:0; transform:scale(.8) translateY(-8px); }
+  100%{ opacity:1; transform:scale(1) translateY(0); }
+}
 </style>
+
+<div class="tip-popup-overlay" id="welcomeNameOverlay">
+  <div class="tip-popup-card">
+    <div class="tip-popup-icon">👋</div>
+    <div class="tip-popup-kicker" data-en="Welcome!" data-ar="أهلاً بيك!">Welcome!</div>
+    <h3 class="tip-popup-title" data-en="What should we call you?" data-ar="نناديك إيه؟">What should we call you?</h3>
+    <p class="tip-popup-body" data-en="Just your first name — we'll use it to personalize your learning here." data-ar="بس اسمك الأول — هنستخدمه عشان نخصّص تجربتك هنا.">Just your first name — we'll use it to personalize your learning here.</p>
+    <input type="text" id="welcomeNameInput" placeholder="e.g. Ahmed" style="width:100%;box-sizing:border-box;padding:11px 14px;border:2px solid var(--line-strong);border-radius:10px;font-size:15px;margin-bottom:14px;text-align:center" maxlength="20">
+    <button type="button" class="tip-popup-got-it" onclick="saveWelcomeName()" data-en="Start Learning →" data-ar="ابدأ التعلّم ←">Start Learning →</button>
+    <p style="margin-top:10px"><a href="#" onclick="skipWelcomeName();return false;" style="font-size:12.5px;color:var(--muted);text-decoration:underline" data-en="Skip for now" data-ar="تخطّي دلوقتي">Skip for now</a></p>
+  </div>
+</div>
+
+<script>
+function saveWelcomeName(){
+  const val = document.getElementById('welcomeNameInput').value.trim();
+  if(val){ try{ localStorage.setItem('ayman-student-name', val); }catch(e){} }
+  try{ localStorage.setItem('ayman-welcome-seen', '1'); }catch(e){}
+  document.getElementById('welcomeNameOverlay').classList.remove('is-open');
+  applyStudentNameGreeting();
+}
+function skipWelcomeName(){
+  try{ localStorage.setItem('ayman-welcome-seen', '1'); }catch(e){}
+  document.getElementById('welcomeNameOverlay').classList.remove('is-open');
+}
+function applyStudentNameGreeting(){
+  let name = '';
+  try{ name = localStorage.getItem('ayman-student-name') || ''; }catch(e){}
+  const greetEl = document.getElementById('studentGreeting');
+  if(!greetEl) return;
+  const ar = document.documentElement.lang==='ar';
+  if(name){
+    greetEl.style.display = 'inline-block';
+    greetEl.textContent = (ar ? 'أهلاً بيك تاني، ' : 'Welcome back, ') + name + (ar ? '! 👋' : '! 👋');
+  } else {
+    greetEl.style.display = 'none';
+  }
+}
+(function initWelcomePopup(){
+  let seen = false;
+  try{ seen = localStorage.getItem('ayman-welcome-seen') === '1'; }catch(e){}
+  if(!seen){
+    document.addEventListener('DOMContentLoaded', function(){
+      setTimeout(()=>{ document.getElementById('welcomeNameOverlay').classList.add('is-open'); }, 600);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', applyStudentNameGreeting);
+})();
+</script>
 
 </body>
 </html>
