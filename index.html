@@ -2467,6 +2467,21 @@ body.is-workspace .mock-home{
   opacity:1 !important;transform:none !important;visibility:visible !important;
 }
 .mock-desks{display:grid !important;grid-template-columns:1fr 1fr !important;gap:10px !important;margin:0 0 12px !important}
+
+.home-inspiration-card{
+  margin:16px 0; padding:16px 20px; border-radius:16px;
+  background:linear-gradient(120deg,#fff 0%,var(--brand-soft) 100%);
+  border:2px solid var(--brand); display:flex; align-items:center; justify-content:space-between;
+  gap:14px; flex-wrap:wrap;
+}
+.home-inspiration-text{ font-size:14.5px; font-weight:700; color:var(--brand-dark); display:flex; align-items:center; gap:10px; flex:1; min-width:200px; line-height:1.5; }
+.hiq-icon{ font-size:22px; flex:none; }
+.home-inspiration-shuffle{
+  background:var(--brand); color:#fff; border:none; padding:8px 16px; border-radius:20px;
+  font-size:12.5px; font-weight:800; cursor:pointer; white-space:nowrap; transition:transform .15s, box-shadow .15s;
+}
+.home-inspiration-shuffle:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(15,118,110,.3); }
+
 .home-desk-group{ margin-bottom:14px; border:2px solid var(--line-strong); border-radius:14px; overflow:hidden; background:#fff; }
 .home-desk-group-header{
   display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none;
@@ -3294,6 +3309,17 @@ input[type="text"]:focus, input[type="number"]:focus{
 .mock-tools-grid .mock-tool:nth-child(8){ border-color:#4a90a4 !important; }
 .mock-tools-grid .mock-tool:nth-child(9){ border-color:#d4454c !important; }
 .mock-tools-grid .mock-tool:nth-child(10){ border-color:#2e9e5b !important; }
+@keyframes investCardShimmer{ 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
+#investigationToolCard{
+  border-width:2.5px !important;
+  animation:investCardBorderGlow 3s linear infinite !important;
+  box-shadow:0 0 0 0 transparent;
+}
+@keyframes investCardBorderGlow{
+  0%,100%{ border-color:#F0B429 !important; box-shadow:0 0 12px rgba(240,180,41,.5); }
+  33%{ border-color:#fb7185 !important; box-shadow:0 0 12px rgba(251,113,133,.5); }
+  66%{ border-color:#38BDF8 !important; box-shadow:0 0 12px rgba(56,189,248,.5); }
+}
 
 /* My Progress — badges and table */
 .progress-badges{
@@ -3542,7 +3568,12 @@ input[type="text"]:focus, input[type="number"]:focus{
       <button type="button" class="btn btn-primary" id="homeContinueBtn" data-en="Continue →" data-ar="كمّل ←">Continue →</button>
     </div>
 
-    <h3 class="ledger-eyebrow" data-en="Acting As" data-ar="العمل كـ">Acting As</h3>
+    <div class="home-inspiration-card">
+      <div id="homeInspirationQuote" class="home-inspiration-text"></div>
+      <button type="button" class="home-inspiration-shuffle" onclick="homeRenderInspirationQuote()" data-en="🎲 Another one" data-ar="🎲 واحدة تانية">🎲 Another one</button>
+    </div>
+
+<h3 class="ledger-eyebrow" data-en="Acting As" data-ar="العمل كـ">Acting As</h3>
     <div class="home-desk-groups">
       <div class="home-desk-group" id="homeGroup-trans">
         <div class="home-desk-group-header" onclick="toggleHomeGroup('trans')" role="button" tabindex="0">
@@ -3778,7 +3809,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <button type="button" class="mock-tool" onclick="showPanel('learn-sops')" style="position:relative"><span>📑</span><strong data-en="SOP Library" data-ar="مكتبة SOPs">SOP Library</strong><small>مكتبة SOPs</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
         <button type="button" class="mock-tool" onclick="showPanel('learn-mysteries')" style="position:relative"><span>🧩</span><strong data-en="Accounting Mysteries" data-ar="ألغاز محاسبية">Accounting Mysteries</strong><small>ألغاز محاسبية</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
         <button type="button" class="mock-tool" onclick="showPanel('cross-tickets')"><span>🔄</span><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><small>التسليم للقسم المختص</small></button>
-        <button type="button" class="mock-tool" onclick="investigationRenderPicker();investigationRender();showPanel('learn-investigation')"><span>🔎</span><strong data-en="Full Investigation" data-ar="تحقيق كامل">Full Investigation</strong><small>تحقيق كامل</small></button>
+        <button type="button" id="investigationToolCard" class="mock-tool" onclick="investigationRenderPicker();investigationRender();showPanel('learn-investigation')" style="position:relative"><span>🔎</span><strong data-en="Full Investigation" data-ar="تحقيق كامل">Full Investigation</strong><small>تحقيق كامل</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:linear-gradient(90deg,#F0B429,#fb7185,#38BDF8,#F0B429);background-size:300% auto;color:#1a1a1a;padding:2px 7px;border-radius:6px;font-weight:800;animation:investCardShimmer 3s linear infinite" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
         <button type="button" class="mock-tool" onclick="learnRenderBasics();showPanel('learn-basics')"><span>🧮</span><strong data-en="Basic Commercial Formulas" data-ar="معادلات تجارية أساسية">Basic Commercial Formulas</strong><small>معادلات تجارية أساسية</small></button>
       </div>
     </section>
@@ -11644,6 +11675,7 @@ function goHome(isBack){
   document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-selected','false'));
   window.scrollTo({top:0, behavior:'smooth'});
   if(typeof homeRenderContinueCard==='function') homeRenderContinueCard();
+  if(typeof homeRenderInspirationQuote==='function') homeRenderInspirationQuote();
 }
 function goBack(){
   if(navHistory.length === 0){ goHome(true); return; }
@@ -12579,7 +12611,116 @@ const INVESTIGATION_SCENARIOS = [
       {v:'miscount',en:'Just a counting mistake',ar:'مجرد غلطة عد'},
       {v:'wrongitem',en:'Wrong item code used',ar:'كود صنف غلط اتستخدم'},
       {v:'normal',en:'Within normal shrinkage',ar:'جوه العجز الطبيعي'}
-    ], correct:'theft' }
+    ], correct:'theft' },
+
+  { id:'payroll-calc', title_en:'April Payroll Run', title_ar:'تشغيل رواتب أبريل',
+    intro_en:'12 employees were paid this month. Net Pay should always equal Gross Pay minus Social Insurance minus Tax. One employee\u2019s numbers don\u2019t add up. Click the row you suspect.',
+    intro_ar:'اتصرفت رواتب 12 موظف الشهر ده. صافي الراتب لازم يساوي دايمًا إجمالي الراتب ناقص التأمينات ناقص الضريبة. أرقام موظف واحد مش مظبوطة. دوس على الصف اللي بتشك فيه.',
+    cols:[{k:'name',en:'Employee',ar:'الموظف'},{k:'gross',en:'Gross Pay',ar:'إجمالي الراتب',num:true},{k:'si',en:'Social Insurance',ar:'التأمينات',num:true},{k:'tax',en:'Tax',ar:'الضريبة',num:true},{k:'net',en:'Net Pay',ar:'صافي الراتب',num:true}],
+    rows:[
+      {name:'Ahmed Hassan',gross:18000,si:1980,tax:1800,net:14220},
+      {name:'Mona Saeed',gross:22000,si:2420,tax:2200,net:17380},
+      {name:'Khaled Ibrahim',gross:15500,si:1705,tax:1550,net:12245},
+      {name:'Dina Fathy',gross:19800,si:2178,tax:1980,net:15642},
+      {name:'Omar Said',gross:26000,si:2860,tax:2600,net:21540,err:true},
+      {name:'Rania Adel',gross:17200,si:1892,tax:1720,net:13588},
+      {name:'Tamer Farouk',gross:24500,si:2695,tax:2450,net:19355},
+      {name:'Heba Mostafa',gross:16900,si:1859,tax:1690,net:13351},
+      {name:'Youssef Nabil',gross:21300,si:2343,tax:2130,net:16827},
+      {name:'Salma Kareem',gross:18700,si:2057,tax:1870,net:14773},
+      {name:'Amir Tawfik',gross:23100,si:2541,tax:2310,net:18249},
+      {name:'Nour Hisham',gross:20400,si:2244,tax:2040,net:16116}
+    ],
+    explain_en:'Omar Said\u2019s Net Pay is shown as EGP 21,540, but 26,000 \u2212 2,860 \u2212 2,600 = 20,540. The figure is overstated by exactly EGP 1,000.',
+    explain_ar:'صافي راتب عمر سعيد ظاهر 21,540 جنيه، لكن 26,000 − 2,860 − 2,600 = 20,540. الرقم متضخّم بالظبط بـ1,000 جنيه.',
+    types:[
+      {v:'calc',en:'Net Pay doesn\u2019t match Gross minus deductions',ar:'صافي الراتب مش مطابق للإجمالي ناقص الخصومات'},
+      {v:'si',en:'Wrong Social Insurance rate applied',ar:'نسبة تأمينات خطأ اتطبقت'},
+      {v:'dup',en:'Employee paid twice',ar:'الموظف اتصرفله مرتين'},
+      {v:'ghost',en:'A ghost employee on the payroll',ar:'موظف وهمي في كشف الرواتب'}
+    ], correct:'calc' },
+
+  { id:'budget-costcenter', title_en:'April Expense Postings', title_ar:'ترحيلات مصروفات أبريل',
+    intro_en:'12 expenses were charged to cost centers this month. One was clearly charged to the wrong cost center. Click the line you suspect.',
+    intro_ar:'اتحمّلت 12 مصروف على مراكز التكلفة الشهر ده. واحد منهم اتحمّل على مركز تكلفة غلط بوضوح. دوس على البند اللي بتشك فيه.',
+    cols:[{k:'date',en:'Date',ar:'التاريخ'},{k:'desc',en:'Description',ar:'الوصف'},{k:'amt',en:'Amount (EGP)',ar:'المبلغ (جنيه)',num:true},{k:'cc',en:'Cost Center Charged',ar:'مركز التكلفة المحمّل عليه'}],
+    rows:[
+      {date:'02-Apr',desc:'Office rent',amt:45000,cc:'Admin'},
+      {date:'04-Apr',desc:'Raw material purchase',amt:128000,cc:'Production'},
+      {date:'06-Apr',desc:'Social media ads campaign',amt:22000,cc:'Production',err:true},
+      {date:'08-Apr',desc:'Factory electricity',amt:35000,cc:'Production'},
+      {date:'10-Apr',desc:'Sales commissions',amt:18500,cc:'Sales'},
+      {date:'12-Apr',desc:'Office supplies',amt:8200,cc:'Admin'},
+      {date:'14-Apr',desc:'Machine maintenance',amt:42000,cc:'Production'},
+      {date:'16-Apr',desc:'Trade show booth',amt:31000,cc:'Marketing'},
+      {date:'18-Apr',desc:'Delivery fuel',amt:14700,cc:'Sales'},
+      {date:'20-Apr',desc:'Factory wages',amt:95000,cc:'Production'},
+      {date:'22-Apr',desc:'Print brochures',amt:9800,cc:'Marketing'},
+      {date:'24-Apr',desc:'IT support',amt:12300,cc:'Admin'}
+    ],
+    explain_en:'\u201cSocial media ads campaign\u201d is a Marketing expense by nature, but it was charged to the Production cost center \u2014 that overstates Production\u2019s cost and understates Marketing\u2019s.',
+    explain_ar:'\u201cحملة إعلانات سوشيال ميديا\u201d مصروف تسويق بطبيعته، لكن اتحمّل على مركز تكلفة الإنتاج \u2014 ده بيضخّم تكلفة الإنتاج ويقلّل تكلفة التسويق.',
+    types:[
+      {v:'cc',en:'Charged to the wrong cost center',ar:'اتحمّل على مركز تكلفة غلط'},
+      {v:'amt',en:'Wrong amount',ar:'مبلغ غلط'},
+      {v:'dup',en:'Duplicate posting',ar:'ترحيل مكرر'},
+      {v:'period',en:'Posted in the wrong period',ar:'اترحّل في فترة غلط'}
+    ], correct:'cc' },
+
+  { id:'vat-rate', title_en:'April VAT on Sales Invoices', title_ar:'ضريبة القيمة المضافة على فواتير أبريل',
+    intro_en:'12 invoices were issued this month at the standard 14% VAT rate. One invoice\u2019s VAT doesn\u2019t match its net amount at that rate. Click the line you suspect.',
+    intro_ar:'اتصدرت 12 فاتورة الشهر ده بمعدل ضريبة قيمة مضافة 14% قياسي. فاتورة واحدة ضريبتها مش مطابقة لصافي مبلغها بالمعدل ده. دوس على الفاتورة اللي بتشك فيها.',
+    cols:[{k:'id',en:'Invoice #',ar:'رقم الفاتورة'},{k:'cust',en:'Customer',ar:'العميل'},{k:'net',en:'Net Amount',ar:'المبلغ الصافي',num:true},{k:'rate',en:'VAT Rate',ar:'معدل الضريبة'},{k:'vat',en:'VAT Amount',ar:'مبلغ الضريبة',num:true}],
+    rows:[
+      {id:'INV-801',cust:'Al-Rayan Co',net:50000,rate:'14%',vat:7000},
+      {id:'INV-802',cust:'Noor Trading',net:32000,rate:'14%',vat:4480},
+      {id:'INV-803',cust:'City Mall',net:75000,rate:'14%',vat:10500},
+      {id:'INV-804',cust:'Delta Supplies',net:28000,rate:'14%',vat:3920},
+      {id:'INV-805',cust:'Prime Foods',net:41000,rate:'14%',vat:4100,err:true},
+      {id:'INV-806',cust:'Golden Gate',net:55000,rate:'14%',vat:7700},
+      {id:'INV-807',cust:'Al-Fajr',net:19000,rate:'14%',vat:2660},
+      {id:'INV-808',cust:'Modern Mart',net:62000,rate:'14%',vat:8680},
+      {id:'INV-809',cust:'Star Trading',net:24000,rate:'14%',vat:3360},
+      {id:'INV-810',cust:'Elite Group',net:48000,rate:'14%',vat:6720},
+      {id:'INV-811',cust:'Royal Foods',net:33000,rate:'14%',vat:4620},
+      {id:'INV-812',cust:'Sunrise Co',net:29000,rate:'14%',vat:4060}
+    ],
+    explain_en:'INV-805 shows VAT of EGP 4,100 on a net amount of EGP 41,000 \u2014 that\u2019s only 10%, not the stated 14%. At 14% it should be EGP 5,740, understating output VAT by EGP 1,640.',
+    explain_ar:'INV-805 ضريبتها 4,100 جنيه على صافي مبلغ 41,000 جنيه \u2014 ده 10% بس، مش 14% المذكورة. بمعدل 14% المفروض تكون 5,740 جنيه، يعني ضريبة المخرجات ناقصة بـ1,640 جنيه.',
+    types:[
+      {v:'rate',en:'Wrong VAT rate applied to this invoice',ar:'معدل ضريبة غلط اتطبق على الفاتورة دي'},
+      {v:'exempt',en:'This customer should be VAT-exempt',ar:'العميل ده المفروض معفى من الضريبة'},
+      {v:'dup',en:'Duplicate invoice',ar:'فاتورة مكررة'},
+      {v:'missing',en:'A missing invoice',ar:'فاتورة ناقصة'}
+    ], correct:'rate' },
+
+  { id:'fa-depreciation', title_en:'Annual Depreciation Schedule', title_ar:'جدول الإهلاك السنوي',
+    intro_en:'12 assets are depreciated on a straight-line basis (Cost \u00f7 Useful Life). One asset\u2019s annual depreciation doesn\u2019t match that formula. Click the asset you suspect.',
+    intro_ar:'12 أصل بيتم إهلاكهم بطريقة القسط الثابت (التكلفة ÷ العمر الإنتاجي). أصل واحد إهلاكه السنوي مش مطابق للمعادلة دي. دوس على الأصل اللي بتشك فيه.',
+    cols:[{k:'id',en:'Asset Code',ar:'كود الأصل'},{k:'desc',en:'Description',ar:'الوصف'},{k:'cost',en:'Cost (EGP)',ar:'التكلفة (جنيه)',num:true},{k:'life',en:'Useful Life (Years)',ar:'العمر الإنتاجي (سنة)',num:true},{k:'dep',en:'Annual Depreciation',ar:'الإهلاك السنوي',num:true}],
+    rows:[
+      {id:'FA-01',desc:'Delivery Truck',cost:450000,life:5,dep:90000},
+      {id:'FA-02',desc:'Office Building',cost:2400000,life:20,dep:120000},
+      {id:'FA-03',desc:'Production Line A',cost:850000,life:10,dep:85000},
+      {id:'FA-04',desc:'Computer Equipment',cost:120000,life:4,dep:30000},
+      {id:'FA-05',desc:'Warehouse Racking',cost:180000,life:8,dep:22500},
+      {id:'FA-06',desc:'Forklift',cost:220000,life:5,dep:55000,err:true},
+      {id:'FA-07',desc:'Office Furniture',cost:95000,life:7,dep:13571},
+      {id:'FA-08',desc:'Generator',cost:310000,life:10,dep:31000},
+      {id:'FA-09',desc:'Production Line B',cost:920000,life:10,dep:92000},
+      {id:'FA-10',desc:'Security System',cost:65000,life:5,dep:13000},
+      {id:'FA-11',desc:'AC Units',cost:140000,life:7,dep:20000},
+      {id:'FA-12',desc:'Packaging Machine',cost:275000,life:5,dep:55000}
+    ],
+    explain_en:'FA-06\u2019s Forklift cost EGP 220,000 over a 5-year useful life \u2014 that\u2019s EGP 44,000 per year, not the EGP 55,000 shown. The schedule overstates depreciation by EGP 11,000 a year.',
+    explain_ar:'رافعة الشوكة FA-06 تكلفتها 220,000 جنيه على عمر إنتاجي 5 سنين \u2014 يعني 44,000 جنيه في السنة، مش 55,000 الظاهرة. الجدول بيضخّم الإهلاك بـ11,000 جنيه في السنة.',
+    types:[
+      {v:'calc',en:'Annual depreciation doesn\u2019t match Cost \u00f7 Useful Life',ar:'الإهلاك السنوي مش مطابق للتكلفة ÷ العمر الإنتاجي'},
+      {v:'life',en:'Wrong useful life was used',ar:'عمر إنتاجي غلط اتستخدم'},
+      {v:'method',en:'Wrong depreciation method applied',ar:'طريقة إهلاك غلط اتطبقت'},
+      {v:'dup',en:'Asset listed twice',ar:'الأصل متسجل مرتين'}
+    ], correct:'calc' }
+
 ];
 
 let investigationScenarioIdx = 0;
@@ -12844,6 +12985,53 @@ function basicsCalc(uid){
   const ar = cycleAr();
   if(item.format==='pct') el.textContent = (result*100).toFixed(1)+'%';
   else el.textContent = result.toLocaleString(undefined,{maximumFractionDigits:2});
+}
+
+
+const HOME_INSPIRATION_QUOTES = [
+  {en:'Numbers don\u2019t lie, but they don\u2019t tell the whole story either \u2014 always ask what\u2019s behind them.', ar:'الأرقام مبتكدبش، بس برضو مابتحكيش القصة كاملة \u2014 دايمًا اسأل إيه اللي وراها.', icon:'🔢'},
+  {en:'A balanced trial balance proves your arithmetic, not your accuracy.', ar:'ميزان المراجعة المتوازن بيثبت حسابك صح، مش إنك مظبوط فعلًا.', icon:'⚖️'},
+  {en:'Cash is a fact. Profit is an opinion.', ar:'الكاش حقيقة. الربح رأي.', icon:'💵'},
+  {en:'The best audit trail is the one you never have to explain twice.', ar:'أحسن مسار تدقيق هو اللي محتاجش تشرحه مرتين.', icon:'🔍'},
+  {en:'Every adjusting entry tells a story about what almost got forgotten.', ar:'كل قيد تسوية بيحكي قصة عن حاجة كانت ممكن تتنسى.', icon:'📝'},
+  {en:'A good accountant finds the error. A great one finds why it happened.', ar:'المحاسب الكويس بيلاقي الغلط. المحاسب الممتاز بيلاقي ليه حصل.', icon:'🎯'},
+  {en:'Ratios don\u2019t manage a business \u2014 people who understand them do.', ar:'النسب المالية مابتديرش الشركة \u2014 اللي بيفهمها هو اللي بيديرها.', icon:'📊'},
+  {en:'Reconciliation isn\u2019t busywork. It\u2019s where the truth hides.', ar:'المطابقة مش شغل فاضي. هي المكان اللي الحقيقة مختبية فيه.', icon:'🧩'},
+  {en:'Revenue is vanity, profit is sanity, cash is reality.', ar:'الإيراد غرور، الربح عقل، والكاش حقيقة.', icon:'💰'},
+  {en:'A budget is just a plan that admits it might be wrong.', ar:'الموازنة هي خطة بتعترف إنها ممكن تكون غلط.', icon:'📋'},
+  {en:'The hardest part of studying isn\u2019t understanding \u2014 it\u2019s starting.', ar:'أصعب حاجة في المذاكرة مش الفهم \u2014 هي إنك تبدأ.', icon:'📚'},
+  {en:'Discipline is choosing between what you want now and what you want most.', ar:'الانضباط هو إنك تختار بين اللي عايزه دلوقتي واللي عايزه فعلًا.', icon:'💪'},
+  {en:'Small daily progress beats occasional bursts of ambition.', ar:'تقدّم صغير كل يوم أحسن من حماس مؤقت بين فترة والتانية.', icon:'🌱'},
+  {en:'You don\u2019t need to feel ready. You need to begin.', ar:'مش لازم تحس إنك جاهز. لازم بس تبدأ.', icon:'🚀'},
+  {en:'Mastery is just a thousand small corrections, patiently made.', ar:'الإتقان هو بس ألف تصحيح صغير، اتعمل بصبر.', icon:'🎓'},
+  {en:'The exam doesn\u2019t test what you know \u2014 it tests what you can recall under pressure. So practice under pressure.', ar:'الامتحان مابيختبرش اللي تعرفه \u2014 بيختبر اللي تقدر تفتكره تحت ضغط. فتمرّن تحت ضغط.', icon:'⏱️'},
+  {en:'Every expert was once a beginner who refused to quit.', ar:'كل خبير كان يومًا مبتدئ رفض يستسلم.', icon:'🌟'},
+  {en:'Your focus determines your reality \u2014 especially at 11pm with a deadline tomorrow.', ar:'تركيزك بيحدد واقعك \u2014 خصوصًا الساعة 11 بالليل ومعاك ديدلاين بكرة.', icon:'🎯'},
+  {en:'Consistency beats intensity. Show up daily, even for 20 minutes.', ar:'الاستمرارية أقوى من الكثافة. احضر كل يوم، حتى لو 20 دقيقة بس.', icon:'🔁'},
+  {en:'A clear mind solves in minutes what a tired mind struggles with for hours.', ar:'العقل الصافي بيحل في دقايق اللي العقل التعبان بيتعذب فيه ساعات.', icon:'🧠'},
+  {en:'Intelligence is knowing what you don\u2019t know \u2014 and going to find out.', ar:'الذكاء إنك تعرف إيه اللي مش عارفه \u2014 وتروح تدوّر عليه.', icon:'💡'},
+  {en:'Confusion is the first step toward understanding \u2014 don\u2019t run from it.', ar:'الحيرة هي أول خطوة للفهم \u2014 متهربش منها.', icon:'🌀'},
+  {en:'Ask the question that feels embarrassing. It\u2019s usually the one everyone else has too.', ar:'اسأل السؤال اللي حاسس إنه محرج. في الغالب كل اللي حواليك عندهم نفس السؤال.', icon:'❓'},
+  {en:'A person who never makes mistakes never attempted anything difficult.', ar:'اللي ماغلطش أبدًا يبقى ماحاولش حاجة صعبة أبدًا.', icon:'🎲'},
+  {en:'Patience is not passive waiting \u2014 it\u2019s active persistence with a calm face.', ar:'الصبر مش انتظار ساكت \u2014 هو إصرار نشيط بوش هادي.', icon:'🕊️'},
+  {en:'The work you avoid today is the stress you carry tomorrow.', ar:'الشغل اللي بتأجله النهاردة هو التوتر اللي هتحمله بكرة.', icon:'⏳'},
+  {en:'Your career is built in the quiet hours nobody\u2019s watching.', ar:'مستقبلك المهني بيتبني في الساعات الهادية اللي محدش بيبصلك فيها.', icon:'🌙'},
+  {en:'Growth feels uncomfortable because you\u2019re outgrowing who you used to be.', ar:'النمو بيحس بعدم ارتياح لأنك بتكبر على اللي كنته.', icon:'🌿'},
+  {en:'A professional does the work whether they feel like it or not.', ar:'المحترف بيعمل شغله سواء حاسس بالمزاج ولا لأ.', icon:'🧭'},
+  {en:'Certainty is for amateurs. Professionals learn to work well with doubt.', ar:'اليقين للمبتدئين. المحترفين بيتعلموا يشتغلوا كويس مع الشك.', icon:'🎭'},
+  {en:'Don\u2019t compare your chapter 3 to someone else\u2019s chapter 20.', ar:'متقارنش فصلك التالت بفصل حد تاني العشرين.', icon:'📖'},
+  {en:'Rest is part of the plan, not a betrayal of it.', ar:'الراحة جزء من الخطة، مش خيانة ليها.', icon:'☕'},
+  {en:'Momentum is easier to maintain than to create \u2014 so never let it fully stop.', ar:'المحافظة على الزخم أسهل من خلقه من الأول \u2014 فمتخليهوش يوقف خالص.', icon:'⚡'},
+  {en:'The person who asks for help looks weaker for ten minutes and stronger for ten years.', ar:'اللي بيطلب مساعدة بيبان ضعيف لعشر دقايق، وبيبقى أقوى لعشر سنين.', icon:'🤝'},
+  {en:'Done is better than perfect \u2014 you can polish what exists, not what doesn\u2019t.', ar:'المنجز أحسن من المثالي \u2014 تقدر تلمّع اللي موجود، مش اللي مش موجود.', icon:'✅'},
+  {en:'Every number on a financial statement used to be a decision someone made.', ar:'كل رقم في القائمة المالية كان يومًا قرار اتخده حد.', icon:'📈'},
+  {en:'Understanding why beats memorizing what \u2014 every single time.', ar:'فهم ليه بيكسب حفظ إيه \u2014 في كل مرة.', icon:'🔑'}
+];
+function homeRenderInspirationQuote(){
+  const el = document.getElementById('homeInspirationQuote'); if(!el) return;
+  const q = HOME_INSPIRATION_QUOTES[Math.floor(Math.random()*HOME_INSPIRATION_QUOTES.length)];
+  const ar = cycleAr();
+  el.innerHTML = `<span class="hiq-icon">${q.icon}</span><span class="hiq-text">${ar?q.ar:q.en}</span>`;
 }
 
 function cyclePopulateSelects(){
@@ -18895,6 +19083,7 @@ function homeRenderFocus(){
 }
 homeLoadVisited();
 homeRenderContinueCard();
+homeRenderInspirationQuote();
 homeRenderVisitedBadges();
 homeRenderCommandCard();
 homeRenderFocus();
@@ -20107,6 +20296,7 @@ function setLanguage(lang){
  if(typeof learnRenderProgress==='function') learnRenderProgress();
  if(typeof learnRenderDailyTip==='function') learnRenderDailyTip();
  if(typeof applyStudentNameGreeting==='function') applyStudentNameGreeting();
+ if(typeof homeRenderInspirationQuote==='function') homeRenderInspirationQuote();
  if(typeof learnRenderEntries==='function') learnRenderEntries();
  if(typeof learnRenderGlossary==='function') learnRenderGlossary();
  if(typeof learnRenderTax==='function') learnRenderTax();
