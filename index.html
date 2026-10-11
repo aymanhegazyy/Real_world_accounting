@@ -2467,6 +2467,16 @@ body.is-workspace .mock-home{
   opacity:1 !important;transform:none !important;visibility:visible !important;
 }
 .mock-desks{display:grid !important;grid-template-columns:1fr 1fr !important;gap:10px !important;margin:0 0 12px !important}
+.home-desk-group{ margin-bottom:14px; border:2px solid var(--line-strong); border-radius:14px; overflow:hidden; background:#fff; }
+.home-desk-group-header{
+  display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none;
+  padding:12px 16px; background:var(--brand); color:#fff; font-weight:800; font-size:14px;
+}
+.home-desk-group-header:hover{ filter:brightness(1.08); }
+.home-desk-group-chevron{ transition:transform .15s ease; }
+.home-desk-group.is-collapsed .home-desk-group-list{ display:none !important; }
+.home-desk-group-list{ padding:12px !important; margin:0 !important; }
+.md-sim-badge{ font-size:11px; margin-inline-start:6px; opacity:.85; }
 .mock-desk{display:flex !important;opacity:1 !important;visibility:visible !important;background:#fff !important}
 .mock-steps{display:flex !important;opacity:1 !important;margin:0 0 12px !important}
 .mock-case-banner{display:flex !important;opacity:1 !important;margin:0 0 12px !important;background:#fff !important}
@@ -2643,6 +2653,12 @@ body.is-workspace .ws-subnav{
 .ws-group-header-ops{ background:#3F8E79; }
 .ws-group-card-learn{ border-color:#1E7560; background:linear-gradient(180deg,#A9D9C7 0%,#C2E6D7 100%); }
 .ws-group-header-learn{ background:#217A64; }
+
+.ws-group-header-toggle{ display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none; }
+.ws-group-header-toggle:hover{ filter:brightness(1.08); }
+.ws-group-chevron{ font-size:13px; transition:transform .15s ease; }
+.ws-group-card.is-collapsed .ws-ops-list{ display:none; }
+.ws-group-card .ws-ops-list{ display:block; }
 
 /* Operational list — items sit inside the group card, no border/background of their own */
 .ws-ops-list{
@@ -3446,6 +3462,7 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="mock-hero-copy">
       <h1><span data-en="Learn Accounting." data-ar="تعلّم المحاسبة.">Learn Accounting.</span><br><span data-en="Think Like an Accountant." data-ar="فكّر كمحاسب.">Think Like an Accountant.</span></h1>
       <p data-en="One company. Real desks. Daily exceptions and month-end work." data-ar="شركة واحدة. مكاتب حقيقية. استثناءات يومية وإقفال شهر.">One company. Real desks. Daily exceptions and month-end work.</p>
+      <span style="display:inline-block;margin-top:10px;font-size:12px;font-weight:800;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;padding:5px 14px;border-radius:20px" data-en="✍️ NEW — all 13 desks now let you post real transactions yourself" data-ar="✍️ جديد — كل الـ13 مكتب دلوقتي تقدر ترحّل معاملات حقيقية بنفسك">✍️ NEW — all 13 desks now let you post real transactions yourself</span>
     </div>
     <div class="mock-hero-art" aria-hidden="true">
       <div class="mha-scene">
@@ -3500,8 +3517,22 @@ input[type="text"]:focus, input[type="number"]:focus{
 
   <div class="home-clean home-view mock-home" id="homeClean">
 
+    <div id="homeContinueCard" style="display:none;margin-bottom:16px;padding:14px 18px;background:linear-gradient(135deg,#fff,var(--brand-soft));border:2px solid var(--brand);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:11px;font-weight:800;color:var(--brand-dark);text-transform:uppercase;letter-spacing:.05em" data-en="Continue where you left off" data-ar="كمّل منين ما وقفت">Continue where you left off</div>
+        <div id="homeContinueLabel" style="font-size:15px;font-weight:700;color:var(--ink);margin-top:3px"></div>
+      </div>
+      <button type="button" class="btn btn-primary" id="homeContinueBtn" data-en="Continue →" data-ar="كمّل ←">Continue →</button>
+    </div>
+
     <h3 class="ledger-eyebrow" data-en="Acting As" data-ar="العمل كـ">Acting As</h3>
-    <div class="mock-desks">
+    <div class="home-desk-groups">
+      <div class="home-desk-group" id="homeGroup-trans">
+        <div class="home-desk-group-header" onclick="toggleHomeGroup('trans')" role="button" tabindex="0">
+          <span>Transactional Desks / مكاتب تشغيلية</span>
+          <span class="home-desk-group-chevron" id="homeChevron-trans">▾</span>
+        </div>
+        <div class="mock-desks home-desk-group-list" id="homeList-trans">
       <button type="button" class="mock-desk" data-station="ar" onclick="openWorkspaceMenu('ar')">
         <div class="md-art md-ar">👥</div>
         <div class="md-body">
@@ -3510,7 +3541,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">AR</span>
               <strong data-en="Accounts Receivable" data-ar="حسابات العملاء">Accounts Receivable</strong>
             </div>
-            <span class="md-desc" data-en="Customer payments &amp; collections" data-ar="تحصيل ومتابعة مدفوعات العملاء">Customer payments &amp; collections</span>
+            <span class="md-desc" data-en="Customer payments &amp; collections" data-ar="تحصيل ومتابعة مدفوعات العملاء">Customer payments &amp; collections</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3525,7 +3556,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">AP</span>
               <strong data-en="Accounts Payable" data-ar="حسابات الموردين">Accounts Payable</strong>
             </div>
-            <span class="md-desc" data-en="Supplier bills &amp; payments" data-ar="فواتير ومدفوعات الموردين">Supplier bills &amp; payments</span>
+            <span class="md-desc" data-en="Supplier bills &amp; payments" data-ar="فواتير ومدفوعات الموردين">Supplier bills &amp; payments</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3540,7 +3571,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">INV</span>
               <strong data-en="Inventory &amp; Warehouse" data-ar="المخزون والمخازن">Inventory &amp; Warehouse</strong>
             </div>
-            <span class="md-desc" data-en="Stock control &amp; valuation" data-ar="مراقبة المخزون وتقييمه">Stock control &amp; valuation</span>
+            <span class="md-desc" data-en="Stock control &amp; valuation" data-ar="مراقبة المخزون وتقييمه">Stock control &amp; valuation</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3555,43 +3586,21 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">RECV</span>
               <strong data-en="Receiving Accountant" data-ar="محاسب الاستلام">Receiving Accountant</strong>
             </div>
-            <span class="md-desc" data-en="Goods receipt &amp; supplier matching" data-ar="استلام البضاعة ومطابقة الموردين">Goods receipt &amp; supplier matching</span>
+            <span class="md-desc" data-en="Goods receipt &amp; supplier matching" data-ar="استلام البضاعة ومطابقة الموردين">Goods receipt &amp; supplier matching</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
       </button>
-      <button type="button" class="mock-desk" data-station="cost" onclick="openWorkspaceMenu('cost')">
-        <div class="md-art md-cost">🧮</div>
-        <div class="md-body">
-          <div class="md-text">
-            <div class="md-title-row">
-              <span class="md-code">COST</span>
-              <strong data-en="Cost Accountant" data-ar="محاسب التكاليف">Cost Accountant</strong>
-            </div>
-            <span class="md-desc" data-en="Product costing &amp; variance analysis" data-ar="تكلفة المنتج وتحليل الانحرافات">Product costing &amp; variance analysis</span>
-          </div>
-          <span class="hd-visited-badge"></span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:0%"></i></span>
         </div>
-      </button>
-      <button type="button" class="mock-desk" data-station="constr" onclick="openWorkspaceMenu('constr')">
-        <div class="md-art md-constr">🏗️</div>
-        <div class="md-body">
-          <div class="md-text">
-            <div class="md-title-row">
-              <span class="md-code">SITE</span>
-              <strong data-en="Site Accountant" data-ar="محاسب الموقع">Site Accountant</strong>
-            </div>
-            <span class="md-desc" data-en="Construction &amp; project accounting" data-ar="محاسبة المقاولات والمشاريع">Construction &amp; project accounting</span>
-          </div>
-          <span class="hd-visited-badge"></span>
-          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
-          <span class="md-bar"><i style="width:0%"></i></span>
+      </div>
+      <div class="home-desk-group" id="homeGroup-fin">
+        <div class="home-desk-group-header" onclick="toggleHomeGroup('fin')" role="button" tabindex="0">
+          <span>Financial &amp; Compliance / مالية والتزام</span>
+          <span class="home-desk-group-chevron" id="homeChevron-fin">▾</span>
         </div>
-      </button>
+        <div class="mock-desks home-desk-group-list" id="homeList-fin">
       <button type="button" class="mock-desk" data-station="treasury" onclick="openWorkspaceMenu('treasury')">
         <div class="md-art md-tr">🏦</div>
         <div class="md-body">
@@ -3600,7 +3609,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">TR</span>
               <strong data-en="Treasury &amp; Banks" data-ar="الخزينة والبنوك">Treasury &amp; Banks</strong>
             </div>
-            <span class="md-desc" data-en="Cash &amp; bank management" data-ar="إدارة النقدية والبنوك">Cash &amp; bank management</span>
+            <span class="md-desc" data-en="Cash &amp; bank management" data-ar="إدارة النقدية والبنوك">Cash &amp; bank management</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3615,7 +3624,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">PAY</span>
               <strong data-en="Payroll &amp; HR" data-ar="الرواتب والموارد البشرية">Payroll &amp; HR</strong>
             </div>
-            <span class="md-desc" data-en="Salaries &amp; compliance" data-ar="الرواتب والالتزامات">Salaries &amp; compliance</span>
+            <span class="md-desc" data-en="Salaries &amp; compliance" data-ar="الرواتب والالتزامات">Salaries &amp; compliance</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3630,7 +3639,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">GL</span>
               <strong data-en="General Ledger &amp; Closing" data-ar="دفتر الأستاذ والإقفال">General Ledger &amp; Closing</strong>
             </div>
-            <span class="md-desc" data-en="Financial statements &amp; closing" data-ar="القوائم المالية والإقفال">Financial statements &amp; closing</span>
+            <span class="md-desc" data-en="Financial statements &amp; closing" data-ar="القوائم المالية والإقفال">Financial statements &amp; closing</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3645,7 +3654,45 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">TAX</span>
               <strong data-en="Tax Accountant" data-ar="محاسب الضرائب">Tax Accountant</strong>
             </div>
-            <span class="md-desc" data-en="VAT, corporate tax &amp; compliance" data-ar="ضريبة القيمة المضافة وضريبة الشركات والالتزام">VAT, corporate tax &amp; compliance</span>
+            <span class="md-desc" data-en="VAT, corporate tax &amp; compliance" data-ar="ضريبة القيمة المضافة وضريبة الشركات والالتزام">VAT, corporate tax &amp; compliance</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
+          </div>
+          <span class="hd-visited-badge"></span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:0%"></i></span>
+        </div>
+      </button>
+        </div>
+      </div>
+      <div class="home-desk-group" id="homeGroup-ctrl">
+        <div class="home-desk-group-header" onclick="toggleHomeGroup('ctrl')" role="button" tabindex="0">
+          <span>Control &amp; Analysis / رقابة وتحليل</span>
+          <span class="home-desk-group-chevron" id="homeChevron-ctrl">▾</span>
+        </div>
+        <div class="mock-desks home-desk-group-list" id="homeList-ctrl">
+      <button type="button" class="mock-desk" data-station="cost" onclick="openWorkspaceMenu('cost')">
+        <div class="md-art md-cost">🧮</div>
+        <div class="md-body">
+          <div class="md-text">
+            <div class="md-title-row">
+              <span class="md-code">COST</span>
+              <strong data-en="Cost Accountant" data-ar="محاسب التكاليف">Cost Accountant</strong>
+            </div>
+            <span class="md-desc" data-en="Product costing &amp; variance analysis" data-ar="تكلفة المنتج وتحليل الانحرافات">Product costing &amp; variance analysis</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
+          </div>
+          <span class="hd-visited-badge"></span>
+          <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
+          <span class="md-bar"><i style="width:0%"></i></span>
+        </div>
+      </button>
+      <button type="button" class="mock-desk" data-station="constr" onclick="openWorkspaceMenu('constr')">
+        <div class="md-art md-constr">🏗️</div>
+        <div class="md-body">
+          <div class="md-text">
+            <div class="md-title-row">
+              <span class="md-code">SITE</span>
+              <strong data-en="Site Accountant" data-ar="محاسب الموقع">Site Accountant</strong>
+            </div>
+            <span class="md-desc" data-en="Construction &amp; project accounting" data-ar="محاسبة المقاولات والمشاريع">Construction &amp; project accounting</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3660,7 +3707,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">BC</span>
               <strong data-en="Budget Controller" data-ar="مراقب الميزانية">Budget Controller</strong>
             </div>
-            <span class="md-desc" data-en="Budget planning &amp; control" data-ar="تخطيط ورقابة الميزانية">Budget planning &amp; control</span>
+            <span class="md-desc" data-en="Budget planning &amp; control" data-ar="تخطيط ورقابة الميزانية">Budget planning &amp; control</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3675,7 +3722,7 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">FA</span>
               <strong data-en="Financial Analyst" data-ar="المحلل المالي">Financial Analyst</strong>
             </div>
-            <span class="md-desc" data-en="Ratios &amp; performance analysis" data-ar="النسب وتحليل الأداء">Ratios &amp; performance analysis</span>
+            <span class="md-desc" data-en="Ratios &amp; performance analysis" data-ar="النسب وتحليل الأداء">Ratios &amp; performance analysis</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
@@ -3690,13 +3737,15 @@ input[type="text"]:focus, input[type="number"]:focus{
               <span class="md-code">AUD</span>
               <strong data-en="Internal Auditor" data-ar="المراجع الداخلي">Internal Auditor</strong>
             </div>
-            <span class="md-desc" data-en="Independent control testing" data-ar="اختبار الضوابط المستقل">Independent control testing</span>
+            <span class="md-desc" data-en="Independent control testing" data-ar="اختبار الضوابط المستقل">Independent control testing</span><span class="md-sim-badge" title="Hands-on simulator">✍️</span>
           </div>
           <span class="hd-visited-badge"></span>
           <span class="md-go" data-en="Open Desk →" data-ar="افتح المكتب ←">Open Desk →</span>
           <span class="md-bar"><i style="width:0%"></i></span>
         </div>
       </button>
+        </div>
+      </div>
     </div>
 
     <section class="mock-section mock-tools">
@@ -4121,6 +4170,23 @@ input[type="text"]:focus, input[type="number"]:focus{
         <tbody id="gl-journal-body"><tr><td colspan="3" style="color:var(--muted);text-align:center">— No entries yet. —</td></tr></tbody>
       </table></div>
     </div>
+  
+    <div class="cycle-pipeline" style="margin-top:20px">
+      <h4 data-en="✍️ Do it yourself — Post a Manual Journal Entry" data-ar="✍️ اعملها بنفسك — رحّل قيد يومية يدوي">✍️ Do it yourself — Post a Manual Journal Entry</h4>
+      <p class="stage-note" data-en="Every other desk posts through its own screen. Here, you post directly — exactly like a GL accountant handling month-end adjustments." data-ar="كل مكتب تاني بيرحّل من شاشته الخاصة. هنا، إنت بترحّل مباشرة — بالظبط زي محاسب دفتر الأستاذ وقت تسويات آخر الشهر.">Every other desk posts through its own screen. Here, you post directly — exactly like a GL accountant handling month-end adjustments.</p>
+
+      <div class="cycle-stage">
+        <h4 data-en="Manual Entry" data-ar="قيد يدوي">Manual Entry</h4>
+        <div class="form-grid">
+          <div class="field"><label data-en="Debit Account" data-ar="الحساب المدين">Debit Account</label><input type="text" id="gl-m-dr" placeholder="e.g. Prepaid Expenses"></div>
+          <div class="field"><label data-en="Credit Account" data-ar="الحساب الدائن">Credit Account</label><input type="text" id="gl-m-cr" placeholder="e.g. Cash"></div>
+          <div class="field"><label data-en="Amount (EGP)" data-ar="المبلغ (جنيه)">Amount (EGP)</label><input type="number" id="gl-m-amount" min="0" step="1"></div>
+          <div class="field"><label data-en="Description" data-ar="الوصف">Description</label><input type="text" id="gl-m-desc" placeholder="e.g. Month-end accrual"></div>
+        </div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="glManualPost()" data-en="Post Entry" data-ar="رحّل القيد">Post Entry</button></div>
+        <div id="gl-m-result" aria-live="polite"></div>
+      </div>
+    </div>
   </div>
 
   <div class="data-panel" id="gl-financials">
@@ -4537,6 +4603,22 @@ input[type="text"]:focus, input[type="number"]:focus{
       <p class="panel-sub" data-en="Formula, meaning and a live calculator for each ratio — type your own numbers to see it work." data-ar="الصيغة والمعنى وحاسبة حيّة لكل نسبة — اكتب أرقامك الخاصة وشوف النتيجة فورًا.">Formula, meaning and a live calculator for each ratio — type your own numbers to see it work.</p>
     </div>
     <div id="learn-ratios-list"></div>
+  
+    <div class="cycle-pipeline" style="margin-top:20px">
+      <h4 data-en="✍️ Do it yourself — Record a Reclassification Found During Analysis" data-ar="✍️ اعملها بنفسك — سجّل إعادة تصنيف اكتشفتها أثناء التحليل">✍️ Do it yourself — Record a Reclassification Found During Analysis</h4>
+      <p class="stage-note" data-en="Sometimes analysis uncovers a genuine misclassification. Record the correcting entry — this is exactly what the Accounting Mysteries are about." data-ar="أحيانًا التحليل بيكشف إعادة تصنيف حقيقية. سجّل قيد التصحيح — ده بالظبط موضوع الألغاز المحاسبية.">Sometimes analysis uncovers a genuine misclassification. Record the correcting entry — this is exactly what the Accounting Mysteries are about.</p>
+
+      <div class="cycle-stage">
+        <h4 data-en="Reclassification Entry" data-ar="قيد إعادة التصنيف">Reclassification Entry</h4>
+        <div class="form-grid">
+          <div class="field"><label data-en="Account Currently Holding the Balance (From)" data-ar="الحساب اللي فيه الرصيد حاليًا (من)">Account Currently Holding the Balance (From)</label><input type="text" id="ratios-r-from" placeholder="e.g. Other Receivables"></div>
+          <div class="field"><label data-en="Correct Account (To)" data-ar="الحساب الصحيح (إلى)">Correct Account (To)</label><input type="text" id="ratios-r-to" placeholder="e.g. Trade Receivables"></div>
+          <div class="field"><label data-en="Amount (EGP)" data-ar="المبلغ (جنيه)">Amount (EGP)</label><input type="number" id="ratios-r-amount" min="0" step="1"></div>
+        </div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="ratiosRecordReclass()" data-en="Post Reclassification" data-ar="رحّل إعادة التصنيف">Post Reclassification</button></div>
+        <div id="ratios-r-result" aria-live="polite"></div>
+      </div>
+    </div>
   </div>
 
   <div class="data-panel" id="ratios-quiz">
@@ -4644,6 +4726,21 @@ input[type="text"]:focus, input[type="number"]:focus{
       <tr><td>BL-10</td><td data-en="Capital Expenditure Reserve" data-ar="Capital Expenditure Reserve">Capital Expenditure Reserve</td><td data-en="Finance" data-ar="Finance">Finance</td><td class="bl-annual-cell">3,500,000</td><td class="bl-actual-cell">3,890,000</td><td><span class="type-pill status-bad" data-en="Over Budget" data-ar="تجاوز الموازنة">Over Budget</span></td></tr>
       </tbody>
     </table></div>
+  
+    <div class="cycle-pipeline" style="margin-top:20px">
+      <h4 data-en="✍️ Do it yourself — Record Actual Spend Against Budget" data-ar="✍️ اعملها بنفسك — سجّل الصرف الفعلي مقابل الموازنة">✍️ Do it yourself — Record Actual Spend Against Budget</h4>
+      <p class="stage-note" data-en="Pick a real budget line, record real spend, and the system checks it against the remaining annual budget." data-ar="اختار بند موازنة حقيقي، سجّل صرف حقيقي، والنظام بيفحصه مقابل الموازنة السنوية المتبقية.">Pick a real budget line, record real spend, and the system checks it against the remaining annual budget.</p>
+
+      <div class="cycle-stage">
+        <h4 data-en="Record Actual Spend" data-ar="تسجيل الصرف الفعلي">Record Actual Spend</h4>
+        <div class="form-grid">
+          <div class="field"><label data-en="Budget Line" data-ar="بند الموازنة">Budget Line</label><select id="bc-s-line"><option value="">— Select —</option></select></div>
+          <div class="field"><label data-en="Amount Spent (EGP)" data-ar="المبلغ المصروف (جنيه)">Amount Spent (EGP)</label><input type="number" id="bc-s-amount" min="0" step="1"></div>
+        </div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="bcRecordSpend()" data-en="Record Spend" data-ar="تسجيل الصرف">Record Spend</button></div>
+        <div id="bc-s-result" aria-live="polite"></div>
+      </div>
+    </div>
   </div>
 
 <div class="data-panel" id="bc-role">
@@ -4917,6 +5014,23 @@ input[type="text"]:focus, input[type="number"]:focus{
       <label class="close-item"><input type="checkbox" data-audit onchange="updateAuditProgram()"><div class="ci-body"><strong data-en="Test that opening balances were not changed after audit sign-off" data-ar="اختبار عدم تغيير الأرصدة الافتتاحية بعد اعتماد المراجع">Test that opening balances were not changed after audit sign-off</strong></div></label>
       <label class="close-item"><input type="checkbox" data-audit onchange="updateAuditProgram()"><div class="ci-body"><strong data-en="Review intercompany eliminations in consolidation" data-ar="مراجعة استبعادات المعاملات بين الشركات في التجميع">Review intercompany eliminations in consolidation</strong></div></label>
       <label class="close-item"><input type="checkbox" data-audit onchange="updateAuditProgram()"><div class="ci-body"><strong data-en="Confirm depreciation policy changes were disclosed and approved" data-ar="تأكيد الإفصاح عن تغييرات سياسة الإهلاك واعتمادها">Confirm depreciation policy changes were disclosed and approved</strong></div></label>
+    </div>
+  
+    <div class="cycle-pipeline" style="margin-top:20px">
+      <h4 data-en="✍️ Do it yourself — Record an Audit Finding &amp; Adjustment" data-ar="✍️ اعملها بنفسك — سجّل ملاحظة مراجعة وتسويتها">✍️ Do it yourself — Record an Audit Finding &amp; Adjustment</h4>
+      <p class="stage-note" data-en="Enter a real finding, and the system checks it against materiality before posting the correcting entry." data-ar="ادخل ملاحظة حقيقية، والنظام بيفحصها مقابل الأهمية النسبية قبل ترحيل قيد التصحيح.">Enter a real finding, and the system checks it against materiality before posting the correcting entry.</p>
+
+      <div class="cycle-stage">
+        <h4 data-en="Audit Finding Adjustment" data-ar="تسوية ملاحظة المراجعة">Audit Finding Adjustment</h4>
+        <div class="form-grid">
+          <div class="field"><label data-en="Account Understated" data-ar="الحساب الناقص">Account Understated</label><input type="text" id="aud-f-understated" placeholder="e.g. Accrued Expenses"></div>
+          <div class="field"><label data-en="Account Overstated" data-ar="الحساب الزايد">Account Overstated</label><input type="text" id="aud-f-overstated" placeholder="e.g. Net Income"></div>
+          <div class="field"><label data-en="Adjustment Amount (EGP)" data-ar="قيمة التسوية (جنيه)">Adjustment Amount (EGP)</label><input type="number" id="aud-f-amount" min="0" step="1"></div>
+          <div class="field"><label data-en="Materiality Threshold (EGP)" data-ar="حد الأهمية النسبية (جنيه)">Materiality Threshold (EGP)</label><input type="number" id="aud-f-threshold" min="0" step="1" value="50000"></div>
+        </div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="audRecordFinding()" data-en="Record Finding &amp; Post" data-ar="سجّل الملاحظة ورحّل">Record Finding &amp; Post</button></div>
+        <div id="aud-f-result" aria-live="polite"></div>
+      </div>
     </div>
   </div>
 
@@ -5333,6 +5447,21 @@ input[type="text"]:focus, input[type="number"]:focus{
       <tr><td>VAT-REFUND</td><td data-en="VAT Refund Claim" data-ar="VAT Refund Claim">VAT Refund Claim</td><td>2026-01-15</td><td>2026-01-31</td><td><span class="type-pill status-ok" data-en="Filed" data-ar="مُقدَّم">Filed</span></td></tr>
       </tbody>
     </table></div>
+  
+    <div class="cycle-pipeline" style="margin-top:20px">
+      <h4 data-en="✍️ Do it yourself — Calculate &amp; Post the VAT Return" data-ar="✍️ اعملها بنفسك — احسب ورحّل إقرار الضريبة">✍️ Do it yourself — Calculate &amp; Post the VAT Return</h4>
+      <p class="stage-note" data-en="Enter real output and input VAT — the system calculates the net position and posts it." data-ar="ادخل ضريبة المخرجات والمدخلات الحقيقية — النظام بيحسب صافي الموقف ويرحّله.">Enter real output and input VAT — the system calculates the net position and posts it.</p>
+
+      <div class="cycle-stage">
+        <h4 data-en="Net VAT Position" data-ar="صافي موقف الضريبة">Net VAT Position</h4>
+        <div class="form-grid">
+          <div class="field"><label data-en="Output VAT Collected (EGP)" data-ar="ضريبة المخرجات المحصّلة (جنيه)">Output VAT Collected (EGP)</label><input type="number" id="tax-v-output" min="0" step="1"></div>
+          <div class="field"><label data-en="Input VAT Paid (EGP)" data-ar="ضريبة المدخلات المدفوعة (جنيه)">Input VAT Paid (EGP)</label><input type="number" id="tax-v-input" min="0" step="1"></div>
+        </div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="taxCalcVATReturn()" data-en="Calculate &amp; Post" data-ar="احسب ورحّل">Calculate &amp; Post</button></div>
+        <div id="tax-v-result" aria-live="polite"></div>
+      </div>
+    </div>
   </div>
 
 <div class="data-panel" id="tax-role">
@@ -5414,6 +5543,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <div class="case-body"><div class="case-block"><p data-en="Flag the risk clearly — tax positions with no genuine business purpose beyond tax avoidance carry real legal and reputational risk, and should go through proper review before proceeding." data-ar="ارصد المخاطرة بوضوح — مواقف ضريبية من غير غرض تجاري حقيقي غير تجنب الضريبة بيحملوا مخاطرة قانونية وسمعة حقيقية، ولازم يمروا بمراجعة سليمة قبل التنفيذ.">Flag the risk clearly — tax positions with no genuine business purpose beyond tax avoidance carry real legal and reputational risk, and should go through proper review before proceeding.</p></div></div>
       </details>
     </div>
+  
   </div>
 
   <div class="data-panel" id="tax-calc">
@@ -5542,16 +5672,16 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div class="table-wrap"><table class="data-table" id="table-constr">
       <thead><tr><th><span data-en="Code" data-ar="الكود">Code</span></th><th><span data-en="Project Name" data-ar="اسم المشروع">Project Name</span></th><th><span data-en="Client" data-ar="العميل">Client</span></th><th><span data-en="Contract Value" data-ar="قيمة العقد">Contract Value</span></th><th><span data-en="% Complete" data-ar="% الإنجاز">% Complete</span></th><th><span data-en="Status" data-ar="الحالة">Status</span></th></tr></thead>
       <tbody>
-      <tr><td>PRJ-101</td><td>New Cairo Residential Tower</td><td>Horizon Developments</td><td>12,500,000</td><td>68%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
-      <tr><td>PRJ-102</td><td>Industrial Warehouse Expansion</td><td>Delta Logistics Co.</td><td>4,200,000</td><td>42%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
-      <tr><td>PRJ-103</td><td>Alexandria Corniche Mall Fit-out</td><td>Alex Retail Group</td><td>8,750,000</td><td>91%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
-      <tr><td>PRJ-104</td><td>Suez Canal Port Facility</td><td>National Ports Authority</td><td>22,000,000</td><td>15%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
-      <tr><td>PRJ-105</td><td>Giza Office Complex</td><td>Pyramids Business Park</td><td>9,600,000</td><td>100%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
-      <tr><td>PRJ-106</td><td>6th October Factory Renovation</td><td>Nile Manufacturing</td><td>3,100,000</td><td>55%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
-      <tr><td>PRJ-107</td><td>Red Sea Resort Villas</td><td>Golden Coast Hospitality</td><td>17,800,000</td><td>29%</td><td><span class="type-pill status-bad" data-en="At Risk" data-ar="في خطر">At Risk</span></td></tr>
-      <tr><td>PRJ-108</td><td>Cairo Metro Station Upgrade</td><td>Greater Cairo Transit Authority</td><td>6,400,000</td><td>78%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
-      <tr><td>PRJ-109</td><td>Luxor Heritage Center</td><td>Ministry of Antiquities</td><td>5,900,000</td><td>33%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
-      <tr><td>PRJ-110</td><td>Ismailia Bridge Construction</td><td>Suez Governorate</td><td>14,300,000</td><td>8%</td><td><span class="type-pill status-bad" data-en="At Risk" data-ar="في خطر">At Risk</span></td></tr>
+      <tr><td>PRJ-101</td><td>New Cairo Residential Tower</td><td>Horizon Developments</td><td>12,500,000</td><td class="constr-pct-cell">68%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
+      <tr><td>PRJ-102</td><td>Industrial Warehouse Expansion</td><td>Delta Logistics Co.</td><td>4,200,000</td><td class="constr-pct-cell">42%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
+      <tr><td>PRJ-103</td><td>Alexandria Corniche Mall Fit-out</td><td>Alex Retail Group</td><td>8,750,000</td><td class="constr-pct-cell">91%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
+      <tr><td>PRJ-104</td><td>Suez Canal Port Facility</td><td>National Ports Authority</td><td>22,000,000</td><td class="constr-pct-cell">15%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
+      <tr><td>PRJ-105</td><td>Giza Office Complex</td><td>Pyramids Business Park</td><td>9,600,000</td><td class="constr-pct-cell">100%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
+      <tr><td>PRJ-106</td><td>6th October Factory Renovation</td><td>Nile Manufacturing</td><td>3,100,000</td><td class="constr-pct-cell">55%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
+      <tr><td>PRJ-107</td><td>Red Sea Resort Villas</td><td>Golden Coast Hospitality</td><td>17,800,000</td><td class="constr-pct-cell">29%</td><td><span class="type-pill status-bad" data-en="At Risk" data-ar="في خطر">At Risk</span></td></tr>
+      <tr><td>PRJ-108</td><td>Cairo Metro Station Upgrade</td><td>Greater Cairo Transit Authority</td><td>6,400,000</td><td class="constr-pct-cell">78%</td><td><span class="type-pill status-ok" data-en="On Track" data-ar="على المسار">On Track</span></td></tr>
+      <tr><td>PRJ-109</td><td>Luxor Heritage Center</td><td>Ministry of Antiquities</td><td>5,900,000</td><td class="constr-pct-cell">33%</td><td><span class="type-pill status-pending" data-en="Watch" data-ar="تحت المتابعة">Watch</span></td></tr>
+      <tr><td>PRJ-110</td><td>Ismailia Bridge Construction</td><td>Suez Governorate</td><td>14,300,000</td><td class="constr-pct-cell">8%</td><td><span class="type-pill status-bad" data-en="At Risk" data-ar="في خطر">At Risk</span></td></tr>
       </tbody>
     </table></div>
   </div>
@@ -5634,6 +5764,32 @@ input[type="text"]:focus, input[type="number"]:focus{
         <summary><span class="case-num">6</span><span data-en="The client disputes an approved change order's value after the work is already complete" data-ar="العميل نازع في قيمة أمر تغيير معتمد بعد ما الشغل خلص بالفعل">The client disputes an approved change order's value after the work is already complete</summary>
         <div class="case-body"><div class="case-block"><p data-en="Present the documented approval trail (signed change order, correspondence) — this is exactly why proper change-order documentation matters before starting work." data-ar="اعرض مسار الاعتماد الموثّق (أمر تغيير موقّع، مراسلات) — ده بالظبط ليه توثيق أمر التغيير الصحيح مهم قبل بدء الشغل.">Present the documented approval trail (signed change order, correspondence) — this is exactly why proper change-order documentation matters before starting work.</p></div></div>
       </details>
+    </div>
+  <div class="cycle-pipeline" style="margin-top:20px">
+      <h4 data-en="✍️ Do it yourself — Update Progress &amp; Record Billing" data-ar="✍️ اعملها بنفسك — حدّث نسبة الإنجاز وسجّل الفوترة">✍️ Do it yourself — Update Progress &amp; Record Billing</h4>
+      <p class="stage-note" data-en="Pick a real project, update its completion %, and check whether billing matches revenue earned." data-ar="اختار مشروع حقيقي، حدّث نسبة إنجازه، وافحص هل الفوترة متطابقة مع الإيراد المكتسب.">Pick a real project, update its completion %, and check whether billing matches revenue earned.</p>
+
+      <div class="cycle-stage">
+        <h4 data-en="1 · Update % Completion &amp; Recognize Revenue" data-ar="١ · تحديث نسبة الإنجاز والاعتراف بالإيراد">1 · Update % Completion &amp; Recognize Revenue</h4>
+        <p class="stage-note" data-en="Revenue to date = Contract Value × % Complete. Posts Dr Unbilled Receivable / Cr Contract Revenue." data-ar="الإيراد حتى تاريخه = قيمة العقد × نسبة الإنجاز. بيرحّل مدين ذمم غير مفوترة / دائن إيراد العقد.">Revenue to date = Contract Value × % Complete. Posts Dr Unbilled Receivable / Cr Contract Revenue.</p>
+        <div class="form-grid">
+          <div class="field"><label data-en="Project" data-ar="المشروع">Project</label><select id="constr-p-proj" class="constr-proj-select"><option value="">— Select —</option></select></div>
+          <div class="field"><label data-en="New % Complete (e.g. 75)" data-ar="نسبة الإنجاز الجديدة (مثلًا 75)">New % Complete (e.g. 75)</label><input type="number" id="constr-p-pct" min="0" max="100" step="1"></div>
+        </div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="constrUpdateProgress()" data-en="Update &amp; Recognize Revenue" data-ar="حدّث واعترف بالإيراد">Update &amp; Recognize Revenue</button></div>
+        <div id="constr-p-result" aria-live="polite"></div>
+      </div>
+
+      <div class="cycle-stage">
+        <h4 data-en="2 · Record Progress Billing" data-ar="٢ · تسجيل مستخلص الفوترة">2 · Record Progress Billing</h4>
+        <p class="stage-note" data-en="Compares cumulative billing to revenue earned to date, and flags over- or under-billing." data-ar="بيقارن إجمالي الفوترة التراكمي بالإيراد المكتسب حتى تاريخه، وبيرصد زيادة أو نقص الفوترة.">Compares cumulative billing to revenue earned to date, and flags over- or under-billing.</p>
+        <div class="form-grid">
+          <div class="field"><label data-en="Project" data-ar="المشروع">Project</label><select id="constr-b-proj" class="constr-proj-select"><option value="">— Select —</option></select></div>
+          <div class="field"><label data-en="Cumulative Amount Billed to Date (EGP)" data-ar="إجمالي المفوتر تراكميًا حتى تاريخه (جنيه)">Cumulative Amount Billed to Date (EGP)</label><input type="number" id="constr-b-billed" min="0" step="1"></div>
+        </div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="constrRecordBilling()" data-en="Check &amp; Post Billing" data-ar="افحص ورحّل الفوترة">Check &amp; Post Billing</button></div>
+        <div id="constr-b-result" aria-live="polite"></div>
+      </div>
     </div>
   </div>
 
@@ -5746,20 +5902,7 @@ input[type="text"]:focus, input[type="number"]:focus{
     </div>
   </div>
 
-    <div class="cycle-pipeline" style="margin-top:20px">
-      <h4 data-en="✍️ Do it yourself — Record Actual Spend Against Budget" data-ar="✍️ اعملها بنفسك — سجّل الصرف الفعلي مقابل الموازنة">✍️ Do it yourself — Record Actual Spend Against Budget</h4>
-      <p class="stage-note" data-en="Pick a real budget line, record real spend, and the system checks it against the remaining annual budget." data-ar="اختار بند موازنة حقيقي، سجّل صرف حقيقي، والنظام بيفحصه مقابل الموازنة السنوية المتبقية.">Pick a real budget line, record real spend, and the system checks it against the remaining annual budget.</p>
 
-      <div class="cycle-stage">
-        <h4 data-en="Record Actual Spend" data-ar="تسجيل الصرف الفعلي">Record Actual Spend</h4>
-        <div class="form-grid">
-          <div class="field"><label data-en="Budget Line" data-ar="بند الموازنة">Budget Line</label><select id="bc-s-line"><option value="">— Select —</option></select></div>
-          <div class="field"><label data-en="Amount Spent (EGP)" data-ar="المبلغ المصروف (جنيه)">Amount Spent (EGP)</label><input type="number" id="bc-s-amount" min="0" step="1"></div>
-        </div>
-        <div class="workflow-bar"><button class="btn btn-primary" onclick="bcRecordSpend()" data-en="Record Spend" data-ar="تسجيل الصرف">Record Spend</button></div>
-        <div id="bc-s-result" aria-live="polite"></div>
-      </div>
-    </div>
 
   <div class="data-panel" id="cost-register">
     <h3 data-en="Cost Center Register — " data-ar="سجل مراكز التكلفة — "><span data-en="Cost Center Register — " data-ar="سجل مراكز التكلفة — ">Cost Center Register — </span><span id="cost-h-count">10</span></h3>
@@ -8815,7 +8958,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <div class="desk-actions">
           <button class="desk-action" type="button" onclick="showPanel('customers')"><strong data-en="Customer master" data-ar="بيانات العملاء">Customer master</strong><span data-en="Codes, limits, channels, currency" data-ar="الأكواد، الحدود، القنوات، العملة">Codes, limits, channels, currency</span></button>
           <button class="desk-action" type="button" onclick="showPanel('ar-new-customer')"><strong data-en="Add new customer" data-ar="إضافة عميل جديد">Add new customer</strong><span data-en="SOP + maker-checker approval" data-ar="إجراء معياري + اعتماد منفصل">SOP + maker-checker approval</span></button>
-          <button class="desk-action" type="button" onclick="showPanel('ar-cycle')"><strong data-en="Sales Cycle &amp; Daily Workflow" data-ar="دورة المبيعات وسير العمل اليومي">Sales Cycle &amp; Daily Workflow</strong><span data-en="Document chain, daily work, month-end" data-ar="سلسلة المستندات، العمل اليومي، الإقفال">Document chain, daily work, month-end</span></button>
+          <button class="desk-action" type="button" onclick="showPanel('ar-create')"><strong data-en="✍️ Create Sales Documents" data-ar="✍️ إنشاء مستندات المبيعات">✍️ Create Sales Documents</strong><span data-en="Quotation to receipt, step by step" data-ar="من عرض السعر للتحصيل، خطوة بخطوة">Quotation to receipt, step by step</span></button>
           <button class="desk-action" type="button" onclick="showPanel('ar-role')"><strong data-en="Role & procedures" data-ar="الدور والإجراءات">Role & procedures</strong><span data-en="Start of day → entries → close" data-ar="بداية اليوم → القيود → الإقفال">Start of day → entries → close</span></button><button class="desk-action" type="button" onclick="showPanel('ar-cases')"><strong data-en="Cases & problems" data-ar="حالات ومشكلات">Cases & problems</strong><span data-en="Real issues and how to solve them" data-ar="مشكلات حقيقية وطريقة حلها">Real issues and how to solve them</span></button><button class="desk-action" type="button" onclick="showPanel('ar-bridge')"><strong data-en="AR bridge" data-ar="جسر التسوية">AR bridge</strong><span data-en="GL control vs aging" data-ar="مراقبة GL مقابل الأعمار">GL control vs aging</span></button><button class="desk-action" type="button" onclick="showPanel('cross-tickets')"><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><span data-en="Hand-offs from other desks" data-ar="تسليمات من مكاتب أخرى">Hand-offs from other desks</span></button>
         </div>
         <div class="desk-controls"><strong data-en="Key control:" data-ar="ضابط رئيسي:">Key control:</strong> <span data-en="Never allocate unidentified cash by assumption. Park in suspense, obtain remittance advice, then match to open invoices." data-ar="لا تخصّص نقدية مجهولة بالتخمين. ضعها في حساب وسيط، احصل على إشعار التحويل، ثم طابقها مع الفواتير المفتوحة.">Never allocate unidentified cash by assumption. Park in suspense, obtain remittance advice, then match to open invoices.</span></div>
@@ -9545,6 +9688,9 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
       <div id="trs-chg-result" aria-live="polite"></div>
     </div>
 
+    <h4 data-en="✍️ Do it yourself — Record Real Cash &amp; Bank Transactions" data-ar="✍️ اعملها بنفسك — سجّل معاملات نقدية وبنكية حقيقية">✍️ Do it yourself — Record Real Cash &amp; Bank Transactions</h4>
+    <p class="stage-note" data-en="Collections, deposits, transfers, bank charges — pick real accounts and post real entries." data-ar="تحصيلات، إيداعات، تحويلات، مصاريف بنكية — اختار حسابات حقيقية ورحّل قيود حقيقية.">Collections, deposits, transfers, bank charges — pick real accounts and post real entries.</p>
+
     <div class="cycle-register-wrap">
       <h4 style="font-family:'Fraunces',serif;color:var(--brand-dark);margin:0 0 10px" data-en="Cash & bank movement ledger" data-ar="دفتر حركة الخزينة والبنوك">Cash & bank movement ledger</h4>
       <p class="stage-note" data-en="Every posting that touched cash or a bank account, newest first, with the running balance right after it." data-ar="كل حركة أثّرت على الخزينة أو حساب بنكي، الأحدث أولاً، مع الرصيد المتحرك بعدها مباشرة.">Every posting that touched cash or a bank account, newest first, with the running balance right after it.</p>
@@ -9711,7 +9857,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
     <div class="sop-block">
 <h4 data-en="Quick Overview — Daily &amp; Month-End" data-ar="نظرة سريعة — اليومي ونهاية الشهر">Quick Overview — Daily &amp; Month-End</h4>
 <div class="reference-picker"><div class="field"><label for="ar-context-customer" data-en="Customer for this transaction" data-ar="العميل الخاص بالمعاملة">Customer for this transaction</label><select id="ar-context-customer"><option value="">— Select active customer —</option></select></div><button class="btn btn-ghost" type="button" onclick="openPanelById('ar-new-customer')" data-en="Add New Customer" data-ar="إضافة عميل جديد">Add New Customer</button></div>
-    <div class="workflow-grid"><div class="workflow-card"><h4 data-en="Daily opening and transaction processing" data-ar="بداية اليوم ومعالجة المعاملات">Daily opening and transaction processing</h4><ol><li><strong>Review opening balances:</strong> aging report, overdue invoices, unapplied receipts, credit holds.</li><li><strong>Validate sales documents:</strong> approved order, delivery evidence, tax data and prices before invoicing.</li><li><strong>Issue invoices and credit notes:</strong> sequence control, tax treatment, due date and customer account.</li><li><strong>Apply receipts:</strong> match bank/cash receipts to remittance advice; park unidentified receipts without guessing.</li><li><strong>Answer customer requests:</strong> statements, copies, disputes and proof of delivery.</li></ol></div><div class="workflow-card"><h4 data-en="Daily controls and outputs" data-ar="الرقابة والمخرجات اليومية">Daily controls and outputs</h4><ul><li>Reconcile invoices posted to the sales register and tax report.</li><li>Check duplicate invoices, negative credit notes and unusual discounts.</li><li>Send a list of unapplied receipts and disputed invoices to the supervisor.</li><li>Post only approved adjustments; never write off a balance without authority.</li></ul><div class="workflow-output"><strong>Daily output:</strong> updated customer ledger, applied receipts, exception list and collection priorities.</div></div><div class="workflow-card"><h4 data-en="Month-end sequence" data-ar="تسلسل نهاية الشهر">Month-end sequence</h4><ol><li>Complete invoice cut-off using dispatch/delivery evidence.</li><li>Reconcile AR sub-ledger to the control account in the general ledger.</li><li>Reconcile bank receipts, unapplied cash and customer advances.</li><li>Prepare aging, expected credit loss / bad debt review and collection commentary.</li><li>Confirm customer balances and post approved provisions or write-offs.</li></ol></div><div class="workflow-card"><h4 data-en="Key reconciliations and evidence" data-ar="المطابقات والمستندات">Key reconciliations and evidence</h4><ul><li>AR aging ↔ customer statements ↔ GL control account.</li><li>Bank statement ↔ receipt register ↔ remittance advice.</li><li>Invoice ↔ order ↔ delivery proof ↔ tax documentation.</li></ul><div class="workflow-control"><strong>Segregation of duties:</strong> sales requests the customer/credit; AR records and applies; Finance Manager approves limits, write-offs and unusual credits.</div></div></div>
+    <div class="workflow-grid"><div class="workflow-card"><h4 data-en="Daily controls and outputs" data-ar="الرقابة والمخرجات اليومية">Daily controls and outputs</h4><ul><li>Reconcile invoices posted to the sales register and tax report.</li><li>Check duplicate invoices, negative credit notes and unusual discounts.</li><li>Send a list of unapplied receipts and disputed invoices to the supervisor.</li><li>Post only approved adjustments; never write off a balance without authority.</li></ul><div class="workflow-output"><strong>Daily output:</strong> updated customer ledger, applied receipts, exception list and collection priorities.</div></div><div class="workflow-card"><h4 data-en="Month-end sequence" data-ar="تسلسل نهاية الشهر">Month-end sequence</h4><ol><li>Complete invoice cut-off using dispatch/delivery evidence.</li><li>Reconcile AR sub-ledger to the control account in the general ledger.</li><li>Reconcile bank receipts, unapplied cash and customer advances.</li><li>Prepare aging, expected credit loss / bad debt review and collection commentary.</li><li>Confirm customer balances and post approved provisions or write-offs.</li></ol></div><div class="workflow-card"><h4 data-en="Key reconciliations and evidence" data-ar="المطابقات والمستندات">Key reconciliations and evidence</h4><ul><li>AR aging ↔ customer statements ↔ GL control account.</li><li>Bank statement ↔ receipt register ↔ remittance advice.</li><li>Invoice ↔ order ↔ delivery proof ↔ tax documentation.</li></ul><div class="workflow-control"><strong>Segregation of duties:</strong> sales requests the customer/credit; AR records and applies; Finance Manager approves limits, write-offs and unusual credits.</div></div></div>
 </div>
 
 <div class="sop-block cycle-pipeline">
@@ -9730,6 +9876,18 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
         <div class="accounting-step final-step"><div class="step-number">06</div><div class="step-content"><strong data-en="Return / Allowance" data-ar="مردود / مسموحات">Return / Allowance</strong><span data-en="Credit note against the invoice: Dr Sales Returns & Allowances / Cr AR (+ reverse COGS/Inventory for a physical return)." data-ar="credit note مقابل الفاتورة: مدين مردودات ومسموحات مبيعات / دائن عملاء (+ عكس قيد التكلفة والمخزون في حالة الإرجاع الفعلي).">Credit note against the invoice: Dr Sales Returns & Allowances / Cr AR (+ reverse COGS/Inventory for a physical return).</span></div></div>
       </div>
     </div>
+
+    </div>
+
+  <div class="data-panel" id="ar-create">
+    <div class="module-head">
+      <span class="module-tag" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span>
+      <h3 data-en="Create Sales Documents" data-ar="إنشاء مستندات المبيعات">Create Sales Documents</h3>
+      <p class="panel-sub" data-en="The hands-on simulator — pick a customer, fill in real numbers, and post the full chain yourself." data-ar="المحاكي العملي — اختار عميل، ادخل أرقام حقيقية، ورحّل السلسلة كاملة بنفسك.">The hands-on simulator — pick a customer, fill in real numbers, and post the full chain yourself.</p>
+    </div>
+
+    <h4 data-en="✍️ Do it yourself — Create the Full Sales Document Chain" data-ar="✍️ اعملها بنفسك — أنشئ سلسلة مستندات المبيعات كاملة">✍️ Do it yourself — Create the Full Sales Document Chain</h4>
+    <p class="stage-note" data-en="Quotation to receipt — pick a customer, fill in real numbers, and watch each document post correctly." data-ar="من عرض السعر للتحصيل — اختار عميل، ادخل أرقام حقيقية، وشوف كل مستند بيترحّل صح.">Quotation to receipt — pick a customer, fill in real numbers, and watch each document post correctly.</p>
 
     <div class="cycle-register-wrap">
       <h4 style="font-family:'Fraunces',serif;color:var(--brand-dark);margin:0 0 10px" data-en="Document register" data-ar="سجل المستندات">Document register</h4>
@@ -9848,6 +10006,8 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
     </div>
   </div>
 
+  
+
   <div class="data-panel" id="ar-statement">
     <div class="module-head">
       <span class="module-tag" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span>
@@ -9931,6 +10091,9 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
         <div class="accounting-step final-step"><div class="step-number">05</div><div class="step-content"><strong data-en="Purchase Return / Debit Note" data-ar="مردود مشتريات / إشعار مدين">Purchase Return / Debit Note</strong><span data-en="Goods returned to the supplier: Dr AP / Cr Inventory (or Purchase Returns), reducing the liability." data-ar="بضاعة مُرجعة للمورد: مدين موردين / دائن المخزون (أو مردودات مشتريات)، يقلل الالتزام.">Goods returned to the supplier: Dr AP / Cr Inventory (or Purchase Returns), reducing the liability.</span></div></div>
       </div>
     </div>
+
+    <h4 data-en="✍️ Do it yourself — Create the Full Purchase Document Chain" data-ar="✍️ اعملها بنفسك — أنشئ سلسلة مستندات المشتريات كاملة">✍️ Do it yourself — Create the Full Purchase Document Chain</h4>
+    <p class="stage-note" data-en="PO to payment — pick a supplier, fill in real numbers, and watch each document post correctly." data-ar="من أمر الشراء للسداد — اختار مورد، ادخل أرقام حقيقية، وشوف كل مستند بيترحّل صح.">PO to payment — pick a supplier, fill in real numbers, and watch each document post correctly.</p>
 
     <div class="cycle-register-wrap">
       <h4 style="font-family:'Fraunces',serif;color:var(--brand-dark);margin:0 0 10px" data-en="Document register" data-ar="سجل المستندات">Document register</h4>
@@ -10130,7 +10293,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
     </div>
   </div>
 
-<div class="data-panel" id="ar-role"><div class="module-head"><span class="module-tag" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span><h3 data-en="AR Accountant — Role & Procedures" data-ar="موظف العملاء — الدور والإجراءات">AR Accountant — Role & Procedures</h3></div><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Turn approved sales and customer receipts into accurate, collectible and reconciled customer balances. You do not approve your own credit limit, write-offs or unsupported adjustments." data-ar="شغلك إنك تحوّل المبيعات والتحصيلات المعتمدة لأرصدة عملاء دقيقة وقابلة للتحصيل ومتطابقة. متعتمدش لنفسك حد ائتمان، ولا write-off، ولا أي تسوية من غير مستندات.">Turn approved sales and customer receipts into accurate, collectible and reconciled customer balances. You do not approve your own credit limit, write-offs or unsupported adjustments.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Open AR aging and overdue invoices." data-ar="افتح الـaging وشوف الفواتير المتأخرة.">Open AR aging and overdue invoices.</li><li data-en="Review unapplied receipts and credit holds." data-ar="راجع التحصيلات اللي لسه مش متخصصة (unapplied)، وأي عميل متوقف ائتمانيًا.">Review unapplied receipts and credit holds.</li><li data-en="Prioritize disputes and collection follow-up." data-ar="رتّب أولوياتك: النزاعات الأول، وبعدين متابعة التحصيل.">Prioritize disputes and collection follow-up.</li><li data-en="Check approved orders and delivery evidence waiting for invoice." data-ar="اتأكد من الأوردرات المعتمدة ودليل التسليم اللي مستني invoice.">Check approved orders and delivery evidence waiting for invoice.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Confirm active customer and approved credit." data-ar="اتأكد إن العميل active وعنده حد ائتمان معتمد.">Confirm active customer and approved credit.</li><li data-en="Match order, delivery proof, price and tax." data-ar="طابق الـPO مع دليل التسليم والسعر والضريبة.">Match order, delivery proof, price and tax.</li><li data-en="Issue invoice or credit note with due date." data-ar="اطلع الـinvoice أو إشعار الدائن بتاريخ استحقاق واضح.">Issue invoice or credit note with due date.</li><li data-en="Match bank receipt to remittance advice and allocate it." data-ar="طابق التحصيل البنكي مع الـremittance advice ووزّعه صح.">Match bank receipt to remittance advice and allocate it.</li><li data-en="Park unidentified cash in suspense; never guess." data-ar="لو كاش مش عارف مصدره، حطه في suspense — متخمّنش أبدًا.">Park unidentified cash in suspense; never guess.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="AR sub-ledger to GL reconciliation." data-ar="reconciliation بين دفتر العملاء الفرعي ودفتر الأستاذ.">AR sub-ledger to GL reconciliation.</li><li data-en="Aging and expected credit loss review." data-ar="مراجعة الـaging وخسائر الائتمان المتوقعة.">Aging and expected credit loss review.</li><li data-en="Unapplied cash and disputes report." data-ar="تقرير الكاش اللي لسه مش متخصص والنزاعات المفتوحة.">Unapplied cash and disputes report.</li><li data-en="Customer statements and collection commentary." data-ar="كشوف حساب العملاء وتعليق على موقف التحصيل.">Customer statements and collection commentary.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br data-en="" data-ar="">Dr Accounts Receivable<br>Cr Sales Revenue / Output VAT<br><br>Dr Bank<br>Cr Accounts Receivable<br><br><span data-en="Unknown receipt: Dr Bank / Cr Unapplied Receipts (Suspense)" data-ar="تحصيل مش عارف مصدره: مدين بنك / دائن تحصيلات غير مخصصة (Suspense)">Unknown receipt: Dr Bank / Cr Unapplied Receipts (Suspense)</span></div></div>
+<div class="data-panel" id="ar-role"><div class="module-head"><span class="module-tag" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span><h3 data-en="AR Accountant — Role & Procedures" data-ar="موظف العملاء — الدور والإجراءات">AR Accountant — Role & Procedures</h3></div><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Turn approved sales and customer receipts into accurate, collectible and reconciled customer balances. You do not approve your own credit limit, write-offs or unsupported adjustments." data-ar="شغلك إنك تحوّل المبيعات والتحصيلات المعتمدة لأرصدة عملاء دقيقة وقابلة للتحصيل ومتطابقة. متعتمدش لنفسك حد ائتمان، ولا write-off، ولا أي تسوية من غير مستندات.">Turn approved sales and customer receipts into accurate, collectible and reconciled customer balances. You do not approve your own credit limit, write-offs or unsupported adjustments.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><p class="stage-note" data-en="See the morning checklist on the Daily Desk — same list, kept in one place." data-ar="شوف الشيكليست الصباحي في المكتب اليومي — نفس القايمة، في مكان واحد بس."><button type="button" class="btn" style="font-size:12.5px;padding:6px 12px" onclick="showPanel('ar-home')" data-en="→ Open Daily Desk" data-ar="→ افتح المكتب اليومي">→ Open Daily Desk</button></p></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Confirm active customer and approved credit." data-ar="اتأكد إن العميل active وعنده حد ائتمان معتمد.">Confirm active customer and approved credit.</li><li data-en="Match order, delivery proof, price and tax." data-ar="طابق الـPO مع دليل التسليم والسعر والضريبة.">Match order, delivery proof, price and tax.</li><li data-en="Issue invoice or credit note with due date." data-ar="اطلع الـinvoice أو إشعار الدائن بتاريخ استحقاق واضح.">Issue invoice or credit note with due date.</li><li data-en="Match bank receipt to remittance advice and allocate it." data-ar="طابق التحصيل البنكي مع الـremittance advice ووزّعه صح.">Match bank receipt to remittance advice and allocate it.</li><li data-en="Park unidentified cash in suspense; never guess." data-ar="لو كاش مش عارف مصدره، حطه في suspense — متخمّنش أبدًا.">Park unidentified cash in suspense; never guess.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="AR sub-ledger to GL reconciliation." data-ar="reconciliation بين دفتر العملاء الفرعي ودفتر الأستاذ.">AR sub-ledger to GL reconciliation.</li><li data-en="Aging and expected credit loss review." data-ar="مراجعة الـaging وخسائر الائتمان المتوقعة.">Aging and expected credit loss review.</li><li data-en="Unapplied cash and disputes report." data-ar="تقرير الكاش اللي لسه مش متخصص والنزاعات المفتوحة.">Unapplied cash and disputes report.</li><li data-en="Customer statements and collection commentary." data-ar="كشوف حساب العملاء وتعليق على موقف التحصيل.">Customer statements and collection commentary.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br data-en="" data-ar="">Dr Accounts Receivable<br>Cr Sales Revenue / Output VAT<br><br>Dr Bank<br>Cr Accounts Receivable<br><br><span data-en="Unknown receipt: Dr Bank / Cr Unapplied Receipts (Suspense)" data-ar="تحصيل مش عارف مصدره: مدين بنك / دائن تحصيلات غير مخصصة (Suspense)">Unknown receipt: Dr Bank / Cr Unapplied Receipts (Suspense)</span></div></div>
 <div class="data-panel" id="ap-role"><div class="module-head"><span class="module-tag" data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span><h3 data-en="AP Accountant — Role & Procedures" data-ar="موظف الموردين — الدور والإجراءات">AP Accountant — Role & Procedures</h3></div><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Protect the company from duplicate, unsupported or premature payments. You record approved liabilities, resolve exceptions and prepare—not solely approve—payment proposals." data-ar="شغلك إنك تحمي الشركة من دفعات مكررة أو من غير مستندات أو قبل ميعادها. تسجل الالتزامات المعتمدة، وتحل الاستثناءات، وتجهز مقترح الدفع — من غير ما تعتمده لوحدك.">Protect the company from duplicate, unsupported or premature payments. You record approved liabilities, resolve exceptions and prepare—not solely approve—payment proposals.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Review invoices received and blocked invoices." data-ar="راجع الفواتير اللي وصلت والفواتير الـblocked.">Review invoices received and blocked invoices.</li><li data-en="Review due dates, supplier statements and cash priorities." data-ar="اتأكد من تواريخ الاستحقاق، وكشوف حساب الموردين، وأولويات الكاش.">Review due dates, supplier statements and cash priorities.</li><li data-en="Check unmatched GRNs and unbilled receipts." data-ar="افحص إذون الاستلام (GRN) اللي لسه مش متطابقة، والاستلامات اللي لسه ما اتفوترتش.">Check unmatched GRNs and unbilled receipts.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Validate active supplier and invoice data." data-ar="اتأكد إن المورد active وبيانات الفاتورة صح.">Validate active supplier and invoice data.</li><li data-en="Perform PO–GRN/service confirmation–invoice match." data-ar="اعمل الـ3-way match: الـPO مع إذن الاستلام (أو تأكيد الخدمة) مع الفاتورة.">Perform PO–GRN/service confirmation–invoice match.</li><li data-en="Resolve price, quantity, tax and duplicate exceptions." data-ar="حل أي استثناء في السعر أو الكمية أو الضريبة أو فاتورة متكررة.">Resolve price, quantity, tax and duplicate exceptions.</li><li data-en="Post approved invoice and prepare payment proposal." data-ar="رحّل الفاتورة المعتمدة وجهّز مقترح الدفع.">Post approved invoice and prepare payment proposal.</li><li data-en="Obtain independent payment approval." data-ar="خد اعتماد مستقل على الدفع — مش من نفس الشخص اللي جهّزه.">Obtain independent payment approval.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="Supplier statement reconciliation." data-ar="reconciliation كشف حساب المورد.">Supplier statement reconciliation.</li><li data-en="AP control account reconciliation." data-ar="مطابقة حساب مراقبة الموردين مع الـsub-ledger.">AP control account reconciliation.</li><li data-en="Accruals for received but unbilled goods/services." data-ar="استحقاقات (accruals) للبضاعة أو الخدمة اللي اتستلمت ولسه ما اتفوترتش.">Accruals for received but unbilled goods/services.</li><li data-en="Aged debit balances and blocked invoice report." data-ar="تقرير الأرصدة المدينة القديمة والفواتير الـblocked.">Aged debit balances and blocked invoice report.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br data-en="" data-ar="">Dr Inventory / Expense / Input VAT<br>Cr Accounts Payable<br><br><span data-en="Payment:" data-ar="السداد:">Payment:</span> Dr Accounts Payable<br>Cr Bank</div></div>
 <div class="data-panel" id="inv-role"><div class="module-head"><span class="module-tag" data-en="📦 Inventory & Warehouse" data-ar="📦 المخزون والمخازن">📦 Inventory & Warehouse</span><h3 data-en="Warehouse Clerk — Role & Procedures" data-ar="موظف المخازن — الدور والإجراءات">Warehouse Clerk — Role & Procedures</h3></div><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Safeguard inventory and create a reliable quantity trail from receipt to issue. You do not change costs or write off variances without authorized review." data-ar="شغلك إنك تحافظ على المخزون وتعمل سجل كميات موثوق من الاستلام لحد الصرف. متغيّرش التكلفة ولا تشطب أي فرق من غير مراجعة واعتماد.">Safeguard inventory and create a reliable quantity trail from receipt to issue. You do not change costs or write off variances without authorized review.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Review open purchase orders and expected receipts." data-ar="راجع أوامر الشراء المفتوحة والاستلامات المتوقعة.">Review open purchase orders and expected receipts.</li><li data-en="Check low-stock, blocked and damaged items." data-ar="افحص الأصناف اللي رصيدها قرب يخلص، والـblocked، والتالفة.">Check low-stock, blocked and damaged items.</li><li data-en="Verify locations, access and pending requests." data-ar="اتأكد من المواقع، وصلاحيات الدخول، والطلبات المعلّقة.">Verify locations, access and pending requests.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Receive against approved PO and inspect quantity/condition." data-ar="استلم مقابل الـPO المعتمد وافحص الكمية والحالة.">Receive against approved PO and inspect quantity/condition.</li><li data-en="Issue GRN with accepted and rejected quantities." data-ar="اطلع GRN بالكميات المقبولة والمرفوضة.">Issue GRN with accepted and rejected quantities.</li><li data-en="Put away using item, location, batch/serial and expiry." data-ar="خزّنها حسب الصنف والموقع والـbatch/serial وتاريخ الصلاحية.">Put away using item, location, batch/serial and expiry.</li><li data-en="Issue only against approved request." data-ar="اصرف بس مقابل طلب معتمد.">Issue only against approved request.</li><li data-en="Record transfer, return, damage or adjustment evidence." data-ar="سجّل مستند أي تحويل أو مرتجع أو تلف أو تسوية.">Record transfer, return, damage or adjustment evidence.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="Count sheets and variance investigation." data-ar="كشوف الجرد والتحقيق في أي فرق.">Count sheets and variance investigation.</li><li data-en="Inventory sub-ledger to GL reconciliation." data-ar="reconciliation بين دفتر المخزون المساعد والـGL.">Inventory sub-ledger to GL reconciliation.</li><li data-en="Obsolete, damaged and slow-moving report." data-ar="تقرير الأصناف الراكدة والتالفة وبطيئة الحركة.">Obsolete, damaged and slow-moving report.</li><li data-en="Cut-off report for last GRN and issue note." data-ar="تقرير قطع الفترة لآخر GRN وإذن صرف.">Cut-off report for last GRN and issue note.</li></ul></div></div><div class="entry-box"><strong data-en="Accounting impact" data-ar="الأثر المحاسبي">Accounting impact</strong><br><span data-en="GRN / receipt: Inventory or goods-received-not-invoiced control" data-ar="GRN / الاستلام: مخزون أو حساب مراقبة بضاعة مستلمة غير مفوترة (GRNI)">GRN / receipt: Inventory or goods-received-not-invoiced control</span><br><span data-en="Issue: Dr COGS / Cr Inventory" data-ar="الصرف: مدين تكلفة البضاعة المباعة / دائن مخزون">Issue: Dr COGS / Cr Inventory</span><br><span data-en="Adjustments require documented approval." data-ar="أي تسوية لازم يكون وراها اعتماد موثّق.">Adjustments require documented approval.</span></div></div>
 <div class="data-panel" id="treasury-role"><div class="module-head"><span class="module-tag" data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span><h3 data-en="Treasury Accountant — Role & Procedures" data-ar="موظف الخزينة — الدور والإجراءات">Treasury Accountant — Role & Procedures</h3></div><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Protect cash, execute approved payments within authority and explain every bank movement. Preparation, approval, execution and reconciliation must remain separated." data-ar="شغلك إنك تحمي الكاش، وتنفّذ المدفوعات المعتمدة في حدود صلاحيتك، وتفسّر أي حركة بنكية. الإعداد والاعتماد والتنفيذ والـreconciliation لازم يفضلوا منفصلين عن بعض.">Protect cash, execute approved payments within authority and explain every bank movement. Preparation, approval, execution and reconciliation must remain separated.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Confirm opening bank and cash balances." data-ar="اتأكد من أرصدة البنك والخزينة الافتتاحية.">Confirm opening bank and cash balances.</li><li data-en="Update daily cash position and urgent commitments." data-ar="حدّث الموقف النقدي اليومي والالتزامات العاجلة.">Update daily cash position and urgent commitments.</li><li data-en="Review overdraft limits, returned items and bank alerts." data-ar="راجع حدود السحب على المكشوف، والشيكات المرتجعة، وتنبيهات البنك.">Review overdraft limits, returned items and bank alerts.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Receive approved payment or receipt request." data-ar="استلم طلب دفع أو تحصيل معتمد.">Receive approved payment or receipt request.</li><li data-en="Verify beneficiary, bank details and signatory authority." data-ar="اتأكد من المستفيد، وبيانات البنك، وصلاحية المفوّض بالتوقيع.">Verify beneficiary, bank details and signatory authority.</li><li data-en="Prepare batch; obtain maker-checker approval." data-ar="جهّز الدفعة، وخد اعتماد maker-checker.">Prepare batch; obtain maker-checker approval.</li><li data-en="Execute and retain bank confirmation." data-ar="نفّذ واحتفظ بتأكيد البنك.">Execute and retain bank confirmation.</li><li data-en="Post fees, interest, FX and unidentified items with evidence." data-ar="رحّل المصاريف البنكية والفوائد وفروق العملة والبنود المجهولة بمستند.">Post fees, interest, FX and unidentified items with evidence.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="Bank reconciliation for every account." data-ar="reconciliation بنكي لكل حساب.">Bank reconciliation for every account.</li><li data-en="Age and resolve outstanding items." data-ar="حدّد عمر البنود المعلّقة وحلها.">Age and resolve outstanding items.</li><li data-en="Loan/overdraft and interest confirmation." data-ar="تأكيد القروض/السحب على المكشوف والفوائد.">Loan/overdraft and interest confirmation.</li><li data-en="13-week cash forecast and liquidity report." data-ar="توقّع كاش لـ13 أسبوع وتقرير السيولة.">13-week cash forecast and liquidity report.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br><span data-en="Receipt: Dr Bank / Cr Customer or other approved source" data-ar="التحصيل: مدين بنك / دائن عميل أو مصدر معتمد تاني">Receipt: Dr Bank / Cr Customer or other approved source</span><br><span data-en="Payment: Dr Supplier / Expense / Payroll payable / Cr Bank" data-ar="السداد: مدين مورد / مصروف / رواتب مستحقة / دائن بنك">Payment: Dr Supplier / Expense / Payroll payable / Cr Bank</span><br><span data-en="Bank fee: Dr Bank Charges Expense / Cr Bank" data-ar="مصاريف بنكية: مدين مصروف مصاريف بنكية / دائن بنك">Bank fee: Dr Bank Charges Expense / Cr Bank</span></div></div>
@@ -10365,6 +10528,9 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
       <h3 data-en="Payroll Run" data-ar="تشغيل الرواتب">Payroll Run</h3>
       <p class="panel-sub" data-en="Calculate gross pay for every active employee, apply tax and social insurance, post the payroll journal, then pay net salaries." data-ar="احسب إجمالي الأجر لكل موظف نشط، طبّق الضريبة والتأمينات، رحّل قيد الرواتب، ثم اصرف صافي الرواتب.">Calculate gross pay for every active employee, apply tax and social insurance, post the payroll journal, then pay net salaries.</p>
     </div>
+
+    <h4 data-en="✍️ Do it yourself — Calculate &amp; Post a Real Payroll Run" data-ar="✍️ اعملها بنفسك — احسب ورحّل تشغيل رواتب حقيقي">✍️ Do it yourself — Calculate &amp; Post a Real Payroll Run</h4>
+    <p class="stage-note" data-en="Set the period and rates, then calculate and pay — exactly like month-end payroll." data-ar="حدّد الفترة والنسب، وبعدين احسب وادفع — بالظبط زي رواتب آخر الشهر.">Set the period and rates, then calculate and pay — exactly like month-end payroll.</p>
 
     <div class="cycle-stage">
       <h4 data-en="1 · Calculate & Post Payroll" data-ar="١ · حساب وترحيل الرواتب">1 · Calculate & Post Payroll</h4>
@@ -10615,6 +10781,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
           </div>
           <div class="case-block case-solution"><h5 data-en="Solution" data-ar="الحل">Solution</h5>
             <p data-en="Bridge: Open invoices + Unapplied receipts − Unallocated credits ± Manual GL ± FX ± Timing = GL. Clear with evidence; never force zero." data-ar="معادلة الربط: فواتير مفتوحة + تحصيلات unapplied − credit notes مش موزّعة ± قيود يدوية ± فرق عملة ± توقيت = رصيد الـGL. اقفلها بمستند فعلي؛ متفرضش صفر بالغلط.">Bridge: Open invoices + Unapplied receipts − Unallocated credits ± Manual GL ± FX ± Timing = GL. Clear with evidence; never force zero.</p>
+            <button type="button" class="btn btn-primary" style="margin-top:10px" onclick="showPanel('ar-bridge')" data-en="🔗 Try the real AR Bridge tool →" data-ar="🔗 جرّب أداة AR bridge الحقيقية ←">🔗 Try the real AR Bridge tool →</button>
           </div>
         </div>
       </details>
@@ -11165,6 +11332,7 @@ const WORKSPACES = {
       {id:'ar-statement', en:'Customer Statement', ar:'كشف حساب عميل', group:'reports'},
       {id:'ar-aging', en:'Aging Report', ar:'تقرير aging الديون', group:'reports'},
       {id:'ar-cycle', en:'Sales Cycle &amp; Daily Workflow', ar:'دورة المبيعات وسير العمل اليومي', group:'ops'},
+      {id:'ar-create', en:'✍️ Create Sales Documents', ar:'✍️ إنشاء مستندات المبيعات', group:'ops'},
       {id:'ar-bridge', en:'AR bridge', ar:'جسر التسوية', group:'ops'},
       {id:'cross-tickets', en:'Handoff to the Right Desk', ar:'التسليم للقسم المختص', group:'ops'},
       {id:'ar-role', en:'Role & procedures', ar:'الدور والإجراءات', group:'learn'},
@@ -11397,7 +11565,7 @@ const PANEL_TO_WS = {
   'aud-home':'aud', 'aud-role':'aud', 'aud-program':'aud', 'aud-findings':'aud', 'aud-quiz':'aud', 'aud-fraud':'aud', 'aud-spot-error':'aud', 'aud-cases':'aud',
   'cost-home':'cost', 'cost-register':'cost', 'cost-role':'cost', 'cost-cases':'cost', 'cost-calc':'cost', 'cost-capital':'cost', 'cost-quality':'cost', 'cost-spot-error':'cost', 'cost-fraud':'cost', 'cost-quiz':'cost',
   'constr-home':'constr', 'constr-register':'constr', 'constr-role':'constr', 'constr-cases':'constr', 'constr-calc':'constr', 'constr-spot-error':'constr', 'constr-fraud':'constr', 'constr-quiz':'constr',
-  'ar-home':'ar', customers:'ar', 'ar-new-customer':'ar', 'ar-cycle':'ar', 'ar-entries':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'ar-statement':'ar', 'ar-aging':'ar', 'ar-role':'ar', 'ar-cases':'ar', 'ar-bridge':'ar', 'cross-tickets':'ar',
+  'ar-home':'ar', customers:'ar', 'ar-new-customer':'ar', 'ar-cycle':'ar', 'ar-create':'ar', 'ar-entries':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'ar-statement':'ar', 'ar-aging':'ar', 'ar-role':'ar', 'ar-cases':'ar', 'ar-bridge':'ar', 'cross-tickets':'ar',
   'ap-home':'ap', suppliers:'ap', 'ap-new-supplier':'ap', 'ap-cycle':'ap', 'ap-entries':'ap', 'ap-spot-error':'ap', 'ap-quiz':'ap', 'ap-fraud':'ap', 'ap-statement':'ap', 'ap-aging':'ap', 'ap-role':'ap', 'ap-cases':'ap', 'ap-bridge':'ap',
   'inv-home':'inv', inventory:'inv', 'inv-new-item':'inv', 'inv-workflow':'inv', 'inv-entries':'inv', 'inv-spot-error':'inv', 'inv-fraud':'inv', 'inv-quiz':'inv', 'inv-role':'inv', 'inv-cases':'inv',
   'recv-home':'recv', 'recv-register':'recv', 'recv-role':'recv', 'recv-cases':'recv', 'recv-calc':'recv', 'recv-spot-error':'recv', 'recv-fraud':'recv', 'recv-quiz':'recv',
@@ -11445,6 +11613,7 @@ function goHome(isBack){
   document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute('aria-selected','false'));
   document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-selected','false'));
   window.scrollTo({top:0, behavior:'smooth'});
+  if(typeof homeRenderContinueCard==='function') homeRenderContinueCard();
 }
 function goBack(){
   if(navHistory.length === 0){ goHome(true); return; }
@@ -11589,13 +11758,21 @@ function renderWorkspaceChrome(wsKey, activeId){
     GROUP_ORDER.forEach(g=>{
       const items = ops.filter(t=>(t.group||'')===g);
       if(!items.length) return;
+      const hasActive = items.some(t=>t.id===activeId);
       const card = document.createElement('div');
-      card.className = 'ws-group-card' + (g ? ' ws-group-card-' + g : '');
+      card.className = 'ws-group-card' + (g ? ' ws-group-card-' + g : '') + (hasActive ? '' : ' is-collapsed');
       const label = GROUP_LABELS[g];
       if(label){
         const head = document.createElement('div');
-        head.className = 'ws-group-header' + (g ? ' ws-group-header-' + g : '');
-        head.textContent = ar ? label.ar : label.en;
+        head.className = 'ws-group-header ws-group-header-toggle' + (g ? ' ws-group-header-' + g : '');
+        head.innerHTML = '<span>' + (ar ? label.ar : label.en) + '</span><span class="ws-group-chevron">' + (hasActive ? '▾' : '▸') + '</span>';
+        head.setAttribute('role','button'); head.setAttribute('tabindex','0');
+        head.onclick = function(){
+          card.classList.toggle('is-collapsed');
+          const chev = head.querySelector('.ws-group-chevron');
+          chev.textContent = card.classList.contains('is-collapsed') ? '▸' : '▾';
+        };
+        head.onkeydown = function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); head.click(); } };
         card.appendChild(head);
       }
       const list = document.createElement('div');
@@ -11646,6 +11823,9 @@ function showPanel(id, btn, isBack){
   if(wsKey && ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv','constr','tax','learn'].includes(wsKey) && typeof homeMarkVisited==='function'){
     homeMarkVisited(wsKey);
   }
+  if(wsKey && wsKey !== 'learn' && id !== wsKey+'-home'){
+    try{ localStorage.setItem('ayman-last-visit', JSON.stringify({station:wsKey, panel:id})); }catch(e){}
+  }
   document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
   const panel = document.getElementById(id);
   if(panel) panel.classList.add('open');
@@ -11676,7 +11856,7 @@ function showPanel(id, btn, isBack){
     'aud-home':'aud-home', 'aud-role':'aud-home', 'aud-program':'aud-home', 'aud-findings':'aud-home', 'aud-quiz':'aud-home', 'aud-fraud':'aud-home', 'aud-spot-error':'aud-home', 'aud-cases':'aud-home',
     'cost-home':'cost-home', 'cost-register':'cost-home', 'cost-role':'cost-home', 'cost-cases':'cost-home', 'cost-calc':'cost-home', 'cost-capital':'cost-home', 'cost-quality':'cost-home', 'cost-spot-error':'cost-home', 'cost-fraud':'cost-home', 'cost-quiz':'cost-home',
     'constr-home':'constr-home', 'constr-register':'constr-home', 'constr-role':'constr-home', 'constr-cases':'constr-home', 'constr-calc':'constr-home', 'constr-spot-error':'constr-home', 'constr-fraud':'constr-home', 'constr-quiz':'constr-home',
-    'ar-home':'ar-home', customers:'ar-home', 'ar-new-customer':'ar-home', 'ar-cycle':'ar-home', 'ar-entries':'ar-home', 'ar-spot-error':'ar-home', 'ar-quiz':'ar-home', 'ar-fraud':'ar-home', 'ar-statement':'ar-home', 'ar-aging':'ar-home', 'ar-role':'ar-home', 'ar-cases':'ar-home', 'ar-bridge':'ar-home', 'cross-tickets':'ar-home',
+    'ar-home':'ar-home', customers:'ar-home', 'ar-new-customer':'ar-home', 'ar-cycle':'ar-home', 'ar-create':'ar-home', 'ar-entries':'ar-home', 'ar-spot-error':'ar-home', 'ar-quiz':'ar-home', 'ar-fraud':'ar-home', 'ar-statement':'ar-home', 'ar-aging':'ar-home', 'ar-role':'ar-home', 'ar-cases':'ar-home', 'ar-bridge':'ar-home', 'cross-tickets':'ar-home',
     'ap-home':'ap-home', suppliers:'ap-home', 'ap-new-supplier':'ap-home', 'ap-cycle':'ap-home', 'ap-entries':'ap-home', 'ap-spot-error':'ap-home', 'ap-quiz':'ap-home', 'ap-fraud':'ap-home', 'ap-statement':'ap-home', 'ap-aging':'ap-home', 'ap-role':'ap-home', 'ap-cases':'ap-home', 'ap-bridge':'ap-home',
     'inv-home':'inv-home', inventory:'inv-home', 'inv-new-item':'inv-home', 'inv-workflow':'inv-home', 'inv-entries':'inv-home', 'inv-spot-error':'inv-home', 'inv-fraud':'inv-home', 'inv-quiz':'inv-home', 'inv-role':'inv-home', 'inv-cases':'inv-home',
     'recv-home':'recv-home', 'recv-register':'recv-home', 'recv-role':'recv-home', 'recv-cases':'recv-home', 'recv-calc':'recv-home', 'recv-spot-error':'recv-home', 'recv-fraud':'recv-home', 'recv-quiz':'recv-home',
@@ -12120,6 +12300,116 @@ function bcRecordSpend(){
     warn = '<p class="cycle-warn">'+(ar?'⚠ تجاوز الموازنة! الإجمالي الفعلي ('+newActual.toLocaleString()+') تخطى الموازنة السنوية ('+row.annual.toLocaleString()+'). محتاج تفسير رسمي.':'⚠ Over budget! Total actual ('+newActual.toLocaleString()+') now exceeds the annual budget ('+row.annual.toLocaleString()+'). Needs a formal explanation.')+'</p>';
   }
   msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم تسجيل الصرف. ':'Spend recorded. ')+'</strong>'+(ar?'الفعلي الجديد: ':'New YTD actual: ')+newActual.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>' + warn;
+}
+
+
+function constrProjRows(){
+  return [...document.querySelectorAll('#table-constr tbody tr')].map(r=>{
+    const c = r.children;
+    return {code:c[0].textContent.trim(), name:c[1].textContent.trim(),
+            contract: Number((c[3]?.textContent||'0').replace(/[^0-9.]/g,''))||0,
+            pct: Number((c[4]?.textContent||'0').replace(/[^0-9.]/g,''))||0};
+  });
+}
+function constrRowEl(code){ return [...document.querySelectorAll('#table-constr tbody tr')].find(r=>r.children[0].textContent.trim()===code); }
+function constrPopulateSelects(){
+  const rows = constrProjRows();
+  document.querySelectorAll('.constr-proj-select').forEach(sel=>{
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">— Select —</option>' + rows.map(r=>`<option value="${r.code}">${r.code} — ${r.name}</option>`).join('');
+    if(rows.some(r=>r.code===cur)) sel.value = cur;
+  });
+}
+function constrUpdateProgress(){
+  const projSel = document.getElementById('constr-p-proj');
+  const newPct = Number(document.getElementById('constr-p-pct').value);
+  const msg = document.getElementById('constr-p-result'), ar = cycleAr();
+  if(!projSel.value || newPct===''){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'اختر مشروع واكتب نسبة الإنجاز.':'Select a project and enter the completion %.')+'</p>'; return; }
+  const row = constrProjRows().find(r=>r.code===projSel.value);
+  if(newPct < row.pct){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'النسبة الجديدة أقل من الحالية ('+row.pct+'%). نسبة الإنجاز مينفعش ترجع للخلف.':'New % is lower than current ('+row.pct+'%). Completion percentage cannot go backward.')+'</p>'; return; }
+  const revenueToDate = row.contract * (newPct/100);
+  const rowEl = constrRowEl(row.code);
+  rowEl.children[4].textContent = newPct+'%';
+  const id = glPost([{account:'Unbilled Receivable (Construction)',debit:revenueToDate},{account:'Contract Revenue',credit:revenueToDate}], (ar?'إيراد عقد — ':'Contract revenue — ')+row.name);
+  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم تحديث نسبة الإنجاز لـ'+newPct+'%. ':'Updated completion to '+newPct+'%. ')+'</strong>'+(ar?'إجمالي الإيراد المعترف به حتى تاريخه: ':'Total revenue recognized to date: ')+revenueToDate.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>';
+  constrPopulateSelects();
+}
+function constrRecordBilling(){
+  const projSel = document.getElementById('constr-b-proj');
+  const billed = Number(document.getElementById('constr-b-billed').value);
+  const msg = document.getElementById('constr-b-result'), ar = cycleAr();
+  if(!projSel.value || !billed){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'اختر مشروع واكتب المبلغ المفوتر.':'Select a project and enter the billed amount.')+'</p>'; return; }
+  const row = constrProjRows().find(r=>r.code===projSel.value);
+  const revenueToDate = row.contract * (row.pct/100);
+  const diff = billed - revenueToDate;
+  let id, warn;
+  if(diff > 0){
+    id = glPost([{account:'Accounts Receivable',debit:diff},{account:'Billings in Excess of Costs',credit:diff}], (ar?'فوترة زايدة — ':'Overbilling — ')+row.name);
+    warn = '<p class="cycle-warn">'+(ar?'⚠ فوترة زايدة عن المكتسب بمقدار '+diff.toLocaleString()+' جنيه — ده التزام (Billings in Excess of Costs) لحد ما الإنجاز يلحق.':'⚠ Billed '+diff.toLocaleString()+' EGP more than revenue earned — this is a liability (Billings in Excess of Costs) until progress catches up.')+'</p>';
+  } else if(diff < 0){
+    id = glPost([{account:'Accounts Receivable',debit:billed},{account:'Unbilled Receivable (Construction)',credit:Math.abs(diff)}], (ar?'فوترة ناقصة — ':'Underbilling — ')+row.name);
+    warn = '<p class="cycle-warn">'+(ar?'⚠ فوترة ناقصة عن المكتسب بمقدار '+Math.abs(diff).toLocaleString()+' جنيه — في ذمم غير مفوترة لسه.':'⚠ Billed '+Math.abs(diff).toLocaleString()+' EGP less than revenue earned — there\'s still unbilled receivable sitting on the books.')+'</p>';
+  } else {
+    id = glPost([{account:'Accounts Receivable',debit:billed},{account:'Unbilled Receivable (Construction)',credit:billed}], (ar?'فوترة مطابقة — ':'Billing matched — ')+row.name);
+    warn = '<p class="msg msg-success">'+(ar?'✓ الفوترة مطابقة تمامًا للإيراد المكتسب.':'✓ Billing matches revenue earned exactly.')+'</p>';
+  }
+  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'إيراد مكتسب حتى تاريخه: ':'Revenue earned to date: ')+revenueToDate.toLocaleString()+'</strong><br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>' + warn;
+}
+
+
+function taxCalcVATReturn(){
+  const output = Number(document.getElementById('tax-v-output').value), input = Number(document.getElementById('tax-v-input').value);
+  const msg = document.getElementById('tax-v-result'), ar = cycleAr();
+  if(!output && !input){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'ادخل رقم واحد على الأقل.':'Enter at least one figure.')+'</p>'; return; }
+  const net = output - input;
+  let id, note;
+  if(net > 0){
+    id = glPost([{account:'Output VAT',debit:output},{account:'Input VAT',credit:input},{account:'VAT Payable',credit:net}], (ar?'إقرار ضريبة — مستحق':'VAT return — payable'));
+    note = (ar?'صافي مستحق للمصلحة: ':'Net payable to tax authority: ')+net.toLocaleString()+' EGP';
+  } else if(net < 0){
+    id = glPost([{account:'Output VAT',debit:output},{account:'Input VAT',credit:input},{account:'VAT Receivable (Refund)',debit:Math.abs(net)}], (ar?'إقرار ضريبة — مسترد':'VAT return — refundable'));
+    note = (ar?'صافي مسترد من المصلحة: ':'Net refundable from tax authority: ')+Math.abs(net).toLocaleString()+' EGP';
+  } else {
+    id = glPost([{account:'Output VAT',debit:output},{account:'Input VAT',credit:input}], (ar?'إقرار ضريبة — صفر':'VAT return — nil'));
+    note = (ar?'صافي الموقف صفر.':'Net position is zero.');
+  }
+  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم الحساب والترحيل. ':'Calculated and posted. ')+'</strong>'+note+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>';
+}
+
+
+function ratiosRecordReclass(){
+  const from = document.getElementById('ratios-r-from').value.trim(), to = document.getElementById('ratios-r-to').value.trim();
+  const amount = Number(document.getElementById('ratios-r-amount').value);
+  const msg = document.getElementById('ratios-r-result'), ar = cycleAr();
+  if(!from || !to || !amount){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'أكمل كل الحقول.':'Complete all fields.')+'</p>'; return; }
+  const id = glPost([{account:to,debit:amount},{account:from,credit:amount}], (ar?'إعادة تصنيف — ':'Reclassification — ')+from+' → '+to);
+  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم ترحيل إعادة التصنيف. ':'Reclassification posted. ')+'</strong>'+(ar?'مدين ':'Dr ')+to+' '+amount.toLocaleString()+' / '+(ar?'دائن ':'Cr ')+from+' '+amount.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'<br><span style="font-size:12.5px;color:var(--muted)">'+(ar?'ملحوظة: الرصيد تنقل بس، مفيش كاش دخل ولا خرج — بالظبط زي ما شفنا في الألغاز المحاسبية.':'Note: only the balance moved, no cash came in or out — exactly like we saw in the Accounting Mysteries.')+'</span></div>';
+}
+
+function audRecordFinding(){
+  const under = document.getElementById('aud-f-understated').value.trim(), over = document.getElementById('aud-f-overstated').value.trim();
+  const amount = Number(document.getElementById('aud-f-amount').value), threshold = Number(document.getElementById('aud-f-threshold').value);
+  const msg = document.getElementById('aud-f-result'), ar = cycleAr();
+  if(!under || !over || !amount){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'أكمل كل الحقول.':'Complete all fields.')+'</p>'; return; }
+  const id = glPost([{account:under,debit:amount},{account:over,credit:amount}], (ar?'تسوية ملاحظة مراجعة':'Audit finding adjustment'));
+  let warn = '';
+  if(amount >= threshold){
+    warn = '<p class="cycle-warn">'+(ar?'⚠ القيمة ('+amount.toLocaleString()+') تساوي أو تتخطى حد الأهمية النسبية ('+threshold.toLocaleString()+'). الملاحظة دي material ولازم تتصعّد في تقرير المراجعة.':'⚠ Amount ('+amount.toLocaleString()+') meets or exceeds the materiality threshold ('+threshold.toLocaleString()+'). This finding is material and must be escalated in the audit report.')+'</p>';
+  } else {
+    warn = '<p class="msg msg-success">'+(ar?'✓ تحت حد الأهمية النسبية — تتسجل كملاحظة عادية.':'✓ Below materiality — recorded as a routine note.')+'</p>';
+  }
+  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم تسجيل وترحيل التسوية. ':'Adjustment recorded and posted. ')+'</strong>'+(ar?'مدين ':'Dr ')+under+' '+amount.toLocaleString()+' / '+(ar?'دائن ':'Cr ')+over+' '+amount.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>' + warn;
+}
+
+
+function glManualPost(){
+  const dr = document.getElementById('gl-m-dr').value.trim(), cr = document.getElementById('gl-m-cr').value.trim();
+  const amount = Number(document.getElementById('gl-m-amount').value), desc = document.getElementById('gl-m-desc').value.trim();
+  const msg = document.getElementById('gl-m-result'), ar = cycleAr();
+  if(!dr || !cr || !amount){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'أكمل الحساب المدين والدائن والمبلغ على الأقل.':'Complete the debit account, credit account, and amount at least.')+'</p>'; return; }
+  if(dr.toLowerCase() === cr.toLowerCase()){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'الحساب المدين والدائن مينفعش يكونوا نفس الحساب.':'Debit and credit accounts cannot be the same account.')+'</p>'; return; }
+  const id = glPost([{account:dr,debit:amount},{account:cr,credit:amount}], desc || (ar?'قيد يدوي':'Manual entry'));
+  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم ترحيل القيد. ':'Entry posted. ')+'</strong>'+(ar?'مدين ':'Dr ')+dr+' '+amount.toLocaleString()+' / '+(ar?'دائن ':'Cr ')+cr+' '+amount.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>';
 }
 
 function cyclePopulateSelects(){
@@ -12914,7 +13204,7 @@ function glRender(){
     if(!GL.entries.length){ jbody.innerHTML = '<tr><td colspan="3" style="color:var(--muted);text-align:center">'+(ar?'— لا توجد قيود بعد. —':'— No entries yet. —')+'</td></tr>'; }
     else {
       jbody.innerHTML = [...GL.entries].sort((a,b)=>b.seqNo-a.seqNo).map(e=>{
-        const lines = e.lines.map(l=> (l.debit ? 'Dr ' : 'Cr ') + glLabel(l.account) + ' ' + (l.debit||l.credit).toLocaleString()).join('<br>');
+        const lines = e.lines.map(l=> (l.debit ? 'Dr ' : 'Cr ') + glLabel(l.account) + ' ' + Number(l.debit||l.credit||0).toLocaleString()).join('<br>');
         return `<tr><td>${e.id}</td><td>${lines}</td><td>${e.description||'—'}</td></tr>`;
       }).join('');
     }
@@ -17657,6 +17947,29 @@ learnSpotRender();
 const HOME_VISITED_KEY = 'ayman_home_visited_v1';
 const HOME_STATIONS = ['ar','ap','inv','recv','cost','constr','treasury','hr','gl','tax','bc','ratios','aud','learn'];
 let homeVisited = {};
+function homeRenderContinueCard(){
+  const card = document.getElementById('homeContinueCard');
+  if(!card) return;
+  let data;
+  try{ data = JSON.parse(localStorage.getItem('ayman-last-visit')||'null'); }catch(e){ data = null; }
+  if(!data || !data.station || !WORKSPACES[data.station]){ card.style.display = 'none'; return; }
+  const ws = WORKSPACES[data.station];
+  const tab = (ws.tabs||[]).find(t=>t.id===data.panel);
+  const ar = document.documentElement.lang==='ar';
+  const deskTitle = ar ? ws.title[1] : ws.title[0];
+  const tabLabel = tab ? (ar ? tab.ar : tab.en).replace(/^[✍️🕵️🔍🏆]+\s*/u,'') : '';
+  const label = document.getElementById('homeContinueLabel');
+  label.textContent = tabLabel ? (deskTitle + ' — ' + tabLabel) : deskTitle;
+  card.style.display = 'flex';
+  document.getElementById('homeContinueBtn').onclick = function(){ openWorkspaceMenu(data.station); setTimeout(()=>showPanel(data.panel), 50); };
+}
+function toggleHomeGroup(gid){
+  const group = document.getElementById('homeGroup-'+gid);
+  const chevron = document.getElementById('homeChevron-'+gid);
+  if(!group) return;
+  group.classList.toggle('is-collapsed');
+  chevron.textContent = group.classList.contains('is-collapsed') ? '▸' : '▾';
+}
 function homeLoadVisited(){ try{ homeVisited = JSON.parse(localStorage.getItem(HOME_VISITED_KEY)||'{}'); }catch(_){ homeVisited = {}; } }
 function homeSaveVisited(){ try{ localStorage.setItem(HOME_VISITED_KEY, JSON.stringify(homeVisited)); }catch(_){} }
 function homeMarkVisited(station){
@@ -18007,6 +18320,7 @@ function homeRenderFocus(){
   if(!window._wheelBuilt) buildWheelSVG();
 }
 homeLoadVisited();
+homeRenderContinueCard();
 homeRenderVisitedBadges();
 homeRenderCommandCard();
 homeRenderFocus();
