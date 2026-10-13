@@ -861,6 +861,84 @@ body:not(.is-workspace) .path-bar.home-view{display:none !important}
 .decision-card.danger{border-inline-start-color:#c62828}
 
 .ticket-board{display:grid;gap:10px;margin-top:8px}
+.handoff-progress{ font-size:12px; font-weight:700; color:var(--muted); margin-bottom:10px; }
+.handoff-situation{
+  background:var(--brand-soft); border-inline-start:4px solid var(--brand); border-radius:10px;
+  padding:14px 16px; font-size:15px; font-weight:600; color:var(--ink); line-height:1.6; margin-bottom:14px;
+}
+.handoff-question{ font-weight:800; font-size:14px; color:var(--brand-dark); margin-bottom:10px; }
+.handoff-options{ display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+.handoff-option{
+  padding:12px 16px; border:2px solid var(--line-strong); border-radius:12px; background:#fff;
+  font-size:14px; font-weight:700; color:var(--ink); text-align:start; cursor:pointer;
+  transition:border-color .15s, background .15s;
+}
+.handoff-option:hover:not(:disabled){ border-color:var(--brand); background:var(--brand-soft); }
+.handoff-option:disabled{ cursor:default; }
+.handoff-option.handoff-correct{ border-color:var(--success); background:var(--success-soft); }
+.handoff-option.handoff-wrong{ border-color:var(--danger); background:var(--danger-soft); }
+.handoff-explain{
+  background:#fff; border:2px solid var(--line-strong); border-radius:12px; padding:14px 16px; margin-bottom:12px;
+}
+.handoff-explain strong{ display:block; margin-bottom:6px; color:var(--brand-dark); }
+.handoff-explain p{ margin:0; font-size:13.5px; line-height:1.6; color:var(--ink-soft); }
+
+.chat-phone-frame{
+  border-radius:28px; overflow:hidden; background:#ECE5DD;
+  box-shadow:0 16px 40px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.12);
+  border:6px solid #1a1a1a; max-width:420px; margin:0 auto;
+}
+.chat-app-header{
+  background:var(--brand-dark); color:#fff; padding:12px 16px;
+  display:flex; align-items:center; gap:10px;
+}
+.chat-app-avatar{
+  width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.15);
+  display:flex; align-items:center; justify-content:center; font-size:19px; flex:none;
+}
+.chat-app-who{ display:flex; flex-direction:column; gap:2px; }
+.chat-app-who strong{ font-size:14px; }
+.chat-app-status{ font-size:11px; color:rgba(255,255,255,.75); display:flex; align-items:center; gap:5px; }
+.chat-online-dot{ width:7px; height:7px; border-radius:50%; background:#4ADE80; display:inline-block; }
+.chat-app-body{ padding:16px; min-height:120px; }
+.chat-progress{ font-size:12px; font-weight:700; color:var(--muted); margin-bottom:8px; }
+@keyframes chatBubbleIn{
+  0%{ opacity:0; transform:translateY(8px); }
+  100%{ opacity:1; transform:translateY(0); }
+}
+.chat-bubble{ animation:chatBubbleIn .35s ease both; }
+.chat-typing{
+  display:inline-flex; align-items:center; gap:4px; background:#fff; border:2px solid var(--line-strong);
+  border-radius:16px; border-start-start-radius:4px; padding:12px 16px; animation:chatBubbleIn .3s ease both;
+}
+.chat-typing span{
+  width:7px; height:7px; border-radius:50%; background:var(--muted); display:inline-block;
+  animation:chatTypingDot 1.1s ease-in-out infinite;
+}
+.chat-typing span:nth-child(2){ animation-delay:.15s; }
+.chat-typing span:nth-child(3){ animation-delay:.3s; }
+@keyframes chatTypingDot{ 0%,60%,100%{ transform:translateY(0); opacity:.4; } 30%{ transform:translateY(-4px); opacity:1; } }
+.chat-bubble{
+  max-width:85%; padding:10px 14px; border-radius:16px; font-size:13.5px; line-height:1.5;
+  margin-bottom:10px; display:inline-block;
+}
+.chat-manager{ background:#fff; border:2px solid var(--line-strong); border-start-start-radius:4px; }
+.chat-employee{ background:var(--brand); color:#fff; border-start-end-radius:4px; margin-inline-start:auto; display:block; margin-inline-end:0; width:fit-content; }
+.chat-manager.chat-good{ border-color:var(--success); background:var(--success-soft); }
+.chat-manager.chat-bad{ border-color:var(--warning); background:var(--warning-soft); }
+.chat-options{ display:flex; flex-direction:column; gap:8px; margin:10px 0; }
+.chat-option{
+  padding:10px 14px; border:2px solid var(--line-strong); border-radius:12px; background:#fff;
+  font-size:13.5px; font-weight:600; color:var(--ink); text-align:start; cursor:pointer;
+  transition:border-color .15s, background .15s;
+}
+.chat-option:hover:not(:disabled){ border-color:var(--brand); background:var(--brand-soft); }
+.chat-option:disabled{ cursor:default; opacity:.6; }
+
+.handoff-done{
+  text-align:center; font-weight:800; font-size:16px; color:var(--brand-dark);
+  background:var(--gold-soft); border:2px solid var(--gold); border-radius:12px; padding:14px;
+}
 .ticket{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
 .ticket.done{opacity:.65;background:var(--brand-soft)}
 .ticket .tk-from{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
@@ -3162,9 +3240,9 @@ body:not(.is-workspace) .workspace-chrome{
 .mock-tool{
   background:#fff !important;
   border:1px solid var(--ledger-rule) !important;
-  border-radius:8px !important;
+  border-radius:26px !important;
   box-shadow:none !important;
-  padding:12px 10px !important;
+  padding:16px 10px !important;
 }
 .mock-tool:hover{ background:var(--ledger-paper) !important; }
 .home-note{
@@ -3324,23 +3402,40 @@ input[type="text"]:focus, input[type="number"]:focus{
   transform:translateY(-2px);
 }
 
-/* Quick Tools — bold colored frames */
-.mock-tool{ border-width:2px !important; border-style:solid !important; }
-/* Reference &amp; knowledge tools — brand teal */
-.mock-tools-grid .mock-tool:nth-child(1),
-.mock-tools-grid .mock-tool:nth-child(2),
-.mock-tools-grid .mock-tool:nth-child(3){ border-color:var(--brand) !important; }
-/* Career &amp; soft-skills tools — warm gold */
-.mock-tools-grid .mock-tool:nth-child(4),
-.mock-tools-grid .mock-tool:nth-child(5){ border-color:var(--gold) !important; }
-/* Growing libraries (in progress) — consistent purple */
-.mock-tools-grid .mock-tool:nth-child(6),
-.mock-tools-grid .mock-tool:nth-child(7){ border-color:#8b5fbf !important; }
-.mock-tools-grid .mock-tool:nth-child(8){ border-color:#4a90a4 !important; }
-.mock-tools-grid .mock-tool:nth-child(9){ border-color:#d4454c !important; }
-.mock-tools-grid .mock-tool:nth-child(10){ border-color:#2e9e5b !important; }
-.mock-tools-grid .mock-tool:nth-child(11){ border-color:#8b5fbf !important; }
-.mock-tools-grid .mock-tool:nth-child(12){ border-color:#c0392b !important; }
+/* Quick Tools — redesigned: grouped sections, colored icon circles, gradient borders, touch feedback */
+.qt-group{ margin-bottom:18px; }
+.qt-group:last-child{ margin-bottom:0; }
+.qt-group-label{
+  font-size:13px; font-weight:800; color:var(--brand-dark); margin:0 0 10px 4px;
+  text-transform:uppercase; letter-spacing:.03em;
+}
+.mock-tool{
+  border-width:2px !important; border-style:solid !important;
+  position:relative; overflow:hidden;
+  transition:transform .15s ease, box-shadow .15s ease !important;
+}
+.mock-tool:active{ transform:scale(.96) !important; box-shadow:0 2px 8px rgba(0,0,0,.15) !important; }
+.qt-icon-wrap{
+  display:flex !important; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:50%; margin:0 auto 6px;
+  font-size:19px !important;
+}
+.qt-icon-wrap span{ line-height:1; }
+.qt-badge{
+  position:absolute; top:4px; inset-inline-end:4px; font-size:9px; color:#1a1a1a;
+  padding:2px 7px; border-radius:6px; font-weight:800;
+}
+.qt-badge-progress{ background:#e8a317; }
+.qt-badge-new{
+  background:linear-gradient(90deg,#F0B429,#fb7185,#38BDF8,#F0B429); background-size:300% auto;
+  animation:investCardShimmer 3s linear infinite;
+}
+/* 5-color rotating palette — teal, gold, blue, coral, purple */
+.qt-c1{ border-color:#14544B !important; } .qt-c1 .qt-icon-wrap{ background:#e0f7f4; }
+.qt-c2{ border-color:#e8a317 !important; } .qt-c2 .qt-icon-wrap{ background:#fdf3e0; }
+.qt-c3{ border-color:#2E86AB !important; } .qt-c3 .qt-icon-wrap{ background:#e8f3f8; }
+.qt-c4{ border-color:#C9516B !important; } .qt-c4 .qt-icon-wrap{ background:#fbebee; }
+.qt-c5{ border-color:#8b5fbf !important; } .qt-c5 .qt-icon-wrap{ background:#f2ecf8; }
 #taxAuditToolCard{
   border-width:2.5px !important;
   animation:taxAuditCardBorderGlow 4s linear infinite !important;
@@ -3864,19 +3959,40 @@ input[type="text"]:focus, input[type="number"]:focus{
       <div class="mock-sec-head mph-tools">
         <span data-en="Quick Tools" data-ar="أدوات سريعة">Quick Tools</span>
       </div>
-      <div class="mock-tools-grid">
-        <button type="button" class="mock-tool" onclick="showPanel('learn-glossary')"><span>📘</span><strong data-en="Glossary" data-ar="القاموس">Glossary</strong><small>القاموس</small></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-tax')"><span>🧮</span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمين">Tax &amp; Insurance</strong><small>الضرائب والتأمين</small></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-sod')"><span>⚖️</span><strong data-en="Segregation of Duties" data-ar="فصل المهام والواجبات">Segregation of Duties</strong><small>فصل المهام والواجبات</small></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-interview')"><span>🎤</span><strong data-en="Interview Prep" data-ar="تجهيز المقابلات">Interview Prep</strong><small>تجهيز المقابلات</small></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-comms')"><span>💬</span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong><small>تواصل بيئة العمل</small></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-sops')" style="position:relative"><span>📑</span><strong data-en="SOP Library" data-ar="مكتبة SOPs">SOP Library</strong><small>مكتبة SOPs</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
-        <button type="button" class="mock-tool" onclick="showPanel('learn-mysteries')" style="position:relative"><span>🧩</span><strong data-en="Accounting Mysteries" data-ar="ألغاز محاسبية">Accounting Mysteries</strong><small>ألغاز محاسبية</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:#e8a317;color:#1a1a1a;padding:2px 6px;border-radius:6px;font-weight:800" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
-        <button type="button" class="mock-tool" onclick="showPanel('cross-tickets')"><span>🔄</span><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><small>التسليم للقسم المختص</small></button>
-        <button type="button" id="investigationToolCard" class="mock-tool" onclick="investigationRenderPicker();investigationRender();showPanel('learn-investigation')" style="position:relative"><span>🔎</span><strong data-en="Full Investigation" data-ar="تحقيق كامل">Full Investigation</strong><small>تحقيق كامل</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:linear-gradient(90deg,#F0B429,#fb7185,#38BDF8,#F0B429);background-size:300% auto;color:#1a1a1a;padding:2px 7px;border-radius:6px;font-weight:800;animation:investCardShimmer 3s linear infinite" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
-        <button type="button" class="mock-tool" onclick="learnRenderBasics();showPanel('learn-basics')"><span>🧮</span><strong data-en="Basic Commercial Formulas" data-ar="معادلات تجارية أساسية">Basic Commercial Formulas</strong><small>معادلات تجارية أساسية</small></button>
-        <button type="button" id="ethicsToolCard" class="mock-tool" onclick="learnRenderEthics();showPanel('learn-ethics')" style="position:relative"><span>🧭</span><strong data-en="Professional Ethics" data-ar="أخلاقيات المهنة">Professional Ethics</strong><small>أخلاقيات المهنة</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:linear-gradient(90deg,#a78bfa,#F0B429,#38BDF8,#a78bfa);background-size:300% auto;color:#1a1a1a;padding:2px 7px;border-radius:6px;font-weight:800;animation:investCardShimmer 3s linear infinite" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
-        <button type="button" id="taxAuditToolCard" class="mock-tool" onclick="learnRenderTaxAudit();showPanel('learn-taxaudit')" style="position:relative"><span>🧾</span><strong data-en="Tax Audit Requirements" data-ar="متطلبات الفحص الضريبي">Tax Audit Requirements</strong><small>متطلبات الفحص الضريبي</small><span style="position:absolute;top:4px;inset-inline-end:4px;font-size:9px;background:linear-gradient(90deg,#fb7185,#38BDF8,#F0B429,#fb7185);background-size:300% auto;color:#1a1a1a;padding:2px 7px;border-radius:6px;font-weight:800;animation:investCardShimmer 3s linear infinite" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
+      <div class="qt-group">
+        <div class="qt-group-label" data-en="📖 Quick References" data-ar="📖 مراجع سريعة">📖 Quick References</div>
+        <div class="mock-tools-grid">
+          <button type="button" class="mock-tool qt-c1" onclick="showPanel('learn-glossary')"><span class="qt-icon-wrap"><span>📘</span></span><strong data-en="Glossary" data-ar="القاموس">Glossary</strong><small>القاموس</small></button>
+          <button type="button" class="mock-tool qt-c2" onclick="showPanel('learn-tax')"><span class="qt-icon-wrap"><span>🧮</span></span><strong data-en="Tax &amp; Insurance" data-ar="الضرائب والتأمين">Tax &amp; Insurance</strong><small>الضرائب والتأمين</small></button>
+          <button type="button" class="mock-tool qt-c3" onclick="showPanel('learn-sops')" style="position:relative"><span class="qt-icon-wrap"><span>📑</span></span><strong data-en="SOP Library" data-ar="مكتبة SOPs">SOP Library</strong><small>مكتبة SOPs</small><span class="qt-badge qt-badge-progress" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
+          <button type="button" class="mock-tool qt-c4" onclick="learnRenderBasics();showPanel('learn-basics')"><span class="qt-icon-wrap"><span>🧮</span></span><strong data-en="Basic Commercial Formulas" data-ar="معادلات تجارية أساسية">Basic Commercial Formulas</strong><small>معادلات تجارية أساسية</small></button>
+          <button type="button" id="taxAuditToolCard" class="mock-tool qt-c5" onclick="learnRenderTaxAudit();showPanel('learn-taxaudit')" style="position:relative"><span class="qt-icon-wrap"><span>🧾</span></span><strong data-en="Tax Audit Requirements" data-ar="متطلبات الفحص الضريبي">Tax Audit Requirements</strong><small>متطلبات الفحص الضريبي</small><span class="qt-badge qt-badge-new" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
+        </div>
+      </div>
+
+      <div class="qt-group">
+        <div class="qt-group-label" data-en="🎮 Interactive Practice" data-ar="🎮 تدريب تفاعلي">🎮 Interactive Practice</div>
+        <div class="mock-tools-grid">
+          <button type="button" class="mock-tool qt-c2" onclick="showPanel('learn-mysteries')" style="position:relative"><span class="qt-icon-wrap"><span>🧩</span></span><strong data-en="Accounting Mysteries" data-ar="ألغاز محاسبية">Accounting Mysteries</strong><small>ألغاز محاسبية</small><span class="qt-badge qt-badge-progress" data-en="IN PROGRESS" data-ar="قيد الإنشاء">IN PROGRESS</span></button>
+          <button type="button" id="investigationToolCard" class="mock-tool qt-c1" onclick="investigationRenderPicker();investigationRender();showPanel('learn-investigation')" style="position:relative"><span class="qt-icon-wrap"><span>🔎</span></span><strong data-en="Full Investigation" data-ar="تحقيق كامل">Full Investigation</strong><small>تحقيق كامل</small><span class="qt-badge qt-badge-new" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
+        </div>
+      </div>
+
+      <div class="qt-group">
+        <div class="qt-group-label" data-en="🧭 Professional Growth" data-ar="🧭 تطوير مهني">🧭 Professional Growth</div>
+        <div class="mock-tools-grid">
+          <button type="button" class="mock-tool qt-c3" onclick="showPanel('learn-sod')"><span class="qt-icon-wrap"><span>⚖️</span></span><strong data-en="Segregation of Duties" data-ar="فصل المهام والواجبات">Segregation of Duties</strong><small>فصل المهام والواجبات</small></button>
+          <button type="button" class="mock-tool qt-c4" onclick="showPanel('learn-interview')"><span class="qt-icon-wrap"><span>🎤</span></span><strong data-en="Interview Prep" data-ar="تجهيز المقابلات">Interview Prep</strong><small>تجهيز المقابلات</small></button>
+          <button type="button" class="mock-tool qt-c5" onclick="showPanel('learn-comms')"><span class="qt-icon-wrap"><span>💬</span></span><strong data-en="Workplace Comms" data-ar="تواصل بيئة العمل">Workplace Comms</strong><small>تواصل بيئة العمل</small></button>
+          <button type="button" id="ethicsToolCard" class="mock-tool qt-c1" onclick="learnRenderEthics();showPanel('learn-ethics')" style="position:relative"><span class="qt-icon-wrap"><span>🧭</span></span><strong data-en="Professional Ethics" data-ar="أخلاقيات المهنة">Professional Ethics</strong><small>أخلاقيات المهنة</small><span class="qt-badge qt-badge-new" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
+        </div>
+      </div>
+
+      <div class="qt-group">
+        <div class="qt-group-label" data-en="🔧 Utilities" data-ar="🔧 أدوات عملية">🔧 Utilities</div>
+        <div class="mock-tools-grid">
+          <button type="button" class="mock-tool qt-c2" onclick="handoffStart();showPanel('cross-tickets')"><span class="qt-icon-wrap"><span>🔄</span></span><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><small>التسليم للقسم المختص</small></button>
+        </div>
       </div>
     </section>
 
@@ -6085,7 +6201,8 @@ input[type="text"]:focus, input[type="number"]:focus{
     <div style="position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0;display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;border-bottom:2px solid var(--line)">
       <a href="#treasury-learn-flow-role" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Role &amp; Procedures</a><a href="#treasury-learn-flow-cases" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Cases &amp; Problems</a><a href="#treasury-learn-flow-entries" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Common Journal Entries</a>
     </div>
-    <div id="treasury-learn-flow-role" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#14544B;opacity:.28;font-family:'Fraunces',serif;z-index:0">1</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#14544B;border-bottom:3px solid #14544B;padding:10px 14px 10px 54px;margin:0;background:#eaf3f1;border-radius:0 10px 10px 0;border-inline-start:5px solid #14544B;z-index:1" data-en="Role &amp; Procedures" data-ar="الدور والإجراءات">Role &amp; Procedures</h2></div><div class="module-head"><span class="module-tag" data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span><h3 data-en="Treasury Accountant — Role & Procedures" data-ar="موظف الخزينة — الدور والإجراءات">Treasury Accountant — Role & Procedures</h3></div><button type="button" class="btn btn-primary" style="margin-top:10px" onclick="printCheatSheet('treasury')" data-en="🖨️ Print Cheat Sheet" data-ar="🖨️ اطبع الملخّص السريع">🖨️ Print Cheat Sheet</button><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Protect cash, execute approved payments within authority and explain every bank movement. Preparation, approval, execution and reconciliation must remain separated." data-ar="شغلك إنك تحمي الكاش، وتنفّذ المدفوعات المعتمدة في حدود صلاحيتك، وتفسّر أي حركة بنكية. الإعداد والاعتماد والتنفيذ والـreconciliation لازم يفضلوا منفصلين عن بعض.">Protect cash, execute approved payments within authority and explain every bank movement. Preparation, approval, execution and reconciliation must remain separated.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Confirm opening bank and cash balances." data-ar="اتأكد من أرصدة البنك والخزينة الافتتاحية.">Confirm opening bank and cash balances.</li><li data-en="Update daily cash position and urgent commitments." data-ar="حدّث الموقف النقدي اليومي والالتزامات العاجلة.">Update daily cash position and urgent commitments.</li><li data-en="Review overdraft limits, returned items and bank alerts." data-ar="راجع حدود السحب على المكشوف، والشيكات المرتجعة، وتنبيهات البنك.">Review overdraft limits, returned items and bank alerts.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Receive approved payment or receipt request." data-ar="استلم طلب دفع أو تحصيل معتمد.">Receive approved payment or receipt request.</li><li data-en="Verify beneficiary, bank details and signatory authority." data-ar="اتأكد من المستفيد، وبيانات البنك، وصلاحية المفوّض بالتوقيع.">Verify beneficiary, bank details and signatory authority.</li><li data-en="Prepare batch; obtain maker-checker approval." data-ar="جهّز الدفعة، وخد اعتماد maker-checker.">Prepare batch; obtain maker-checker approval.</li><li data-en="Execute and retain bank confirmation." data-ar="نفّذ واحتفظ بتأكيد البنك.">Execute and retain bank confirmation.</li><li data-en="Post fees, interest, FX and unidentified items with evidence." data-ar="رحّل المصاريف البنكية والفوائد وفروق العملة والبنود المجهولة بمستند.">Post fees, interest, FX and unidentified items with evidence.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="Bank reconciliation for every account." data-ar="reconciliation بنكي لكل حساب.">Bank reconciliation for every account.</li><li data-en="Age and resolve outstanding items." data-ar="حدّد عمر البنود المعلّقة وحلها.">Age and resolve outstanding items.</li><li data-en="Loan/overdraft and interest confirmation." data-ar="تأكيد القروض/السحب على المكشوف والفوائد.">Loan/overdraft and interest confirmation.</li><li data-en="13-week cash forecast and liquidity report." data-ar="توقّع كاش لـ13 أسبوع وتقرير السيولة.">13-week cash forecast and liquidity report.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br><span data-en="Receipt: Dr Bank / Cr Customer or other approved source" data-ar="التحصيل: مدين بنك / دائن عميل أو مصدر معتمد تاني">Receipt: Dr Bank / Cr Customer or other approved source</span><br><span data-en="Payment: Dr Supplier / Expense / Payroll payable / Cr Bank" data-ar="السداد: مدين مورد / مصروف / رواتب مستحقة / دائن بنك">Payment: Dr Supplier / Expense / Payroll payable / Cr Bank</span><br><span data-en="Bank fee: Dr Bank Charges Expense / Cr Bank" data-ar="مصاريف بنكية: مدين مصروف مصاريف بنكية / دائن بنك">Bank fee: Dr Bank Charges Expense / Cr Bank</span></div><div class="entry-box" style="margin-top:14px"><strong data-en="🔍 What the Internal Auditor looks for here" data-ar="🔍 المراجع الداخلي بيدوّر على إيه هنا">🔍 What the Internal Auditor looks for here</strong><ul style="margin:8px 0 0"><li data-en="Is the bank reconciliation done monthly, or backlogged for months at a time?" data-ar="هل المطابقة البنكية بتتعمل شهريًا، ولا متأخرة لشهور؟">Is the bank reconciliation done monthly, or backlogged for months at a time?</li><li data-en="Can the same person initiate a bank transfer and also approve it?" data-ar="هل نفس الشخص ممكن يبدأ تحويل بنكي وبرضو يعتمده؟">Can the same person initiate a bank transfer and also approve it?</li><li data-en="Are unidentified deposits cleared promptly, or left sitting in suspense?" data-ar="هل الإيداعات غير المعروفة بتتصفّى بسرعة، ولا بتقعد في الـsuspense؟">Are unidentified deposits cleared promptly, or left sitting in suspense?</li></ul></div><div class="entry-box" style="margin-top:14px;background:var(--brand-soft);border-color:var(--brand)"><strong data-en="📖 A day in the life" data-ar="📖 يوم في حياة الموظف ده">📖 A day in the life</strong><p style="margin:8px 0 0" data-en="You open the bank statement in the morning and reconcile it against the company books — you find a deposit with no known source, so you dig through collections. Later you process a transfer to a major supplier, which needs two signatures to approve. By end of day you prepare next week’s cash forecast." data-ar="بتفتح كشف الحساب البنكي الصبح وتطابقه مع دفاتر الشركة — لقيت إيداع مش عارف مصدره، فتدوّر في التحصيلات. بعدين بتعمل تحويل لمورد كبير، ومحتاج توقيعين للاعتماد. آخر اليوم بتجهّز توقع السيولة للأسبوع الجاي.">You open the bank statement in the morning and reconcile it against the company books — you find a deposit with no known source, so you dig through collections. Later you process a transfer to a major supplier, which needs two signatures to approve. By end of day you prepare next week’s cash forecast.</p></div><div class="entry-box" style="margin-top:14px"><strong data-en="🎤 Interview Questions for This Desk" data-ar="🎤 أسئلة مقابلة خاصة بالمكتب ده">🎤 Interview Questions for This Desk</strong><div style="margin-top:10px"><p style="font-weight:700;margin:0 0 4px" data-en="Q1: How do you handle an unidentified bank deposit?" data-ar="س١: إزاي تتعامل مع إيداع بنكي مش عارف مصدره؟">Q1: How do you handle an unidentified bank deposit?</p><p style="margin:0 0 12px;color:var(--ink-soft)" data-en="I’d investigate it against open receivables and recent activity before posting it anywhere definitive — not just dump it into a random account to make reconciliation balance." data-ar="هحقق فيه مقابل الذمم المفتوحة والنشاط الأخير قبل ما أرحّله في أي حساب نهائي — مش هرميه في حساب عشوائي عشان المطابقة تظبط.">I’d investigate it against open receivables and recent activity before posting it anywhere definitive — not just dump it into a random account to make reconciliation balance.</p><p style="font-weight:700;margin:0 0 4px" data-en="Q2: What controls would you want for bank transfers?" data-ar="س٢: إيه الضوابط اللي تحب تكون موجودة للتحويلات البنكية؟">Q2: What controls would you want for bank transfers?</p><p style="margin:0;color:var(--ink-soft)" data-en="Segregation between who initiates and who approves, a limit requiring a second signature, and verification of payee details especially after a recent change." data-ar="فصل بين اللي بيبدأ التحويل واللي بيعتمده، وحد أقصى محتاج توقيعين، وتأكيد بيانات المستفيد خصوصًا لو اتغيّرت مؤخرًا.">Segregation between who initiates and who approves, a limit requiring a second signature, and verification of payee details especially after a recent change.</p></div></div><div class="entry-box" style="margin-top:14px;background:var(--warning-soft);border-color:var(--warning)"><strong data-en="⚖️ Gray Area — What Would You Actually Do?" data-ar="⚖️ منطقة رمادية — تعمل إيه فعليًا؟">⚖️ Gray Area — What Would You Actually Do?</strong><p style="margin:8px 0 0" data-en="آخر الشهر والمطابقة البنكية مش بتتظبط بفرق صغير. مديرك قال "حطها في مصروفات متنوعة، هنظبطها الشهر الجاي". المبلغ صغير كفاية إن محدش هيسأل عنه غالبًا. تعمل كده؟" data-ar="It’s month-end and the bank reconciliation won’t balance by a small amount. Your manager says “just plug it to misc expense, we’ll sort it next month.” The amount is small enough nobody will likely ask. Do you?">آخر الشهر والمطابقة البنكية مش بتتظبط بفرق صغير. مديرك قال "حطها في مصروفات متنوعة، هنظبطها الشهر الجاي". المبلغ صغير كفاية إن محدش هيسأل عنه غالبًا. تعمل كده؟</p><p style="margin:8px 0 0;font-size:12px;color:var(--muted)" data-en="There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection." data-ar="مفيش إجابة كتاب واحدة هنا — ده عن الحكم المهني، مش اكتشاف غش واضح.">There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection.</p></div><div id="treasury-learn-flow-cases" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#e8a317;opacity:.28;font-family:'Fraunces',serif;z-index:0">2</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#e8a317;border-bottom:3px solid #e8a317;padding:10px 14px 10px 54px;margin:0;background:#fdf3e0;border-radius:0 10px 10px 0;border-inline-start:5px solid #e8a317;z-index:1" data-en="Cases &amp; Problems" data-ar="حالات ومشاكل">Cases &amp; Problems</h2></div>
+    <div id="treasury-learn-flow-role" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#14544B;opacity:.28;font-family:'Fraunces',serif;z-index:0">1</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#14544B;border-bottom:3px solid #14544B;padding:10px 14px 10px 54px;margin:0;background:#eaf3f1;border-radius:0 10px 10px 0;border-inline-start:5px solid #14544B;z-index:1" data-en="Role &amp; Procedures" data-ar="الدور والإجراءات">Role &amp; Procedures</h2></div><div class="module-head"><span class="module-tag" data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span><h3 data-en="Treasury Accountant — Role & Procedures" data-ar="موظف الخزينة — الدور والإجراءات">Treasury Accountant — Role & Procedures</h3></div><button type="button" class="btn btn-primary" style="margin-top:10px" onclick="printCheatSheet('treasury')" data-en="🖨️ Print Cheat Sheet" data-ar="🖨️ اطبع الملخّص السريع">🖨️ Print Cheat Sheet</button><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Protect cash, execute approved payments within authority and explain every bank movement. Preparation, approval, execution and reconciliation must remain separated." data-ar="شغلك إنك تحمي الكاش، وتنفّذ المدفوعات المعتمدة في حدود صلاحيتك، وتفسّر أي حركة بنكية. الإعداد والاعتماد والتنفيذ والـreconciliation لازم يفضلوا منفصلين عن بعض.">Protect cash, execute approved payments within authority and explain every bank movement. Preparation, approval, execution and reconciliation must remain separated.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Confirm opening bank and cash balances." data-ar="اتأكد من أرصدة البنك والخزينة الافتتاحية.">Confirm opening bank and cash balances.</li><li data-en="Update daily cash position and urgent commitments." data-ar="حدّث الموقف النقدي اليومي والالتزامات العاجلة.">Update daily cash position and urgent commitments.</li><li data-en="Review overdraft limits, returned items and bank alerts." data-ar="راجع حدود السحب على المكشوف، والشيكات المرتجعة، وتنبيهات البنك.">Review overdraft limits, returned items and bank alerts.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Receive approved payment or receipt request." data-ar="استلم طلب دفع أو تحصيل معتمد.">Receive approved payment or receipt request.</li><li data-en="Verify beneficiary, bank details and signatory authority." data-ar="اتأكد من المستفيد، وبيانات البنك، وصلاحية المفوّض بالتوقيع.">Verify beneficiary, bank details and signatory authority.</li><li data-en="Prepare batch; obtain maker-checker approval." data-ar="جهّز الدفعة، وخد اعتماد maker-checker.">Prepare batch; obtain maker-checker approval.</li><li data-en="Execute and retain bank confirmation." data-ar="نفّذ واحتفظ بتأكيد البنك.">Execute and retain bank confirmation.</li><li data-en="Post fees, interest, FX and unidentified items with evidence." data-ar="رحّل المصاريف البنكية والفوائد وفروق العملة والبنود المجهولة بمستند.">Post fees, interest, FX and unidentified items with evidence.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="Bank reconciliation for every account." data-ar="reconciliation بنكي لكل حساب.">Bank reconciliation for every account.</li><li data-en="Age and resolve outstanding items." data-ar="حدّد عمر البنود المعلّقة وحلها.">Age and resolve outstanding items.</li><li data-en="Loan/overdraft and interest confirmation." data-ar="تأكيد القروض/السحب على المكشوف والفوائد.">Loan/overdraft and interest confirmation.</li><li data-en="13-week cash forecast and liquidity report." data-ar="توقّع كاش لـ13 أسبوع وتقرير السيولة.">13-week cash forecast and liquidity report.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br><span data-en="Receipt: Dr Bank / Cr Customer or other approved source" data-ar="التحصيل: مدين بنك / دائن عميل أو مصدر معتمد تاني">Receipt: Dr Bank / Cr Customer or other approved source</span><br><span data-en="Payment: Dr Supplier / Expense / Payroll payable / Cr Bank" data-ar="السداد: مدين مورد / مصروف / رواتب مستحقة / دائن بنك">Payment: Dr Supplier / Expense / Payroll payable / Cr Bank</span><br><span data-en="Bank fee: Dr Bank Charges Expense / Cr Bank" data-ar="مصاريف بنكية: مدين مصروف مصاريف بنكية / دائن بنك">Bank fee: Dr Bank Charges Expense / Cr Bank</span></div><div class="entry-box" style="margin-top:14px"><strong data-en="🔍 What the Internal Auditor looks for here" data-ar="🔍 المراجع الداخلي بيدوّر على إيه هنا">🔍 What the Internal Auditor looks for here</strong><ul style="margin:8px 0 0"><li data-en="Is the bank reconciliation done monthly, or backlogged for months at a time?" data-ar="هل المطابقة البنكية بتتعمل شهريًا، ولا متأخرة لشهور؟">Is the bank reconciliation done monthly, or backlogged for months at a time?</li><li data-en="Can the same person initiate a bank transfer and also approve it?" data-ar="هل نفس الشخص ممكن يبدأ تحويل بنكي وبرضو يعتمده؟">Can the same person initiate a bank transfer and also approve it?</li><li data-en="Are unidentified deposits cleared promptly, or left sitting in suspense?" data-ar="هل الإيداعات غير المعروفة بتتصفّى بسرعة، ولا بتقعد في الـsuspense؟">Are unidentified deposits cleared promptly, or left sitting in suspense?</li></ul></div><div class="entry-box" style="margin-top:14px;background:var(--brand-soft);border-color:var(--brand)"><strong data-en="📖 A day in the life" data-ar="📖 يوم في حياة الموظف ده">📖 A day in the life</strong><p style="margin:8px 0 0" data-en="You open the bank statement in the morning and reconcile it against the company books — you find a deposit with no known source, so you dig through collections. Later you process a transfer to a major supplier, which needs two signatures to approve. By end of day you prepare next week’s cash forecast." data-ar="بتفتح كشف الحساب البنكي الصبح وتطابقه مع دفاتر الشركة — لقيت إيداع مش عارف مصدره، فتدوّر في التحصيلات. بعدين بتعمل تحويل لمورد كبير، ومحتاج توقيعين للاعتماد. آخر اليوم بتجهّز توقع السيولة للأسبوع الجاي.">You open the bank statement in the morning and reconcile it against the company books — you find a deposit with no known source, so you dig through collections. Later you process a transfer to a major supplier, which needs two signatures to approve. By end of day you prepare next week’s cash forecast.</p></div><div class="entry-box" style="margin-top:14px"><strong data-en="🎤 Interview Questions for This Desk" data-ar="🎤 أسئلة مقابلة خاصة بالمكتب ده">🎤 Interview Questions for This Desk</strong><div style="margin-top:10px"><p style="font-weight:700;margin:0 0 4px" data-en="Q1: How do you handle an unidentified bank deposit?" data-ar="س١: إزاي تتعامل مع إيداع بنكي مش عارف مصدره؟">Q1: How do you handle an unidentified bank deposit?</p><p style="margin:0 0 12px;color:var(--ink-soft)" data-en="I’d investigate it against open receivables and recent activity before posting it anywhere definitive — not just dump it into a random account to make reconciliation balance." data-ar="هحقق فيه مقابل الذمم المفتوحة والنشاط الأخير قبل ما أرحّله في أي حساب نهائي — مش هرميه في حساب عشوائي عشان المطابقة تظبط.">I’d investigate it against open receivables and recent activity before posting it anywhere definitive — not just dump it into a random account to make reconciliation balance.</p><p style="font-weight:700;margin:0 0 4px" data-en="Q2: What controls would you want for bank transfers?" data-ar="س٢: إيه الضوابط اللي تحب تكون موجودة للتحويلات البنكية؟">Q2: What controls would you want for bank transfers?</p><p style="margin:0;color:var(--ink-soft)" data-en="Segregation between who initiates and who approves, a limit requiring a second signature, and verification of payee details especially after a recent change." data-ar="فصل بين اللي بيبدأ التحويل واللي بيعتمده، وحد أقصى محتاج توقيعين، وتأكيد بيانات المستفيد خصوصًا لو اتغيّرت مؤخرًا.">Segregation between who initiates and who approves, a limit requiring a second signature, and verification of payee details especially after a recent change.</p></div></div><div class="entry-box" style="margin-top:14px;background:var(--warning-soft);border-color:var(--warning)"><strong data-en="⚖️ Gray Area — What Would You Actually Do?" data-ar="⚖️ منطقة رمادية — تعمل إيه فعليًا؟">⚖️ Gray Area — What Would You Actually Do?</strong><p style="margin:8px 0 0" data-en="آخر الشهر والمطابقة البنكية مش بتتظبط بفرق صغير. مديرك قال "حطها في مصروفات متنوعة، هنظبطها الشهر الجاي". المبلغ صغير كفاية إن محدش هيسأل عنه غالبًا. تعمل كده؟" data-ar="It’s month-end and the bank reconciliation won’t balance by a small amount. Your manager says “just plug it to misc expense, we’ll sort it next month.” The amount is small enough nobody will likely ask. Do you?">آخر الشهر والمطابقة البنكية مش بتتظبط بفرق صغير. مديرك قال "حطها في مصروفات متنوعة، هنظبطها الشهر الجاي". المبلغ صغير كفاية إن محدش هيسأل عنه غالبًا. تعمل كده؟</p><p style="margin:8px 0 0;font-size:12px;color:var(--muted)" data-en="There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection." data-ar="مفيش إجابة كتاب واحدة هنا — ده عن الحكم المهني، مش اكتشاف غش واضح.">There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection.</p></div><div style="margin-top:14px"><p style="margin:0 0 10px;font-size:13px;color:var(--ink-soft)" data-en="💬 Your manager just messaged you. Pick how you'd actually reply." data-ar="💬 مديرك بعتلك رسالة دلوقتي. اختار إزاي هترد فعليًا.">💬 Your manager just messaged you. Pick how you'd actually reply.</p><div class="chat-phone-frame"><div class="chat-app-header"><span class="chat-app-avatar">👤</span><div class="chat-app-who"><strong data-en="Your Manager" data-ar="مديرك">Your Manager</strong><span class="chat-app-status"><span class="chat-online-dot"></span><span data-en="Online" data-ar="متصل">Online</span></span></div></div><div class="chat-app-body" id="chat-sim-wrap-treasury"></div></div></div>
+    <div id="treasury-learn-flow-cases" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#e8a317;opacity:.28;font-family:'Fraunces',serif;z-index:0">2</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#e8a317;border-bottom:3px solid #e8a317;padding:10px 14px 10px 54px;margin:0;background:#fdf3e0;border-radius:0 10px 10px 0;border-inline-start:5px solid #e8a317;z-index:1" data-en="Cases &amp; Problems" data-ar="حالات ومشاكل">Cases &amp; Problems</h2></div>
     <div class="module-head">
       <span class="module-tag" data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span>
       <h3 data-en="Practical cases & problems — Treasury desk" data-ar="حالات عملية ومشكلات — مكتب الخزينة">Practical cases & problems — Treasury desk</h3>
@@ -9423,7 +9540,7 @@ input[type="text"]:focus, input[type="number"]:focus{
           <button class="desk-action" type="button" onclick="showPanel('ar-data-flow');setTimeout(()=>document.getElementById('ardata-customers').scrollIntoView(),100)"><strong data-en="Customer master" data-ar="بيانات العملاء">Customer master</strong><span data-en="Codes, limits, channels, currency" data-ar="الأكواد، الحدود، القنوات، العملة">Codes, limits, channels, currency</span></button>
           <button class="desk-action" type="button" onclick="showPanel('ar-data-flow');setTimeout(()=>document.getElementById('ardata-newcust').scrollIntoView(),100)"><strong data-en="Add new customer" data-ar="إضافة عميل جديد">Add new customer</strong><span data-en="SOP + maker-checker approval" data-ar="إجراء معياري + اعتماد منفصل">SOP + maker-checker approval</span></button>
           <button class="desk-action" type="button" onclick="showPanel('ar-ops-flow');setTimeout(()=>document.getElementById('arops-create').scrollIntoView(),100)"><strong data-en="✍️ Create Sales Documents" data-ar="✍️ إنشاء مستندات المبيعات">✍️ Create Sales Documents</strong><span data-en="Quotation to receipt, step by step" data-ar="من عرض السعر للتحصيل، خطوة بخطوة">Quotation to receipt, step by step</span></button>
-          <button class="desk-action" type="button" onclick="showPanel('ar-learn-flow');setTimeout(()=>document.getElementById('arlearn-role').scrollIntoView(),100)"><strong data-en="Role & procedures" data-ar="الدور والإجراءات">Role & procedures</strong><span data-en="Start of day → entries → close" data-ar="بداية اليوم → القيود → الإقفال">Start of day → entries → close</span></button><button class="desk-action" type="button" onclick="showPanel('ar-learn-flow');setTimeout(()=>document.getElementById('arlearn-cases').scrollIntoView(),100)"><strong data-en="Cases & problems" data-ar="حالات ومشكلات">Cases & problems</strong><span data-en="Real issues and how to solve them" data-ar="مشكلات حقيقية وطريقة حلها">Real issues and how to solve them</span></button><button class="desk-action" type="button" onclick="showPanel('ar-ops-flow');setTimeout(()=>document.getElementById('arops-bridge').scrollIntoView(),100)"><strong data-en="AR bridge" data-ar="جسر التسوية">AR bridge</strong><span data-en="GL control vs aging" data-ar="مراقبة GL مقابل الأعمار">GL control vs aging</span></button><button class="desk-action" type="button" onclick="showPanel('cross-tickets')"><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><span data-en="Hand-offs from other desks" data-ar="تسليمات من مكاتب أخرى">Hand-offs from other desks</span></button>
+          <button class="desk-action" type="button" onclick="showPanel('ar-learn-flow');setTimeout(()=>document.getElementById('arlearn-role').scrollIntoView(),100)"><strong data-en="Role & procedures" data-ar="الدور والإجراءات">Role & procedures</strong><span data-en="Start of day → entries → close" data-ar="بداية اليوم → القيود → الإقفال">Start of day → entries → close</span></button><button class="desk-action" type="button" onclick="showPanel('ar-learn-flow');setTimeout(()=>document.getElementById('arlearn-cases').scrollIntoView(),100)"><strong data-en="Cases & problems" data-ar="حالات ومشكلات">Cases & problems</strong><span data-en="Real issues and how to solve them" data-ar="مشكلات حقيقية وطريقة حلها">Real issues and how to solve them</span></button><button class="desk-action" type="button" onclick="showPanel('ar-ops-flow');setTimeout(()=>document.getElementById('arops-bridge').scrollIntoView(),100)"><strong data-en="AR bridge" data-ar="جسر التسوية">AR bridge</strong><span data-en="GL control vs aging" data-ar="مراقبة GL مقابل الأعمار">GL control vs aging</span></button><button class="desk-action" type="button" onclick="handoffStart();showPanel('cross-tickets')"><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><span data-en="Hand-offs from other desks" data-ar="تسليمات من مكاتب أخرى">Hand-offs from other desks</span></button>
         </div>
         <div class="desk-controls"><strong data-en="Key control:" data-ar="ضابط رئيسي:">Key control:</strong> <span data-en="Never allocate unidentified cash by assumption. Park in suspense, obtain remittance advice, then match to open invoices." data-ar="لا تخصّص نقدية مجهولة بالتخمين. ضعها في حساب وسيط، احصل على إشعار التحويل، ثم طابقها مع الفواتير المفتوحة.">Never allocate unidentified cash by assumption. Park in suspense, obtain remittance advice, then match to open invoices.</span></div>
       </div>
@@ -9851,7 +9968,7 @@ Issue to COGS: Dr 510000 Cost of Goods Sold&nbsp;&nbsp;Cr 130000 Inventory</div>
           <button class="desk-action" type="button" onclick="showPanel('treasury-data-flow');setTimeout(()=>document.getElementById('treasury-data-flow-banks').scrollIntoView(),100)"><strong data-en="Bank accounts" data-ar="الحسابات البنكية">Bank accounts</strong><span data-en="EGP · USD · EUR · GBP" data-ar="جنيه · دولار · يورو · إسترليني">EGP · USD · EUR · GBP</span></button>
           <button class="desk-action" type="button" onclick="showPanel('treasury-data-flow');setTimeout(()=>document.getElementById('treasury-data-flow-newacct').scrollIntoView(),100)"><strong data-en="Add bank account" data-ar="إضافة حساب بنكي">Add bank account</strong><span data-en="Asset vs liability classification" data-ar="تصنيف أصل مقابل التزام">Asset vs liability classification</span></button>
           <button class="desk-action" type="button" onclick="showPanel('treasury-cycle')"><strong data-en="Cash &amp; Bank Workflow and Ledger" data-ar="سير عمل ودفتر الخزينة والبنوك">Cash &amp; Bank Workflow and Ledger</strong><span data-en="Cash, transfers, recon, forecast" data-ar="نقدية، تحويلات، مطابقة، تنبؤ">Cash, transfers, recon, forecast</span></button>
-          <button class="desk-action" type="button" onclick="showPanel('treasury-learn-flow');setTimeout(()=>document.getElementById('treasury-learn-flow-role').scrollIntoView(),100)"><strong data-en="Role & procedures" data-ar="الدور والإجراءات">Role & procedures</strong><span data-en="Daily sequence and month-end" data-ar="التسلسل اليومي وإقفال الشهر">Daily sequence and month-end</span></button><button class="desk-action" type="button" onclick="showPanel('treasury-learn-flow');setTimeout(()=>document.getElementById('treasury-learn-flow-cases').scrollIntoView(),100)"><strong data-en="Cases & problems" data-ar="حالات ومشكلات">Cases & problems</strong><span data-en="Real issues and how to solve them" data-ar="مشكلات حقيقية وطريقة حلها">Real issues and how to solve them</span></button><button class="desk-action" type="button" onclick="showPanel('treasury-data-flow');setTimeout(()=>document.getElementById('treasury-data-flow-rec').scrollIntoView(),100)"><strong data-en="Bank Reconciliation" data-ar="المطابقة البنكية">Bank Reconciliation</strong><span data-en="Concept, bridge calc, and full practice" data-ar="المفهوم، الجسر، والتمرين الكامل">Concept, bridge calc, and full practice</span></button><button class="desk-action" type="button" onclick="showPanel('cross-tickets')"><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><span data-en="Send unknowns to AR" data-ar="أرسل المجهول للعملاء">Send unknowns to AR</span></button>
+          <button class="desk-action" type="button" onclick="showPanel('treasury-learn-flow');setTimeout(()=>document.getElementById('treasury-learn-flow-role').scrollIntoView(),100)"><strong data-en="Role & procedures" data-ar="الدور والإجراءات">Role & procedures</strong><span data-en="Daily sequence and month-end" data-ar="التسلسل اليومي وإقفال الشهر">Daily sequence and month-end</span></button><button class="desk-action" type="button" onclick="showPanel('treasury-learn-flow');setTimeout(()=>document.getElementById('treasury-learn-flow-cases').scrollIntoView(),100)"><strong data-en="Cases & problems" data-ar="حالات ومشكلات">Cases & problems</strong><span data-en="Real issues and how to solve them" data-ar="مشكلات حقيقية وطريقة حلها">Real issues and how to solve them</span></button><button class="desk-action" type="button" onclick="showPanel('treasury-data-flow');setTimeout(()=>document.getElementById('treasury-data-flow-rec').scrollIntoView(),100)"><strong data-en="Bank Reconciliation" data-ar="المطابقة البنكية">Bank Reconciliation</strong><span data-en="Concept, bridge calc, and full practice" data-ar="المفهوم، الجسر، والتمرين الكامل">Concept, bridge calc, and full practice</span></button><button class="desk-action" type="button" onclick="handoffStart();showPanel('cross-tickets')"><strong data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</strong><span data-en="Send unknowns to AR" data-ar="أرسل المجهول للعملاء">Send unknowns to AR</span></button>
         </div>
         <div class="desk-controls"><strong data-en="Key control:" data-ar="ضابط رئيسي:">Key control:</strong> <span data-en="Every bank line must have an owner and a story. Unidentified items stay in suspense until evidence arrives — never force them into revenue or expense." data-ar="كل سطر بنكي يجب أن يكون له مالك وقصة. البنود المجهولة تبقى في حساب وسيط حتى يصل الدليل — لا تُقحم في الإيراد أو المصروف.">Every bank line must have an owner and a story. Unidentified items stay in suspense until evidence arrives — never force them into revenue or expense.</span></div>
       </div>
@@ -10471,6 +10588,19 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
       </div>
     </div>
 
+    <div style="margin-top:14px">
+      <p style="margin:0 0 10px;font-size:13px;color:var(--ink-soft)" data-en="💬 Your manager just messaged you. Pick how you'd actually reply." data-ar="💬 مديرك بعتلك رسالة دلوقتي. اختار إزاي هترد فعليًا.">💬 Your manager just messaged you. Pick how you'd actually reply.</p>
+      <div class="chat-phone-frame">
+        <div class="chat-app-header">
+          <span class="chat-app-avatar">👤</span>
+          <div class="chat-app-who">
+            <strong data-en="Your Manager" data-ar="مديرك">Your Manager</strong>
+            <span class="chat-app-status"><span class="chat-online-dot"></span><span data-en="Online" data-ar="متصل">Online</span></span>
+          </div>
+        </div>
+        <div class="chat-app-body" id="chat-sim-wrap-ar"></div>
+      </div>
+    </div>
     <div id="arlearn-cases" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#2E86AB;opacity:.28;font-family:'Fraunces',serif;z-index:0">3</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#2E86AB;border-bottom:3px solid #2E86AB;padding:10px 14px 10px 54px;margin:0;background:#e8f3f8;border-radius:0 10px 10px 0;border-inline-start:5px solid #2E86AB;z-index:1" data-en="Cases &amp; Problems" data-ar="حالات ومشاكل">Cases &amp; Problems</h2></div>
     <div class="module-head">
       <span class="module-tag" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span>
@@ -10811,7 +10941,8 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
     <div style="position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0;display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;border-bottom:2px solid var(--line)">
       <a href="#ap-learn-flow-role" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Role &amp; Procedures</a><a href="#ap-learn-flow-cases" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Cases &amp; Problems</a><a href="#ap-learn-flow-entries" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Common Journal Entries</a>
     </div>
-    <div id="ap-learn-flow-role" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#14544B;opacity:.28;font-family:'Fraunces',serif;z-index:0">1</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#14544B;border-bottom:3px solid #14544B;padding:10px 14px 10px 54px;margin:0;background:#eaf3f1;border-radius:0 10px 10px 0;border-inline-start:5px solid #14544B;z-index:1" data-en="Role &amp; Procedures" data-ar="الدور والإجراءات">Role &amp; Procedures</h2></div><div class="module-head"><span class="module-tag" data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span><h3 data-en="AP Accountant — Role & Procedures" data-ar="موظف الموردين — الدور والإجراءات">AP Accountant — Role & Procedures</h3></div><button type="button" class="btn btn-primary" style="margin-top:10px" onclick="printCheatSheet('ap')" data-en="🖨️ Print Cheat Sheet" data-ar="🖨️ اطبع الملخّص السريع">🖨️ Print Cheat Sheet</button><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Protect the company from duplicate, unsupported or premature payments. You record approved liabilities, resolve exceptions and prepare—not solely approve—payment proposals." data-ar="شغلك إنك تحمي الشركة من دفعات مكررة أو من غير مستندات أو قبل ميعادها. تسجل الالتزامات المعتمدة، وتحل الاستثناءات، وتجهز مقترح الدفع — من غير ما تعتمده لوحدك.">Protect the company from duplicate, unsupported or premature payments. You record approved liabilities, resolve exceptions and prepare—not solely approve—payment proposals.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Review invoices received and blocked invoices." data-ar="راجع الفواتير اللي وصلت والفواتير الـblocked.">Review invoices received and blocked invoices.</li><li data-en="Review due dates, supplier statements and cash priorities." data-ar="اتأكد من تواريخ الاستحقاق، وكشوف حساب الموردين، وأولويات الكاش.">Review due dates, supplier statements and cash priorities.</li><li data-en="Check unmatched GRNs and unbilled receipts." data-ar="افحص إذون الاستلام (GRN) اللي لسه مش متطابقة، والاستلامات اللي لسه ما اتفوترتش.">Check unmatched GRNs and unbilled receipts.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Validate active supplier and invoice data." data-ar="اتأكد إن المورد active وبيانات الفاتورة صح.">Validate active supplier and invoice data.</li><li data-en="Perform PO–GRN/service confirmation–invoice match." data-ar="اعمل الـ3-way match: الـPO مع إذن الاستلام (أو تأكيد الخدمة) مع الفاتورة.">Perform PO–GRN/service confirmation–invoice match.</li><li data-en="Resolve price, quantity, tax and duplicate exceptions." data-ar="حل أي استثناء في السعر أو الكمية أو الضريبة أو فاتورة متكررة.">Resolve price, quantity, tax and duplicate exceptions.</li><li data-en="Post approved invoice and prepare payment proposal." data-ar="رحّل الفاتورة المعتمدة وجهّز مقترح الدفع.">Post approved invoice and prepare payment proposal.</li><li data-en="Obtain independent payment approval." data-ar="خد اعتماد مستقل على الدفع — مش من نفس الشخص اللي جهّزه.">Obtain independent payment approval.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="Supplier statement reconciliation." data-ar="reconciliation كشف حساب المورد.">Supplier statement reconciliation.</li><li data-en="AP control account reconciliation." data-ar="مطابقة حساب مراقبة الموردين مع الـsub-ledger.">AP control account reconciliation.</li><li data-en="Accruals for received but unbilled goods/services." data-ar="استحقاقات (accruals) للبضاعة أو الخدمة اللي اتستلمت ولسه ما اتفوترتش.">Accruals for received but unbilled goods/services.</li><li data-en="Aged debit balances and blocked invoice report." data-ar="تقرير الأرصدة المدينة القديمة والفواتير الـblocked.">Aged debit balances and blocked invoice report.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br data-en="" data-ar="">Dr Inventory / Expense / Input VAT<br>Cr Accounts Payable<br><br><span data-en="Payment:" data-ar="السداد:">Payment:</span> Dr Accounts Payable<br>Cr Bank</div><div class="entry-box" style="margin-top:14px"><strong data-en="🔍 What the Internal Auditor looks for here" data-ar="🔍 المراجع الداخلي بيدوّر على إيه هنا">🔍 What the Internal Auditor looks for here</strong><ul style="margin:8px 0 0"><li data-en="Was every payment actually matched to a PO, a GRN, and the invoice — or just the invoice alone?" data-ar="هل كل دفعة اتطابقت فعليًا مع أمر الشراء وإذن الاستلام والفاتورة — ولا الفاتورة بس؟">Was every payment actually matched to a PO, a GRN, and the invoice — or just the invoice alone?</li><li data-en="Are there any duplicate invoice numbers or amounts paid twice?" data-ar="هل فيه أي أرقام فواتير أو مبالغ مكررة اتسددت مرتين؟">Are there any duplicate invoice numbers or amounts paid twice?</li><li data-en="Can the same person create a vendor record and also approve payment to that vendor?" data-ar="هل نفس الشخص ممكن ينشئ حساب مورد جديد وبرضو يعتمد السداد له؟">Can the same person create a vendor record and also approve payment to that vendor?</li></ul></div><div class="entry-box" style="margin-top:14px;background:var(--brand-soft);border-color:var(--brand)"><strong data-en="📖 A day in the life" data-ar="📖 يوم في حياة الموظف ده">📖 A day in the life</strong><p style="margin:8px 0 0" data-en="A new supplier invoice arrives, but the GRN is missing — you hold it and ask the warehouse to confirm. In the afternoon, a long-standing supplier asks to change their bank details — you call them on the number on file (not the new email) to verify. Before leaving, you review the week’s payment run and catch an invoice that was accidentally entered twice." data-ar="تيجي فاتورة مورد جديدة، بس إذن الاستلام ناقص — توقفها وتطلب تأكيد من المخزن. بعد الضهر، مورد قديم بيطلب يغيّر رقم حسابه البنكي — بتتصل بيه على الرقم المسجل (مش الإيميل الجديد) للتأكد. قبل الانصراف، بتراجع دفعة الأسبوع وتلاقي فاتورة اتسجلت مرتين بالغلط.">A new supplier invoice arrives, but the GRN is missing — you hold it and ask the warehouse to confirm. In the afternoon, a long-standing supplier asks to change their bank details — you call them on the number on file (not the new email) to verify. Before leaving, you review the week’s payment run and catch an invoice that was accidentally entered twice.</p></div><div class="entry-box" style="margin-top:14px"><strong data-en="🎤 Interview Questions for This Desk" data-ar="🎤 أسئلة مقابلة خاصة بالمكتب ده">🎤 Interview Questions for This Desk</strong><div style="margin-top:10px"><p style="font-weight:700;margin:0 0 4px" data-en="Q1: A supplier’s invoice arrives with no PO and no GRN. What’s your process?" data-ar="س١: فاتورة مورد جاتلك من غير أمر شراء ولا إذن استلام. إيه إجراءك؟">Q1: A supplier’s invoice arrives with no PO and no GRN. What’s your process?</p><p style="margin:0 0 12px;color:var(--ink-soft)" data-en="I wouldn’t process payment without matching documentation. I’d ask Purchasing to confirm whether the PO exists or needs proper retroactive justification, and flag it if this keeps happening." data-ar="مش هعالج السداد من غير مستندات متطابقة. هطلب من المشتريات تأكيد وجود أمر الشراء أو تبرير رجعي سليم، وأرصد الموضوع لو بيتكرر.">I wouldn’t process payment without matching documentation. I’d ask Purchasing to confirm whether the PO exists or needs proper retroactive justification, and flag it if this keeps happening.</p><p style="font-weight:700;margin:0 0 4px" data-en="Q2: How do you verify a supplier’s request to change their bank account?" data-ar="س٢: إزاي تتأكد من طلب مورد تغيير حسابه البنكي؟">Q2: How do you verify a supplier’s request to change their bank account?</p><p style="margin:0;color:var(--ink-soft)" data-en="I’d call the supplier on their known, pre-existing number — never the one in the new email — and get written confirmation on letterhead before changing anything." data-ar="هتصل بالمورد على رقمه المسجل المعروف — مش الرقم اللي جه في الإيميل الجديد — وآخد تأكيد كتابي على ورق رسمي قبل أي تعديل في النظام.">I’d call the supplier on their known, pre-existing number — never the one in the new email — and get written confirmation on letterhead before changing anything.</p></div></div><div class="entry-box" style="margin-top:14px;background:var(--warning-soft);border-color:var(--warning)"><strong data-en="⚖️ Gray Area — What Would You Actually Do?" data-ar="⚖️ منطقة رمادية — تعمل إيه فعليًا؟">⚖️ Gray Area — What Would You Actually Do?</strong><p style="margin:8px 0 0" data-en="مورد قديم وموثوق بعتلك فاتورة عن بضاعة اتسلمت فعلًا، بس مفيش إذن استلام لأن المخزن كان ناقص موظفين الأسبوع ده. المبلغ صح والعلاقة قوية. تعالجها برضو؟" data-ar="A long-time, reliable supplier sends an invoice for goods that were genuinely delivered, but there’s no GRN because the warehouse was short-staffed that week. The amount is correct and the relationship is strong. Do you process it anyway?">مورد قديم وموثوق بعتلك فاتورة عن بضاعة اتسلمت فعلًا، بس مفيش إذن استلام لأن المخزن كان ناقص موظفين الأسبوع ده. المبلغ صح والعلاقة قوية. تعالجها برضو؟</p><p style="margin:8px 0 0;font-size:12px;color:var(--muted)" data-en="There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection." data-ar="مفيش إجابة كتاب واحدة هنا — ده عن الحكم المهني، مش اكتشاف غش واضح.">There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection.</p></div><div id="ap-learn-flow-cases" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#e8a317;opacity:.28;font-family:'Fraunces',serif;z-index:0">2</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#e8a317;border-bottom:3px solid #e8a317;padding:10px 14px 10px 54px;margin:0;background:#fdf3e0;border-radius:0 10px 10px 0;border-inline-start:5px solid #e8a317;z-index:1" data-en="Cases &amp; Problems" data-ar="حالات ومشاكل">Cases &amp; Problems</h2></div>
+    <div id="ap-learn-flow-role" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#14544B;opacity:.28;font-family:'Fraunces',serif;z-index:0">1</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#14544B;border-bottom:3px solid #14544B;padding:10px 14px 10px 54px;margin:0;background:#eaf3f1;border-radius:0 10px 10px 0;border-inline-start:5px solid #14544B;z-index:1" data-en="Role &amp; Procedures" data-ar="الدور والإجراءات">Role &amp; Procedures</h2></div><div class="module-head"><span class="module-tag" data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span><h3 data-en="AP Accountant — Role & Procedures" data-ar="موظف الموردين — الدور والإجراءات">AP Accountant — Role & Procedures</h3></div><button type="button" class="btn btn-primary" style="margin-top:10px" onclick="printCheatSheet('ap')" data-en="🖨️ Print Cheat Sheet" data-ar="🖨️ اطبع الملخّص السريع">🖨️ Print Cheat Sheet</button><div class="role-hero"><h4 data-en="Your role" data-ar="دورك الوظيفي">Your role</h4><p data-en="Protect the company from duplicate, unsupported or premature payments. You record approved liabilities, resolve exceptions and prepare—not solely approve—payment proposals." data-ar="شغلك إنك تحمي الشركة من دفعات مكررة أو من غير مستندات أو قبل ميعادها. تسجل الالتزامات المعتمدة، وتحل الاستثناءات، وتجهز مقترح الدفع — من غير ما تعتمده لوحدك.">Protect the company from duplicate, unsupported or premature payments. You record approved liabilities, resolve exceptions and prepare—not solely approve—payment proposals.</p></div><div class="role-sequence"><div class="role-step"><h4 data-en="Start of day" data-ar="بداية اليوم">Start of day</h4><ol><li data-en="Review invoices received and blocked invoices." data-ar="راجع الفواتير اللي وصلت والفواتير الـblocked.">Review invoices received and blocked invoices.</li><li data-en="Review due dates, supplier statements and cash priorities." data-ar="اتأكد من تواريخ الاستحقاق، وكشوف حساب الموردين، وأولويات الكاش.">Review due dates, supplier statements and cash priorities.</li><li data-en="Check unmatched GRNs and unbilled receipts." data-ar="افحص إذون الاستلام (GRN) اللي لسه مش متطابقة، والاستلامات اللي لسه ما اتفوترتش.">Check unmatched GRNs and unbilled receipts.</li></ol></div><div class="role-step"><h4 data-en="Transaction sequence" data-ar="تسلسل المعاملة">Transaction sequence</h4><ol><li data-en="Validate active supplier and invoice data." data-ar="اتأكد إن المورد active وبيانات الفاتورة صح.">Validate active supplier and invoice data.</li><li data-en="Perform PO–GRN/service confirmation–invoice match." data-ar="اعمل الـ3-way match: الـPO مع إذن الاستلام (أو تأكيد الخدمة) مع الفاتورة.">Perform PO–GRN/service confirmation–invoice match.</li><li data-en="Resolve price, quantity, tax and duplicate exceptions." data-ar="حل أي استثناء في السعر أو الكمية أو الضريبة أو فاتورة متكررة.">Resolve price, quantity, tax and duplicate exceptions.</li><li data-en="Post approved invoice and prepare payment proposal." data-ar="رحّل الفاتورة المعتمدة وجهّز مقترح الدفع.">Post approved invoice and prepare payment proposal.</li><li data-en="Obtain independent payment approval." data-ar="خد اعتماد مستقل على الدفع — مش من نفس الشخص اللي جهّزه.">Obtain independent payment approval.</li></ol></div><div class="role-step"><h4 data-en="Month-end output" data-ar="مخرجات نهاية الشهر">Month-end output</h4><ul><li data-en="Supplier statement reconciliation." data-ar="reconciliation كشف حساب المورد.">Supplier statement reconciliation.</li><li data-en="AP control account reconciliation." data-ar="مطابقة حساب مراقبة الموردين مع الـsub-ledger.">AP control account reconciliation.</li><li data-en="Accruals for received but unbilled goods/services." data-ar="استحقاقات (accruals) للبضاعة أو الخدمة اللي اتستلمت ولسه ما اتفوترتش.">Accruals for received but unbilled goods/services.</li><li data-en="Aged debit balances and blocked invoice report." data-ar="تقرير الأرصدة المدينة القديمة والفواتير الـblocked.">Aged debit balances and blocked invoice report.</li></ul></div></div><div class="entry-box"><strong data-en="Typical entries" data-ar="القيود المعتادة">Typical entries</strong><br data-en="" data-ar="">Dr Inventory / Expense / Input VAT<br>Cr Accounts Payable<br><br><span data-en="Payment:" data-ar="السداد:">Payment:</span> Dr Accounts Payable<br>Cr Bank</div><div class="entry-box" style="margin-top:14px"><strong data-en="🔍 What the Internal Auditor looks for here" data-ar="🔍 المراجع الداخلي بيدوّر على إيه هنا">🔍 What the Internal Auditor looks for here</strong><ul style="margin:8px 0 0"><li data-en="Was every payment actually matched to a PO, a GRN, and the invoice — or just the invoice alone?" data-ar="هل كل دفعة اتطابقت فعليًا مع أمر الشراء وإذن الاستلام والفاتورة — ولا الفاتورة بس؟">Was every payment actually matched to a PO, a GRN, and the invoice — or just the invoice alone?</li><li data-en="Are there any duplicate invoice numbers or amounts paid twice?" data-ar="هل فيه أي أرقام فواتير أو مبالغ مكررة اتسددت مرتين؟">Are there any duplicate invoice numbers or amounts paid twice?</li><li data-en="Can the same person create a vendor record and also approve payment to that vendor?" data-ar="هل نفس الشخص ممكن ينشئ حساب مورد جديد وبرضو يعتمد السداد له؟">Can the same person create a vendor record and also approve payment to that vendor?</li></ul></div><div class="entry-box" style="margin-top:14px;background:var(--brand-soft);border-color:var(--brand)"><strong data-en="📖 A day in the life" data-ar="📖 يوم في حياة الموظف ده">📖 A day in the life</strong><p style="margin:8px 0 0" data-en="A new supplier invoice arrives, but the GRN is missing — you hold it and ask the warehouse to confirm. In the afternoon, a long-standing supplier asks to change their bank details — you call them on the number on file (not the new email) to verify. Before leaving, you review the week’s payment run and catch an invoice that was accidentally entered twice." data-ar="تيجي فاتورة مورد جديدة، بس إذن الاستلام ناقص — توقفها وتطلب تأكيد من المخزن. بعد الضهر، مورد قديم بيطلب يغيّر رقم حسابه البنكي — بتتصل بيه على الرقم المسجل (مش الإيميل الجديد) للتأكد. قبل الانصراف، بتراجع دفعة الأسبوع وتلاقي فاتورة اتسجلت مرتين بالغلط.">A new supplier invoice arrives, but the GRN is missing — you hold it and ask the warehouse to confirm. In the afternoon, a long-standing supplier asks to change their bank details — you call them on the number on file (not the new email) to verify. Before leaving, you review the week’s payment run and catch an invoice that was accidentally entered twice.</p></div><div class="entry-box" style="margin-top:14px"><strong data-en="🎤 Interview Questions for This Desk" data-ar="🎤 أسئلة مقابلة خاصة بالمكتب ده">🎤 Interview Questions for This Desk</strong><div style="margin-top:10px"><p style="font-weight:700;margin:0 0 4px" data-en="Q1: A supplier’s invoice arrives with no PO and no GRN. What’s your process?" data-ar="س١: فاتورة مورد جاتلك من غير أمر شراء ولا إذن استلام. إيه إجراءك؟">Q1: A supplier’s invoice arrives with no PO and no GRN. What’s your process?</p><p style="margin:0 0 12px;color:var(--ink-soft)" data-en="I wouldn’t process payment without matching documentation. I’d ask Purchasing to confirm whether the PO exists or needs proper retroactive justification, and flag it if this keeps happening." data-ar="مش هعالج السداد من غير مستندات متطابقة. هطلب من المشتريات تأكيد وجود أمر الشراء أو تبرير رجعي سليم، وأرصد الموضوع لو بيتكرر.">I wouldn’t process payment without matching documentation. I’d ask Purchasing to confirm whether the PO exists or needs proper retroactive justification, and flag it if this keeps happening.</p><p style="font-weight:700;margin:0 0 4px" data-en="Q2: How do you verify a supplier’s request to change their bank account?" data-ar="س٢: إزاي تتأكد من طلب مورد تغيير حسابه البنكي؟">Q2: How do you verify a supplier’s request to change their bank account?</p><p style="margin:0;color:var(--ink-soft)" data-en="I’d call the supplier on their known, pre-existing number — never the one in the new email — and get written confirmation on letterhead before changing anything." data-ar="هتصل بالمورد على رقمه المسجل المعروف — مش الرقم اللي جه في الإيميل الجديد — وآخد تأكيد كتابي على ورق رسمي قبل أي تعديل في النظام.">I’d call the supplier on their known, pre-existing number — never the one in the new email — and get written confirmation on letterhead before changing anything.</p></div></div><div class="entry-box" style="margin-top:14px;background:var(--warning-soft);border-color:var(--warning)"><strong data-en="⚖️ Gray Area — What Would You Actually Do?" data-ar="⚖️ منطقة رمادية — تعمل إيه فعليًا؟">⚖️ Gray Area — What Would You Actually Do?</strong><p style="margin:8px 0 0" data-en="مورد قديم وموثوق بعتلك فاتورة عن بضاعة اتسلمت فعلًا، بس مفيش إذن استلام لأن المخزن كان ناقص موظفين الأسبوع ده. المبلغ صح والعلاقة قوية. تعالجها برضو؟" data-ar="A long-time, reliable supplier sends an invoice for goods that were genuinely delivered, but there’s no GRN because the warehouse was short-staffed that week. The amount is correct and the relationship is strong. Do you process it anyway?">مورد قديم وموثوق بعتلك فاتورة عن بضاعة اتسلمت فعلًا، بس مفيش إذن استلام لأن المخزن كان ناقص موظفين الأسبوع ده. المبلغ صح والعلاقة قوية. تعالجها برضو؟</p><p style="margin:8px 0 0;font-size:12px;color:var(--muted)" data-en="There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection." data-ar="مفيش إجابة كتاب واحدة هنا — ده عن الحكم المهني، مش اكتشاف غش واضح.">There’s no single textbook answer here — this is about professional judgment, not right-vs-wrong fraud detection.</p></div><div style="margin-top:14px"><p style="margin:0 0 10px;font-size:13px;color:var(--ink-soft)" data-en="💬 Your manager just messaged you. Pick how you'd actually reply." data-ar="💬 مديرك بعتلك رسالة دلوقتي. اختار إزاي هترد فعليًا.">💬 Your manager just messaged you. Pick how you'd actually reply.</p><div class="chat-phone-frame"><div class="chat-app-header"><span class="chat-app-avatar">👤</span><div class="chat-app-who"><strong data-en="Your Manager" data-ar="مديرك">Your Manager</strong><span class="chat-app-status"><span class="chat-online-dot"></span><span data-en="Online" data-ar="متصل">Online</span></span></div></div><div class="chat-app-body" id="chat-sim-wrap-ap"></div></div></div>
+    <div id="ap-learn-flow-cases" style="scroll-margin-top:70px;padding-top:6px"></div><div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#e8a317;opacity:.28;font-family:'Fraunces',serif;z-index:0">2</span><h2 style="position:relative;font-family:'Fraunces',serif;color:#e8a317;border-bottom:3px solid #e8a317;padding:10px 14px 10px 54px;margin:0;background:#fdf3e0;border-radius:0 10px 10px 0;border-inline-start:5px solid #e8a317;z-index:1" data-en="Cases &amp; Problems" data-ar="حالات ومشاكل">Cases &amp; Problems</h2></div>
     <div class="module-head">
       <span class="module-tag" data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span>
       <h3 data-en="Practical cases & problems — AP desk" data-ar="حالات عملية ومشكلات — مكتب الموردين">Practical cases & problems — AP desk</h3>
@@ -11730,81 +11861,14 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
 
   <div class="data-panel" id="cross-tickets">
     <div class="module-head">
-      <span class="module-tag" data-en="🔄 Cross-desk workflow" data-ar="🔄 سير عمل بين المكاتب">🔄 Cross-desk workflow</span>
+      <span class="module-tag" data-en="🔄 Cross-desk judgment" data-ar="🔄 حكم عبر المكاتب">🔄 Cross-desk judgment</span>
       <h3 data-en="Handoff to the Right Desk" data-ar="التسليم للقسم المختص">Handoff to the Right Desk</h3>
-      <p class="panel-sub" data-en="Real work crosses departments. Open a ticket, hand off with evidence, and close only when the receiving desk finishes." data-ar="الشغل الحقيقي يعبر الأقسام. افتح تذكرة، سلّم بالمستند، وأغلق فقط عندما ينهي المكتب المستلم.">Real work crosses departments. Open a ticket, hand off with evidence, and close only when the receiving desk finishes.</p>
+      <p class="panel-sub" data-en="Real work crosses departments. Read the situation, and decide which desk should actually own it." data-ar="الشغل الحقيقي بيعبر الأقسام. اقرا الموقف، وقرر مين المفروض يستلم الموضوع فعليًا.">Real work crosses departments. Read the situation, and decide which desk should actually own it.</p>
     </div>
-    <div class="ticket-board" id="ticketBoard">
-      <div class="ticket" data-ticket="t1">
-        <div>
-          <div class="tk-from" data-en="Treasury → Accounts Receivable" data-ar="الخزينة → حسابات العملاء">Treasury → Accounts Receivable</div>
-          <strong data-en="Unidentified deposit EGP 85,000" data-ar="إيداع مجهول 85,000 جنيه">Unidentified deposit EGP 85,000</strong>
-          <p data-en="Bank ref BR-2041 on 18 Sep. No remittance. Posted to unapplied by Treasury. AR must allocate to customer/invoice." data-ar="مرجع بنكي BR-2041 في 18 سبتمبر. لا إشعار تحويل. رحّلته الخزينة لغير مخصص. على العملاء التخصيص لعميل/فاتورة.">Bank ref BR-2041 on 18 Sep. No remittance. Posted to unapplied by Treasury. AR must allocate to customer/invoice.</p>
-          <div class="ticket-meta">
-            <span data-en="Priority: High" data-ar="أولوية: عالية">Priority: High</span>
-            <span data-en="Evidence: bank advice" data-ar="الدليل: إشعار بنك">Evidence: bank advice</span>
-            <span data-en="Status: Open" data-ar="الحالة: مفتوحة">Status: Open</span>
-          </div>
-        </div>
-        <div class="tk-actions">
-          <button type="button" class="btn" onclick="showPanel('ar-ops-flow');setTimeout(()=>document.getElementById('arops-bridge').scrollIntoView(),100)"><span data-en="Open AR bridge" data-ar="جسر العملاء">Open AR bridge</span></button>
-          <button type="button" class="btn" onclick="openWorkspaceMenu('ar')"><span data-en="AR daily desk" data-ar="مكتب العملاء">AR daily desk</span></button>
-          <button type="button" class="btn" onclick="closeTicket('t1')"><span data-en="Mark done" data-ar="تم الإنجاز">Mark done</span></button>
-        </div>
-      </div>
-      <div class="ticket" data-ticket="t2">
-        <div>
-          <div class="tk-from" data-en="Inventory → Accounts Payable" data-ar="المخزون → حسابات الموردين">Inventory → Accounts Payable</div>
-          <strong data-en="GRN posted — supplier invoice missing" data-ar="إذن استلام مرحّل — فاتورة المورد ناقصة">GRN posted — supplier invoice missing</strong>
-          <p data-en="GRN-118 received 2 pallets. Period-end close needs GRNI accrual if invoice not entered. AP owns the accrual and supplier chase." data-ar="GRN-118 استلام طبليتين. إقفال الفترة يحتاج استحقاق GRNI إن لم تُدخل الفاتورة. الموردين يملكون الاستحقاق ومتابعة المورد.">GRN-118 received 2 pallets. Period-end close needs GRNI accrual if invoice not entered. AP owns the accrual and supplier chase.</p>
-          <div class="ticket-meta">
-            <span data-en="Priority: Month-end" data-ar="أولوية: إقفال">Priority: Month-end</span>
-            <span data-en="Evidence: GRN-118" data-ar="الدليل: GRN-118">Evidence: GRN-118</span>
-            <span data-en="Status: Open" data-ar="الحالة: مفتوحة">Status: Open</span>
-          </div>
-        </div>
-        <div class="tk-actions">
-          <button type="button" class="btn" onclick="showPanel('ap-ops-flow');setTimeout(()=>document.getElementById('ap-ops-flow-bridge').scrollIntoView(),100)"><span data-en="Open AP bridge" data-ar="جسر الموردين">Open AP bridge</span></button>
-          <button type="button" class="btn" onclick="openWorkspaceMenu('ap')"><span data-en="AP daily desk" data-ar="مكتب الموردين">AP daily desk</span></button>
-          <button type="button" class="btn" onclick="closeTicket('t2')"><span data-en="Mark done" data-ar="تم الإنجاز">Mark done</span></button>
-        </div>
-      </div>
-      <div class="ticket" data-ticket="t3">
-        <div>
-          <div class="tk-from" data-en="Payroll → General Ledger" data-ar="الرواتب → دفتر الأستاذ">Payroll → General Ledger</div>
-          <strong data-en="Payroll tax liability not clearing" data-ar="التزام ضريبة الرواتب لا يصفو">Payroll tax liability not clearing</strong>
-          <p data-en="Net pay left the bank; statutory liability still open. Possible wrong GL on payment. GL and Payroll to match register → liability → bank." data-ar="صافي الرواتب خرج من البنك؛ الالتزام النظامي ما زال مفتوحًا. احتمال ترميز GL خطأ على الدفعة. الأستاذ والرواتب يطابقان السجل → الالتزام → البنك.">Net pay left the bank; statutory liability still open. Possible wrong GL on payment. GL and Payroll to match register → liability → bank.</p>
-          <div class="ticket-meta">
-            <span data-en="Priority: Medium" data-ar="أولوية: متوسطة">Priority: Medium</span>
-            <span data-en="Evidence: payment batch" data-ar="الدليل: دفعة الصرف">Evidence: payment batch</span>
-            <span data-en="Status: Open" data-ar="الحالة: مفتوحة">Status: Open</span>
-          </div>
-        </div>
-        <div class="tk-actions">
-          <button type="button" class="btn" onclick="showPanel('gl-close')"><span data-en="Close calendar" data-ar="تقويم الإقفال">Close calendar</span></button>
-          <button type="button" class="btn" onclick="openWorkspaceMenu('hr')"><span data-en="Payroll desk" data-ar="مكتب الرواتب">Payroll desk</span></button>
-          <button type="button" class="btn" onclick="closeTicket('t3')"><span data-en="Mark done" data-ar="تم الإنجاز">Mark done</span></button>
-        </div>
-      </div>
-      <div class="ticket" data-ticket="t4">
-        <div>
-          <div class="tk-from" data-en="AR → General Ledger" data-ar="العملاء → دفتر الأستاذ">AR → General Ledger</div>
-          <strong data-en="Request bad-debt provision review" data-ar="طلب مراجعة مخصص ديون مشكوك فيها">Request bad-debt provision review</strong>
-          <p data-en="Customer C-204 disputed 90+ days. AR proposes ECL provision. GL must post allowance with approval — not delete the invoice." data-ar="عميل C-204 عليه نزاع أكثر من 90 يومًا. العملاء يقترحون مخصص ECL. الأستاذ يرحّل المخصص باعتماد — لا يحذف الفاتورة.">Customer C-204 disputed 90+ days. AR proposes ECL provision. GL must post allowance with approval — not delete the invoice.</p>
-          <div class="ticket-meta">
-            <span data-en="Priority: Close" data-ar="أولوية: إقفال">Priority: Close</span>
-            <span data-en="Evidence: aging + dispute log" data-ar="الدليل: أعمار + سجل نزاع">Evidence: aging + dispute log</span>
-            <span data-en="Status: Open" data-ar="الحالة: مفتوحة">Status: Open</span>
-          </div>
-        </div>
-        <div class="tk-actions">
-          <button type="button" class="btn" onclick="showPanel('gl-learn-flow');setTimeout(()=>document.getElementById('gl-learn-flow-cases').scrollIntoView(),100)"><span data-en="GL cases" data-ar="حالات GL">GL cases</span></button>
-          <button type="button" class="btn" onclick="showPanel('ar-learn-flow');setTimeout(()=>document.getElementById('arlearn-cases').scrollIntoView(),100)"><span data-en="AR cases" data-ar="حالات العملاء">AR cases</span></button>
-          <button type="button" class="btn" onclick="closeTicket('t4')"><span data-en="Mark done" data-ar="تم الإنجاز">Mark done</span></button>
-        </div>
-      </div>
-    </div>
+    <div id="handoff-quiz-wrap"></div>
   </div>
+
+
 
 
 
@@ -12396,6 +12460,9 @@ function showPanel(id, btn, isBack){
   if(wsKey && ['ar','ap','inv','treasury','hr','gl','ratios','bc','aud','cost','recv','constr','tax','learn'].includes(wsKey) && typeof homeMarkVisited==='function'){
     homeMarkVisited(wsKey);
   }
+  if(id==='ar-learn-flow' && typeof chatStart==='function'){ chatStart('ar'); }
+  if(id==='ap-learn-flow' && typeof chatStart==='function'){ chatStart('ap'); }
+  if(id==='treasury-learn-flow' && typeof chatStart==='function'){ chatStart('treasury'); }
   if(wsKey && id === wsKey+'-home' && typeof maybeShowManagerPopup==='function'){
     setTimeout(()=>maybeShowManagerPopup(wsKey), 500);
   }
@@ -13922,6 +13989,523 @@ function maybeShowManagerPopup(wsKey){
 }
 function closeManagerPopup(){
   document.getElementById('managerPopupOverlay').classList.remove('is-open');
+}
+
+
+const HANDOFF_SCENARIOS = [
+  { situation_en:'An unidentified bank deposit of EGP 85,000 just landed — no remittance advice, no clear reference.',
+    situation_ar:'إيداع بنكي مجهول بقيمة 85,000 جنيه وصل فجأة — من غير إشعار تحويل أو مرجع واضح.',
+    options:[
+      {desk_en:'Accounts Receivable', desk_ar:'حسابات العملاء', correct:false},
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false}
+    ],
+    explain_en:'Treasury owns every unallocated bank movement first — they park it in suspense and investigate the source. Only once it’s confirmed as a specific customer payment does it hand off to AR for allocation.',
+    explain_ar:'الخزينة بتملك أي حركة بنكية غير مخصصة من الأول — بتحطها في حساب معلّق وتحقق في مصدرها. بس لما يتأكد إنها دفعة عميل معيّن، تسلّمها للعملاء للتخصيص.' },
+
+  { situation_en:'Goods were physically received and the GRN is posted, but the supplier’s invoice hasn’t arrived before month-end close.',
+    situation_ar:'البضاعة اتستلمت فعليًا وإذن الاستلام اترحّل، بس فاتورة المورد لسه ما وصلتش قبل قفل الشهر.',
+    options:[
+      {desk_en:'Inventory', desk_ar:'المخزون', correct:false},
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false}
+    ],
+    explain_en:'Inventory’s job ends once the GRN confirms physical receipt. AP owns the financial side — booking the GRNI accrual and chasing the supplier for the missing invoice.',
+    explain_ar:'شغل المخزون بيخلص لما إذن الاستلام يتأكد. حسابات الموردين بتملك الجانب المالي — تسجيل استحقاق GRNI ومتابعة المورد عشان الفاتورة الناقصة.' },
+
+  { situation_en:'Net payroll already left the bank, but the related tax liability account is still open and hasn’t cleared.',
+    situation_ar:'صافي الرواتب خرج من البنك فعلًا، لكن حساب الالتزام الضريبي المرتبط لسه مفتوح ومحصلش تصفية.',
+    options:[
+      {desk_en:'Payroll &amp; HR', desk_ar:'الرواتب', correct:false},
+      {desk_en:'Tax Accountant', desk_ar:'محاسب الضرائب', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:true}
+    ],
+    explain_en:'Payroll calculated the original numbers, but matching what was actually paid (bank) against what was booked (liability account) is a reconciliation job — and reconciliation is GL’s desk.',
+    explain_ar:'الرواتب حسبت الأرقام الأصلية، لكن مطابقة اللي اتدفع فعليًا (البنك) مع اللي اترحّل (حساب الالتزام) ده شغل مطابقة — والمطابقة مكتب دفتر الأستاذ.' },
+
+  { situation_en:'A customer dispute has dragged past 90 days with no resolution, and a bad-debt provision now needs to be posted.',
+    situation_ar:'نزاع مع عميل استمر لأكتر من 90 يوم من غير حل، ومحتاجين نرحّل مخصص ديون مشكوك في تحصيلها.',
+    options:[
+      {desk_en:'Accounts Receivable', desk_ar:'حسابات العملاء', correct:false},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:true}
+    ],
+    explain_en:'AR proposes the provision — they hold the aging and dispute evidence. But actually posting it needs proper approval and governance, which is why GL owns the entry itself.',
+    explain_ar:'العملاء بيقترحوا المخصص — عندهم دليل الأعمار والنزاع. لكن ترحيله فعليًا محتاج اعتماد وحوكمة سليمة، وده سبب إن دفتر الأستاذ بيملك القيد نفسه.' },
+
+  { situation_en:'A large material price variance just showed up this month, and inventory is still valued at the old standard cost.',
+    situation_ar:'ظهر انحراف كبير في سعر الخامات الشهر ده، والمخزون لسه متقيّم بالتكلفة المعيارية القديمة.',
+    options:[
+      {desk_en:'Inventory', desk_ar:'المخزون', correct:false},
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false}
+    ],
+    explain_en:'Inventory tracks quantities and location, not cost analysis. Understanding why a variance happened — and whether the standard needs updating — is the Cost Accountant’s job.',
+    explain_ar:'المخزون بيتابع الكميات والمواقع، مش تحليل التكلفة. فهم سبب الانحراف — وهل المعيار محتاج تحديث — ده شغل محاسب التكاليف.' },
+
+  { situation_en:'A customer paid a large advance on a construction project, but actual work completed hasn’t caught up to that percentage yet.',
+    situation_ar:'عميل دفع دفعة مقدمة كبيرة لمشروع مقاولات، لكن الإنجاز الفعلي لسه ما وصلش لنفس النسبة دي.',
+    options:[
+      {desk_en:'Accounts Receivable', desk_ar:'حسابات العملاء', correct:false},
+      {desk_en:'Site Accountant', desk_ar:'محاسب الموقع', correct:true},
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:false}
+    ],
+    explain_en:'AR and Treasury just process the cash side. Tracking whether billing is running ahead of certified progress — and flagging the overbilling risk — is the Site Accountant’s job.',
+    explain_ar:'العملاء والخزينة بس بيعالجوا الجانب النقدي. متابعة هل الفوترة قدام الإنجاز المعتمد — ورصد مخاطر الفوترة الزايدة — ده شغل محاسب الموقع.' },
+
+  { situation_en:'A sales invoice already went out to the customer with the wrong VAT rate applied.',
+    situation_ar:'فاتورة مبيعات اتبعتت للعميل فعليًا بمعدل ضريبة قيمة مضافة غلط.',
+    options:[
+      {desk_en:'Accounts Receivable', desk_ar:'حسابات العملاء', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Tax Accountant', desk_ar:'محاسب الضرائب', correct:true}
+    ],
+    explain_en:'AR issued the invoice, but determining the correct VAT treatment and handling the correction’s filing implications is Tax’s domain, not AR’s or GL’s.',
+    explain_ar:'العملاء أصدروا الفاتورة، لكن تحديد المعاملة الضريبية الصحيحة والتعامل مع آثار التصحيح على الإقرار ده مجال محاسب الضرائب، مش العملاء ولا دفتر الأستاذ.' },
+
+  { situation_en:'A department has significantly overspent its approved budget this month, and leadership wants to know why.',
+    situation_ar:'قسم تخطى موازنته المعتمدة بشكل كبير الشهر ده، والإدارة عايزة تعرف السبب.',
+    options:[
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:false},
+      {desk_en:'Budget Controller', desk_ar:'مراقب الموازنة', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false}
+    ],
+    explain_en:'Cost Accountant analyzes product and process cost variances. Comparing actual spend against the approved budget and getting the explanation from department heads is the Budget Controller’s job.',
+    explain_ar:'محاسب التكاليف بيحلل انحرافات تكلفة المنتج والعملية. مقارنة الصرف الفعلي بالموازنة المعتمدة وأخذ التفسير من رؤساء الأقسام ده شغل مراقب الموازنة.' },
+
+  { situation_en:'A shipment just arrived with double the quantity stated on the purchase order, with no approved change order on file.',
+    situation_ar:'شحنة وصلت بضعف الكمية المذكورة في أمر الشراء، من غير أي أمر تعديل معتمد.',
+    options:[
+      {desk_en:'Inventory', desk_ar:'المخزون', correct:false},
+      {desk_en:'Receiving', desk_ar:'الاستلام', correct:true},
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:false}
+    ],
+    explain_en:'Receiving owns the gate-check — verifying quantity against the PO before anything is accepted into stock or passed on for payment. Inventory and AP only see it after that checkpoint.',
+    explain_ar:'الاستلام بيملك نقطة الفحص الأولى — التأكد من الكمية مقابل أمر الشراء قبل ما أي حاجة تتقبل في المخزون أو تتمرر للسداد. المخزون والموردين بيشوفوها بعد النقطة دي بس.' },
+
+  { situation_en:'A routine review found that the same employee both approves new suppliers and approves their payments.',
+    situation_ar:'مراجعة دورية لقت إن نفس الموظف بيعتمد الموردين الجدد وبرضو بيعتمد الدفع ليهم.',
+    options:[
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false},
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:true},
+      {desk_en:'Payroll &amp; HR', desk_ar:'الرواتب', correct:false}
+    ],
+    explain_en:'Internal Audit finds and reports the control gap, but doesn’t fix it. The owning desk — AP in this case — is responsible for actually redesigning the segregation of duties.',
+    explain_ar:'المراجعة الداخلية بترصد وتبلّغ عن الفجوة الرقابية، لكن مابتصلحهاش. المكتب المالك — الموردين في الحالة دي — هو المسؤول عن إعادة تصميم فصل المهام فعليًا.' },
+
+  { situation_en:'A physical count found one item short by 82%, far beyond the normal shrinkage seen across every other item.',
+    situation_ar:'جرد فعلي لقى صنف ناقص بنسبة 82%، أبعد بكتير عن العجز الطبيعي في باقي الأصناف.',
+    options:[
+      {desk_en:'Receiving', desk_ar:'الاستلام', correct:false},
+      {desk_en:'Inventory', desk_ar:'المخزون', correct:true},
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:false}
+    ],
+    explain_en:'Receiving’s job ends at the dock. Cost Accountant deals with valuation, not physical variances. Inventory owns investigating stock gaps and deciding whether this needs a write-off or an escalation.',
+    explain_ar:'شغل الاستلام بيخلص عند المخزن. محاسب التكاليف بيتعامل مع التقييم، مش الفروقات الفعلية. المخزون بيملك التحقيق في فروقات المخزون وتقرير هل محتاجة شطب أو تصعيد.' },
+
+  { situation_en:'A new name appeared on this month’s payroll, but there’s no approved HR file behind it.',
+    situation_ar:'اسم جديد ظهر في كشف رواتب الشهر ده، لكن مفيش ملف HR معتمد وراه.',
+    options:[
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false},
+      {desk_en:'Payroll &amp; HR', desk_ar:'الرواتب', correct:true}
+    ],
+    explain_en:'This is exactly the kind of control Payroll should catch before running the payment — it shouldn’t need to wait for GL to notice or an audit to flag it after the fact.',
+    explain_ar:'ده بالظبط نوع الضابط اللي المفروض الرواتب تمسكه قبل ما تصرف الدفعة — مش محتاج يستنى دفتر الأستاذ يلاحظ أو مراجعة ترصده بعدين.' },
+
+  { situation_en:'A major supplier emailed asking to change their bank account, two days before a large payment is due.',
+    situation_ar:'مورد كبير بعت إيميل يطلب تغيير حسابه البنكي، قبل يومين من دفعة كبيرة مستحقة.',
+    options:[
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:false},
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:true},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false}
+    ],
+    explain_en:'Treasury physically executes the payment, so they must independently verify any bank-detail change through a known phone number before wiring — a frontline control, not something to escalate to audit first.',
+    explain_ar:'الخزينة هي اللي بتنفّذ السداد فعليًا، فلازم تتأكد بشكل مستقل من أي تغيير في البيانات البنكية عن طريق رقم تليفون معروف قبل التحويل — ده ضابط أمامي، مش حاجة تتصعّد للمراجعة الأول.' },
+
+  { situation_en:'A sales manager asked for a large credit note to a customer, with no documented business reason.',
+    situation_ar:'مدير مبيعات طلب إصدار إشعار دائن كبير لعميل، من غير سبب تجاري موثّق.',
+    options:[
+      {desk_en:'Accounts Receivable', desk_ar:'حسابات العملاء', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false}
+    ],
+    explain_en:'AR is the frontline desk that should require documented justification before processing — not just execute because a manager asked. Internal Audit would only see this after the fact in a review.',
+    explain_ar:'العملاء هم الخط الأمامي اللي المفروض يطلبوا تبرير موثّق قبل الترحيل — مش ينفذوا بس لأن مدير طلب كده. المراجعة الداخلية هتشوفها بعدين في مراجعة دورية بس.' },
+
+  { situation_en:'It turns out an asset’s useful life was entered wrong three months ago, affecting several depreciation entries since.',
+    situation_ar:'طلع إن العمر الإنتاجي لأصل اتسجل غلط من 3 شهور، وأثّر على كذا قيد إهلاك من وقتها.',
+    options:[
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:true},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false}
+    ],
+    explain_en:'GL owns the fixed asset register and correcting the depreciation entries going forward — this is a data-integrity responsibility that belongs to whoever maintains the register.',
+    explain_ar:'دفتر الأستاذ بيملك سجل الأصول الثابتة وتصحيح قيود الإهلاك قدام — دي مسؤولية سلامة بيانات بتخص اللي بيحافظ على السجل.' },
+
+  { situation_en:'A subcontractor’s invoice arrived, but there’s no engineer-certified work completion document behind it.',
+    situation_ar:'فاتورة مقاول من الباطن وصلت، لكن من غير مستند إنجاز معتمد من المهندس وراها.',
+    options:[
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:false},
+      {desk_en:'Site Accountant', desk_ar:'محاسب الموقع', correct:true},
+      {desk_en:'Receiving', desk_ar:'الاستلام', correct:false}
+    ],
+    explain_en:'For construction work specifically, the Site Accountant owns verifying completion documentation before AP can even process the payment — this is different from a normal goods receipt.',
+    explain_ar:'في شغل المقاولات تحديدًا، محاسب الموقع بيملك التحقق من مستندات الإنجاز قبل ما الموردين يقدروا يعالجوا السداد أصلًا — ده مختلف عن استلام بضاعة عادي.' },
+
+  { situation_en:'Sales wants to approve a new customer’s credit limit above what policy allows, to close a big deal.',
+    situation_ar:'المبيعات عايزة توافق لعميل جديد على حد ائتمان أعلى من المسموح بالسياسة، عشان تقفل صفقة كبيرة.',
+    options:[
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:false},
+      {desk_en:'Accounts Receivable', desk_ar:'حسابات العملاء', correct:true},
+      {desk_en:'Budget Controller', desk_ar:'مراقب الموازنة', correct:false}
+    ],
+    explain_en:'AR is the desk responsible for enforcing credit policy and routing any exception through proper approval — not Sales, and not Treasury or Budget Control either.',
+    explain_ar:'العملاء هم المكتب المسؤول عن تطبيق سياسة الائتمان وتمرير أي استثناء من خلال الاعتماد الصحيح — مش المبيعات، ولا الخزينة، ولا مراقبة الموازنة.' },
+
+  { situation_en:'It turns out the same supplier invoice was accidentally paid twice.',
+    situation_ar:'طلع إن نفس فاتورة المورد اتسددت مرتين بالغلط.',
+    options:[
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:false},
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false}
+    ],
+    explain_en:'AP owns the full remediation cycle — contacting the supplier for a refund or credit, and correcting their own sub-ledger. Treasury just executed what AP told them to.',
+    explain_ar:'الموردين بيملكوا دورة التصحيح كاملة — التواصل مع المورد لاسترداد أو إشعار دائن، وتصحيح دفترهم الفرعي. الخزينة بس نفّذت اللي الموردين طلبوه.' },
+
+  { situation_en:'A new tax regulation was issued two weeks before year-end close, affecting how the tax provision should be calculated.',
+    situation_ar:'لائحة ضريبية جديدة صدرت قبل إقفال السنة بأسبوعين، وأثّرت على طريقة حساب المخصص الضريبي.',
+    options:[
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Financial Analyst', desk_ar:'المحلل المالي', correct:false},
+      {desk_en:'Tax Accountant', desk_ar:'محاسب الضرائب', correct:true}
+    ],
+    explain_en:'Tax owns staying current on regulation changes and recalculating the provision. GL posts what Tax instructs; the Financial Analyst only reports the final numbers.',
+    explain_ar:'الضرائب بتملك متابعة التغييرات التشريعية وإعادة حساب المخصص. دفتر الأستاذ بيرحّل اللي الضرائب بتوجّه بيه؛ والمحلل المالي بس بيقرّر الأرقام النهائية.' },
+
+  { situation_en:'A major new contract was signed mid-year, making the original budget completely unrealistic going forward.',
+    situation_ar:'اتوقّع عقد جديد كبير نص السنة، وخلّى الموازنة الأصلية مش واقعية خالص قدام.',
+    options:[
+      {desk_en:'Financial Analyst', desk_ar:'المحلل المالي', correct:false},
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:false},
+      {desk_en:'Budget Controller', desk_ar:'مراقب الموازنة', correct:true}
+    ],
+    explain_en:'Budget Controller owns reforecasting the budget itself when real business conditions change. The Financial Analyst analyzes results against whatever budget exists — they don’t own revising it.',
+    explain_ar:'مراقب الموازنة بيملك إعادة توقع الموازنة نفسها لما ظروف العمل الحقيقية تتغيّر. المحلل المالي بيحلل النتائج مقابل أي موازنة موجودة — مش هو اللي بيملك مراجعتها.' },
+
+  { situation_en:'HR wants to backdate a salary increase by three months, with no documented approval from the direct manager.',
+    situation_ar:'الموارد البشرية عايزة ترجّع زيادة راتب 3 شهور، من غير اعتماد موثّق من المدير المباشر.',
+    options:[
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Payroll &amp; HR', desk_ar:'الرواتب', correct:true},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false}
+    ],
+    explain_en:'Payroll is the control point — they shouldn’t process any compensation change without documented approval, regardless of who’s asking.',
+    explain_ar:'الرواتب هي نقطة الضبط — مش المفروض تعالج أي تغيير في التعويضات من غير اعتماد موثّق، أيًا كان اللي بيطلب.' },
+
+  { situation_en:'A customer’s statement doesn’t match their balance in the GL control account.',
+    situation_ar:'كشف حساب عميل معيّن مش متطابق مع رصيده في حساب المراقبة بدفتر الأستاذ.',
+    options:[
+      {desk_en:'Accounts Receivable', desk_ar:'حسابات العملاء', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false}
+    ],
+    explain_en:'AR owns reconciling their own sub-ledger against the GL control account — this is routine AR hygiene, not something that needs GL or Audit to drive.',
+    explain_ar:'العملاء بيملكوا مطابقة دفترهم الفرعي مع حساب المراقبة في دفتر الأستاذ — ده انضباط روتيني للعملاء، مش حاجة محتاجة دفتر الأستاذ أو المراجعة يقودوها.' },
+
+  { situation_en:'Stock that’s been sitting untouched for two years needs to be written off the books.',
+    situation_ar:'مخزون قاعد من غير حركة من سنتين، ومحتاجين نشطبه من الدفاتر.',
+    options:[
+      {desk_en:'Inventory', desk_ar:'المخزون', correct:false},
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:true}
+    ],
+    explain_en:'Inventory identifies the obsolete stock and proposes the write-off, but actually posting it — with proper approval — is GL’s job, same pattern as a bad-debt provision.',
+    explain_ar:'المخزون بيحدد البضاعة الراكدة ويقترح الشطب، لكن ترحيله فعليًا — باعتماد سليم — ده شغل دفتر الأستاذ، بنفس نمط مخصص الديون المشكوك فيها.' },
+
+  { situation_en:'A new accountant asks for full access to the financial ERP module on their very first day.',
+    situation_ar:'محاسب جديد طلب صلاحيات كاملة على نظام الـERP المالي من أول يوم ليه.',
+    options:[
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:true},
+      {desk_en:'Payroll &amp; HR', desk_ar:'الرواتب', correct:false}
+    ],
+    explain_en:'Whoever owns financial system integrity should define and limit access based on segregation of duties — not grant blanket access just because someone asked for it.',
+    explain_ar:'اللي بيملك سلامة النظام المالي هو اللي بيحدد ويقيّد الصلاحيات حسب فصل المهام — مش يدي صلاحية كاملة بس لأن حد طلبها.' },
+
+  { situation_en:'Cash position is running tight right before the scheduled payroll date.',
+    situation_ar:'السيولة هتبقى ضيقة قبل موعد صرف الرواتب المحدد.',
+    options:[
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:true},
+      {desk_en:'Payroll &amp; HR', desk_ar:'الرواتب', correct:false},
+      {desk_en:'Budget Controller', desk_ar:'مراقب الموازنة', correct:false}
+    ],
+    explain_en:'Treasury owns managing cash position and should flag this early, coordinating which non-critical payments can wait — not leave it until payroll actually fails.',
+    explain_ar:'الخزينة بتملك إدارة وضع السيولة والمفروض ترفع العلم بدري، وتنسّق إيه المدفوعات الغير حرجة اللي ممكن تستنى — مش تسيبها لحد ما الرواتب فعليًا تفشل.' },
+
+  { situation_en:'A supplier claims they never received a payment that was sent three weeks ago.',
+    situation_ar:'مورد بيقول إنه مستلمش دفعة اترسلتله من 3 أسابيع.',
+    options:[
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:false},
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:true},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false}
+    ],
+    explain_en:'Treasury executed the actual bank transfer, so they’re the ones who can trace it with the bank and re-issue if needed. AP only recorded that it was paid.',
+    explain_ar:'الخزينة هي اللي نفّذت التحويل البنكي فعليًا، فهي اللي تقدر تتبّعه مع البنك وتعيد الإصدار لو محتاج. الموردين بس سجّلوا إنه اتسدد.' },
+
+  { situation_en:'Unexpected monthly bank fees appeared on the statement that don’t match any agreed service.',
+    situation_ar:'رسوم بنكية شهرية غير متوقعة ظهرت في الكشف مش متفق عليها.',
+    options:[
+      {desk_en:'Treasury', desk_ar:'الخزينة', correct:true},
+      {desk_en:'Accounts Payable', desk_ar:'حسابات الموردين', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false}
+    ],
+    explain_en:'Treasury monitors bank activity and reconciliation, so unexpected charges are theirs to investigate and dispute directly with the bank.',
+    explain_ar:'الخزينة بتراقب نشاط البنك والمطابقة، فالرسوم الغير متوقعة من مسؤوليتها إنها تحقق فيها وتعترض عليها مباشرة مع البنك.' },
+
+  { situation_en:'A construction project is significantly behind schedule and the client is threatening a delay penalty.',
+    situation_ar:'مشروع مقاولات متأخر بشكل كبير عن الجدول، والعميل بيهدد بغرامة تأخير.',
+    options:[
+      {desk_en:'Budget Controller', desk_ar:'مراقب الموازنة', correct:false},
+      {desk_en:'Site Accountant', desk_ar:'محاسب الموقع', correct:true},
+      {desk_en:'Internal Auditor', desk_ar:'المراجع الداخلي', correct:false}
+    ],
+    explain_en:'The Site Accountant specifically owns assessing and recording the financial impact — like a potential penalty provision — on their own project, not generic budget monitoring.',
+    explain_ar:'محاسب الموقع بيملك تحديدًا تقييم وتسجيل الأثر المالي — زي مخصص غرامة محتملة — على مشروعه، مش مراقبة موازنة عمومية.' },
+
+  { situation_en:'A key financial ratio has been trending badly for three consecutive months.',
+    situation_ar:'نسبة مالية رئيسية بتتدهور لـ3 شهور متتالية.',
+    options:[
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:false},
+      {desk_en:'Financial Analyst', desk_ar:'المحلل المالي', correct:true}
+    ],
+    explain_en:'This is squarely the Financial Analyst’s job — investigate the trend, find the real driver, and escalate with context, not just report the number mechanically.',
+    explain_ar:'ده بالظبط شغل المحلل المالي — يحقق في الاتجاه، يلاقي السبب الحقيقي، ويصعّد بسياق واضح، مش بس يبلّغ الرقم آليًا.' },
+
+  { situation_en:'Two departments are both claiming ownership of spending on the same cost center.',
+    situation_ar:'قسمين بيدّعوا ملكية الإنفاق على نفس مركز التكلفة.',
+    options:[
+      {desk_en:'Cost Accountant', desk_ar:'محاسب التكاليف', correct:false},
+      {desk_en:'General Ledger', desk_ar:'دفتر الأستاذ', correct:false},
+      {desk_en:'Budget Controller', desk_ar:'مراقب الموازنة', correct:true}
+    ],
+    explain_en:'Budget Controller owns the cost center structure and resolving disputes about who should be charged for what. Cost Accountant handles the costing method, not ownership disputes.',
+    explain_ar:'مراقب الموازنة بيملك هيكل مراكز التكلفة وحل نزاعات مين المفروض يتحمّل إيه. محاسب التكاليف بيتعامل مع طريقة التكلفة، مش نزاعات الملكية.' }
+];
+
+let handoffScenarioIdx = 0;
+let handoffAnswered = false;
+let handoffOrder = HANDOFF_SCENARIOS.map((_,i)=>i);
+
+function handoffShuffle(){
+  for(let i = handoffOrder.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [handoffOrder[i], handoffOrder[j]] = [handoffOrder[j], handoffOrder[i]];
+  }
+}
+function handoffStart(){
+  handoffShuffle();
+  handoffScenarioIdx = 0;
+  handoffRender();
+}
+
+function handoffRender(){
+  const s = HANDOFF_SCENARIOS[handoffOrder[handoffScenarioIdx]];
+  const ar = cycleAr();
+  const wrap = document.getElementById('handoff-quiz-wrap'); if(!wrap) return;
+  handoffAnswered = false;
+  const optionsHtml = s.options.map((o,i)=>
+    `<button type="button" class="handoff-option" onclick="handoffPick(${i})" data-correct="${o.correct}">${ar?o.desk_ar:o.desk_en}</button>`
+  ).join('');
+  wrap.innerHTML = `
+    <div class="handoff-progress">${handoffScenarioIdx+1} / ${HANDOFF_SCENARIOS.length}</div>
+    <p class="handoff-situation">${ar?s.situation_ar:s.situation_en}</p>
+    <p class="handoff-question">${ar?'مين المفروض يستلم الموضوع ده؟':'Who should own this?'}</p>
+    <div class="handoff-options">${optionsHtml}</div>
+    <div id="handoff-feedback"></div>
+  `;
+}
+
+function handoffPick(idx){
+  if(handoffAnswered) return;
+  handoffAnswered = true;
+  const s = HANDOFF_SCENARIOS[handoffOrder[handoffScenarioIdx]];
+  const ar = cycleAr();
+  const buttons = document.querySelectorAll('.handoff-option');
+  buttons.forEach((b,i)=>{
+    b.disabled = true;
+    if(s.options[i].correct) b.classList.add('handoff-correct');
+    else if(i===idx) b.classList.add('handoff-wrong');
+  });
+  const isLast = handoffScenarioIdx === HANDOFF_SCENARIOS.length - 1;
+  const fb = document.getElementById('handoff-feedback');
+  fb.innerHTML = `
+    <div class="handoff-explain">
+      <strong>${s.options[idx].correct ? (ar?'✓ صح!':'✓ Correct!') : (ar?'الإجابة الصح:':'The right answer:')}${!s.options[idx].correct ? ' ' + (ar? s.options.find(o=>o.correct).desk_ar : s.options.find(o=>o.correct).desk_en) : ''}</strong>
+      <p>${ar?s.explain_ar:s.explain_en}</p>
+    </div>
+    ${isLast
+      ? `<div class="handoff-done">🏆 ${ar?'خلّصت كل المواقف!':'You’ve finished every scenario!'}</div>`
+      : `<button type="button" class="btn btn-primary" onclick="handoffNext()">${ar?'الموقف الجاي →':'Next Scenario →'}</button>`}
+  `;
+}
+function handoffNext(){
+  handoffScenarioIdx++;
+  handoffRender();
+}
+
+
+const CHAT_SCENARIOS = {
+  ar: [
+    { manager_en:'A customer says they already paid this invoice, but we don’t see the collection in the system. What do you do?',
+      manager_ar:'فيه عميل بيقول إنه دفع الفاتورة دي، بس احنا مش شايفين التحصيل في النظام. تعمل إيه؟',
+      options:[
+        {text_en:'Leave it as is until the customer sends proof.', text_ar:'هسيبها زي ما هي لحد ما العميل يبعت إثبات.', correct:false},
+        {text_en:'Check unapplied cash first, then ask for proof of payment if nothing turns up.', text_ar:'هدوّر في الكاش الغير مخصص الأول، وأطلب إثبات دفع لو ملقيتش حاجة.', correct:true},
+        {text_en:'Zero out their balance to keep the relationship smooth.', text_ar:'هصفّر رصيده على طول عشان العلاقة التجارية.', correct:false}
+      ],
+      reply_good_en:'Good, that’s exactly the right move.', reply_good_ar:'تمام، ده بالظبط التصرف الصح.',
+      reply_bad_en:'Please double-check that — we need to act, not just wait.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — إحنا محتاجين نتحرك مش نستنى بس.' },
+
+    { manager_en:'Sales wants to approve a new customer above our credit policy limit. What do you do?',
+      manager_ar:'المبيعات عايزة توافق لعميل جديد على حد ائتمان أعلى من سياستنا. تعمل إيه؟',
+      options:[
+        {text_en:'Approve it — Sales knows the customer best.', text_ar:'أوافق على طول — المبيعات أدرى بالعميل.', correct:false},
+        {text_en:'Escalate it as a documented exception for proper approval.', text_ar:'أصعّد الطلب كاستثناء موثّق للاعتماد المناسب.', correct:true},
+        {text_en:'Reject it outright with no discussion.', text_ar:'أرفض الطلب خالص من غير نقاش.', correct:false}
+      ],
+      reply_good_en:'Thanks, that’s the right call.', reply_good_ar:'شكرًا، ده القرار الصح.',
+      reply_bad_en:'Please double-check that — policy exceptions need a proper approval trail.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — استثناءات السياسة محتاجة مسار اعتماد سليم.' },
+
+    { manager_en:'The sales manager wants a large credit note issued to a customer, with no clear business reason. What do you do?',
+      manager_ar:'مدير المبيعات عايز يصدر إشعار دائن كبير لعميل من غير سبب تجاري واضح. تعمل إيه؟',
+      options:[
+        {text_en:'Process it right away — he’s my manager.', text_ar:'أنفذها على طول — هو مديري.', correct:false},
+        {text_en:'Ignore the request completely.', text_ar:'أتجاهل الطلب تمامًا.', correct:false},
+        {text_en:'Ask for documented business justification before posting it.', text_ar:'أطلب تبرير تجاري موثّق الأول قبل الترحيل.', correct:true}
+      ],
+      reply_good_en:'Good, thanks for checking first.', reply_good_ar:'تمام، شكرًا إنك اتأكدت الأول.',
+      reply_bad_en:'Please double-check that — we never post without a documented reason.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — إحنا مابنرحّلش من غير سبب موثّق أبدًا.' }
+  ],
+  ap: [
+    { manager_en:'A supplier is pushing hard for payment today, but their invoice doesn’t match the goods receipt. What do you do?',
+      manager_ar:'مورد بيضغط عشان نسدده النهاردة، بس فاتورته مش متطابقة مع إذن الاستلام. تعمل إيه؟',
+      options:[
+        {text_en:'Pay it anyway to keep the relationship smooth.', text_ar:'أسدد على طول عشان العلاقة التجارية.', correct:false},
+        {text_en:'Hold the payment until the three-way match is confirmed.', text_ar:'أوقف السداد لحد ما نتأكد من المطابقة الثلاثية.', correct:true},
+        {text_en:'Ignore the supplier until they stop asking.', text_ar:'أتجاهل المورد لحد ما يهدا.', correct:false}
+      ],
+      reply_good_en:'Good, that protects us properly.', reply_good_ar:'تمام، ده بيحمينا صح.',
+      reply_bad_en:'Please double-check that — we never pay without a clean match.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — إحنا مابنسددش من غير مطابقة سليمة.' },
+
+    { manager_en:'A major supplier emailed asking to change their bank account, two days before a big payment. What do you do?',
+      manager_ar:'مورد كبير بعت إيميل يطلب تغيير حسابه البنكي، قبل يومين من دفعة كبيرة. تعمل إيه؟',
+      options:[
+        {text_en:'Update the account right away as the email requested.', text_ar:'أغيّر الحساب فورًا زي ما طلب في الإيميل.', correct:false},
+        {text_en:'Verify with the supplier on a known phone number before changing anything.', text_ar:'أتأكد من المورد على رقم تليفون معروف قبل أي تغيير.', correct:true},
+        {text_en:'Just delay the payment indefinitely with no follow-up.', text_ar:'أأجل السداد من غير أي متابعة.', correct:false}
+      ],
+      reply_good_en:'Thanks, that’s exactly the right caution.', reply_good_ar:'شكرًا، ده بالظبط الحذر الصح.',
+      reply_bad_en:'Please double-check that — bank-detail changes need independent verification.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — تغيير البيانات البنكية محتاج تحقق مستقل.' },
+
+    { manager_en:'We just discovered the same supplier invoice was accidentally paid twice. What do you do?',
+      manager_ar:'اكتشفنا إن نفس فاتورة المورد اتسددت مرتين بالغلط. تعمل إيه؟',
+      options:[
+        {text_en:'Leave it — the amount isn’t that large.', text_ar:'أسيبها، المبلغ مش كبير أوي.', correct:false},
+        {text_en:'Contact the supplier for a refund or credit, and fix our own records.', text_ar:'أتواصل مع المورد لاسترداد الفرق أو إشعار دائن، وأصحح دفترنا.', correct:true},
+        {text_en:'Wait and see if the supplier mentions it first.', text_ar:'أستنى المورد يرجع المبلغ من نفسه.', correct:false}
+      ],
+      reply_good_en:'Good, that’s the full fix — not just half of it.', reply_good_ar:'تمام، ده الحل الكامل مش نص حل.',
+      reply_bad_en:'Please double-check that — we own fixing this, not hoping it resolves itself.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — إحنا اللي بنصلّح الموضوع، مش نستنى يتصلّح لوحده.' }
+  ],
+  treasury: [
+    { manager_en:'An unidentified bank deposit of EGP 85,000 just landed. What do you do?',
+      manager_ar:'إيداع بنكي مجهول المصدر بقيمة 85,000 جنيه وصل دلوقتي. تعمل إيه؟',
+      options:[
+        {text_en:'Post it straight to a customer account.', text_ar:'أرحّله لحساب عميل على طول.', correct:false},
+        {text_en:'Park it in suspense and investigate the source first.', text_ar:'أحطه في حساب معلّق وأحقق في مصدره الأول.', correct:true},
+        {text_en:'Leave it untouched until a customer calls about it.', text_ar:'أسيبه من غير ما أعمل حاجة لحد العميل يتصل.', correct:false}
+      ],
+      reply_good_en:'Good, that’s exactly our process.', reply_good_ar:'تمام، ده بالظبط إجراءنا.',
+      reply_bad_en:'Please double-check that — we never guess where unidentified cash belongs.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — إحنا مابنخمنش فين الكاش المجهول بيروح.' },
+
+    { manager_en:'A large transfer needs approval before the bank closes today. What do you do?',
+      manager_ar:'تحويل كبير محتاج اعتماد قبل ما البنك يقفل النهاردة. تعمل إيه؟',
+      options:[
+        {text_en:'Approve it myself since time is tight.', text_ar:'أعتمده بنفسي عشان الوقت ضيق.', correct:false},
+        {text_en:'Reach the proper approver right away for a quick sign-off.', text_ar:'أتواصل فورًا مع صاحب الصلاحية للاعتماد السريع.', correct:true},
+        {text_en:'Just push it to tomorrow with no explanation.', text_ar:'أأجله لبكرة من غير أي توضيح.', correct:false}
+      ],
+      reply_good_en:'Thanks — urgency is never a reason to skip approval.', reply_good_ar:'شكرًا — الاستعجال مش سبب نتخطى فيه الاعتماد.',
+      reply_bad_en:'Please double-check that — the approval limit exists for a reason, even today.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — حد الاعتماد موجود لسبب، حتى النهاردة.' },
+
+    { manager_en:'The bank reconciliation won’t balance by a small amount at month-end. What do you do?',
+      manager_ar:'المطابقة البنكية مش بتتظبط بفرق صغير آخر الشهر. تعمل إيه؟',
+      options:[
+        {text_en:'Plug it to miscellaneous expense and move on.', text_ar:'أحطه في مصروفات متنوعة ونخلص بسرعة.', correct:false},
+        {text_en:'Keep investigating until I find the real cause.', text_ar:'أحقق في الفرق لحد ما ألاقي السبب الحقيقي.', correct:true},
+        {text_en:'Leave the reconciliation open with no explanation.', text_ar:'أسيب المطابقة مفتوحة من غير تفسير.', correct:false}
+      ],
+      reply_good_en:'Good, small gaps left unexplained have a way of growing.', reply_good_ar:'تمام، الفروق الصغيرة اللي من غير تفسير بتكبر مع الوقت.',
+      reply_bad_en:'Please double-check that — even a small plug hides a real problem.', reply_bad_ar:'برجاء التأكد من المعلومة دي تاني — حتى التسوية الصغيرة بتخبّي مشكلة حقيقية.' }
+  ]
+
+};
+
+let chatIdx = 0;
+let chatAnswered = false;
+
+function chatRender(wsKey){
+  const scenarios = CHAT_SCENARIOS[wsKey]; if(!scenarios) return;
+  const s = scenarios[chatIdx];
+  const ar = cycleAr();
+  const wrap = document.getElementById('chat-sim-wrap-' + wsKey); if(!wrap) return;
+  chatAnswered = false;
+  const optionsHtml = s.options.map((o,i)=>
+    `<button type="button" class="chat-option" onclick="chatPick('${wsKey}',${i})">${ar?o.text_ar:o.text_en}</button>`
+  ).join('');
+  wrap.innerHTML = `
+    <div class="chat-progress">${chatIdx+1} / ${scenarios.length}</div>
+    <div class="chat-bubble chat-manager">${ar?s.manager_ar:s.manager_en}</div>
+    <div class="chat-options">${optionsHtml}</div>
+    <div id="chat-reply-${wsKey}"></div>
+  `;
+}
+
+function chatPick(wsKey, idx){
+  if(chatAnswered) return;
+  chatAnswered = true;
+  const scenarios = CHAT_SCENARIOS[wsKey];
+  const s = scenarios[chatIdx];
+  const o = s.options[idx];
+  const ar = cycleAr();
+  document.querySelectorAll('.chat-option').forEach(b=>b.disabled=true);
+  const isLast = chatIdx === scenarios.length - 1;
+  const replyEl = document.getElementById('chat-reply-' + wsKey);
+  replyEl.innerHTML = `
+    <div class="chat-bubble chat-employee">${ar?o.text_ar:o.text_en}</div>
+    <div class="chat-typing" id="chat-typing-${wsKey}"><span></span><span></span><span></span></div>
+  `;
+  setTimeout(()=>{
+    const typingEl = document.getElementById('chat-typing-' + wsKey);
+    if(typingEl) typingEl.outerHTML = `
+      <div class="chat-bubble chat-manager ${o.correct?'chat-good':'chat-bad'}">
+        ${o.correct ? '✅ ' + (ar?s.reply_good_ar:s.reply_good_en) : '⚠️ ' + (ar?s.reply_bad_ar:s.reply_bad_en)}
+      </div>
+      ${isLast
+        ? `<div class="handoff-done">🏆 ${ar?'خلّصت كل المحادثات!':'You’ve finished every conversation!'}</div>`
+        : `<button type="button" class="btn btn-primary" onclick="chatNext('${wsKey}')">${ar?'المحادثة الجاية →':'Next Conversation →'}</button>`}
+    `;
+  }, 1100);
+}
+function chatNext(wsKey){
+  chatIdx++;
+  chatRender(wsKey);
+}
+function chatStart(wsKey){
+  chatIdx = 0;
+  chatRender(wsKey);
 }
 
 function cyclePopulateSelects(){
