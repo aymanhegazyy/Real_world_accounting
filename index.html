@@ -1812,7 +1812,7 @@ body:not(.is-workspace){
 /* Hero */
 .mock-hero,
 body:not(.is-workspace) .mock-hero.hero{
-  background:linear-gradient(135deg,#0D3B36 0%,#0F8A72 42%,#17B88E 78%,#2DD4BF 100%) !important;
+  background:linear-gradient(135deg,#0a1526 0%,#1e3a5f 55%,#2d5a8f 100%) !important;
   border-radius:0 0 28px 28px !important;
   padding:28px 20px 32px !important;
   margin:0 !important;
@@ -3628,6 +3628,8 @@ input[type="text"]:focus, input[type="number"]:focus{
 .type-pill.status-pending{ background:var(--warning-soft); color:#92400e; }
 </style>
 
+
+
 </head>
 <body>
 <div id="pageProgressBar" style="position:fixed;top:0;inset-inline-start:0;height:4px;width:0%;background:#14544B;z-index:9999;transition:width .1s ease, background .3s ease"></div>
@@ -3654,19 +3656,23 @@ input[type="text"]:focus, input[type="number"]:focus{
   </button>
 
   <div class="module-nav" aria-label="Accounting modules">
+    <div class="side-section-label group-operating" data-en="OPERATING CYCLE" data-ar="دورة التشغيل">OPERATING CYCLE</div>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ar-home" onclick="openWorkspaceMenu('ar')"><span data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="ap-home" onclick="openWorkspaceMenu('ap')"><span data-en="🚚 Accounts Payable" data-ar="🚚 حسابات الموردين">🚚 Accounts Payable</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="inv-home" onclick="openWorkspaceMenu('inv')"><span data-en="📦 Inventory & Warehouse" data-ar="📦 المخزون والمخازن">📦 Inventory & Warehouse</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="recv-home" onclick="openWorkspaceMenu('recv')"><span data-en="📥 Receiving Accountant" data-ar="📥 محاسب الاستلام">📥 Receiving Accountant</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="cost-home" onclick="openWorkspaceMenu('cost')"><span data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span></button>
-    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="constr-home" onclick="openWorkspaceMenu('constr')"><span data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="inv-home" onclick="openWorkspaceMenu('inv')"><span data-en="📦 Inventory & Warehouse" data-ar="📦 المخزون والمخازن">📦 Inventory & Warehouse</span></button>
+    <div class="side-section-label group-finance" data-en="FINANCE & COMPLIANCE" data-ar="المالية والالتزام">FINANCE & COMPLIANCE</div>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="treasury-home" onclick="openWorkspaceMenu('treasury')"><span data-en="🏦 Treasury & Banks" data-ar="🏦 الخزينة والبنوك">🏦 Treasury & Banks</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="hr-home" onclick="openWorkspaceMenu('hr')"><span data-en="🧑‍💼 Payroll & HR" data-ar="🧑‍💼 الرواتب والموارد البشرية">🧑‍💼 Payroll & HR</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="gl-home" onclick="openWorkspaceMenu('gl')"><span data-en="📚 General Ledger & Closing" data-ar="📚 دفتر الأستاذ والإقفال">📚 General Ledger & Closing</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="tax-home" onclick="openWorkspaceMenu('tax')"><span data-en="🧾 Tax Accountant" data-ar="🧾 محاسب الضرائب">🧾 Tax Accountant</span></button>
+    <div class="side-section-label group-projects" data-en="PROJECTS & CONTROL" data-ar="المشروعات والرقابة">PROJECTS & CONTROL</div>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="constr-home" onclick="openWorkspaceMenu('constr')"><span data-en="🏗️ Site Accountant" data-ar="🏗️ محاسب الموقع">🏗️ Site Accountant</span></button>
+    <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="cost-home" onclick="openWorkspaceMenu('cost')"><span data-en="🧮 Cost Accountant" data-ar="🧮 محاسب التكاليف">🧮 Cost Accountant</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="bc-home" onclick="openWorkspaceMenu('bc')"><span data-en="📋 Budget Controller" data-ar="📋 مراقب الميزانية">📋 Budget Controller</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="learn-ratios" onclick="openWorkspaceMenu('ratios')"><span data-en="📐 Financial Analyst" data-ar="📐 المحلل المالي">📐 Financial Analyst</span></button>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="aud-home" onclick="openWorkspaceMenu('aud')"><span data-en="🧐 Internal Auditor" data-ar="🧐 المراجع الداخلي">🧐 Internal Auditor</span></button>
+    <div class="side-section-label group-settings" data-en="SETTINGS" data-ar="الإعدادات">SETTINGS</div>
     <button class="side-item module-parent" type="button" role="tab" aria-selected="false" aria-controls="overview" onclick="openWorkspaceMenu('settings')"><span data-en="⚙️ Settings" data-ar="⚙️ الإعدادات">⚙️ Settings</span></button>
   </div>
 
@@ -9541,7 +9547,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <p style="font-size:13px;line-height:1.6;margin:4px 0 12px" data-en="One real transaction, start to finish: invoice it here in AR, then carry it through to the VAT return. 4 connected decisions." data-ar="معاملة حقيقية واحدة من الأول للآخر: فوترها هنا في العملاء، وكمّلها لحد إقرار الضريبة. 4 قرارات متصلة.">One real transaction, start to finish: invoice it here in AR, then carry it through to the VAT return. 4 connected decisions.</p>
         <button class="dq-go" type="button" onclick="startE2ECase('saletovat')" data-en="Start the full mission →" data-ar="ابدأ المهمة الكاملة ←">Start the full mission →</button>
       </div>
-      <div class="desk-card" style="background:#AEDFD3 !important">
+      <div class="desk-card">
         <h4 data-en="Core actions on this desk" data-ar="الإجراءات الأساسية على هذا المكتب">Core actions on this desk</h4>
         <div class="desk-actions">
           <button class="desk-action" type="button" onclick="showPanel('ar-training-flow');setTimeout(()=>document.getElementById('ardata-customers').scrollIntoView(),100)"><strong data-en="Customer master" data-ar="بيانات العملاء">Customer master</strong><span data-en="Codes, limits, channels, currency" data-ar="الأكواد، الحدود، القنوات، العملة">Codes, limits, channels, currency</span></button><button class="desk-action desk-action-chat" type="button" onclick="showPanel('ar-training-flow');setTimeout(()=>document.getElementById('chat-sim-wrap-ar').scrollIntoView(),100)"><strong data-en="💬 Reply to Your Manager" data-ar="💬 رُد على مديرك">💬 Reply to Your Manager</strong><span data-en="A real conversation, your choice" data-ar="محادثة حقيقية، اختيارك">A real conversation, your choice</span></button><button class="desk-action desk-action-ifrs" type="button" onclick="showPanel('ar-ifrs-flow')"><strong data-en="🌍 IFRS Standards in Action" data-ar="🌍 معايير IFRS في الواقع">🌍 IFRS Standards in Action</strong><span data-en="Real scenarios, exact standards" data-ar="مواقف حقيقية، معايير محددة">Real scenarios, exact standards</span></button>
@@ -9552,7 +9558,7 @@ input[type="text"]:focus, input[type="number"]:focus{
         <div class="desk-controls"><strong data-en="Key control:" data-ar="ضابط رئيسي:">Key control:</strong> <span data-en="Never allocate unidentified cash by assumption. Park in suspense, obtain remittance advice, then match to open invoices." data-ar="لا تخصّص نقدية مجهولة بالتخمين. ضعها في حساب وسيط، احصل على إشعار التحويل، ثم طابقها مع الفواتير المفتوحة.">Never allocate unidentified cash by assumption. Park in suspense, obtain remittance advice, then match to open invoices.</span></div>
       </div>
 
-      <div class="impact-panel" style="background:#FAD98A !important" aria-label="Accounting impact — AR">
+      <div class="impact-panel" aria-label="Accounting impact — AR">
         <div class="impact-head">
           <h4 data-en="Accounting impact — Accounts Receivable" data-ar="الأثر المحاسبي — حسابات العملاء">Accounting impact — Accounts Receivable</h4>
           <small data-en="How AR hits the Chart of Accounts & financial statements" data-ar="كيف يؤثر العملاء على دليل الحسابات والقوائم المالية">How AR hits the Chart of Accounts & financial statements</small>
@@ -9590,7 +9596,7 @@ Dr 110000 Bank&nbsp;&nbsp;Cr 120000 Accounts Receivable<br>
 <span data-en="Unknown receipt:" data-ar="تحصيل مجهول:">Unknown receipt:</span> Dr Bank&nbsp;&nbsp;Cr Unapplied Receipts (Suspense)</div>
       </div>
 
-      <div class="desk-card" style="grid-column:1/-1;background:#A9D6E8 !important">
+      <div class="desk-card" style="grid-column:1/-1">
         <h4 data-en="Quick decision cards — AR" data-ar="بطاقات قرار سريعة — العملاء">Quick decision cards — AR</h4>
         <div class="decision-grid"><div class="decision-card warn">
           <h5 data-en="Unidentified bank receipt" data-ar="تحصيل بنكي مجهول">Unidentified bank receipt</h5>
@@ -10211,12 +10217,10 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
 
 
   <div class="data-panel" id="ar-learn-flow">
-    <div class="module-head" style="background:linear-gradient(135deg,#0D3B36,#14544B,#1F8A72);border-radius:20px;padding:24px 20px;box-shadow:0 10px 28px rgba(0,0,0,.18);position:relative;overflow:hidden">
-      <div style="position:absolute;inset-inline-end:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)"></div>
-      <div style="font-size:40px;margin-bottom:8px;position:relative">👥</div>
-      <span class="module-tag" style="background:rgba(255,255,255,.2);color:#fff;position:relative" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span>
-      <h3 style="color:#fff !important;position:relative" data-en="Learning &amp; Reference" data-ar="التعلّم والمرجع">Learning &amp; Reference</h3>
-      <p class="panel-sub" style="color:rgba(255,255,255,.88);position:relative" data-en="Understand your role before you touch anything — all in one continuous page." data-ar="افهم دورك قبل ما تلمس أي حاجة — كل حاجة في صفحة واحدة متصلة.">Understand your role before you touch anything — all in one continuous page.</p>
+    <div class="module-head">
+      <span class="module-tag" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span>
+      <h3 data-en="Learning &amp; Reference" data-ar="التعلّم والمرجع">Learning &amp; Reference</h3>
+      <p class="panel-sub" data-en="Understand your role before you touch anything — all in one continuous page." data-ar="افهم دورك قبل ما تلمس أي حاجة — كل حاجة في صفحة واحدة متصلة.">Understand your role before you touch anything — all in one continuous page.</p>
     </div>
     <div style="position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0;display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;border-bottom:2px solid var(--line)">
       <a href="#arlearn-role" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Role &amp; Procedures</a><a href="#arlearn-cycle" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Sales Cycle Overview</a><a href="#arlearn-cases" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Cases &amp; Problems</a><a href="#arlearn-entries" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap">Common Journal Entries</a>
@@ -10371,12 +10375,10 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
 
 
   <div class="data-panel" id="ar-training-flow">
-    <div class="module-head" style="background:linear-gradient(135deg,#92400E,#D97706,#F59E0B);border-radius:20px;padding:24px 20px;box-shadow:0 10px 28px rgba(0,0,0,.18);position:relative;overflow:hidden">
-      <div style="position:absolute;inset-inline-end:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)"></div>
-      <div style="font-size:40px;margin-bottom:8px;position:relative">🎯</div>
-      <span class="module-tag" style="background:rgba(255,255,255,.2);color:#fff;position:relative" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span>
-      <h3 style="color:#fff !important;position:relative" data-en="Practice &amp; Training" data-ar="تدريب وتطبيق">Practice &amp; Training</h3>
-      <p class="panel-sub" style="color:rgba(255,255,255,.88);position:relative" data-en="Everything hands-on — judgment calls, manager replies, real documents, master data, and the full test suite." data-ar="كل حاجة عملية — مواقف تحتاج حكم، ردود على مديرك، مستندات حقيقية، بيانات أساسية، والتدريب الكامل.">Everything hands-on — judgment calls, manager replies, real documents, master data, and the full test suite.</p>
+    <div class="module-head">
+      <span class="module-tag" data-en="👥 Accounts Receivable" data-ar="👥 حسابات العملاء">👥 Accounts Receivable</span>
+      <h3 data-en="Practice &amp; Training" data-ar="تدريب وتطبيق">Practice &amp; Training</h3>
+      <p class="panel-sub" data-en="Everything hands-on — judgment calls, manager replies, real documents, master data, and the full test suite." data-ar="كل حاجة عملية — مواقف تحتاج حكم، ردود على مديرك، مستندات حقيقية، بيانات أساسية، والتدريب الكامل.">Everything hands-on — judgment calls, manager replies, real documents, master data, and the full test suite.</p>
     </div>
     <div style="position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0;display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;border-bottom:2px solid var(--line)">
       <a href="#artrain-judgment" style="padding:6px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap" data-en="Judgment" data-ar="حكم مهني">Judgment</a>
@@ -10770,12 +10772,10 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
 
 
   <div class="data-panel" id="ar-ifrs-flow">
-    <div class="module-head" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#A78BFA);border-radius:20px;padding:24px 20px;box-shadow:0 10px 28px rgba(0,0,0,.18);position:relative;overflow:hidden">
-      <div style="position:absolute;inset-inline-end:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)"></div>
-      <div style="font-size:40px;margin-bottom:8px;position:relative">🌍</div>
-      <span class="module-tag" style="background:rgba(255,255,255,.2);color:#fff;position:relative" data-en="" data-ar="">IFRS Standards</span>
-      <h3 style="color:#fff !important;position:relative" data-en="🌍 IFRS Standards in Action" data-ar="🌍 معايير IFRS في الواقع">🌍 IFRS Standards in Action</h3>
-      <p class="panel-sub" style="color:rgba(255,255,255,.88);position:relative" data-en="Real scenarios from your desk, tested against the exact IFRS standard that governs them." data-ar="مواقف حقيقية من شغلك، مُختبرة بمعيار IFRS المحدد اللي بيحكمها.">Real scenarios from your desk, tested against the exact IFRS standard that governs them.</p>
+    <div class="module-head">
+      <span class="module-tag" data-en="" data-ar="">IFRS Standards</span>
+      <h3 data-en="🌍 IFRS Standards in Action" data-ar="🌍 معايير IFRS في الواقع">🌍 IFRS Standards in Action</h3>
+      <p class="panel-sub" data-en="Real scenarios from your desk, tested against the exact IFRS standard that governs them." data-ar="مواقف حقيقية من شغلك، مُختبرة بمعيار IFRS المحدد اللي بيحكمها.">Real scenarios from your desk, tested against the exact IFRS standard that governs them.</p>
     </div>
     <div id="ifrs-quiz-wrap-ar"></div>
   </div>
@@ -26855,6 +26855,47 @@ function closeAboutPopup(){ document.getElementById('aboutPopupOverlay').classLi
   0%{ opacity:0; transform:scale(.8) translateY(-8px); }
   100%{ opacity:1; transform:scale(1) translateY(0); }
 }
+
+/* ============================================================
+   CLEAN REBUILD — Navy & White reference-tool palette.
+   This is the single source of truth; no further color patches
+   should be layered on top of this block.
+   ============================================================ */
+:root{
+  --paper:#f7f8fa;
+  --card:#ffffff;
+  --ink:#1a2332;
+  --ink-soft:#4b5768;
+  --muted:#6b7686;
+  --line:#e2e6ec;
+  --line-strong:#c7cedb;
+
+  --brand:#1e3a5f;
+  --brand-dark:#10213a;
+  --brand-soft:#e8eef7;
+  --brand-tint:#c7d7ec;
+
+  --gold:#c9872e;
+  --gold-soft:#fbf0dd;
+
+  --navy:#10213a;
+  --navy-deep:#0a1526;
+}
+body{background:var(--paper) !important; color:var(--ink) !important;}
+body:not(.is-workspace){background:var(--paper) !important;}
+body.is-workspace{background:var(--paper) !important;}
+h1,h2,h3{color:var(--brand-dark) !important;}
+.sidebar{background:var(--navy-deep) !important; box-shadow:4px 0 24px rgba(10,21,38,.25) !important;}
+.side-item[aria-selected="true"]{background:rgba(255,255,255,.08) !important; border-inline-start-color:var(--gold) !important;}
+.side-section-label{color:rgba(255,255,255,.5) !important; border-bottom-color:rgba(255,255,255,.12) !important;}
+.module-head{background:var(--card) !important; border:1px solid var(--line) !important;}
+.module-head h3{color:var(--brand-dark) !important;}
+
+/* Group label colors — clean navy-family palette, not pastel */
+.group-operating{color:#1e3a5f !important; border-bottom-color:#1e3a5f55 !important;}
+.group-finance{color:#c9872e !important; border-bottom-color:#c9872e55 !important;}
+.group-projects{color:#0f6b5c !important; border-bottom-color:#0f6b5c55 !important;}
+.group-settings{color:#5a6472 !important; border-bottom-color:#5a647255 !important;}
 </style>
 
 <div class="tip-popup-overlay" id="managerPopupOverlay">
