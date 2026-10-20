@@ -1372,8 +1372,7 @@ header{position:relative}
 .qtool strong{font-size:13.5px}
 
 /* Daily challenge banner replacing the plain focus card */
-.focus-card{background:linear-gradient(120deg,#FDE68A,#FCA85D) !important;border:1px solid rgba(217,119,6,.4) !important}
-.focus-badge{background:#C2410C !important;color:#fff !important}
+.focus-card{background:transparent !important;border:none !important}
 body.is-workspace:not(.tab-open) .data-panel.open{display:none !important}
 body.is-workspace.tab-open .ws-subnav{display:none !important}
 body.is-workspace.tab-open .ws-hint{display:none !important}
@@ -1522,7 +1521,9 @@ body:not(.is-workspace) .hero,
 }
 
 /* Focus card — floating pill over hero edge */
-.focus-card{margin-top:-28px !important;position:relative;z-index:5}
+.focus-card{position:relative;z-index:5}
+#todaysFocusCard.focus-card{margin-top:-28px !important;}
+#todaysFocusCard.focus-card + .focus-card{margin-top:40px !important;}
 .focus-inner{
   background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%) !important;
   border:2px solid rgba(232,163,23,.35) !important;
@@ -3143,6 +3144,56 @@ body:not(.is-workspace) .workspace-chrome{
   min-height:0 !important;
   transition:transform .25s ease !important;
 }
+.md-art.md-ar,.md-art.md-ap,.md-art.md-inv,.md-art.md-recv,.md-art.md-cost,.md-art.md-constr,
+.md-art.md-tr,.md-art.md-hr,.md-art.md-gl,.md-art.md-tax,.md-art.md-ratios,.md-art.md-bc,.md-art.md-aud{
+  background:var(--brand) !important;
+}
+.md-art.md-ar{ border-radius:50% !important; }
+.md-art.md-ap{ border-radius:0 !important; }
+.md-art.md-inv{ border-radius:10px !important; }
+.md-art.md-recv{ border-radius:16px !important; }
+.md-art.md-cost{ border-radius:20px 4px 20px 4px !important; }
+.md-art.md-constr{ border-radius:4px 20px 4px 20px !important; }
+.md-art.md-tr{ clip-path:polygon(25% 2%, 75% 2%, 98% 50%, 75% 98%, 25% 98%, 2% 50%) !important; }
+.md-art.md-hr{ clip-path:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%) !important; }
+.md-art.md-gl{ border-radius:30% 70% 70% 30% / 30% 30% 70% 70% !important; }
+.md-art.md-tax{ border-radius:70% 30% 30% 70% / 70% 70% 30% 30% !important; }
+.md-art.md-ratios{ clip-path:polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%) !important; }
+.md-art.md-bc{ border-radius:16px 16px 2px 2px !important; }
+.md-art.md-aud{ border-radius:2px 2px 16px 16px !important; }
+
+/* ============================================================
+   QUICK TOOLS — calm, compact redesign
+   ============================================================ */
+.qt-group-label{
+  font-size:11px !important; font-weight:700 !important; color:var(--muted) !important;
+  margin:0 0 8px 4px !important; text-transform:uppercase !important; letter-spacing:.08em !important;
+}
+.mock-tools-grid{ grid-template-columns:repeat(3,1fr) !important; gap:8px !important; padding:4px !important; }
+.mock-tool{
+  background:var(--card) !important; border:1px solid var(--line) !important; border-width:1px !important;
+  border-radius:12px !important; padding:8px 5px 7px !important; gap:3px !important;
+  box-shadow:none !important;
+}
+.mock-tool:hover{ border-color:var(--line-strong) !important; box-shadow:0 2px 8px rgba(16,33,58,.08) !important; }
+.mock-tool:active{ transform:scale(.97) !important; }
+.qt-icon-wrap{
+  width:34px !important; height:34px !important; border-radius:10px !important; margin:0 auto 2px !important;
+}
+.mock-tool .qt-icon-wrap span{ font-size:16px !important; }
+.mock-tool strong{ font-size:10.5px !important; line-height:1.25 !important; font-weight:700 !important; color:var(--ink) !important; }
+.mock-tool small{ display:none !important; }
+
+.qt-badge{
+  position:absolute !important; top:-5px !important; inset-inline-end:-5px !important;
+  font-size:7.5px !important; line-height:1 !important; color:#fff !important;
+  padding:3px 6px !important; border-radius:999px !important; font-weight:700 !important;
+  letter-spacing:.02em !important; white-space:nowrap !important;
+  box-shadow:0 2px 5px rgba(0,0,0,.18) !important;
+}
+.qt-badge-progress{ background:var(--muted) !important; }
+.qt-badge-new{ background:var(--gold) !important; animation:none !important; }
+#taxAuditToolCard,#investigationToolCard,#ethicsToolCard{ animation:none !important; border-color:var(--line) !important; box-shadow:none !important; }
 .mock-desk:hover .md-art{ animation:deskIconWiggle .5s ease; }
 @keyframes deskIconWiggle{
   0%,100%{ transform:scale(1) rotate(0deg); }
@@ -3380,20 +3431,20 @@ input[type="text"]:focus, input[type="number"]:focus{
 .wheel-card .focus-inner{ flex-wrap:wrap !important; }
 .wheel-mini-wrap{
   position:relative;
-  width:36px; height:36px;
+  width:92px; height:92px;
   flex:none;
 }
 .wheel-mini-svg{
   width:100%; height:100%;
   display:block;
   transform-origin:50% 50%;
-  filter:drop-shadow(0 2px 5px rgba(0,0,0,.15));
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.2));
 }
 .wheel-mini-pointer{
   position:absolute;
-  top:-9px; left:50%;
+  top:-14px; left:50%;
   transform:translateX(-50%);
-  font-size:16px;
+  font-size:24px;
   color:var(--ledger-ink,#0d3b2e);
   z-index:2;
   line-height:1;
@@ -3448,7 +3499,7 @@ input[type="text"]:focus, input[type="number"]:focus{
 }
 .mock-tool{
   border-width:2px !important; border-style:solid !important;
-  position:relative; overflow:hidden;
+  position:relative; overflow:visible !important;
   transition:transform .15s ease, box-shadow .15s ease !important;
 }
 .mock-tool:active{ transform:scale(.96) !important; box-shadow:0 2px 8px rgba(0,0,0,.15) !important; }
@@ -3467,12 +3518,12 @@ input[type="text"]:focus, input[type="number"]:focus{
   background:linear-gradient(90deg,#F0B429,#fb7185,#38BDF8,#F0B429); background-size:300% auto;
   animation:investCardShimmer 3s linear infinite;
 }
-/* 5-color rotating palette — teal, gold, blue, coral, purple */
-.qt-c1{ border-color:#14544B !important; } .qt-c1 .qt-icon-wrap{ background:#e0f7f4; }
-.qt-c2{ border-color:#e8a317 !important; } .qt-c2 .qt-icon-wrap{ background:#fdf3e0; }
-.qt-c3{ border-color:#2E86AB !important; } .qt-c3 .qt-icon-wrap{ background:#e8f3f8; }
-.qt-c4{ border-color:#C9516B !important; } .qt-c4 .qt-icon-wrap{ background:#fbebee; }
-.qt-c5{ border-color:#8b5fbf !important; } .qt-c5 .qt-icon-wrap{ background:#f2ecf8; }
+/* Subtle icon tint per tool — neutral card border (set in calm redesign block above) */
+.qt-c1 .qt-icon-wrap{ background:#e0f7f4; }
+.qt-c2 .qt-icon-wrap{ background:#fdf3e0; }
+.qt-c3 .qt-icon-wrap{ background:#e8f3f8; }
+.qt-c4 .qt-icon-wrap{ background:#fbebee; }
+.qt-c5 .qt-icon-wrap{ background:#f2ecf8; }
 #taxAuditToolCard{
   border-width:2.5px !important;
   animation:taxAuditCardBorderGlow 4s linear infinite !important;
@@ -3717,24 +3768,38 @@ input[type="text"]:focus, input[type="number"]:focus{
   </div>
 </section>
 
-<div class="focus-card home-view wheel-card" id="todaysFocusCard" aria-hidden="false">
-  <div class="focus-inner">
-    <span class="focus-badge" data-en="🎡 WHEEL OF FORTUNE" data-ar="🎡 عجلة الحظ">🎡 WHEEL OF FORTUNE</span>
-    <div class="wheel-mini-wrap" id="wheelMiniWrap">
-      <div class="wheel-mini-pointer">▾</div>
-      <svg id="wheelSvg" viewBox="0 0 200 200" class="wheel-mini-svg"></svg>
+<div class="focus-card home-view wheel-card" id="todaysFocusCard" aria-hidden="false" style="margin-bottom:40px">
+  <div class="focus-inner" style="display:block !important;padding:0 !important;overflow:hidden;position:relative;background:var(--card) !important;border:3px solid var(--gold) !important;border-radius:32px !important">
+    <div style="position:absolute;inset-inline-end:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(201,135,46,.14),transparent 70%)"></div>
+    <div style="position:absolute;inset-inline-start:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(201,135,46,.1),transparent 70%)"></div>
+    <div style="position:relative;padding:16px 18px 18px">
+      <span class="focus-badge" data-en="🎡 WHEEL OF FORTUNE" data-ar="🎡 عجلة الحظ">🎡 WHEEL OF FORTUNE</span>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:14px">
+        <div style="position:relative;flex:none">
+          <div style="position:absolute;inset:-10px;border-radius:50%;background:radial-gradient(circle,rgba(201,135,46,.3),transparent 72%);animation:wheelGlow 2.4s ease-in-out infinite"></div>
+          <div class="wheel-mini-wrap" id="wheelMiniWrap" style="position:relative">
+            <div class="wheel-mini-pointer">▾</div>
+            <svg id="wheelSvg" viewBox="0 0 200 200" class="wheel-mini-svg"></svg>
+          </div>
+        </div>
+        <div class="focus-text" style="flex:1;min-width:0"><strong id="focus-title" data-en="Spin to get today's desk!" data-ar="لُف العجلة عشان تعرف مكتب النهاردة!">Spin to get today's desk!</strong><span id="focus-desc" data-en="Every desk is possible — a little more likely on ones you haven't mastered yet." data-ar="كل مكتب وارد — بس فرصة أكبر شوية للمكاتب اللي لسه ما اتقنتهاش.">Every desk is possible — a little more likely on ones you haven't mastered yet.</span></div>
+      </div>
+      <button type="button" class="btn btn-primary" id="focus-cta" onclick="spinWheel()" data-en="🎡 Spin" data-ar="🎡 لُف" style="width:100%;margin-top:14px">🎡 Spin</button>
     </div>
-    <div class="focus-text"><strong id="focus-title" data-en="Spin to get today's desk!" data-ar="لُف العجلة عشان تعرف مكتب النهاردة!">Spin to get today's desk!</strong><span id="focus-desc" data-en="Every desk is possible — a little more likely on ones you haven't mastered yet." data-ar="كل مكتب وارد — بس فرصة أكبر شوية للمكاتب اللي لسه ما اتقنتهاش.">Every desk is possible — a little more likely on ones you haven't mastered yet.</span></div>
-    <button type="button" class="btn btn-primary" id="focus-cta" onclick="spinWheel()" data-en="🎡 Spin" data-ar="🎡 لُف">🎡 Spin</button>
   </div>
 </div>
 
-<div class="focus-card home-view wheel-card" style="background:linear-gradient(135deg,#ECE5DD,#d9d0c3);border-color:#1a1a1a;border-width:3px;animation:chatFrameGlow 2.6s ease-in-out infinite">
-  <div class="focus-inner">
-    <span class="focus-badge" style="background:var(--brand-dark)" data-en="💬 CHAT WITH TODAY'S MANAGER" data-ar="💬 اتكلم مع مدير النهاردة">💬 CHAT WITH TODAY'S MANAGER</span>
-    <div style="font-size:52px;text-align:center;margin:8px 0" class="chat-section-icon">💬</div>
-    <div class="focus-text"><strong data-en="A random manager needs your reply right now." data-ar="مدير عشوائي محتاج ردّك دلوقتي.">A random manager needs your reply right now.</strong><span data-en="Pick the right response and see how they react, instantly." data-ar="اختار الرد الصح وشوف رد فعله فورًا.">Pick the right response and see how they react, instantly.</span></div>
-    <button type="button" class="btn btn-primary" onclick="openRandomManagerChat()" data-en="💬 Start Conversation" data-ar="💬 ابدأ المحادثة">💬 Start Conversation</button>
+<div class="focus-card home-view wheel-card" style="animation:chatFrameGlow 2.6s ease-in-out infinite">
+  <div class="focus-inner" style="display:block !important;padding:0 !important;overflow:hidden;position:relative;background:var(--card) !important;border:3px solid var(--brand) !important;border-radius:10px !important">
+    <div style="position:absolute;inset-inline-end:-35px;top:-35px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(30,58,95,.1),transparent 70%)"></div>
+    <div style="position:relative;padding:16px 18px 18px">
+      <span class="focus-badge" style="background:var(--brand-dark) !important;color:#fff !important" data-en="💬 CHAT WITH TODAY'S MANAGER" data-ar="💬 اتكلم مع مدير النهاردة">💬 CHAT WITH TODAY'S MANAGER</span>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:14px">
+        <div style="flex:none;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle,#fff 55%,#f3ede4 100%);display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 6px 16px rgba(0,0,0,.12),0 0 0 4px rgba(255,255,255,.5)" class="chat-section-icon">💬</div>
+        <div class="focus-text" style="flex:1;min-width:0"><strong data-en="A random manager needs your reply right now." data-ar="مدير عشوائي محتاج ردّك دلوقتي.">A random manager needs your reply right now.</strong><span data-en="Pick the right response and see how they react, instantly." data-ar="اختار الرد الصح وشوف رد فعله فورًا.">Pick the right response and see how they react, instantly.</span></div>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="openRandomManagerChat()" data-en="💬 Start Conversation" data-ar="💬 ابدأ المحادثة" style="width:100%;margin-top:14px">💬 Start Conversation</button>
+    </div>
   </div>
 </div>
 
@@ -16817,15 +16882,83 @@ function setPageProgressColor(panelId){
   bar.style.width = '0%';
 }
 window.addEventListener('scroll', updatePageProgressBar, {passive:true});
+let chatModalWsKey = null;
+let chatModalIdx = 0;
+let chatModalAnswered = false;
+
+const CHAT_MODAL_DESK_NAMES = {
+  ar:{en:'AR Manager',ar:'مدير العملاء'}, ap:{en:'AP Manager',ar:'مدير الموردين'},
+  inv:{en:'Inventory Manager',ar:'مدير المخزون'}, recv:{en:'Receiving Manager',ar:'مدير الاستلام'},
+  cost:{en:'Cost Manager',ar:'مدير التكاليف'}, constr:{en:'Site Manager',ar:'مدير الموقع'},
+  treasury:{en:'Treasury Manager',ar:'مدير الخزينة'}, hr:{en:'HR Manager',ar:'مدير الموارد البشرية'},
+  gl:{en:'GL Manager',ar:'مدير دفتر الأستاذ'}, tax:{en:'Tax Manager',ar:'مدير الضرائب'},
+  ratios:{en:'FP&A Manager',ar:'مدير التحليل المالي'}, bc:{en:'Budget Manager',ar:'مدير الموازنة'},
+  aud:{en:'Audit Manager',ar:'مدير المراجعة'}
+};
+
 function openRandomManagerChat(){
   const keys = Object.keys(CHAT_SCENARIOS);
   const pick = keys[Math.floor(Math.random() * keys.length)];
-  const targetPanel = CHAT_TRAINING_PAGE[pick] || (pick + '-learn-flow');
-  showPanel(targetPanel);
+  chatModalWsKey = pick;
+  chatModalIdx = Math.floor(Math.random() * CHAT_SCENARIOS[pick].length);
+  const ar = cycleAr();
+  const nameObj = CHAT_MODAL_DESK_NAMES[pick] || {en:'Manager', ar:'المدير'};
+  document.getElementById('chatModalDeskName').textContent = ar ? nameObj.ar : nameObj.en;
+  document.getElementById('chatModalOverlay').classList.add('is-open');
+  chatModalRender();
+}
+function closeChatModal(){
+  document.getElementById('chatModalOverlay').classList.remove('is-open');
+}
+function chatModalRender(){
+  const wsKey = chatModalWsKey;
+  const scenarios = CHAT_SCENARIOS[wsKey]; if(!scenarios) return;
+  const s = scenarios[chatModalIdx];
+  const ar = cycleAr();
+  const wrap = document.getElementById('chatModalBody'); if(!wrap) return;
+  chatModalAnswered = false;
+  const optionsHtml = s.options.map((o,i)=>
+    `<button type="button" class="chat-option" onclick="chatModalPick(${i})">${ar?o.text_ar:o.text_en}</button>`
+  ).join('');
+  wrap.innerHTML = `
+    <div class="chat-progress">${chatModalIdx+1} / ${scenarios.length}</div>
+    <div class="chat-bubble chat-manager">${ar?s.manager_ar:s.manager_en}</div>
+    <div class="chat-options">${optionsHtml}</div>
+    <div id="chat-modal-reply"></div>
+  `;
+}
+function chatModalPick(idx){
+  if(chatModalAnswered) return;
+  chatModalAnswered = true;
+  const wsKey = chatModalWsKey;
+  const scenarios = CHAT_SCENARIOS[wsKey];
+  const s = scenarios[chatModalIdx];
+  const o = s.options[idx];
+  const ar = cycleAr();
+  document.querySelectorAll('#chatModalBody .chat-option').forEach(b=>b.disabled=true);
+  const isLast = chatModalIdx === scenarios.length - 1;
+  const replyEl = document.getElementById('chat-modal-reply');
+  replyEl.innerHTML = `
+    <div class="chat-bubble chat-employee">${ar?o.text_ar:o.text_en}</div>
+    <div class="chat-typing" id="chat-modal-typing"><span></span><span></span><span></span></div>
+  `;
   setTimeout(()=>{
-    const el = document.getElementById('chat-sim-wrap-' + pick);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
-  }, 150);
+    const typingEl = document.getElementById('chat-modal-typing');
+    const correctOpt = s.options.find(opt=>opt.correct);
+    if(typingEl) typingEl.outerHTML = `
+      <div class="chat-bubble chat-manager ${o.correct?'chat-good':'chat-bad'}">
+        ${o.correct ? '✅ ' + (ar?s.reply_good_ar:s.reply_good_en) : '⚠️ ' + (ar?s.reply_bad_ar:s.reply_bad_en)}
+      </div>
+      ${!o.correct ? `<div class="handoff-explain" style="margin-top:8px"><strong>${ar?'الرد الصح كان:':'The right reply was:'}</strong><p>${ar?correctOpt.text_ar:correctOpt.text_en}</p></div>` : ''}
+      ${isLast
+        ? `<div class="handoff-done">🏆 ${ar?'خلّصت المحادثة!':'Conversation complete!'}</div><button type="button" class="btn btn-primary" onclick="openRandomManagerChat()" style="margin-top:8px">${ar?'🎲 مدير تاني →':'🎲 Another Manager →'}</button>`
+        : `<button type="button" class="btn btn-primary" onclick="chatModalNext()">${ar?'المحادثة الجاية →':'Next Conversation →'}</button>`}
+    `;
+  }, 1100);
+}
+function chatModalNext(){
+  chatModalIdx++;
+  chatModalRender();
 }
 
 function cyclePopulateSelects(){
@@ -22793,7 +22926,7 @@ function buildWheelSVG(){
     const midAngle = (startAngle+endAngle)/2;
     const lx = cx + (r*0.66)*Math.cos(midAngle*Math.PI/180);
     const ly = cy + (r*0.66)*Math.sin(midAngle*Math.PI/180);
-    html += `<text x="${lx.toFixed(2)}" y="${ly.toFixed(2)}" font-size="15" text-anchor="middle" dominant-baseline="middle">${d.icon}</text>`;
+    html += `<text x="${lx.toFixed(2)}" y="${ly.toFixed(2)}" font-size="20" text-anchor="middle" dominant-baseline="middle">${d.icon}</text>`;
   });
   html += `<circle cx="${cx}" cy="${cy}" r="10" fill="#fff" stroke="${'#0d3b2e'}" stroke-width="1.5"/>`;
   svg.innerHTML = html;
@@ -26676,6 +26809,15 @@ function submitInteractiveAnswer(){
   0%{ transform:scale(.7) translateY(30px); opacity:0; }
   100%{ transform:scale(1) translateY(0); opacity:1; }
 }
+.chat-modal-card{
+  background:#ECE5DD; border-radius:18px; max-width:420px; width:100%; max-height:85vh;
+  overflow:hidden; display:flex; flex-direction:column; position:relative;
+  box-shadow:0 30px 70px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.4) inset;
+  animation:tipPopIn .45s cubic-bezier(.34,1.56,.64,1);
+  border:3px solid var(--brand-dark);
+}
+.chat-modal-card .chat-app-body{ overflow-y:auto; flex:1; }
+.chat-modal-card .tip-popup-close{ background:rgba(255,255,255,.25); color:#fff; }
 .tip-popup-close{
   position:absolute; top:12px; inset-inline-end:14px; border:none; background:rgba(0,0,0,.08);
   width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:13px; color:var(--ink-soft);
@@ -26892,11 +27034,25 @@ h1,h2,h3{color:var(--brand-dark) !important;}
 .module-head h3{color:var(--brand-dark) !important;}
 
 /* Group label colors — clean navy-family palette, not pastel */
-.group-operating{color:#1e3a5f !important; border-bottom-color:#1e3a5f55 !important;}
-.group-finance{color:#c9872e !important; border-bottom-color:#c9872e55 !important;}
-.group-projects{color:#0f6b5c !important; border-bottom-color:#0f6b5c55 !important;}
-.group-settings{color:#5a6472 !important; border-bottom-color:#5a647255 !important;}
+.group-operating{color:#7fb3e8 !important; border-bottom-color:#7fb3e855 !important;}
+.group-finance{color:#e8b454 !important; border-bottom-color:#e8b45455 !important;}
+.group-projects{color:#5fd4b0 !important; border-bottom-color:#5fd4b055 !important;}
+.group-settings{color:#b8c0cc !important; border-bottom-color:#b8c0cc55 !important;}
 </style>
+
+<div class="tip-popup-overlay" id="chatModalOverlay">
+  <div class="chat-modal-card">
+    <button type="button" class="tip-popup-close" onclick="closeChatModal()">✕</button>
+    <div class="chat-app-header">
+      <div class="chat-app-avatar">💼</div>
+      <div class="chat-app-who">
+        <strong id="chatModalDeskName">Manager</strong>
+        <span class="chat-app-status"><span class="chat-online-dot"></span><span data-en="Online" data-ar="متصل">Online</span></span>
+      </div>
+    </div>
+    <div class="chat-app-body" id="chatModalBody"></div>
+  </div>
+</div>
 
 <div class="tip-popup-overlay" id="managerPopupOverlay">
   <div class="tip-popup-card" style="border-color:#C9516B">
