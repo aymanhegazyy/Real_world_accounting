@@ -79,8 +79,23 @@
 .display-toggle-btn.active{ background:#fff; color:var(--brand-dark); border-color:#fff; }
 
 /* —— Eye Protection Mode (warm filter, like phone night-light) —— */
-body.eye-mode{
+body.eye-mode .page,
+body.eye-mode .sidebar,
+body.eye-mode header,
+body.eye-mode .home-clean,
+body.eye-mode .command-card,
+body.eye-mode .focus-card,
+body.eye-mode .hero{
   filter:sepia(55%) saturate(78%) brightness(94%) contrast(102%) hue-rotate(-8deg);
+}
+.tip-popup-overlay,
+.modal,
+#phoneNotifToast,
+#chatModalOverlay,
+#managerPopupOverlay,
+#welcomeNameOverlay,
+#aboutPopupOverlay{
+  filter:none !important;
 }
 
 /* —— Animated glowing + moving name —— */
@@ -16898,11 +16913,15 @@ const CHAT_MODAL_DESK_NAMES = {
   aud:{en:'Audit Manager',ar:'مدير المراجعة'}
 };
 
-function openRandomManagerChat(){
+let chatModalOrder = [];
+function openRandomManagerChat(forcedKey){
   const keys = Object.keys(CHAT_SCENARIOS);
-  const pick = keys[Math.floor(Math.random() * keys.length)];
+  const pick = forcedKey && CHAT_SCENARIOS[forcedKey] ? forcedKey : keys[Math.floor(Math.random() * keys.length)];
   chatModalWsKey = pick;
-  chatModalIdx = Math.floor(Math.random() * CHAT_SCENARIOS[pick].length);
+  const n = CHAT_SCENARIOS[pick].length;
+  chatModalOrder = Array.from({length:n}, (_,i)=>i);
+  for(let i=n-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [chatModalOrder[i],chatModalOrder[j]]=[chatModalOrder[j],chatModalOrder[i]]; }
+  chatModalIdx = 0;
   const ar = cycleAr();
   const nameObj = CHAT_MODAL_DESK_NAMES[pick] || {en:'Manager', ar:'المدير'};
   document.getElementById('chatModalDeskName').textContent = ar ? nameObj.ar : nameObj.en;
@@ -16915,7 +16934,11 @@ function closeChatModal(){
 function chatModalRender(){
   const wsKey = chatModalWsKey;
   const scenarios = CHAT_SCENARIOS[wsKey]; if(!scenarios) return;
-  const s = scenarios[chatModalIdx];
+  if(!chatModalOrder || chatModalOrder.length !== scenarios.length){
+    chatModalOrder = Array.from({length:scenarios.length}, (_,i)=>i);
+  }
+  const realIdx = chatModalOrder[chatModalIdx];
+  const s = scenarios[realIdx];
   const ar = cycleAr();
   const wrap = document.getElementById('chatModalBody'); if(!wrap) return;
   chatModalAnswered = false;
@@ -16934,7 +16957,8 @@ function chatModalPick(idx){
   chatModalAnswered = true;
   const wsKey = chatModalWsKey;
   const scenarios = CHAT_SCENARIOS[wsKey];
-  const s = scenarios[chatModalIdx];
+  const realIdx = (chatModalOrder && chatModalOrder[chatModalIdx] != null) ? chatModalOrder[chatModalIdx] : chatModalIdx;
+  const s = scenarios[realIdx];
   const o = s.options[idx];
   const ar = cycleAr();
   document.querySelectorAll('#chatModalBody .chat-option').forEach(b=>b.disabled=true);
@@ -27112,6 +27136,278 @@ function applyStudentNameGreeting(){
     });
   }
   document.addEventListener('DOMContentLoaded', applyStudentNameGreeting);
+})();
+</script>
+
+
+<div class="data-panel" id="desk-docs-forms" style="max-width:900px;margin:18px auto">
+  <div class="module-head">
+    <span class="module-tag" data-en="Desk Documents" data-ar="مستندات المكتب">Desk Documents</span>
+    <h3 data-en="Operational Forms" data-ar="نماذج التشغيل">Operational Forms</h3>
+    <p class="panel-sub" data-en="Fill the form used by each desk. Print or save as evidence for training." data-ar="املأ النموذج المستخدم في كل مكتب. اطبع أو احفظه كدليل للتدريب.">Fill the form used by each desk. Print or save as evidence for training.</p>
+  </div>
+  <div class="form-grid" style="margin-bottom:14px">
+    <div class="field">
+      <label data-en="Document type" data-ar="نوع المستند">Document type</label>
+      <select id="docFormType" onchange="renderDeskDocForm()">
+        <option value="receipt">Cash Receipt Voucher — إيصال استلام</option>
+        <option value="payment">Payment Voucher — إيصال صرف</option>
+        <option value="grn">Goods Receipt Note — أذن استلام</option>
+        <option value="dn">Delivery Note — أذن تسليم</option>
+        <option value="je">Journal Voucher — قيد يومية</option>
+        <option value="petty">Petty Cash Voucher — صرف نثرية</option>
+      </select>
+    </div>
+  </div>
+  <div id="docFormMount" class="form-block"></div>
+  <div class="workflow-bar">
+    <button type="button" class="btn btn-primary" onclick="printDeskDocForm()" data-en="Print form" data-ar="طباعة النموذج">Print form</button>
+    <button type="button" class="btn btn-ghost" onclick="resetDeskDocForm()" data-en="Clear" data-ar="مسح">Clear</button>
+  </div>
+</div>
+<script>
+const DESK_DOC_TEMPLATES = {
+  receipt: { title_en:'Cash / Bank Receipt Voucher', title_ar:'إيصال استلام نقدية / بنكي',
+    fields:[
+      {id:'no', label_en:'Receipt No.', label_ar:'رقم الإيصال'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'from', label_en:'Received from', label_ar:'استُلم من'},
+      {id:'amount', label_en:'Amount', label_ar:'المبلغ', type:'number'},
+      {id:'currency', label_en:'Currency', label_ar:'العملة', type:'select', opts:['EGP','USD','EUR']},
+      {id:'method', label_en:'Method', label_ar:'طريقة التحصيل', type:'select', opts:['Cash','Bank transfer','Cheque']},
+      {id:'ref', label_en:'Invoice / Reference', label_ar:'الفاتورة / المرجع'},
+      {id:'desc', label_en:'Description', label_ar:'البيان', type:'textarea'},
+      {id:'recv', label_en:'Received by', label_ar:'المستلم'},
+      {id:'app', label_en:'Approved by', label_ar:'المعتمد'}
+    ]},
+  payment: { title_en:'Payment Voucher', title_ar:'إيصال صرف',
+    fields:[
+      {id:'no', label_en:'Voucher No.', label_ar:'رقم الإيصال'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'to', label_en:'Paid to', label_ar:'صُرف إلى'},
+      {id:'amount', label_en:'Amount', label_ar:'المبلغ', type:'number'},
+      {id:'currency', label_en:'Currency', label_ar:'العملة', type:'select', opts:['EGP','USD','EUR']},
+      {id:'method', label_en:'Method', label_ar:'طريقة الصرف', type:'select', opts:['Cash','Bank transfer','Cheque']},
+      {id:'inv', label_en:'Supplier Invoice No.', label_ar:'رقم فاتورة المورد'},
+      {id:'desc', label_en:'Description', label_ar:'البيان', type:'textarea'},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]},
+  grn: { title_en:'Goods Receipt Note (GRN)', title_ar:'أذن استلام بضاعة',
+    fields:[
+      {id:'no', label_en:'GRN No.', label_ar:'رقم إذن الاستلام'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'po', label_en:'PO No.', label_ar:'رقم أمر الشراء'},
+      {id:'supplier', label_en:'Supplier', label_ar:'المورد'},
+      {id:'item', label_en:'Item / Description', label_ar:'الصنف / الوصف'},
+      {id:'qty_ord', label_en:'Qty ordered', label_ar:'الكمية المطلوبة', type:'number'},
+      {id:'qty_rec', label_en:'Qty received', label_ar:'الكمية المستلمة', type:'number'},
+      {id:'cond', label_en:'Condition', label_ar:'الحالة', type:'select', opts:['Good','Damaged','Partial']},
+      {id:'recv', label_en:'Received by', label_ar:'المستلم'},
+      {id:'wh', label_en:'Warehouse', label_ar:'المخزن'}
+    ]},
+  dn: { title_en:'Delivery Note', title_ar:'أذن تسليم',
+    fields:[
+      {id:'no', label_en:'DN No.', label_ar:'رقم إذن التسليم'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'so', label_en:'Sales Order No.', label_ar:'رقم أمر البيع'},
+      {id:'customer', label_en:'Customer', label_ar:'العميل'},
+      {id:'item', label_en:'Item / Description', label_ar:'الصنف / الوصف'},
+      {id:'qty', label_en:'Qty delivered', label_ar:'الكمية المسلّمة', type:'number'},
+      {id:'driver', label_en:'Driver / Carrier', label_ar:'السائق / الناقل'},
+      {id:'recv', label_en:'Customer received by', label_ar:'استلم العميل'}
+    ]},
+  je: { title_en:'Journal Voucher', title_ar:'قيد يومية',
+    fields:[
+      {id:'no', label_en:'JV No.', label_ar:'رقم القيد'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'debit', label_en:'Debit account', label_ar:'حساب مدين'},
+      {id:'credit', label_en:'Credit account', label_ar:'حساب دائن'},
+      {id:'amount', label_en:'Amount', label_ar:'المبلغ', type:'number'},
+      {id:'desc', label_en:'Narration', label_ar:'البيان', type:'textarea'},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]},
+  petty: { title_en:'Petty Cash Voucher', title_ar:'صرف نثرية',
+    fields:[
+      {id:'no', label_en:'Voucher No.', label_ar:'رقم الإيصال'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'payee', label_en:'Payee', label_ar:'المستفيد'},
+      {id:'amount', label_en:'Amount (EGP)', label_ar:'المبلغ (جنيه)', type:'number'},
+      {id:'purpose', label_en:'Purpose', label_ar:'الغرض', type:'textarea'},
+      {id:'attach', label_en:'Attachment / receipt?', label_ar:'مرفق / فاتورة؟', type:'select', opts:['Yes','No']},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]}
+};
+function renderDeskDocForm(){
+  const type = (document.getElementById('docFormType')||{}).value || 'receipt';
+  const t = DESK_DOC_TEMPLATES[type]; if(!t) return;
+  const ar = document.documentElement.lang==='ar';
+  const mount = document.getElementById('docFormMount'); if(!mount) return;
+  const fieldsHtml = t.fields.map(f=>{
+    const lab = ar ? f.label_ar : f.label_en;
+    if(f.type==='textarea') return '<div class="field" style="grid-column:1/-1"><label>'+lab+'</label><textarea id="df-'+f.id+'" rows="2"></textarea></div>';
+    if(f.type==='select') return '<div class="field"><label>'+lab+'</label><select id="df-'+f.id+'">'+(f.opts.map(o=>'<option>'+o+'</option>').join(''))+'</select></div>';
+    return '<div class="field"><label>'+lab+'</label><input id="df-'+f.id+'" type="'+(f.type||'text')+'"></div>';
+  }).join('');
+  mount.innerHTML = '<h4 style="margin:0 0 12px">'+(ar?t.title_ar:t.title_en)+'</h4><div class="form-grid">'+fieldsHtml+'</div>';
+}
+function resetDeskDocForm(){ renderDeskDocForm(); }
+function printDeskDocForm(){
+  const mount = document.getElementById('docFormMount');
+  if(!mount) return;
+  const w = window.open('','_blank');
+  w.document.write('<html><head><title>Form</title><style>body{font-family:sans-serif;padding:24px}label{font-weight:700;font-size:12px;display:block;margin-top:10px}input,select,textarea{width:100%;padding:6px;border:1px solid #ccc;border-radius:6px;margin-top:3px}</style></head><body>'+mount.innerHTML+'</body></html>');
+  w.document.close(); w.focus(); w.print();
+}
+document.addEventListener('DOMContentLoaded', function(){
+  if(document.getElementById('docFormType')) renderDeskDocForm();
+});
+window.openDeskDocForms = function(){
+  if(typeof showPanel==='function') showPanel('desk-docs-forms');
+  else {
+    document.querySelectorAll('.data-panel').forEach(p=>p.classList.remove('open'));
+    const p=document.getElementById('desk-docs-forms');
+    if(p){ p.classList.add('open'); p.scrollIntoView({behavior:'smooth'}); }
+  }
+  setTimeout(renderDeskDocForm, 50);
+};
+</script>
+
+<button type="button" id="docsFab" onclick="openDeskDocForms()" title="Document forms"
+  style="position:fixed;bottom:20px;inset-inline-end:18px;z-index:90;width:52px;height:52px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-size:22px;box-shadow:0 8px 24px rgba(16,33,58,.35);cursor:pointer">📄</button>
+
+<div id="phoneNotifToast" class="phone-notif" role="status" aria-live="polite" hidden>
+  <div class="phone-notif-inner">
+    <div class="phone-notif-app">
+      <span class="phone-notif-icon">💼</span>
+      <div class="phone-notif-meta">
+        <strong id="phoneNotifAppName">Messages</strong>
+        <span id="phoneNotifTime" class="phone-notif-time">now</span>
+      </div>
+    </div>
+    <div class="phone-notif-body">
+      <strong id="phoneNotifFrom">Manager</strong>
+      <p id="phoneNotifText"></p>
+    </div>
+    <button type="button" class="phone-notif-open" id="phoneNotifOpenBtn">Open</button>
+  </div>
+</div>
+<style>
+.phone-notif{
+  position:fixed; top:12px; left:50%; transform:translateX(-50%) translateY(-120%);
+  z-index:2147483000; width:min(380px, calc(100vw - 24px));
+  transition:transform .45s cubic-bezier(.34,1.4,.64,1), opacity .3s ease;
+  opacity:0; pointer-events:none;
+}
+.phone-notif.is-show{
+  transform:translateX(-50%) translateY(0); opacity:1; pointer-events:auto;
+}
+.phone-notif-inner{
+  background:rgba(28,28,30,.92); color:#fff; border-radius:18px; padding:12px 14px;
+  box-shadow:0 12px 40px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.08);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+.phone-notif-app{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.phone-notif-icon{
+  width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#34c759,#30d158);
+  display:grid;place-items:center;font-size:15px;
+}
+.phone-notif-meta{display:flex;justify-content:space-between;align-items:center;flex:1;gap:8px}
+.phone-notif-meta strong{font-size:12px;font-weight:700;letter-spacing:.02em;opacity:.9}
+.phone-notif-time{font-size:11px;opacity:.55}
+.phone-notif-body strong{display:block;font-size:14px;margin-bottom:2px}
+.phone-notif-body p{margin:0;font-size:13px;line-height:1.35;opacity:.88;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.phone-notif-open{
+  margin-top:10px;width:100%;border:0;border-radius:10px;padding:9px 12px;
+  background:rgba(255,255,255,.18);color:#fff;font-weight:700;font-size:13px;cursor:pointer;
+}
+.phone-notif-open:hover{background:rgba(255,255,255,.28)}
+[dir=rtl] .phone-notif-body p{text-align:right}
+</style>
+<script>
+(function(){
+  const MGR_POOL = [
+    {from_en:'Sales Director', from_ar:'مدير المبيعات', icon:'💼',
+     msg_en:'A major customer is at their credit limit and wants a new order. Need your call before EOD.',
+     msg_ar:'عميل كبير وصل لحد الائتمان وعايز طلبية جديدة. محتاج قرارك قبل آخر اليوم.'},
+    {from_en:'Procurement Director', from_ar:'مدير المشتريات', icon:'📈',
+     msg_en:'Supplier pushing for payment today but invoice does not match receipt. Look into it now.',
+     msg_ar:'مورد بيضغط للسداد النهاردة وفاتورته مش مطابقة لإذن الاستلام. شوف الموضوع فورًا.'},
+    {from_en:'CFO', from_ar:'المدير المالي', icon:'🏦',
+     msg_en:'Large transfer needs approval before the bank closes. Check it now.',
+     msg_ar:'تحويل كبير محتاج اعتماد قبل قفل البنك. راجعه فورًا.'},
+    {from_en:'Warehouse Manager', from_ar:'مدير المخازن', icon:'📦',
+     msg_en:'Serious variance on a sensitive item from the count. Need the reason before close.',
+     msg_ar:'فرق جوهري في جرد صنف حساس. محتاجين السبب قبل القفل.'},
+    {from_en:'HR Director', from_ar:'مدير الموارد البشرية', icon:'👥',
+     msg_en:'New name on payroll with no HR file. Hold payment and verify.',
+     msg_ar:'اسم جديد في كشف الرواتب من غير ملف HR. وقف الصرف وتأكد.'},
+    {from_en:'Audit Chair', from_ar:'رئيس لجنة المراجعة', icon:'🕵️',
+     msg_en:'Committee wants an urgent update on one finding before the meeting.',
+     msg_ar:'اللجنة عايزة تحديث عاجل عن ملاحظة قبل الاجتماع.'}
+  ];
+  let _notifShown = false;
+  function playNotifSound(){
+    try{
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      const now = ctx.currentTime;
+      [[0, 880],[0.12, 1174]].forEach(function(pair){
+        const t=pair[0], f=pair[1];
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, now+t);
+        g.gain.exponentialRampToValueAtTime(0.18, now+t+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, now+t+0.28);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(now+t); o.stop(now+t+0.32);
+      });
+    }catch(e){}
+  }
+  function showPhoneNotif(){
+    if(_notifShown) return;
+    _notifShown = true;
+    const ar = document.documentElement.lang === 'ar';
+    const m = MGR_POOL[Math.floor(Math.random()*MGR_POOL.length)];
+    const el = document.getElementById('phoneNotifToast');
+    if(!el) return;
+    document.getElementById('phoneNotifAppName').textContent = ar ? 'الرسائل' : 'Messages';
+    document.getElementById('phoneNotifTime').textContent = ar ? 'الآن' : 'now';
+    document.getElementById('phoneNotifFrom').textContent = ar ? m.from_ar : m.from_en;
+    document.getElementById('phoneNotifText').textContent = ar ? m.msg_ar : m.msg_en;
+    document.querySelector('.phone-notif-icon').textContent = m.icon;
+    document.getElementById('phoneNotifOpenBtn').textContent = ar ? 'فتح' : 'Open';
+    el.hidden = false;
+    requestAnimationFrame(function(){ el.classList.add('is-show'); });
+    playNotifSound();
+    setTimeout(function(){ if(el.classList.contains('is-show')) hidePhoneNotif(); }, 12000);
+  }
+  function hidePhoneNotif(){
+    const el = document.getElementById('phoneNotifToast');
+    if(!el) return;
+    el.classList.remove('is-show');
+    setTimeout(function(){ el.hidden = true; }, 400);
+  }
+  window.hidePhoneNotif = hidePhoneNotif;
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.id === 'phoneNotifOpenBtn'){
+      hidePhoneNotif();
+      if(typeof openRandomManagerChat === 'function') openRandomManagerChat();
+    }
+  });
+  try{
+    if(!sessionStorage.getItem('ayman-mgr-notif-done')){
+      setTimeout(function(){
+        showPhoneNotif();
+        try{ sessionStorage.setItem('ayman-mgr-notif-done','1'); }catch(e){}
+      }, 60000);
+    }
+  }catch(e){
+    setTimeout(showPhoneNotif, 60000);
+  }
 })();
 </script>
 
