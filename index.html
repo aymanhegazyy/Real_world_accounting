@@ -27150,12 +27150,26 @@ function applyStudentNameGreeting(){
     <div class="field">
       <label data-en="Document type" data-ar="نوع المستند">Document type</label>
       <select id="docFormType" onchange="renderDeskDocForm()">
-        <option value="receipt">Cash Receipt Voucher — إيصال استلام</option>
-        <option value="payment">Payment Voucher — إيصال صرف</option>
-        <option value="grn">Goods Receipt Note — أذن استلام</option>
-        <option value="dn">Delivery Note — أذن تسليم</option>
-        <option value="je">Journal Voucher — قيد يومية</option>
-        <option value="petty">Petty Cash Voucher — صرف نثرية</option>
+        <option value="receipt">1. Cash Receipt — إيصال استلام (خزينة / عملاء)</option>
+        <option value="payment">2. Payment Voucher — إيصال صرف (خزينة / موردين)</option>
+        <option value="petty">3. Petty Cash — صرف نثرية (خزينة)</option>
+        <option value="grn">4. Goods Receipt Note — أذن استلام بضاعة (استلام)</option>
+        <option value="dn">5. Delivery Note — أذن تسليم (مخزون / مبيعات)</option>
+        <option value="inv_adj">6. Stock Adjustment — تسوية مخزون (مخزون)</option>
+        <option value="credit_note">7. Credit Note Request — طلب إشعار دائن (عملاء)</option>
+        <option value="supplier_cn">8. Supplier Debit/Credit — إشعار مورد (موردين)</option>
+        <option value="je">9. Journal Voucher — قيد يومية (دفتر أستاذ)</option>
+        <option value="payroll">10. Payroll Payment — صرف رواتب (موارد بشرية)</option>
+        <option value="leave">11. Leave / Overtime — إجازة / إضافي (موارد بشرية)</option>
+        <option value="cost_var">12. Cost Variance Report — تقرير انحراف تكلفة (تكاليف)</option>
+        <option value="progress">13. Progress Billing — مستخلص إنجاز (مقاولات)</option>
+        <option value="tax_adj">14. Tax Adjustment — تسوية ضريبية (ضرائب)</option>
+        <option value="bank_rec">15. Bank Reconciliation Item — بند مطابقة بنكية (خزينة / GL)</option>
+        <option value="po">16. Purchase Order — أمر شراء (مشتريات)</option>
+        <option value="so">17. Sales Order — أمر بيع (عملاء / مبيعات)</option>
+        <option value="fa">18. Fixed Asset Request — طلب أصل ثابت (أصول / GL)</option>
+        <option value="audit">19. Audit Finding Sheet — ورقة ملاحظة مراجعة (مراجعة)</option>
+        <option value="budget">20. Budget Transfer — تحويل موازنة (موازنة / FP&amp;A)</option>
       </select>
     </div>
   </div>
@@ -27167,7 +27181,7 @@ function applyStudentNameGreeting(){
 </div>
 <script>
 const DESK_DOC_TEMPLATES = {
-  receipt: { title_en:'Cash / Bank Receipt Voucher', title_ar:'إيصال استلام نقدية / بنكي',
+  receipt: { title_en:'Cash / Bank Receipt Voucher', title_ar:'إيصال استلام نقدية / بنكي', desk:'Treasury / AR',
     fields:[
       {id:'no', label_en:'Receipt No.', label_ar:'رقم الإيصال'},
       {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
@@ -27180,7 +27194,7 @@ const DESK_DOC_TEMPLATES = {
       {id:'recv', label_en:'Received by', label_ar:'المستلم'},
       {id:'app', label_en:'Approved by', label_ar:'المعتمد'}
     ]},
-  payment: { title_en:'Payment Voucher', title_ar:'إيصال صرف',
+  payment: { title_en:'Payment Voucher', title_ar:'إيصال صرف', desk:'Treasury / AP',
     fields:[
       {id:'no', label_en:'Voucher No.', label_ar:'رقم الإيصال'},
       {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
@@ -27193,7 +27207,18 @@ const DESK_DOC_TEMPLATES = {
       {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
       {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
     ]},
-  grn: { title_en:'Goods Receipt Note (GRN)', title_ar:'أذن استلام بضاعة',
+  petty: { title_en:'Petty Cash Voucher', title_ar:'صرف نثرية', desk:'Treasury',
+    fields:[
+      {id:'no', label_en:'Voucher No.', label_ar:'رقم الإيصال'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'payee', label_en:'Payee', label_ar:'المستفيد'},
+      {id:'amount', label_en:'Amount (EGP)', label_ar:'المبلغ (جنيه)', type:'number'},
+      {id:'purpose', label_en:'Purpose', label_ar:'الغرض', type:'textarea'},
+      {id:'attach', label_en:'Attachment / receipt?', label_ar:'مرفق / فاتورة؟', type:'select', opts:['Yes','No']},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]},
+  grn: { title_en:'Goods Receipt Note (GRN)', title_ar:'أذن استلام بضاعة', desk:'Receiving',
     fields:[
       {id:'no', label_en:'GRN No.', label_ar:'رقم إذن الاستلام'},
       {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
@@ -27206,7 +27231,7 @@ const DESK_DOC_TEMPLATES = {
       {id:'recv', label_en:'Received by', label_ar:'المستلم'},
       {id:'wh', label_en:'Warehouse', label_ar:'المخزن'}
     ]},
-  dn: { title_en:'Delivery Note', title_ar:'أذن تسليم',
+  dn: { title_en:'Delivery Note', title_ar:'أذن تسليم', desk:'Inventory / Sales',
     fields:[
       {id:'no', label_en:'DN No.', label_ar:'رقم إذن التسليم'},
       {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
@@ -27217,7 +27242,46 @@ const DESK_DOC_TEMPLATES = {
       {id:'driver', label_en:'Driver / Carrier', label_ar:'السائق / الناقل'},
       {id:'recv', label_en:'Customer received by', label_ar:'استلم العميل'}
     ]},
-  je: { title_en:'Journal Voucher', title_ar:'قيد يومية',
+  inv_adj: { title_en:'Stock Adjustment Form', title_ar:'نموذج تسوية مخزون', desk:'Inventory',
+    fields:[
+      {id:'no', label_en:'Adjustment No.', label_ar:'رقم التسوية'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'wh', label_en:'Warehouse', label_ar:'المخزن'},
+      {id:'item', label_en:'Item code / name', label_ar:'كود / اسم الصنف'},
+      {id:'sys_qty', label_en:'System qty', label_ar:'الكمية بالنظام', type:'number'},
+      {id:'count_qty', label_en:'Counted qty', label_ar:'الكمية المعدودة', type:'number'},
+      {id:'diff', label_en:'Difference', label_ar:'الفرق', type:'number'},
+      {id:'reason', label_en:'Reason', label_ar:'السبب', type:'select', opts:['Count variance','Damage','Theft / loss','Expiry','Data error']},
+      {id:'notes', label_en:'Notes', label_ar:'ملاحظات', type:'textarea'},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]},
+  credit_note: { title_en:'Customer Credit Note Request', title_ar:'طلب إشعار دائن للعميل', desk:'AR',
+    fields:[
+      {id:'no', label_en:'Request No.', label_ar:'رقم الطلب'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'customer', label_en:'Customer', label_ar:'العميل'},
+      {id:'inv', label_en:'Original invoice No.', label_ar:'رقم الفاتورة الأصلية'},
+      {id:'amount', label_en:'Credit amount', label_ar:'مبلغ الإشعار', type:'number'},
+      {id:'reason', label_en:'Reason', label_ar:'السبب', type:'select', opts:['Return','Price error','Damaged goods','Discount','Other']},
+      {id:'desc', label_en:'Details', label_ar:'التفاصيل', type:'textarea'},
+      {id:'req', label_en:'Requested by', label_ar:'مقدم الطلب'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]},
+  supplier_cn: { title_en:'Supplier Debit / Credit Advice', title_ar:'إشعار مدين / دائن للمورد', desk:'AP',
+    fields:[
+      {id:'no', label_en:'Advice No.', label_ar:'رقم الإشعار'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'supplier', label_en:'Supplier', label_ar:'المورد'},
+      {id:'inv', label_en:'Supplier invoice No.', label_ar:'رقم فاتورة المورد'},
+      {id:'type', label_en:'Type', label_ar:'النوع', type:'select', opts:['Debit note','Credit note']},
+      {id:'amount', label_en:'Amount', label_ar:'المبلغ', type:'number'},
+      {id:'reason', label_en:'Reason', label_ar:'السبب', type:'select', opts:['Price difference','Short delivery','Damaged goods','Return','Other']},
+      {id:'desc', label_en:'Details', label_ar:'التفاصيل', type:'textarea'},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]},
+  je: { title_en:'Journal Voucher', title_ar:'قيد يومية', desk:'GL',
     fields:[
       {id:'no', label_en:'JV No.', label_ar:'رقم القيد'},
       {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
@@ -27228,18 +27292,177 @@ const DESK_DOC_TEMPLATES = {
       {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
       {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
     ]},
-  petty: { title_en:'Petty Cash Voucher', title_ar:'صرف نثرية',
+  payroll: { title_en:'Payroll Payment Authorization', title_ar:'إذن صرف رواتب', desk:'HR / Treasury',
     fields:[
-      {id:'no', label_en:'Voucher No.', label_ar:'رقم الإيصال'},
+      {id:'no', label_en:'Authorization No.', label_ar:'رقم الإذن'},
+      {id:'period', label_en:'Payroll period', label_ar:'فترة الرواتب'},
+      {id:'date', label_en:'Payment date', label_ar:'تاريخ الصرف', type:'date'},
+      {id:'employees', label_en:'Number of employees', label_ar:'عدد الموظفين', type:'number'},
+      {id:'gross', label_en:'Gross total', label_ar:'إجمالي الإجمالي', type:'number'},
+      {id:'deductions', label_en:'Total deductions', label_ar:'إجمالي الاستقطاعات', type:'number'},
+      {id:'net', label_en:'Net payable', label_ar:'صافي المستحق', type:'number'},
+      {id:'bank', label_en:'Paying bank / account', label_ar:'البنك / الحساب الدافع'},
+      {id:'prep', label_en:'HR prepared by', label_ar:'أعده HR'},
+      {id:'app', label_en:'Finance approved by', label_ar:'اعتمده المالية'}
+    ]},
+  leave: { title_en:'Leave / Overtime Request', title_ar:'طلب إجازة / ساعات إضافية', desk:'HR',
+    fields:[
+      {id:'no', label_en:'Request No.', label_ar:'رقم الطلب'},
+      {id:'emp', label_en:'Employee name / ID', label_ar:'اسم / رقم الموظف'},
+      {id:'dept', label_en:'Department', label_ar:'القسم'},
+      {id:'type', label_en:'Type', label_ar:'النوع', type:'select', opts:['Annual leave','Sick leave','Unpaid leave','Overtime']},
+      {id:'from', label_en:'From date', label_ar:'من تاريخ', type:'date'},
+      {id:'to', label_en:'To date', label_ar:'إلى تاريخ', type:'date'},
+      {id:'hours', label_en:'Hours (if overtime)', label_ar:'الساعات (للإضافي)', type:'number'},
+      {id:'reason', label_en:'Reason', label_ar:'السبب', type:'textarea'},
+      {id:'emp_sig', label_en:'Employee', label_ar:'الموظف'},
+      {id:'mgr', label_en:'Manager approval', label_ar:'اعتماد المدير'}
+    ]},
+  cost_var: { title_en:'Cost Variance Investigation Form', title_ar:'نموذج تحقيق انحراف تكلفة', desk:'Cost',
+    fields:[
+      {id:'no', label_en:'Report No.', label_ar:'رقم التقرير'},
+      {id:'period', label_en:'Period', label_ar:'الفترة'},
       {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
-      {id:'payee', label_en:'Payee', label_ar:'المستفيد'},
-      {id:'amount', label_en:'Amount (EGP)', label_ar:'المبلغ (جنيه)', type:'number'},
-      {id:'purpose', label_en:'Purpose', label_ar:'الغرض', type:'textarea'},
-      {id:'attach', label_en:'Attachment / receipt?', label_ar:'مرفق / فاتورة؟', type:'select', opts:['Yes','No']},
+      {id:'product', label_en:'Product / cost center', label_ar:'المنتج / مركز التكلفة'},
+      {id:'var_type', label_en:'Variance type', label_ar:'نوع الانحراف', type:'select', opts:['Material price','Material usage','Labor rate','Labor efficiency','Overhead']},
+      {id:'standard', label_en:'Standard amount', label_ar:'المبلغ المعياري', type:'number'},
+      {id:'actual', label_en:'Actual amount', label_ar:'المبلغ الفعلي', type:'number'},
+      {id:'variance', label_en:'Variance', label_ar:'الانحراف', type:'number'},
+      {id:'cause', label_en:'Root cause', label_ar:'السبب الجذري', type:'textarea'},
+      {id:'action', label_en:'Corrective action', label_ar:'الإجراء التصحيحي', type:'textarea'},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Reviewed by', label_ar:'راجعه'}
+    ]},
+  progress: { title_en:'Progress Billing / Certificate', title_ar:'مستخلص إنجاز أعمال', desk:'Construction',
+    fields:[
+      {id:'no', label_en:'Certificate No.', label_ar:'رقم المستخلص'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'project', label_en:'Project name / code', label_ar:'اسم / كود المشروع'},
+      {id:'client', label_en:'Client', label_ar:'العميل'},
+      {id:'period', label_en:'Period covered', label_ar:'الفترة المغطاة'},
+      {id:'contract', label_en:'Contract value', label_ar:'قيمة العقد', type:'number'},
+      {id:'prev', label_en:'Previous cumulative', label_ar:'تراكمي سابق', type:'number'},
+      {id:'this', label_en:'This period amount', label_ar:'مبلغ الفترة الحالية', type:'number'},
+      {id:'retention', label_en:'Retention % / amount', label_ar:'نسبة / مبلغ الاحتجاز'},
+      {id:'net', label_en:'Net due this period', label_ar:'صافي المستحق', type:'number'},
+      {id:'site', label_en:'Site engineer', label_ar:'مهندس الموقع'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]},
+  tax_adj: { title_en:'Tax Adjustment / Correction Form', title_ar:'نموذج تسوية / تصحيح ضريبي', desk:'Tax',
+    fields:[
+      {id:'no', label_en:'Form No.', label_ar:'رقم النموذج'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'tax_type', label_en:'Tax type', label_ar:'نوع الضريبة', type:'select', opts:['VAT','Withholding','Payroll tax','Corporate tax','Other']},
+      {id:'period', label_en:'Tax period', label_ar:'الفترة الضريبية'},
+      {id:'original', label_en:'Original amount', label_ar:'المبلغ الأصلي', type:'number'},
+      {id:'correct', label_en:'Correct amount', label_ar:'المبلغ الصحيح', type:'number'},
+      {id:'diff', label_en:'Difference', label_ar:'الفرق', type:'number'},
+      {id:'reason', label_en:'Reason for adjustment', label_ar:'سبب التسوية', type:'textarea'},
+      {id:'ref', label_en:'Related invoice / return', label_ar:'الفاتورة / الإقرار المرتبط'},
       {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
       {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
-    ]}
+    ]},
+  bank_rec: { title_en:'Bank Reconciliation Exception Item', title_ar:'بند استثناء مطابقة بنكية', desk:'Treasury / GL',
+    fields:[
+      {id:'no', label_en:'Item No.', label_ar:'رقم البند'},
+      {id:'date', label_en:'Statement date', label_ar:'تاريخ الكشف', type:'date'},
+      {id:'bank', label_en:'Bank account', label_ar:'الحساب البنكي'},
+      {id:'type', label_en:'Item type', label_ar:'نوع البند', type:'select', opts:['Deposit in transit','Outstanding cheque','Bank charge','Interest','NSF cheque','Error','Other']},
+      {id:'ref', label_en:'Reference / cheque No.', label_ar:'المرجع / رقم الشيك'},
+      {id:'amount', label_en:'Amount', label_ar:'المبلغ', type:'number'},
+      {id:'book', label_en:'Books side effect', label_ar:'أثر جانب الدفاتر', type:'select', opts:['Add to book','Deduct from book','Add to bank','Deduct from bank','Investigate only']},
+      {id:'notes', label_en:'Investigation notes', label_ar:'ملاحظات التحقيق', type:'textarea'},
+      {id:'status', label_en:'Status', label_ar:'الحالة', type:'select', opts:['Open','Cleared','Written off']},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Reviewed by', label_ar:'راجعه'}
+    ]},
+  po: {
+    title_en:'Purchase Order', title_ar:'أمر شراء',
+    desk:'Procurement / AP — مشتريات / موردين',
+    fields:[
+      {id:'no', label_en:'PO No.', label_ar:'رقم أمر الشراء'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'supplier', label_en:'Supplier', label_ar:'المورد'},
+      {id:'item', label_en:'Item / Description', label_ar:'الصنف / الوصف'},
+      {id:'qty', label_en:'Quantity', label_ar:'الكمية', type:'number'},
+      {id:'unit_price', label_en:'Unit price', label_ar:'سعر الوحدة', type:'number'},
+      {id:'total', label_en:'Total amount', label_ar:'الإجمالي', type:'number'},
+      {id:'currency', label_en:'Currency', label_ar:'العملة', type:'select', opts:['EGP','USD','EUR']},
+      {id:'delivery', label_en:'Required delivery date', label_ar:'تاريخ التوريد المطلوب', type:'date'},
+      {id:'req', label_en:'Requested by', label_ar:'طلب بواسطة'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمد بواسطة'}
+    ]
+  },
+  so: {
+    title_en:'Sales Order', title_ar:'أمر بيع',
+    desk:'AR / Sales — عملاء / مبيعات',
+    fields:[
+      {id:'no', label_en:'SO No.', label_ar:'رقم أمر البيع'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'customer', label_en:'Customer', label_ar:'العميل'},
+      {id:'item', label_en:'Item / Description', label_ar:'الصنف / الوصف'},
+      {id:'qty', label_en:'Quantity', label_ar:'الكمية', type:'number'},
+      {id:'unit_price', label_en:'Unit price', label_ar:'سعر الوحدة', type:'number'},
+      {id:'total', label_en:'Total amount', label_ar:'الإجمالي', type:'number'},
+      {id:'currency', label_en:'Currency', label_ar:'العملة', type:'select', opts:['EGP','USD','EUR']},
+      {id:'ship', label_en:'Ship-by date', label_ar:'تاريخ التسليم المطلوب', type:'date'},
+      {id:'prep', label_en:'Prepared by', label_ar:'أعده'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمده'}
+    ]
+  },
+  fa: {
+    title_en:'Fixed Asset Request', title_ar:'طلب أصل ثابت',
+    desk:'Fixed Assets / GL — أصول ثابتة / دفتر أستاذ',
+    fields:[
+      {id:'no', label_en:'Request No.', label_ar:'رقم الطلب'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'asset', label_en:'Asset description', label_ar:'وصف الأصل'},
+      {id:'category', label_en:'Category', label_ar:'الفئة', type:'select', opts:['Machinery','Vehicles','Furniture','IT Equipment','Buildings','Other']},
+      {id:'cost', label_en:'Estimated cost', label_ar:'التكلفة التقديرية', type:'number'},
+      {id:'dept', label_en:'Department', label_ar:'القسم'},
+      {id:'reason', label_en:'Business justification', label_ar:'المبرر التجاري', type:'textarea'},
+      {id:'life', label_en:'Useful life (years)', label_ar:'العمر الإنتاجي (سنوات)', type:'number'},
+      {id:'req', label_en:'Requested by', label_ar:'طلب بواسطة'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمد بواسطة'}
+    ]
+  },
+  audit: {
+    title_en:'Audit Finding Sheet', title_ar:'ورقة ملاحظة مراجعة',
+    desk:'Internal Audit — المراجعة الداخلية',
+    fields:[
+      {id:'no', label_en:'Finding No.', label_ar:'رقم الملاحظة'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'area', label_en:'Process / Area', label_ar:'العملية / المنطقة'},
+      {id:'severity', label_en:'Severity', label_ar:'الأهمية', type:'select', opts:['High','Medium','Low']},
+      {id:'condition', label_en:'Condition (what is)', label_ar:'الوضع الحالي', type:'textarea'},
+      {id:'criteria', label_en:'Criteria (what should be)', label_ar:'المعيار المطلوب', type:'textarea'},
+      {id:'cause', label_en:'Root cause', label_ar:'السبب الجذري', type:'textarea'},
+      {id:'effect', label_en:'Effect / Risk', label_ar:'الأثر / المخاطرة', type:'textarea'},
+      {id:'rec', label_en:'Recommendation', label_ar:'التوصية', type:'textarea'},
+      {id:'owner', label_en:'Action owner', label_ar:'مسؤول التنفيذ'},
+      {id:'due', label_en:'Target date', label_ar:'تاريخ الاستحقاق', type:'date'},
+      {id:'auditor', label_en:'Auditor', label_ar:'المراجع'}
+    ]
+  },
+  budget: {
+    title_en:'Budget Transfer Request', title_ar:'طلب تحويل موازنة',
+    desk:'Budget / FP&A — الموازنة / التخطيط المالي',
+    fields:[
+      {id:'no', label_en:'Request No.', label_ar:'رقم الطلب'},
+      {id:'date', label_en:'Date', label_ar:'التاريخ', type:'date'},
+      {id:'from_cc', label_en:'From cost center', label_ar:'من مركز تكلفة'},
+      {id:'to_cc', label_en:'To cost center', label_ar:'إلى مركز تكلفة'},
+      {id:'from_acc', label_en:'From account', label_ar:'من حساب'},
+      {id:'to_acc', label_en:'To account', label_ar:'إلى حساب'},
+      {id:'amount', label_en:'Amount', label_ar:'المبلغ', type:'number'},
+      {id:'reason', label_en:'Reason', label_ar:'السبب', type:'textarea'},
+      {id:'period', label_en:'Budget period', label_ar:'فترة الموازنة'},
+      {id:'req', label_en:'Requested by', label_ar:'طلب بواسطة'},
+      {id:'app', label_en:'Approved by', label_ar:'اعتمد بواسطة'}
+    ]
+  }
 };
+
 function renderDeskDocForm(){
   const type = (document.getElementById('docFormType')||{}).value || 'receipt';
   const t = DESK_DOC_TEMPLATES[type]; if(!t) return;
@@ -27251,15 +27474,122 @@ function renderDeskDocForm(){
     if(f.type==='select') return '<div class="field"><label>'+lab+'</label><select id="df-'+f.id+'">'+(f.opts.map(o=>'<option>'+o+'</option>').join(''))+'</select></div>';
     return '<div class="field"><label>'+lab+'</label><input id="df-'+f.id+'" type="'+(f.type||'text')+'"></div>';
   }).join('');
-  mount.innerHTML = '<h4 style="margin:0 0 12px">'+(ar?t.title_ar:t.title_en)+'</h4><div class="form-grid">'+fieldsHtml+'</div>';
+  mount.innerHTML = '<h4 style="margin:0 0 4px">'+(ar?t.title_ar:t.title_en)+'</h4>'+(t.desk?'<p style="margin:0 0 12px;font-size:12px;color:var(--muted)">'+t.desk+'</p>':'')+'<div class="form-grid">'+fieldsHtml+'</div>';
 }
 function resetDeskDocForm(){ renderDeskDocForm(); }
 function printDeskDocForm(){
   const mount = document.getElementById('docFormMount');
   if(!mount) return;
+  const ar = document.documentElement.lang==='ar';
+  const typeSel = document.getElementById('docFormType');
+  const typeLabel = typeSel ? typeSel.options[typeSel.selectedIndex].text : '';
+  const titleEl = mount.querySelector('h4');
+  const deskEl = mount.querySelector('p');
+  const title = titleEl ? titleEl.textContent : 'Form';
+  const desk = deskEl ? deskEl.textContent : '';
+  const fields = [];
+  mount.querySelectorAll('.field').forEach(function(f){
+    const lab = f.querySelector('label');
+    const inp = f.querySelector('input,select,textarea');
+    if(!lab || !inp) return;
+    let val = '';
+    if(inp.tagName==='SELECT') val = inp.options[inp.selectedIndex] ? inp.options[inp.selectedIndex].text : inp.value;
+    else val = inp.value || '';
+    fields.push({label: lab.textContent, value: val});
+  });
+  const today = new Date().toLocaleDateString(ar?'ar-EG':'en-GB', {year:'numeric',month:'long',day:'numeric'});
+  const rows = fields.map(function(f,i){
+    const zebra = i%2===0 ? '#f7f9fc' : '#ffffff';
+    return '<tr style="background:'+zebra+'"><td class="lab">'+f.label+'</td><td class="val">'+(f.value || '—')+'</td></tr>';
+  }).join('');
+  const html = `<!DOCTYPE html><html dir="${ar?'rtl':'ltr'}" lang="${ar?'ar':'en'}">
+<head><meta charset="utf-8"><title>${title}</title>
+<style>
+  @page { margin: 1.4cm; size: A4; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
+    color: #1a2332; margin: 0; padding: 0; background: #fff;
+  }
+  .sheet { max-width: 780px; margin: 0 auto; padding: 8px 4px 24px; }
+  .topbar {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 3px solid #1e3a5f; padding-bottom: 14px; margin-bottom: 18px;
+  }
+  .brand { display: flex; flex-direction: column; gap: 2px; }
+  .brand strong { font-size: 18px; color: #1e3a5f; letter-spacing: .02em; }
+  .brand span { font-size: 11px; color: #6b7686; }
+  .meta { text-align: ${ar?'left':'right'}; font-size: 11px; color: #6b7686; line-height: 1.55; }
+  .meta b { color: #1a2332; }
+  .doc-title {
+    background: linear-gradient(120deg, #1e3a5f, #2a5080);
+    color: #fff; border-radius: 10px; padding: 16px 18px; margin-bottom: 16px;
+  }
+  .doc-title h1 { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
+  .doc-title p { margin: 0; font-size: 12px; opacity: .85; }
+  table.grid { width: 100%; border-collapse: collapse; margin-bottom: 22px; }
+  table.grid td { border: 1px solid #d5dbe6; padding: 10px 12px; vertical-align: top; }
+  table.grid td.lab {
+    width: 34%; font-size: 11.5px; font-weight: 700; color: #1e3a5f;
+    text-transform: none; letter-spacing: .01em;
+  }
+  table.grid td.val { font-size: 13px; color: #1a2332; min-height: 22px; }
+  .signs {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 8px;
+  }
+  .sign-box {
+    border: 1px dashed #b8c0cc; border-radius: 8px; padding: 12px 10px 28px;
+    text-align: center; font-size: 11.5px; color: #4b5768;
+  }
+  .sign-box strong { display: block; color: #1e3a5f; margin-bottom: 18px; font-size: 12px; }
+  .foot {
+    margin-top: 22px; padding-top: 10px; border-top: 1px solid #e2e6ec;
+    font-size: 10px; color: #8a94a3; display: flex; justify-content: space-between;
+  }
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .06em;
+    text-transform: uppercase; background: #e8eef7; color: #1e3a5f;
+    padding: 3px 8px; border-radius: 999px; margin-bottom: 6px;
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .sheet { padding: 0; }
+  }
+</style></head>
+<body>
+  <div class="sheet">
+    <div class="topbar">
+      <div class="brand">
+        <strong>Ayman Hegazy</strong>
+        <span>Real World Accounting</span>
+      </div>
+      <div class="meta">
+        <div><b>${ar?'التاريخ:':'Date:'}</b> ${today}</div>
+        <div><b>${ar?'النموذج:':'Form:'}</b> ${typeLabel.split('—')[0].trim()}</div>
+      </div>
+    </div>
+    <div class="doc-title">
+      <div class="badge">${ar?'مستند تشغيلي':'Operational Document'}</div>
+      <h1>${title}</h1>
+      <p>${desk}</p>
+    </div>
+    <table class="grid">${rows}</table>
+    <div class="signs">
+      <div class="sign-box"><strong>${ar?'أعده':'Prepared by'}</strong>${ar?'التوقيع / الاسم':'Signature / Name'}</div>
+      <div class="sign-box"><strong>${ar?'راجعه':'Reviewed by'}</strong>${ar?'التوقيع / الاسم':'Signature / Name'}</div>
+      <div class="sign-box"><strong>${ar?'اعتمده':'Approved by'}</strong>${ar?'التوقيع / الاسم':'Signature / Name'}</div>
+    </div>
+    <div class="foot">
+      <span>${ar?'للتدريب والتطبيق العملي — ليس مستندًا رسميًا':'For training & practice — not an official record'}</span>
+      <span>Ayman Hegazy · Real World Accounting</span>
+    </div>
+  </div>
+</body></html>`;
   const w = window.open('','_blank');
-  w.document.write('<html><head><title>Form</title><style>body{font-family:sans-serif;padding:24px}label{font-weight:700;font-size:12px;display:block;margin-top:10px}input,select,textarea{width:100%;padding:6px;border:1px solid #ccc;border-radius:6px;margin-top:3px}</style></head><body>'+mount.innerHTML+'</body></html>');
-  w.document.close(); w.focus(); w.print();
+  if(!w){ alert(ar?'اسمح بالنوافذ المنبثقة للطباعة':'Please allow popups to print'); return; }
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){ w.focus(); w.print(); }, 250);
 }
 document.addEventListener('DOMContentLoaded', function(){
   if(document.getElementById('docFormType')) renderDeskDocForm();
