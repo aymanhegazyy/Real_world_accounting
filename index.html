@@ -6,7 +6,7 @@
 <title>Ayman Hegazy | Real World Accounting</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Source+Serif+4:opsz,wght@8..60,500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    TOKENS — a ledger-book palette: warm paper, deep ink-green,
@@ -79,15 +79,63 @@
 .display-toggle-btn.active{ background:#fff; color:var(--brand-dark); border-color:#fff; }
 
 /* —— Eye Protection Mode (warm filter, like phone night-light) —— */
-body.eye-mode .page,
-body.eye-mode .sidebar,
-body.eye-mode header,
-body.eye-mode .home-clean,
-body.eye-mode .command-card,
-body.eye-mode .focus-card,
-body.eye-mode .hero{
-  filter:sepia(55%) saturate(78%) brightness(94%) contrast(102%) hue-rotate(-8deg);
+/* Eye Protection — real phone-style blue-light / night comfort */
+body.eye-mode{
+  /* slightly warmer base, no layout-breaking filter on ancestors */
 }
+body.eye-mode::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:2147483000;
+  pointer-events:none;
+  /* warm amber night-shift overlay like iOS Night Shift / Android Eye Comfort */
+  background:linear-gradient(180deg,
+    rgba(255,170,80,.28) 0%,
+    rgba(255,140,50,.32) 45%,
+    rgba(255,120,40,.30) 100%);
+  mix-blend-mode:multiply;
+}
+/* On dark mode: softer so text stays readable */
+body.dark-mode.eye-mode::after{
+  background:linear-gradient(180deg,
+    rgba(255,160,70,.18) 0%,
+    rgba(255,130,45,.20) 50%,
+    rgba(255,110,35,.18) 100%);
+  mix-blend-mode:soft-light;
+  opacity:.9;
+}
+/* Extra: dial down pure blue accents a bit while eye mode is on */
+body.eye-mode{
+  --info:#6a9fd4;
+  --focus:#c9a227;
+}
+/* Keep interactive UI (toasts, modals, notif) above the overlay and sharp */
+body.eye-mode .modal,
+body.eye-mode .tip-popup-overlay,
+body.eye-mode #phoneNotifToast,
+body.eye-mode .chat-modal-card,
+body.eye-mode #docsFab,
+body.eye-mode .display-toggles{
+  isolation:isolate;
+  position:relative;
+  z-index:2147483001;
+}
+body.eye-mode .modal,
+body.eye-mode .tip-popup-overlay{
+  z-index:2147483010 !important;
+}
+body.eye-mode #phoneNotifToast{
+  z-index:2147483020 !important;
+}
+/* Optional subtle screen warmth without filter-containing-block issues */
+@supports (backdrop-filter: blur(0)){
+  body.eye-mode .page,
+  body.eye-mode main{
+    /* no filter — overlay handles the effect */
+  }
+}
+
 .tip-popup-overlay,
 .modal,
 #phoneNotifToast,
@@ -98,8 +146,896 @@ body.eye-mode .hero{
   filter:none !important;
 }
 
-/* —— Animated glowing + moving name —— */
-.logo{ position:relative; display:inline-block; animation:logoDance 5s ease-in-out infinite; }
+/* —— Dark Mode —— */
+body.dark-mode{
+  --paper:#0b0f14;
+  --card:#151b23;
+  --ink:#f2f5f8;
+  --ink-soft:#d5dbe3;
+  --muted:#b8c0cc;
+  --line:#2c3440;
+  --line-strong:#4a5564;
+  --brand:#5ed4bb;
+  --brand-dark:#f2f5f8;
+  --brand-soft:#1c332c;
+  --brand-tint:#27453a;
+  --gold:#f5c85a;
+  --gold-soft:#3a3014;
+  --debit:#ff8a82;
+  --debit-soft:#4a1c1c;
+  --liability:#ecc05a;
+  --liability-soft:#3a3014;
+  --success:#6be06f;
+  --success-soft:#1a3a22;
+  --warning:#ecc05a;
+  --warning-soft:#3a3014;
+  --danger:#ff8a82;
+  --danger-soft:#4a1c1c;
+  --info:#8cb8ff;
+  --info-soft:#15253a;
+  --teal:#5ed4bb;
+  --teal-soft:#1c332c;
+  --indigo:#b4c0ff;
+  --indigo-soft:#22243a;
+  --services:#d0c0ff;
+  --services-soft:#2e2440;
+  --accent:#ff8fa3;
+  --accent-soft:#4a1c28;
+  --navy:#0b0f14;
+  --navy-deep:#05070a;
+  --focus:#8cb8ff;
+  --shadow-sm:0 2px 10px rgba(0,0,0,.45);
+  --shadow-md:0 12px 32px rgba(0,0,0,.55);
+  --shadow-lg:0 24px 56px rgba(0,0,0,.65);
+  color-scheme:dark;
+}
+body.dark-mode{
+  background:var(--paper) !important;
+  background-image:radial-gradient(ellipse 120% 80% at 0% -20%,rgba(94,212,187,.08),transparent 50%),radial-gradient(ellipse 90% 60% at 100% 0%,rgba(245,200,90,.05),transparent 45%) !important;
+  color:var(--ink) !important;
+}
+
+/* Headings & body text */
+body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,
+body.dark-mode h4,body.dark-mode h5,body.dark-mode h6,
+body.dark-mode strong,body.dark-mode b{color:var(--ink) !important}
+body.dark-mode p,body.dark-mode li,body.dark-mode label,
+body.dark-mode td,body.dark-mode th,body.dark-mode dd,body.dark-mode dt{color:var(--ink) !important}
+body.dark-mode small,body.dark-mode .muted,body.dark-mode .panel-sub,
+body.dark-mode .result-count,body.dark-mode .ws-hint,body.dark-mode .md-desc,
+body.dark-mode .side-section-label{color:var(--muted) !important}
+body.dark-mode a{color:var(--brand) !important}
+
+body.dark-mode header{
+  background:linear-gradient(125deg,#05070a 0%,#0b0f14 40%,#151b23 100%) !important;
+  color:#fff !important;
+}
+body.dark-mode header *{color:#fff !important}
+body.dark-mode header a{color:#e8fff8 !important}
+body.dark-mode .sidebar{
+  background:linear-gradient(180deg,#05070a 0%,#0b0f14 55%,#151b23 100%) !important;
+}
+body.dark-mode .side-item{color:#eef3f7 !important}
+body.dark-mode .side-item:hover{background:#1f2e28 !important;color:#fff !important}
+body.dark-mode .side-section{color:#a8b4c0 !important}
+
+/* Universal surfaces */
+body.dark-mode .data-panel,body.dark-mode .desk-card,body.dark-mode .home-dept,
+body.dark-mode .mock-desk,body.dark-mode .form-block,body.dark-mode .module-head,
+body.dark-mode .module-home,body.dark-mode .dashboard,body.dark-mode .ws-bar,
+body.dark-mode .workspace-chrome,body.dark-mode .tip-popup-card,body.dark-mode .modalbox,
+body.dark-mode .decision-card,body.dark-mode .bridge-card,body.dark-mode .case-item,
+body.dark-mode .ticket,body.dark-mode .close-item,body.dark-mode .impact-panel,
+body.dark-mode .workflow-card,body.dark-mode .stage,body.dark-mode .role-card,
+body.dark-mode .path-card,body.dark-mode .floor,body.dark-mode .workbench,
+body.dark-mode .wb-card,body.dark-mode .home-today-card,body.dark-mode .home-desk-group,
+body.dark-mode .home-desk-group-header,body.dark-mode .mock-tool,body.dark-mode .sop-block,
+body.dark-mode .cycle-stage,body.dark-mode .accounting-step,body.dark-mode .stat,
+body.dark-mode .data-card,body.dark-mode .inbox-item,body.dark-mode .day-task,
+body.dark-mode .desk-action,body.dark-mode .desk-queue-item,body.dark-mode .command-card,
+body.dark-mode .focus-card,body.dark-mode .panel,body.dark-mode .card,
+body.dark-mode .box,body.dark-mode .block,body.dark-mode .sheet,
+body.dark-mode .section-card,body.dark-mode .tool-card,body.dark-mode .quiz-card,
+body.dark-mode .mystery-card,body.dark-mode .sop-card,body.dark-mode .glossary-item,
+body.dark-mode .e2e-card,body.dark-mode .mission-card,body.dark-mode .full-mission-card{
+  background:var(--card) !important;
+  border-color:var(--line) !important;
+  color:var(--ink) !important;
+}
+body.dark-mode .page,body.dark-mode main,body.dark-mode .home-clean{
+  background:transparent !important;
+  color:var(--ink) !important;
+}
+
+/* Hardcoded light backgrounds (inline + CSS) */
+body.dark-mode [style*="background:#fff"],
+body.dark-mode [style*="background: #fff"],
+body.dark-mode [style*="background:#ffffff"],
+body.dark-mode [style*="background: #ffffff"],
+body.dark-mode [style*="background:white"],
+body.dark-mode [style*="background: white"],
+body.dark-mode [style*="background:#f6f3ec"],
+body.dark-mode [style*="background:#F6F3EC"],
+body.dark-mode [style*="background:#faf7ee"],
+body.dark-mode [style*="background:#f7f8fa"],
+body.dark-mode [style*="background:#f1eee3"],
+body.dark-mode [style*="background:#eee9dc"],
+body.dark-mode [style*="background:#f8f6f0"],
+body.dark-mode [style*="background:#f5f2ea"],
+body.dark-mode [style*="background:#f0ede4"],
+body.dark-mode [style*="background:#eef2f0"],
+body.dark-mode [style*="background:#e8f5f0"],
+body.dark-mode [style*="background:#e0f7f4"],
+body.dark-mode [style*="background:#fff3d6"],
+body.dark-mode [style*="background:#f0f4f8"],
+body.dark-mode [style*="background:#f9fafb"],
+body.dark-mode [style*="background:#f3f4f6"],
+body.dark-mode [style*="background:#e5e7eb"],
+body.dark-mode [style*="background:#fefefe"],
+body.dark-mode [style*="background:#fafafa"]{
+  background:var(--card) !important;
+  color:var(--ink) !important;
+  border-color:var(--line) !important;
+}
+
+/* Hardcoded dark text (inline) → force light */
+body.dark-mode [style*="color:#0"],
+body.dark-mode [style*="color: #0"],
+body.dark-mode [style*="color:#1"],
+body.dark-mode [style*="color: #1"],
+body.dark-mode [style*="color:#2"],
+body.dark-mode [style*="color: #2"],
+body.dark-mode [style*="color:#3"],
+body.dark-mode [style*="color: #3"],
+body.dark-mode [style*="color:#4"],
+body.dark-mode [style*="color: #4"],
+body.dark-mode [style*="color:#5"],
+body.dark-mode [style*="color: #5"],
+body.dark-mode [style*="color:#6"],
+body.dark-mode [style*="color: #6"]{
+  color:var(--ink) !important;
+}
+/* Keep pure white / light text as-is on dark headers */
+body.dark-mode [style*="color:#fff"],
+body.dark-mode [style*="color: #fff"],
+body.dark-mode [style*="color:#ffffff"],
+body.dark-mode [style*="color:#e"],
+body.dark-mode [style*="color:#f"]{
+  color:#f2f5f8 !important;
+}
+
+/* Forms */
+body.dark-mode input,body.dark-mode select,body.dark-mode textarea,
+body.dark-mode .search-wrap input,body.dark-mode .field input,
+body.dark-mode .field select,body.dark-mode .field textarea,
+body.dark-mode .approver-select,body.dark-mode button.btn-ghost{
+  background:#0b0f14 !important;
+  color:var(--ink) !important;
+  border:1px solid var(--line-strong) !important;
+}
+body.dark-mode input::placeholder,body.dark-mode textarea::placeholder{color:var(--muted) !important;opacity:1}
+body.dark-mode option{background:#151b23;color:var(--ink)}
+
+/* Tables */
+body.dark-mode table{color:var(--ink) !important}
+body.dark-mode th,body.dark-mode .data-table th,
+body.dark-mode .sop-proc-table th,body.dark-mode .sop-forms-table th{
+  background:var(--brand-soft) !important;
+  color:var(--ink) !important;
+  border-color:var(--line) !important;
+}
+body.dark-mode td,body.dark-mode .data-table td,
+body.dark-mode .sop-proc-table td,body.dark-mode .sop-forms-table td{
+  border-color:var(--line) !important;
+  color:var(--ink) !important;
+  background:transparent !important;
+}
+body.dark-mode tr:nth-child(even) td{background:rgba(255,255,255,.03) !important}
+body.dark-mode tr:hover td{background:rgba(94,212,187,.1) !important}
+
+/* Buttons */
+body.dark-mode .btn-ghost,body.dark-mode .btn-reject{
+  color:var(--ink) !important;
+  border-color:var(--line-strong) !important;
+  background:transparent !important;
+}
+body.dark-mode .btn-primary,body.dark-mode .btn-approve,body.dark-mode .btn-cta{
+  background:var(--brand) !important;
+  color:#0b0f14 !important;
+  border-color:var(--brand) !important;
+}
+body.dark-mode .chip{
+  background:#1c2430 !important;
+  color:var(--ink) !important;
+  border-color:var(--line) !important;
+}
+body.dark-mode .chip[aria-selected="true"],body.dark-mode .chip.active{
+  background:var(--brand) !important;
+  color:#0b0f14 !important;
+}
+
+/* Status / type pills — high contrast on dark */
+body.dark-mode .type-pill,body.dark-mode .tag-cur,body.dark-mode .status-pill,
+body.dark-mode .badge,body.dark-mode .fs-tag,body.dark-mode .inbox-status,
+body.dark-mode .ci-tag,body.dark-mode .md-sim-badge,body.dark-mode .hd-visited-badge{
+  opacity:1 !important;
+}
+body.dark-mode .type-Asset,body.dark-mode .type-Retail,body.dark-mode .type-RawMaterials,
+body.dark-mode .type-DocClosed,body.dark-mode .status-approved{
+  background:#1c332c !important;color:#5ed4bb !important;border:1px solid #2a4a40 !important;
+}
+body.dark-mode .type-Liability,body.dark-mode .type-FixedAssets,body.dark-mode .type-Furniture,
+body.dark-mode .status-pending,body.dark-mode .type-Revenue,body.dark-mode .type-Wholesale{
+  background:#3a3014 !important;color:#f5c85a !important;border:1px solid #5a4820 !important;
+}
+body.dark-mode .type-Expense,body.dark-mode .type-DocCancelled,body.dark-mode .type-Safety,
+body.dark-mode .status-rejected{
+  background:#4a1c1c !important;color:#ff8a82 !important;border:1px solid #6a3030 !important;
+}
+body.dark-mode .type-Equity{background:#2e2440 !important;color:#d0c0ff !important}
+body.dark-mode .type-Company,body.dark-mode .type-DocOpen,body.dark-mode .type-Supplies{
+  background:#15253a !important;color:#8cb8ff !important
+}
+body.dark-mode .status-draft{background:#2a323c !important;color:#b8c0cc !important}
+
+/* Soft content boxes */
+body.dark-mode .entry-box,body.dark-mode .bridge-formula,body.dark-mode .case-entry,
+body.dark-mode .impact-entry,body.dark-mode .paper,body.dark-mode .desk-checklist li{
+  background:#1c2430 !important;
+  color:var(--ink) !important;
+  border-color:var(--line) !important;
+}
+body.dark-mode .redflags,body.dark-mode .msg-error,body.dark-mode .cycle-warn{
+  background:var(--debit-soft) !important;color:#ffb4ae !important;border-color:#6a3030 !important;
+}
+body.dark-mode .msg-success{background:var(--brand-soft) !important;color:#8aebc9 !important}
+body.dark-mode .msg-pending,body.dark-mode .desk-controls,body.dark-mode .workflow-control{
+  background:var(--gold-soft) !important;color:#f5d88a !important;
+}
+body.dark-mode .workflow-output,body.dark-mode .mindset-line,body.dark-mode .handoff-situation{
+  background:var(--brand-soft) !important;color:var(--ink) !important;
+}
+
+/* Hero */
+body.dark-mode .hero h1,body.dark-mode .hero-tagline{
+  background:none !important;
+  -webkit-text-fill-color:var(--ink) !important;
+  color:var(--ink) !important;
+}
+body.dark-mode .hero p,body.dark-mode .hero-sub{color:var(--ink-soft) !important}
+body.dark-mode .eyebrow{
+  background:var(--brand-soft) !important;
+  color:var(--brand) !important;
+  border-color:var(--line) !important;
+}
+
+/* Home desks */
+body.dark-mode .mock-desk .md-title-row strong,
+body.dark-mode .mock-desk .md-go,body.dark-mode .md-code,
+body.dark-mode .ledger-eyebrow{color:var(--ink) !important}
+body.dark-mode .md-desc{color:var(--muted) !important}
+body.dark-mode .home-desk-group-header{
+  background:var(--card) !important;color:var(--ink) !important;border-color:var(--line) !important;
+}
+body.dark-mode .md-bar{background:var(--line) !important}
+body.dark-mode .md-bar i{background:var(--brand) !important}
+
+/* Chat & modals */
+body.dark-mode .chat-modal-card,body.dark-mode .chat-app-body,
+body.dark-mode .chat-modal-header{background:#1a222c !important;color:var(--ink) !important}
+body.dark-mode .chat-manager,body.dark-mode .chat-option,body.dark-mode .handoff-option{
+  background:var(--card) !important;color:var(--ink) !important;border-color:var(--line-strong) !important;
+}
+body.dark-mode .chat-employee{background:var(--brand) !important;color:#0b0f14 !important}
+body.dark-mode .tip-popup-overlay,body.dark-mode .modal{background:rgba(5,7,10,.8) !important}
+body.dark-mode .tip-popup-title,body.dark-mode .tip-popup-body,
+body.dark-mode .modalbox h3,body.dark-mode .modalbox p{color:var(--ink) !important}
+body.dark-mode .tip-popup-extra{
+  background:#0b0f14 !important;border-color:var(--line) !important;color:var(--ink) !important;
+}
+body.dark-mode .phone-notif-inner{background:rgba(21,27,35,.97) !important;color:var(--ink) !important}
+body.dark-mode .phone-notif-from,body.dark-mode #phoneNotifFrom{color:var(--ink) !important}
+body.dark-mode .phone-notif-text,body.dark-mode #phoneNotifText{color:var(--ink-soft) !important}
+
+/* Progress */
+body.dark-mode .step-number{background:var(--brand-soft) !important;color:var(--brand) !important}
+body.dark-mode .step-connector{background:var(--line-strong) !important}
+body.dark-mode footer{
+  background:var(--card) !important;border-color:var(--line) !important;color:var(--muted) !important;
+}
+body.dark-mode footer strong{color:var(--ink) !important}
+body.dark-mode ::selection{background:rgba(94,212,187,.4);color:#fff}
+body.dark-mode .display-toggle-btn.active{
+  background:#f2f5f8 !important;color:#0b0f14 !important;
+}
+body.dark-mode .full-mission-card{
+  background:linear-gradient(135deg,#3a3014 0%,#1a1810 100%) !important;
+  border-color:var(--gold) !important;
+}
+body.dark-mode .full-mission-card h4,body.dark-mode .full-mission-card *{color:#f5d88a !important}
+body.dark-mode .wb-option{
+  background:var(--card) !important;color:var(--ink) !important;border-color:var(--line) !important;
+}
+body.dark-mode .wb-feedback,body.dark-mode .handoff-explain,
+body.dark-mode #howToUsePanel{
+  background:var(--card) !important;border-color:var(--line) !important;color:var(--ink) !important;
+}
+
+/* Force readable text inside common containers */
+body.dark-mode .data-panel *,
+body.dark-mode .desk-card *,
+body.dark-mode .form-block *,
+body.dark-mode .sop-block *,
+body.dark-mode .modalbox *,
+body.dark-mode .workbench *,
+body.dark-mode .wb-card *,
+body.dark-mode .mock-desk *,
+body.dark-mode .module-home *{
+  border-color:var(--line);
+}
+body.dark-mode .data-panel p,body.dark-mode .desk-card p,
+body.dark-mode .form-block p,body.dark-mode .sop-block p,
+body.dark-mode .modalbox p,body.dark-mode .workbench p,
+body.dark-mode .case-item p,body.dark-mode .decision-card p,
+body.dark-mode .bridge-card p,body.dark-mode .path-card p,
+body.dark-mode .role-card p,body.dark-mode .cycle-stage p{
+  color:var(--ink-soft) !important;
+}
+body.dark-mode .data-panel h3,body.dark-mode .data-panel h4,
+body.dark-mode .desk-card h3,body.dark-mode .desk-card h4,
+body.dark-mode .form-block h3,body.dark-mode .form-block h4,
+body.dark-mode .sop-block h3,body.dark-mode .sop-block h4,
+body.dark-mode .modalbox h3,body.dark-mode .workbench h3,
+body.dark-mode .workbench h4,body.dark-mode .module-head h3{
+  color:var(--ink) !important;
+}
+
+/* Gradients that were light */
+body.dark-mode [style*="linear-gradient"][style*="#fff"],
+body.dark-mode [style*="linear-gradient"][style*="#f"]{
+  background:var(--card) !important;
+}
+
+/* Code / mono */
+body.dark-mode code,body.dark-mode pre,body.dark-mode .mono,body.dark-mode .entry-box{
+  background:#1c2430 !important;color:#e8f0e8 !important;
+}
+
+/* Scrollbars */
+body.dark-mode ::-webkit-scrollbar{width:10px;height:10px}
+body.dark-mode ::-webkit-scrollbar-track{background:#0b0f14}
+body.dark-mode ::-webkit-scrollbar-thumb{background:#3a4554;border-radius:6px}
+body.dark-mode ::-webkit-scrollbar-thumb:hover{background:#5a6574}
+
+
+/* ===== Dark mode: fix surfaces that used --brand-dark as BACKGROUND ===== */
+body.dark-mode .desk-hero,
+body.dark-mode .role-hero,
+body.dark-mode .path-card.problem,
+body.dark-mode .desk-day > .desk-hero,
+body.dark-mode [class*="desk-hero"]{
+  background:linear-gradient(135deg,#0a1f1c 0%,#0d3d34 45%,#0f5c4c 100%) !important;
+  color:#f2f5f8 !important;
+  border-color:#1a4a40 !important;
+}
+body.dark-mode .desk-hero h3,
+body.dark-mode .desk-hero h4,
+body.dark-mode .role-hero h4,
+body.dark-mode .desk-hero strong,
+body.dark-mode .desk-hero .desk-tag{
+  color:#f5c85a !important;
+}
+body.dark-mode .desk-hero p,
+body.dark-mode .role-hero p{
+  color:#d5e8e2 !important;
+}
+body.dark-mode .desk-hero *{
+  border-color:rgba(255,255,255,.2);
+}
+
+/* Workspace group cards — were hardcoded mint */
+body.dark-mode .ws-group-card,
+body.dark-mode .ws-group-card-data,
+body.dark-mode .ws-group-card-reports,
+body.dark-mode .ws-group-card-ops,
+body.dark-mode .ws-group-card-learn,
+body.dark-mode .ws-group-card-ifrs{
+  background:#151b23 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .ws-group-card h3,
+body.dark-mode .ws-group-card h4,
+body.dark-mode .ws-group-card strong,
+body.dark-mode .ws-group-card p,
+body.dark-mode .ws-group-card span,
+body.dark-mode .ws-group-card li{
+  color:#e8edf2 !important;
+}
+body.dark-mode .ws-group-header-ops,
+body.dark-mode .ws-group-header-learn,
+body.dark-mode .ws-group-header-data,
+body.dark-mode .ws-group-header-reports{
+  background:#0d3d34 !important;
+  color:#fff !important;
+}
+body.dark-mode .ws-group-header-ifrs{
+  background:linear-gradient(135deg,#4c1d95,#6d28d9) !important;
+  color:#fff !important;
+}
+
+/* Workbench + learning blocks */
+body.dark-mode .workbench{
+  background:#151b23 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .workbench h3,
+body.dark-mode .workbench h4,
+body.dark-mode .workbench p,
+body.dark-mode .workbench strong,
+body.dark-mode .workbench label,
+body.dark-mode .workbench li{color:#e8edf2 !important}
+
+body.dark-mode .mock-learn{
+  background:#1c332c !important;
+  border-color:#2a4a40 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .mock-learn strong{color:#5ed4bb !important}
+body.dark-mode .mock-learn span,
+body.dark-mode .mock-learn em{color:#c5d0d8 !important}
+
+body.dark-mode .mock-section,
+body.dark-mode .mock-case-banner,
+body.dark-mode .mock-prac-card{
+  background:#151b23 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .mock-case-banner strong,
+body.dark-mode .mcb-left strong{color:#f2f5f8 !important}
+body.dark-mode .mcb-kicker{color:#5ed4bb !important}
+
+/* Role steps / entry boxes inside light parents */
+body.dark-mode .role-step,
+body.dark-mode .entry-box,
+body.dark-mode .reference-picker{
+  background:#1c2430 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .role-step h4,
+body.dark-mode .entry-box strong{color:#f2f5f8 !important}
+body.dark-mode .role-step li,
+body.dark-mode .role-step p{color:#d5dbe3 !important}
+
+/* Floor head / impact head gradients */
+body.dark-mode .floor-head,
+body.dark-mode .impact-head{
+  background:#1c2430 !important;
+  color:#f2f5f8 !important;
+  border-color:#2c3440 !important;
+}
+
+/* Sim / document panels */
+body.dark-mode .data-panel .panel-sub,
+body.dark-mode .sim-panel,
+body.dark-mode .doc-register,
+body.dark-mode .chain-panel{
+  background:transparent !important;
+  color:#d5dbe3 !important;
+}
+
+/* Hardcoded light greens used as full-panel backgrounds */
+body.dark-mode [style*="#E8F5F2"],
+body.dark-mode [style*="#F3FAF8"],
+body.dark-mode [style*="#C7E7DC"],
+body.dark-mode [style*="#D9F0E7"],
+body.dark-mode [style*="#A9D9C7"],
+body.dark-mode [style*="#C2E6D7"],
+body.dark-mode [style*="#D6EFEA"],
+body.dark-mode [style*="#E8F7F4"],
+body.dark-mode [style*="#EEF8F6"],
+body.dark-mode [style*="#F6FBFA"],
+body.dark-mode [style*="#DCF1EB"],
+body.dark-mode [style*="#e0f7f4"],
+body.dark-mode [style*="#d9efe6"],
+body.dark-mode [style*="#c5ebe4"]{
+  background:#151b23 !important;
+  color:#f2f5f8 !important;
+}
+
+/* Text that was white-on-dark but parent became light via brand-dark override */
+body.dark-mode .desk-day {
+  color:#f2f5f8 !important;
+}
+body.dark-mode .desk-day h2,
+body.dark-mode .desk-day h3{
+  color:#f2f5f8 !important;
+}
+
+/* Keep primary brand buttons readable */
+body.dark-mode .desk-hero .btn,
+body.dark-mode .desk-hero button{
+  color:#0b0f14 !important;
+  background:#5ed4bb !important;
+}
+
+/* Chat modal header was light in screenshot */
+body.dark-mode .chat-modal-card{
+  background:#151b23 !important;
+  color:#f2f5f8 !important;
+  border:1px solid #2c3440 !important;
+}
+body.dark-mode .chat-modal-card [style*="background:#fff"],
+body.dark-mode .chat-modal-card [style*="background: #fff"]{
+  background:#1c2430 !important;
+  color:#f2f5f8 !important;
+}
+
+
+/* ===== Manager chat clarity (dark mode) ===== */
+body.dark-mode .chat-modal-card,
+body.dark-mode .chat-app-body{
+  background:#121820 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .chat-app-header{
+  background:linear-gradient(135deg,#0a1f1c,#0d3d34) !important;
+  color:#fff !important;
+}
+body.dark-mode .chat-app-header strong,
+body.dark-mode .chat-app-who strong,
+body.dark-mode .chat-app-status{
+  color:#fff !important;
+}
+body.dark-mode .chat-progress{
+  color:#b8c0cc !important;
+}
+body.dark-mode .chat-manager,
+body.dark-mode .chat-bubble.chat-manager{
+  background:#1c2733 !important;
+  color:#f2f5f8 !important;
+  border:1px solid #3a4a5a !important;
+}
+body.dark-mode .chat-manager.chat-good{
+  background:#1a3328 !important;
+  color:#a8f0c8 !important;
+  border-color:#2a6a48 !important;
+}
+body.dark-mode .chat-manager.chat-bad{
+  background:#3a2a14 !important;
+  color:#f5d88a !important;
+  border-color:#6a5020 !important;
+}
+body.dark-mode .chat-employee,
+body.dark-mode .chat-bubble.chat-employee{
+  background:#5ed4bb !important;
+  color:#0b0f14 !important;
+}
+body.dark-mode .chat-option,
+body.dark-mode .handoff-option{
+  background:#1c2733 !important;
+  color:#f2f5f8 !important;
+  border:1px solid #3a4a5a !important;
+}
+body.dark-mode .chat-option:hover:not(:disabled),
+body.dark-mode .handoff-option:hover{
+  background:#243040 !important;
+  border-color:#5ed4bb !important;
+  color:#fff !important;
+}
+body.dark-mode .chat-typing{
+  background:#1c2733 !important;
+  border-color:#3a4a5a !important;
+}
+body.dark-mode .chat-typing span{background:#8b949e !important}
+
+/* ===== Homepage desk codes AR / AP / INV ===== */
+body.dark-mode .mock-desk{
+  background:#151b23 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .mock-desk:hover{
+  background:#1c2430 !important;
+}
+body.dark-mode .md-code{
+  background:#0d3d34 !important;
+  color:#5ed4bb !important;
+  border:1px solid #2a5a4c !important;
+  font-weight:800 !important;
+  font-size:11px !important;
+  letter-spacing:.06em !important;
+}
+body.dark-mode .mock-desk strong,
+body.dark-mode .md-title-row strong{
+  color:#f2f5f8 !important;
+}
+body.dark-mode .md-desc{
+  color:#b0bac6 !important;
+}
+body.dark-mode .md-go{
+  color:#5ed4bb !important;
+}
+body.dark-mode .hd-visited-badge,
+body.dark-mode .mock-desk .hd-visited-badge{
+  background:#5ed4bb !important;
+  color:#0b0f14 !important;
+}
+
+/* Also clear in light mode a bit more contrast for codes */
+.md-code{
+  color:var(--brand-dark) !important;
+  background:var(--brand-soft) !important;
+  border:1px solid var(--line) !important;
+}
+
+
+/* ===== Learning & Reference (all desks) — dark mode clarity ===== */
+body.dark-mode [id$="-learn-flow"],
+body.dark-mode [id$="-learn-flow"] .data-panel,
+body.dark-mode .data-panel[id*="learn"]{
+  background:transparent !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode [id$="-learn-flow"] .module-head,
+body.dark-mode [id$="-learn-flow"] .module-head h3,
+body.dark-mode [id$="-learn-flow"] .panel-sub{
+  color:#f2f5f8 !important;
+}
+body.dark-mode [id$="-learn-flow"] .panel-sub{color:#c0c8d0 !important}
+body.dark-mode .module-tag{
+  background:#1c332c !important;
+  color:#5ed4bb !important;
+  border:1px solid #2a4a40 !important;
+}
+
+/* Role hero inside learning — always dark gradient */
+body.dark-mode [id$="-learn-flow"] .role-hero,
+body.dark-mode [id$="-learn-flow"] .desk-hero{
+  background:linear-gradient(135deg,#0a1f1c 0%,#0d3d34 50%,#0f5c4c 100%) !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode [id$="-learn-flow"] .role-hero h4,
+body.dark-mode [id$="-learn-flow"] .role-hero strong{
+  color:#f5c85a !important;
+}
+body.dark-mode [id$="-learn-flow"] .role-hero p{
+  color:#d5e8e2 !important;
+}
+
+/* Role sequence steps */
+body.dark-mode .role-step,
+body.dark-mode [id$="-learn-flow"] .role-step{
+  background:#1c2430 !important;
+  border-color:#2c3440 !important;
+  border-top-color:#5ed4bb !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .role-step h4{
+  color:#f2f5f8 !important;
+}
+body.dark-mode .role-step li,
+body.dark-mode .role-step p,
+body.dark-mode .role-step ol,
+body.dark-mode .role-step ul{
+  color:#d0d7de !important;
+}
+
+/* Cases & decision cards */
+body.dark-mode .case-item,
+body.dark-mode .decision-card,
+body.dark-mode .bridge-card,
+body.dark-mode [id$="-learn-flow"] .case-item,
+body.dark-mode [id$="-learn-flow"] .decision-card{
+  background:#1c2430 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .case-item h4,
+body.dark-mode .decision-card h4,
+body.dark-mode .bridge-card h4,
+body.dark-mode .case-item strong,
+body.dark-mode .decision-card strong{
+  color:#f2f5f8 !important;
+}
+body.dark-mode .case-item p,
+body.dark-mode .decision-card p,
+body.dark-mode .bridge-card p,
+body.dark-mode .case-item li{
+  color:#d0d7de !important;
+}
+body.dark-mode .case-entry,
+body.dark-mode .bridge-formula,
+body.dark-mode [id$="-learn-flow"] .entry-box{
+  background:#121820 !important;
+  color:#e8f0e8 !important;
+  border-color:#3a4a5a !important;
+}
+body.dark-mode .case-entry strong,
+body.dark-mode .entry-box strong{
+  color:#5ed4bb !important;
+}
+
+/* Buttons inside learning */
+body.dark-mode [id$="-learn-flow"] .btn-primary{
+  background:#5ed4bb !important;
+  color:#0b0f14 !important;
+}
+body.dark-mode [id$="-learn-flow"] .btn-ghost{
+  background:transparent !important;
+  color:#e8edf2 !important;
+  border-color:#4a5564 !important;
+}
+
+/* Tab-like nav buttons under Learning */
+body.dark-mode [id$="-learn-flow"] .module-head + .module-head,
+body.dark-mode [id$="-learn-flow"] button.btn{
+  /* ensure readable */
+}
+body.dark-mode [id$="-learn-flow"] .btn:not(.btn-primary){
+  color:#e8edf2 !important;
+}
+
+/* Journal entry tables in learning */
+body.dark-mode [id$="-learn-flow"] table th{
+  background:#1c332c !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode [id$="-learn-flow"] table td{
+  color:#e8edf2 !important;
+  border-color:#2c3440 !important;
+}
+
+/* Sub-section titles */
+body.dark-mode [id$="-learn-flow"] h3,
+body.dark-mode [id$="-learn-flow"] h4{
+  color:#f2f5f8 !important;
+}
+
+/* Print cheat sheet button area */
+body.dark-mode [id$="-learn-flow"] [style*="background:#e"],
+body.dark-mode [id$="-learn-flow"] [style*="background:#f"],
+body.dark-mode [id$="-learn-flow"] [style*="background:#d"],
+body.dark-mode [id$="-learn-flow"] [style*="background:#c"]{
+  background:#1c2430 !important;
+  color:#f2f5f8 !important;
+}
+
+
+/* ===== Practice & Training (all desks) + home manager chat title ===== */
+body.dark-mode [id$="-training-flow"],
+body.dark-mode [id$="-training-flow"] .module-head,
+body.dark-mode [id$="-training-flow"] .module-head h3{
+  color:#f2f5f8 !important;
+}
+body.dark-mode [id$="-training-flow"] .panel-sub{
+  color:#c0c8d0 !important;
+}
+body.dark-mode [id$="-training-flow"] .data-panel,
+body.dark-mode [id$="-training-flow"] .workbench,
+body.dark-mode [id$="-training-flow"] .wb-card,
+body.dark-mode [id$="-training-flow"] .ws-practice-card,
+body.dark-mode .ws-practice-card{
+  background:#151b23 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode [id$="-training-flow"] h3,
+body.dark-mode [id$="-training-flow"] h4,
+body.dark-mode [id$="-training-flow"] strong{
+  color:#f2f5f8 !important;
+}
+body.dark-mode [id$="-training-flow"] p,
+body.dark-mode [id$="-training-flow"] li,
+body.dark-mode [id$="-training-flow"] span{
+  color:inherit;
+}
+body.dark-mode [id$="-training-flow"] .panel-sub,
+body.dark-mode [id$="-training-flow"] p[style*="color:var(--ink-soft)"]{
+  color:#c0c8d0 !important;
+}
+
+/* In-desk chat phone frame */
+body.dark-mode .chat-phone-frame{
+  background:#121820 !important;
+  border:1px solid #2c3440 !important;
+  color:#f2f5f8 !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.4) !important;
+}
+body.dark-mode .chat-phone-frame .chat-app-header{
+  background:linear-gradient(135deg,#0a1f1c,#0d3d34) !important;
+  color:#fff !important;
+}
+body.dark-mode .chat-phone-frame .chat-app-who strong,
+body.dark-mode .chat-phone-frame .chat-app-status{
+  color:#fff !important;
+}
+body.dark-mode .chat-phone-frame .chat-app-body{
+  background:#121820 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .chat-section-icon{filter:none}
+
+/* Practice cards / quiz / fraud / spot */
+body.dark-mode .ws-practice-card,
+body.dark-mode .ws-pk-fraud,
+body.dark-mode [class*="ws-pk-"]{
+  background:#1c2430 !important;
+  border-color:#2c3440 !important;
+  color:#f2f5f8 !important;
+}
+body.dark-mode .ws-practice-card strong,
+body.dark-mode .ws-practice-card h4,
+body.dark-mode .ws-pk-icon{
+  color:#f2f5f8 !important;
+}
+body.dark-mode .wb-option{
+  background:#1c2733 !important;
+  color:#f2f5f8 !important;
+  border-color:#3a4a5a !important;
+}
+body.dark-mode .wb-option:hover,
+body.dark-mode .wb-option.is-selected{
+  border-color:#5ed4bb !important;
+  background:#243040 !important;
+}
+body.dark-mode .wb-feedback{
+  background:#1c332c !important;
+  color:#e8f0e8 !important;
+}
+
+/* Home: CHAT WITH TODAY'S MANAGER badge + card */
+.focus-badge-chat{
+  display:inline-block !important;
+  font-size:11px !important;
+  font-weight:800 !important;
+  letter-spacing:.04em !important;
+  background:#0d3d34 !important;
+  color:#fff !important;
+  border-radius:20px !important;
+  padding:5px 12px !important;
+  border:1px solid #1a5a4c !important;
+}
+body.dark-mode .focus-badge-chat{
+  background:#5ed4bb !important;
+  color:#0b0f14 !important;
+  border-color:#5ed4bb !important;
+}
+body.dark-mode .focus-card.wheel-card .focus-inner,
+body.dark-mode .home-view.wheel-card .focus-inner{
+  background:#151b23 !important;
+  border-color:#5ed4bb !important;
+}
+body.dark-mode .focus-card.wheel-card .focus-text strong,
+body.dark-mode .home-view.wheel-card .focus-text strong{
+  color:#f2f5f8 !important;
+}
+body.dark-mode .focus-card.wheel-card .focus-text span,
+body.dark-mode .home-view.wheel-card .focus-text span{
+  color:#c0c8d0 !important;
+}
+body.dark-mode .focus-badge{
+  background:#1c332c !important;
+  color:#5ed4bb !important;
+  border:1px solid #2a4a40 !important;
+}
+body.dark-mode .wheel-card .chat-section-icon{
+  background:radial-gradient(circle,#1c332c 55%,#0d3d34 100%) !important;
+  box-shadow:0 6px 16px rgba(0,0,0,.35),0 0 0 3px rgba(94,212,187,.25) !important;
+}
+
+/* Training section light-green leftovers */
+body.dark-mode [id$="-training-flow"] [style*="background:#f"],
+body.dark-mode [id$="-training-flow"] [style*="background:#e"],
+body.dark-mode [id$="-training-flow"] [style*="background:#d"],
+body.dark-mode [id$="-training-flow"] [style*="background:#c"]{
+  background:#1c2430 !important;
+  color:#f2f5f8 !important;
+}
+
 @keyframes logoDance{
   0%,100%{ transform:translateX(0) scale(1); }
   25%{ transform:translateX(5px) scale(1.06); }
@@ -142,8 +1078,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,.side-item:focus-visibl
 
 /* ---------------- Header ---------------- */
 header{background:linear-gradient(120deg,var(--brand-dark),var(--brand));color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;margin-left:0;border-bottom:3px solid var(--gold)}
-.logo{font-family:"Fraunces",serif;font-weight:700;font-size:20px;color:#fff}
-.logo small{display:block;font-size:10.5px;font-weight:500;color:#d9ead9;letter-spacing:.6px;margin-top:3px}
+.logo{font-family:"Source Serif 4",Fraunces,Georgia,serif;font-weight:700;font-size:19px;color:#fff;letter-spacing:.01em}
+.logo small{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-size:9.5px;font-weight:600;color:#d9ead9;letter-spacing:1.4px;margin-top:4px;text-transform:uppercase}
 nav a{color:#f2f7f3;text-decoration:none;margin-inline-start:22px;font-size:14px;font-weight:500;border-bottom:2px solid transparent;padding-bottom:2px}
 nav a:hover{border-bottom-color:var(--gold)}
 
@@ -3473,6 +4409,7 @@ input[type="text"]:focus, input[type="number"]:focus{
 
 /* Sidebar name — shimmer/glow effect */
 .side-logo{ display:flex; flex-direction:column; gap:6px; }
+.side-logo-name{ font-family:"Source Serif 4",Fraunces,Georgia,serif !important; }
 .side-logo-name{
   position:relative;
   display:inline-block;
@@ -3754,6 +4691,7 @@ input[type="text"]:focus, input[type="number"]:focus{
       <button class="lang-btn" id="arBtn" onclick="setLanguage('ar')">عربي</button>
     </div>
     <div class="display-toggles">
+      <button type="button" class="display-toggle-btn" id="darkModeBtn" onclick="toggleDarkMode()" title="Dark Mode" data-en-title="Dark Mode" data-ar-title="الوضع الليلي">🌙</button>
       <button type="button" class="display-toggle-btn" id="eyeModeBtn" onclick="toggleEyeMode()" title="Eye Protection" data-en-title="Eye Protection" data-ar-title="راحة العين">👁️</button>
       <button type="button" class="display-toggle-btn" id="aboutBtn" onclick="openAboutPopup()" title="About" data-en-title="About" data-ar-title="عن الموقع">ℹ️</button>
     </div>
@@ -3764,8 +4702,8 @@ input[type="text"]:focus, input[type="number"]:focus{
 <section class="hero mock-hero">
   <div class="mock-hero-inner">
     <div class="mock-hero-copy">
-      <h1 style="margin-bottom:6px"><span data-en="Learn Accounting." data-ar="تعلّم المحاسبة.">Learn Accounting.</span> <span data-en="Think Like an Accountant." data-ar="فكّر كمحاسب." style="opacity:.82">Think Like an Accountant.</span></h1>
-      <p style="margin-bottom:10px" data-en="13 real desks. The daily decisions an actual accountant makes." data-ar="13 مكتب حقيقي. القرارات اليومية اللي بيتخذها محاسب فعلي.">13 real desks. The daily decisions an actual accountant makes.</p>
+      <h1 class="hero-tagline" style="margin-bottom:5px;font-family:'Source Serif 4',Georgia,serif;font-size:clamp(17px,2.4vw,24px);line-height:1.25;font-weight:600;letter-spacing:-0.01em"><span data-en="How Accounting Works" data-ar="كيف تعمل المحاسبة">How Accounting Works</span></h1>
+      <p class="hero-sub" style="margin-bottom:10px;font-family:'Source Serif 4',Georgia,serif;font-size:12px;max-width:460px;line-height:1.5;color:var(--ink-soft);font-weight:500" data-en="Experience 13 live simulation desks and practice the daily decision-making calls of a professional accountant." data-ar="جرّب ١٣ مكتب محاكاة حي وتدرّب على قرارات المحاسب المحترف اليومية.">Experience 13 live simulation desks and practice the daily decision-making calls of a professional accountant.</p>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
         <span id="homeInspirationQuote" style="font-size:11.5px;font-style:italic;color:rgba(255,255,255,.65)"></span>
       </div>
@@ -3810,7 +4748,7 @@ input[type="text"]:focus, input[type="number"]:focus{
   <div class="focus-inner" style="display:block !important;padding:0 !important;overflow:hidden;position:relative;background:var(--card) !important;border:3px solid var(--brand) !important;border-radius:10px !important">
     <div style="position:absolute;inset-inline-end:-35px;top:-35px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(30,58,95,.1),transparent 70%)"></div>
     <div style="position:relative;padding:16px 18px 18px">
-      <span class="focus-badge" style="background:var(--brand-dark) !important;color:#fff !important" data-en="💬 CHAT WITH TODAY'S MANAGER" data-ar="💬 اتكلم مع مدير النهاردة">💬 CHAT WITH TODAY'S MANAGER</span>
+      <span class="focus-badge focus-badge-chat" data-en="💬 CHAT WITH TODAY'S MANAGER" data-ar="💬 اتكلم مع مدير النهاردة">💬 CHAT WITH TODAY'S MANAGER</span>
       <div style="display:flex;align-items:center;gap:16px;margin-top:14px">
         <div style="flex:none;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle,#fff 55%,#f3ede4 100%);display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 6px 16px rgba(0,0,0,.12),0 0 0 4px rgba(255,255,255,.5)" class="chat-section-icon">💬</div>
         <div class="focus-text" style="flex:1;min-width:0"><strong data-en="A random manager needs your reply right now." data-ar="مدير عشوائي محتاج ردّك دلوقتي.">A random manager needs your reply right now.</strong><span data-en="Pick the right response and see how they react, instantly." data-ar="اختار الرد الصح وشوف رد فعله فورًا.">Pick the right response and see how they react, instantly.</span></div>
@@ -3870,13 +4808,6 @@ input[type="text"]:focus, input[type="number"]:focus{
       </div>
     </div>
 
-    <div id="homeContinueCard" style="display:none;margin-bottom:16px;padding:14px 18px;background:linear-gradient(135deg,#fff,var(--brand-soft));border:2px solid var(--brand);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <div>
-        <div style="font-size:11px;font-weight:800;color:var(--brand-dark);text-transform:uppercase;letter-spacing:.05em" data-en="Continue where you left off" data-ar="كمّل منين ما وقفت">Continue where you left off</div>
-        <div id="homeContinueLabel" style="font-size:15px;font-weight:700;color:var(--ink);margin-top:3px"></div>
-      </div>
-      <button type="button" class="btn btn-primary" id="homeContinueBtn" data-en="Continue →" data-ar="كمّل ←">Continue →</button>
-    </div>
 
 <h3 class="ledger-eyebrow" data-en="Choose Your Office" data-ar="اختار مكتبك">Choose Your Office</h3>
     <div class="home-desk-groups">
@@ -24245,9 +25176,37 @@ function populateEmployeeSelect(select){if(!select)return;const current=select.v
 function openAddNewEmployee(){showPanel('hr-training-flow');setTimeout(()=>document.getElementById('hr-data-flow-newemp').scrollIntoView(),100)}
 function fillReferenceSelect(id,table,formatter){const select=document.getElementById(id), rows=document.querySelectorAll('#'+table+' tbody tr');if(!select||!rows.length)return;const current=select.value;select.innerHTML='<option value="">— Select active record —</option>';rows.forEach(r=>{const o=document.createElement('option');o.value=r.cells[0]?.textContent.trim()||'';o.textContent=formatter(r);select.appendChild(o)});if([...select.options].some(o=>o.value===current))select.value=current}
 function refreshReferencePickers(){fillReferenceSelect('ar-context-customer','table-customers',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());fillReferenceSelect('ap-context-supplier','table-suppliers',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());fillReferenceSelect('inv-context-item','table-inventory',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());fillReferenceSelect('treasury-context-bank','table-banks',r=>r.cells[0].textContent.trim()+' — '+r.cells[1].textContent.trim());}
+function toggleDarkMode(){
+  const on = document.body.classList.toggle('dark-mode');
+  const btn = document.getElementById('darkModeBtn');
+  if(btn){
+    btn.classList.toggle('active', on);
+    btn.textContent = on ? '☀️' : '🌙';
+  }
+  try{ localStorage.setItem('ayman-dark-mode', on ? '1' : '0'); }catch(e){}
+}
+(function initDarkMode(){
+  try{
+    if(localStorage.getItem('ayman-dark-mode')==='1'){
+      document.body.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', function(){
+        const b=document.getElementById('darkModeBtn');
+        if(b){ b.classList.add('active'); b.textContent='☀️'; }
+      });
+    }
+  }catch(e){}
+})();
+
 function toggleEyeMode(){
   const on = document.body.classList.toggle('eye-mode');
-  document.getElementById('eyeModeBtn').classList.toggle('active', on);
+  const btn = document.getElementById('eyeModeBtn');
+  if(btn){
+    btn.classList.toggle('active', on);
+    const ar = document.documentElement.lang === 'ar';
+    btn.title = on
+      ? (ar ? 'راحة العين: تشغيل (فلتر أزرق دافئ)' : 'Eye Protection: On (warm night shift)')
+      : (ar ? 'راحة العين' : 'Eye Protection');
+  }
   try{ localStorage.setItem('ayman-eye-mode', on ? '1' : '0'); }catch(e){}
 }
 (function restoreDisplayModes(){
@@ -27606,7 +28565,20 @@ window.openDeskDocForms = function(){
 </script>
 
 <button type="button" id="docsFab" onclick="openDeskDocForms()" title="Document forms"
-  style="position:fixed;bottom:20px;inset-inline-end:18px;z-index:90;width:52px;height:52px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-size:22px;box-shadow:0 8px 24px rgba(16,33,58,.35);cursor:pointer">📄</button>
+  style="display:none;position:fixed;bottom:20px;inset-inline-end:18px;z-index:90;width:52px;height:52px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-size:22px;box-shadow:0 8px 24px rgba(16,33,58,.35);cursor:pointer">📄</button>
+<script>
+(function syncDocsFab(){
+  function upd(){
+    var fab=document.getElementById('docsFab');
+    if(!fab) return;
+    fab.style.display = document.body.classList.contains('is-workspace') ? 'block' : 'none';
+  }
+  var obs=new MutationObserver(upd);
+  if(document.body) obs.observe(document.body,{attributes:true,attributeFilter:['class']});
+  document.addEventListener('DOMContentLoaded',upd);
+  setTimeout(upd,300);
+})();
+</script>
 
 <div id="phoneNotifToast" class="phone-notif" role="status" aria-live="polite" hidden>
   <div class="phone-notif-inner">
@@ -27660,25 +28632,26 @@ window.openDeskDocForms = function(){
 <script>
 (function(){
   const MGR_POOL = [
-    {from_en:'Sales Director', from_ar:'مدير المبيعات', icon:'💼',
+    {desk:'ar', from_en:'AR Manager', from_ar:'مدير العملاء', icon:'💼',
      msg_en:'A major customer is at their credit limit and wants a new order. Need your call before EOD.',
      msg_ar:'عميل كبير وصل لحد الائتمان وعايز طلبية جديدة. محتاج قرارك قبل آخر اليوم.'},
-    {from_en:'Procurement Director', from_ar:'مدير المشتريات', icon:'📈',
+    {desk:'ap', from_en:'AP Manager', from_ar:'مدير الموردين', icon:'📈',
      msg_en:'Supplier pushing for payment today but invoice does not match receipt. Look into it now.',
      msg_ar:'مورد بيضغط للسداد النهاردة وفاتورته مش مطابقة لإذن الاستلام. شوف الموضوع فورًا.'},
-    {from_en:'CFO', from_ar:'المدير المالي', icon:'🏦',
+    {desk:'treasury', from_en:'Treasury Manager', from_ar:'مدير الخزينة', icon:'🏦',
      msg_en:'Large transfer needs approval before the bank closes. Check it now.',
      msg_ar:'تحويل كبير محتاج اعتماد قبل قفل البنك. راجعه فورًا.'},
-    {from_en:'Warehouse Manager', from_ar:'مدير المخازن', icon:'📦',
+    {desk:'inv', from_en:'Inventory Manager', from_ar:'مدير المخزون', icon:'📦',
      msg_en:'Serious variance on a sensitive item from the count. Need the reason before close.',
      msg_ar:'فرق جوهري في جرد صنف حساس. محتاجين السبب قبل القفل.'},
-    {from_en:'HR Director', from_ar:'مدير الموارد البشرية', icon:'👥',
+    {desk:'hr', from_en:'HR Manager', from_ar:'مدير الموارد البشرية', icon:'👥',
      msg_en:'New name on payroll with no HR file. Hold payment and verify.',
      msg_ar:'اسم جديد في كشف الرواتب من غير ملف HR. وقف الصرف وتأكد.'},
-    {from_en:'Audit Chair', from_ar:'رئيس لجنة المراجعة', icon:'🕵️',
+    {desk:'aud', from_en:'Audit Manager', from_ar:'مدير المراجعة', icon:'🕵️',
      msg_en:'Committee wants an urgent update on one finding before the meeting.',
      msg_ar:'اللجنة عايزة تحديث عاجل عن ملاحظة قبل الاجتماع.'}
   ];
+  let _notifDesk = null;
   let _notifShown = false;
   function playNotifSound(){
     try{
@@ -27702,6 +28675,7 @@ window.openDeskDocForms = function(){
     _notifShown = true;
     const ar = document.documentElement.lang === 'ar';
     const m = MGR_POOL[Math.floor(Math.random()*MGR_POOL.length)];
+    _notifDesk = m.desk;
     const el = document.getElementById('phoneNotifToast');
     if(!el) return;
     document.getElementById('phoneNotifAppName').textContent = ar ? 'الرسائل' : 'Messages';
@@ -27725,7 +28699,7 @@ window.openDeskDocForms = function(){
   document.addEventListener('click', function(e){
     if(e.target && e.target.id === 'phoneNotifOpenBtn'){
       hidePhoneNotif();
-      if(typeof openRandomManagerChat === 'function') openRandomManagerChat();
+      if(typeof openRandomManagerChat === 'function') openRandomManagerChat(_notifDesk || undefined);
     }
   });
   try{
