@@ -13780,7 +13780,7 @@ const PANEL_TO_WS = {
   'ar-home':'ar', 'ar-learn-flow':'ar', 'ar-training-flow':'ar', 'ar-ifrs-flow':'ar', 'ar-spot-error':'ar', 'ar-quiz':'ar', 'ar-fraud':'ar', 'cross-tickets':'learn',
   'ap-home':'ap', 'ap-learn-flow':'ap', 'ap-training-flow':'ap', 'ap-ifrs-flow':'ap', 'ap-spot-error':'ap', 'ap-quiz':'ap', 'ap-fraud':'ap',
   'inv-home':'inv', 'inv-training-flow':'inv', 'inv-learn-flow':'inv', 'inv-spot-error':'inv', 'inv-fraud':'inv', 'inv-quiz':'inv',
-  'recv-home':'recv', 'recv-learn-flow':'recv', 'recv-training-flow':'recv', 'recv-ifrs-flow':'recv', 'recv-spot-error':'recv', 'recv-fraud':'recv', 'recv-quiz':'recv',
+  'recv-home':'recv', 'recv-learn-flow':'recv', 'recv-training-flow':'recv', 'recv-ifrs-flow':'recv','inv-ifrs-flow':'inv','cost-ifrs-flow':'cost','constr-ifrs-flow':'constr','treasury-ifrs-flow':'treasury','hr-ifrs-flow':'hr','ratios-ifrs-flow':'ratios', 'recv-spot-error':'recv', 'recv-fraud':'recv', 'recv-quiz':'recv',
   'treasury-home':'treasury', 'treasury-training-flow':'treasury', 'treasury-learn-flow':'treasury', 'treasury-spot-error':'treasury', 'treasury-fraud-cash':'treasury', 'treasury-fraud-bank':'treasury', 'treasury-quiz':'treasury',
   'hr-home':'hr', 'hr-training-flow':'hr', 'hr-learn-flow':'hr', 'hr-spot-error':'hr', 'hr-quiz':'hr', 'hr-fraud':'hr'
 };
@@ -14187,6 +14187,8 @@ function backToTabList(){
 }
 function wsBackClick(){
   if(document.body.dataset.ws==='learn'){ goBack(); return; }
+  var prev=navHistory[navHistory.length-1];
+  if(typeof prev==='string'&&/-home$/.test(prev)){ goBack(); return; }   // came from a desk page: go back to it, not to the workspace menu
   if(document.body.classList.contains('tab-open')) backToTabList();
   else goBack();
 }
@@ -20309,6 +20311,154 @@ window.addEventListener('resize',function(){ ayAvoid(); });
 setInterval(function(){ ayRenderBtn(); ayAvoid(); },1500);
 document.addEventListener('DOMContentLoaded',function(){ ayRenderBtn(); ayAvoid(); });
 
+/* ===== Desk sections: related things sit together under clear headings (pilot: Accounts Receivable) ===== */
+const DG_ON=['ar','ap','recv','inv','cost','constr','treasury','hr','gl','tax','bc','ratios','aud'];
+const DG_BR={ar:['GL control vs aging','مطابقة الأستاذ مع الأعمار'],ap:['GL vs supplier aging + GRNI','مطابقة الأستاذ مع أعمار الموردين + GRNI'],treasury:['Bank vs book','مطابقة البنك مع الدفاتر'],_:['Reconciliation','المطابقة']};
+function dgT(en,ar){ return '<span data-en="'+en+'" data-ar="'+ar+'">'+(cycleAr()?ar:en)+'</span>'; }
+function dgHead(tab,icon,en,ar){ var h=document.createElement('div'); h.className='dg-sec'; h.setAttribute('data-dtab',tab); h.setAttribute('role','heading'); h.setAttribute('aria-level','3'); h.innerHTML='<span aria-hidden="true">'+icon+'</span>'+dgT(en,ar); return h; }
+function dgCard(cls,id,tab,en,ar,subEn,subAr){ var d=document.createElement('div'); d.className='desk-card '+cls; if(id) d.id=id; d.setAttribute('data-dtab',tab); if(en) d.innerHTML='<h4><span>'+dgT(en,ar)+'</span>'+(subEn?'<small>'+dgT(subEn,subAr)+'</small>':'')+'</h4>'; return d; }
+function dgAct(icon,en,ar,subEn,subAr,onclick,extra){ var b=document.createElement('button'); b.type='button'; b.className='desk-action'+(extra?' '+extra:''); b.setAttribute('onclick',onclick); b.innerHTML='<strong data-en="'+icon+' '+en+'" data-ar="'+icon+' '+ar+'">'+icon+' '+(cycleAr()?ar:en)+'</strong><span data-en="'+subEn+'" data-ar="'+subAr+'">'+(cycleAr()?subAr:subEn)+'</span>'; return b; }
+function dgBox(){ var d=document.createElement('div'); d.className='desk-actions'; return d; }
+function dgKind(b){
+  var oc=b.getAttribute('onclick')||'', cls=b.className, st=b.querySelector('strong'), t=((st&&st.getAttribute('data-en'))||b.textContent||'').toLowerCase().trim();
+  if(/desk-action-chat/.test(cls)) return 'chat';
+  if(/desk-action-mail/.test(cls)) return 'mail';
+  if(/desk-action-ifrs/.test(cls)) return 'ifrs';
+  if(/handoffStart\(/.test(oc)||/^add\s|create sales documents/.test(t)) return 'hands';
+  if(/bridge|reconciliation/.test(t)) return 'bridge';
+  return 'keep';
+}
+function dgCommRender(k){
+  var box=document.querySelector('#comm-'+k+' .desk-actions'); if(!box) return;
+  var ar=cycleAr(), L=ar?1:0, M=(typeof MEET!=='undefined')?MEET[k]:null, chatOc=box.getAttribute('data-chat')||'', rows=[];
+  rows.push(dgAct('📬','Desk mailbox','إيميلات المكتب','Triage today’s emails','افرز إيميلات النهاردة',"openMailbox('"+k+"')",'desk-action-mail'));
+  if(CALLS_DATA[k]){
+    rows.push(dgAct('📞','Calls','المكالمات',liveStatus(k).replace(/"/g,''),liveStatus(k).replace(/"/g,''),"callRing('"+k+"',false)"));
+    var gd=liveHas('grp-done-'+k);
+    rows.push(dgAct('💬','Team group','جروب الفريق',gd?'✅ Done today':'🔔 New messages',gd?'✅ اتعمل النهاردة':'🔔 رسايل جديدة',"liveOpen('group','"+k+"')"));
+  }
+  if(chatOc) rows.push(dgAct('🧑‍💼','Reply to your manager','رد على المدير','A real conversation, your choice','محادثة حقيقية، واختيارك','','desk-action-chat'));
+  if(M) rows.push(dgAct('🏛️','Meeting room','غرفة الاجتماعات',M.w[0]+' · '+mtStatus(k,false),M.w[1]+' · '+mtStatus(k,true),"mtOpen('"+k+"')"));
+  box.innerHTML=''; rows.forEach(function(r){ if(r.className.indexOf('desk-action-chat')>=0) r.setAttribute('onclick',chatOc); box.appendChild(r); });
+}
+function dgCommAll(){ DG_ON.forEach(dgCommRender); }
+function dgInit(k){
+  var panel=document.getElementById(k+'-home'); if(!panel||panel.getAttribute('data-dg-ready')) return;
+  var day=panel.querySelector('.desk-day'), grid=day&&day.querySelector('.desk-grid'); if(!grid) return;
+  var q=function(sel,root){ return (root||panel).querySelector(sel); };
+  var plain=Array.prototype.filter.call(grid.children,function(c){ return c.classList.contains('desk-card')&&!/(rhythm|appr-mini|live-mini|mt-mini|cl-mini|sp-mini)/.test(c.className)&&!c.classList.contains('dg-sec'); });
+  var morning=plain[0], onDesk=plain[1], rhythm=q('.rhythm',grid), appr=q('.appr-mini',grid), live=q('.live-mini',grid), meet=document.getElementById('mt-mini-'+k), close=q('.cl-mini',grid), sp=q('.sp-mini',grid);
+  var core=Array.prototype.filter.call(day.children,function(c){ return c.querySelector&&c.querySelector(':scope > .desk-actions'); })[0];
+  var dec=Array.prototype.filter.call(day.children,function(c){ return c.querySelector&&c.querySelector(':scope > .decision-grid'); })[0];
+  var missions=Array.prototype.slice.call(day.querySelectorAll(':scope > .full-mission-card')), sheet=document.getElementById('sheet-'+k), closeCard=document.getElementById('close-'+k), handoff=q('.desk-handoff');
+  if(!morning||!core||!sheet) return;
+  // sort the Core actions buttons into their sections
+  var btns=Array.prototype.slice.call(core.querySelectorAll('button.desk-action')), by={chat:[],mail:[],ifrs:[],hands:[],bridge:[],keep:[]};
+  btns.forEach(function(b){ by[dgKind(b)].push(b); });
+  // TODAY: work first, then communication
+  var order=[dgHead('today','📋',"Today's work",'شغل النهاردة'),morning,onDesk,appr,rhythm,close].filter(Boolean);
+  order.forEach(function(el){ grid.appendChild(el); });
+  var comm=dgCard('comm-card','comm-'+k,'today'); var cb=dgBox(); if(by.chat[0]) cb.setAttribute('data-chat',by.chat[0].getAttribute('onclick')||''); comm.appendChild(cb);
+  grid.appendChild(dgHead('today','💬','Communication','تواصل')); grid.appendChild(comm);
+  [live,meet].forEach(function(el){ if(el){ el.style.display='none'; el.setAttribute('aria-hidden','true'); el.setAttribute('data-dg','old'); grid.appendChild(el); } });
+  by.chat.concat(by.mail).forEach(function(b){ b.style.display='none'; b.setAttribute('aria-hidden','true'); });   // the originals stay as the source of the manager-chat action
+  // LEARN: its heading, then the rare cases (they live in this grid)
+  if(sp){ grid.appendChild(dgHead('learn','📚','Learn the desk','اتعلّم المكتب')); grid.appendChild(sp); }
+  // REPORTS: numbers and month-end, plus the bridge between the ledger and the aging
+  day.insertBefore(dgHead('reports','📊','Reports & close','التقارير والإقفال'),sheet);
+  if(by.bridge.length){ var br=dgCard('dg-bridge','dg-bridge-'+k,'reports',(DG_BR[k]||DG_BR._)[0],(DG_BR[k]||DG_BR._)[1]); var bb=dgBox(); by.bridge.forEach(function(b){ bb.appendChild(b); }); br.appendChild(bb); day.insertBefore(br,closeCard?closeCard.nextSibling:sheet.nextSibling); }
+  // PRACTICE: hands-on exercises and the hand-off, then the questions
+  var firstM=missions[0], lastM=missions[missions.length-1];
+  if(firstM) day.insertBefore(dgHead('practice','🎯','Practice','تدريب'),firstM);
+  var anchor=lastM?lastM.nextSibling:(dec||null), afterHands=anchor;
+  if(by.hands.length){ var hands=dgCard('hands-card','hands-'+k,'practice','🛠️ Hands-on exercises','🛠️ تمارين عملية','Do the real work step by step','اشتغل الشغل الحقيقي خطوة بخطوة'), hb=dgBox(); by.hands.forEach(function(b){ hb.appendChild(b); }); hands.appendChild(hb); day.insertBefore(hands,anchor); afterHands=hands.nextSibling; }
+  if(handoff) day.insertBefore(handoff,afterHands);
+  var qs=dgCard('quest-card','quest-'+k,'practice','🧠 Test yourself','🧠 اختبر نفسك','Spot mistakes, catch fraud, check what you know','اكتشف الغلط، وامسك الاحتيال، واختبر معلوماتك'), qb=dgBox();
+  by.ifrs.forEach(function(b){ qb.appendChild(b); }); qs.appendChild(qb);
+  day.insertBefore(dgHead('practice','❓','Questions','أسئلة'),dec); day.insertBefore(qs,dec);
+  // LEARN: what is left of "Core actions" becomes the desk reference
+  var h4=core.querySelector('h4'); if(h4){ h4.setAttribute('data-en','Desk reference'); h4.setAttribute('data-ar','مرجع المكتب'); h4.textContent=cycleAr()?'مرجع المكتب':'Desk reference'; }
+  panel.setAttribute('data-dg-ready','1'); dgCommRender(k);
+}
+(function(){ var o=dtabInit; dtabInit=function(k){ o.apply(this,arguments); try{ if(DG_ON.indexOf(k)>=0) dgInit(k); }catch(e){ if(window.console) console.error('dgInit',k,e); } }; })();
+(function(){ var o=liveMiniRender; liveMiniRender=function(){ o.apply(this,arguments); try{ dgCommAll(); }catch(e){} }; })();
+(function(){ var o=mtMiniRender; mtMiniRender=function(k){ o.apply(this,arguments); try{ dgCommAll(); }catch(e){} }; })();
+function dgRhFix(){
+  var ar=cycleAr();
+  DG_ON.forEach(function(k){
+    var el=document.querySelector('.desk-card.rhythm[data-desk="'+k+'"]'); if(!el||CLOSE_ON.indexOf(k)<0) return;
+    var m=el.querySelectorAll('.rh-tab')[2]; if(m){ var sm=m.querySelector('small'); if(sm) sm.textContent='→'; }
+    if((RHS.tab[k]||'d')==='m'){ var list=el.querySelector('.rh-list'); if(list) list.innerHTML='<button type="button" class="desk-action" onclick="clOpen(\''+k+'\')"><strong>🧾 '+(ar?'قايمة إقفال الشهر الكاملة':'The full month-end close checklist')+'</strong><span>'+(ar?'خطوات مرتبة بمسؤول وموعد، ومطابقة من جدول مكتبك، وقرارين فخ':'Ordered steps with an owner and a deadline, a reconciliation from your desk’s sheet and two judgement calls')+'</span></button>'; }
+  });
+}
+(function(){ var o=rhRender; rhRender=function(){ o.apply(this,arguments); try{ dgRhFix(); }catch(e){} }; })();
+
+/* ===== "Test yourself" card on every desk, with progress; the quiz and Spot the Error now count in My Day and the pulse ===== */
+PW.quiz={cmp:2.5,trs:1};
+PW.spot={ctl:1.5,cmp:1};
+ACT_TOOLS.quiz=['🏆','Mastery quiz','اختبار الإتقان'];
+ACT_TOOLS.spot=['🔍','Spot the error','اكتشف الغلط'];
+const DQ_META={
+ spot:['🔍','Spot the Error','اكتشف الغلط','Find the mistake in a real document','اكتشف الغلط في مستند حقيقي'],
+ quiz:['🏆','Mastery Quiz','اختبار الإتقان','Check what you know on this desk','اختبر معلوماتك في المكتب ده'],
+ fraud:['🕵️','Fraud Catcher','صائد الاحتيال','Catch the scheme before the money moves','امسك الحيلة قبل ما الفلوس تتصرف'],
+ 'fraud-cash':['🕵️','Fraud Catcher — Cash & cashier','صائد الاحتيال — الكاش والكاشير','Schemes around cash handling','حيل حوالين التعامل مع الكاش'],
+ 'fraud-bank':['🕵️','Fraud Catcher — Bank & reconciliation','صائد الاحتيال — البنك والتسويات','Schemes around bank accounts and reconciliations','حيل حوالين حسابات البنك والتسويات']
+};
+function dqTools(k){
+  var out=[];
+  if(document.getElementById(k+'-spot-error')&&typeof spotScenariosFor==='function'&&spotScenariosFor(k).length) out.push({t:'spot',p:k+'-spot-error'});
+  if(typeof QUIZ_BANKS!=='undefined'&&QUIZ_BANKS[k]&&document.getElementById(k+'-quiz')) out.push({t:'quiz',p:k+'-quiz'});
+  if(document.getElementById(k+'-fraud')) out.push({t:'fraud',p:k+'-fraud'});
+  else{ if(document.getElementById(k+'-fraud-cash')) out.push({t:'fraud-cash',p:k+'-fraud-cash'}); if(document.getElementById(k+'-fraud-bank')) out.push({t:'fraud-bank',p:k+'-fraud-bank'}); }
+  return out;
+}
+function dqChip(k,x,ar){
+  if(x.t==='quiz'){ var n=QUIZ_BANKS[k].length, st=(typeof quizState!=='undefined')?quizState[k]:null; return (st&&st.best>0)?(ar?('أفضل نتيجة '+st.best+'/'+n+(st.passed?' · ✓ نجحت':' · محتاج 70%')):('Best '+st.best+'/'+n+(st.passed?' · ✓ passed':' · need 70%'))):(ar?('لسه ماخدتش · '+n+' سؤال'):('Not taken yet · '+n+' questions')); }
+  if(x.t==='spot'){ var tot=spotScenariosFor(k).length, arr=(typeof fullCoverage!=='undefined'&&fullCoverage.spot&&fullCoverage.spot[k])||[], solved=0; for(var i=0;i<arr.length;i++) if(arr[i]) solved++; solved=Math.min(solved,tot); return ar?(solved+' من '+tot+' اتحلّوا'):(solved+' of '+tot+' solved'); }
+  var c=document.querySelectorAll('#'+x.p+' details').length; return ar?(c+' حيلة'):(c+' schemes');
+}
+function dqRender(k){
+  var box=document.querySelector('#quest-'+k+' .desk-actions'); if(!box) return; var ar=cycleAr();
+  Array.prototype.slice.call(box.querySelectorAll('[data-dq]')).forEach(function(e){ e.remove(); });
+  var first=box.firstChild;
+  dqTools(k).forEach(function(x){ var m=DQ_META[x.t], chipEn=dqChip(k,x,false), chipAr=dqChip(k,x,true); var b=dgAct(m[0],m[1],m[2],m[3]+' · '+chipEn,m[4]+' · '+chipAr,"showPanel('"+x.p+"')"); b.setAttribute('data-dq',x.t); box.insertBefore(b,first); });
+}
+function dqRenderAll(){ if(typeof MB_DESKS!=='undefined') MB_DESKS.forEach(function(d){ dqRender(d.k); }); }
+function dqInit(k){
+  var panel=document.getElementById(k+'-home'); if(!panel||panel.getAttribute('data-dq-ready')) return;
+  var day=panel.querySelector('.desk-day'); if(!day) return;
+  if(!document.getElementById('quest-'+k)){
+    var dec=Array.prototype.filter.call(day.children,function(c){ return c.querySelector&&c.querySelector(':scope > .decision-grid'); })[0];
+    var card=dgCard('quest-card','quest-'+k,'practice','🧠 Test yourself','🧠 اختبر نفسك','Spot mistakes, catch fraud, check what you know','اكتشف الغلط، وامسك الاحتيال، واختبر معلوماتك'); var bx=dgBox(); card.appendChild(bx); var ifrsBtn=panel.querySelector('button.desk-action-ifrs'); if(ifrsBtn) bx.appendChild(ifrsBtn);
+    var head=dgHead('practice','❓','Questions','أسئلة');
+    if(dec){ day.insertBefore(head,dec); day.insertBefore(card,dec); } else { day.appendChild(head); day.appendChild(card); }
+    var hand=panel.querySelector('.desk-handoff'), ms=day.querySelectorAll(':scope > .full-mission-card');
+    if(ms.length) day.insertBefore(dgHead('practice','🎯','Practice','تدريب'),ms[0]);
+    if(hand) day.insertBefore(hand,head);
+  }
+  panel.setAttribute('data-dq-ready','1'); dqRender(k);
+}
+function dqLogQuiz(st){
+  var bank=(typeof QUIZ_BANKS!=='undefined')?QUIZ_BANKS[st]:null; if(!bank) return; var ok=0, answered=0;
+  bank.forEach(function(it,i){ var p=document.querySelector('input[name="quiz-'+st+'-'+i+'"]:checked'); if(p){ answered++; if(Number(p.value)===it.c) ok++; } });
+  if(answered<Math.ceil(bank.length/2)) return;
+  if(liveOnce('quiz-'+st)) actLog('quiz',st,Math.round(ok/bank.length*6),6,'quiz',{e:'Mastery quiz: '+ok+'/'+bank.length,a:'اختبار الإتقان: '+ok+'/'+bank.length});
+}
+var DQ_SPOT={};
+function dqSpotTrack(k,ok){
+  var s=DQ_SPOT[k]||(DQ_SPOT[k]={n:0,ok:0}); s.n++; if(ok) s.ok++;
+  if(s.n<5) return;
+  var okc=s.ok; s.n=0; s.ok=0;
+  var today=actList().filter(function(x){ return x.tool==='spot'&&x.desk===k&&x.d===actDay(); }).length;
+  if(today<4) actLog('spot',k,okc,5,'spot',{e:'Spot the error: '+okc+'/5',a:'اكتشف الغلط: '+okc+'/5'});
+}
+(function(){ var o=dtabInit; dtabInit=function(k){ o.apply(this,arguments); try{ dqInit(k); }catch(e){ if(window.console) console.error('dqInit',k,e); } }; })();
+(function(){ var o=showPanel; showPanel=function(id){ var r=o.apply(this,arguments); try{ var m=/^(\w+)-home$/.exec(String(id)); if(m&&document.getElementById('quest-'+m[1])) dqRender(m[1]); }catch(e){} return r; }; })();
+(function(){ var o=quizSubmit; quizSubmit=function(st){ var r=o.apply(this,arguments); try{ dqLogQuiz(st); dqRender(st); }catch(e){} return r; }; })();
+(function(){ var o=spotRenderCompletion; spotRenderCompletion=function(k){ var r=o.apply(this,arguments); try{ dqRender(k); }catch(e){} return r; }; })();
+(function(){ var o=spotAnswerFor; spotAnswerFor=function(k,i){ var ok=false; try{ ok=!!JSON.parse(document.getElementById(k+'-spot-scenario').dataset.opts)[i].ok; }catch(e){} var r=o.apply(this,arguments); try{ var sel=document.getElementById(k+'-spot-scenario'), sk=((typeof spotIndexByDesk!=='undefined')?spotIndexByDesk[k]:0)+':'+(sel?sel.dataset.scenarioIdx:''); if(!sel||sel.dataset.dqSeen!==sk){ if(sel) sel.dataset.dqSeen=sk; dqSpotTrack(k,ok); } dqRender(k); }catch(e){} return r; }; })();
+
 /* ===== Reorganisation: tools open as pages, and desk pages split into tabs ===== */
 function learnChromeTune(id){
   var p=document.getElementById(id); if(!p) return;
@@ -26319,7 +26469,7 @@ function homeRenderWeakAreas(){
       const best = (typeof quizState!=='undefined' && quizState[s]) ? quizState[s].best||0 : 0;
       return `<div class="weak-item" style="--dept-color:${m.color};--dept-soft:${m.soft}" onclick="showPanel('${s}-quiz')">
         <span class="wi-icon" style="background:${m.soft}">${m.icon}</span>
-        <div class="wi-body"><strong>${ar?m.ar_:m.en}</strong><span>${ar?'أفضل نتيجة: ':'Best score: '}${best}/10</span></div>
+        <div class="wi-body"><strong>${ar?m.ar_:m.en}</strong><span>${ar?'أفضل نتيجة: ':'Best score: '}${best}/${(typeof QUIZ_BANKS!=='undefined'&&QUIZ_BANKS[s])?QUIZ_BANKS[s].length:20}</span></div>
         <span class="wi-cta">${ar?'اختبر نفسك ←':'Take the quiz →'}</span>
       </div>`;
     }).join('');
@@ -27177,7 +27327,7 @@ function quizRender(station){
   const bestScore = quizState[station] ? quizState[station].best : 0;
   let html = '';
   if(passed){
-    html += `<div class="msg msg-success">🏆 ${ar?'إتقان مُحرز! أفضل نتيجة: ':'Mastery earned! Best score: '}${bestScore}/10</div>`;
+    html += `<div class="msg msg-success">🏆 ${ar?'إتقان مُحرز! أفضل نتيجة: ':'Mastery earned! Best score: '}${bestScore}/${bank.length}</div>`;
   }
   html += bank.map((item,i)=>{
     const opts = ar?item.o.ar:item.o.en;
@@ -27826,6 +27976,8 @@ function setLanguage(lang){
  if(typeof shRenderAll === 'function') shRenderAll();
  if(typeof mtRender === 'function'){ mtRender(); mtMiniAll(); }
  if(typeof plRenderStrip === 'function'){ plRenderStrip(); if(NW&&NW.id) newsRender(); }
+ if(typeof dgCommAll === 'function'){ dgCommAll(); if(typeof rhRender==='function') rhRender(); }
+ if(typeof dqRenderAll === 'function') dqRenderAll();
  if(typeof clRenderAll === 'function') clRenderAll();
  ['ap','inv','hr','bank'].forEach(k=>{if(typeof masterUpdate === 'function') masterUpdate(k)});
  if(typeof updateAccountingInbox === 'function') updateAccountingInbox();
@@ -31266,6 +31418,12 @@ body.dark-mode .pl-alert{background:#3a1c1b;color:#f6c4c0}body.dark-mode .pl-war
 body.dark-mode .pl-sw i{background:rgba(255,255,255,.22)}
 body.dark-mode .pl-sw.on i{background:#34c38f}
 body.dark-mode .pl-sw.on{border-color:#34c38f}
+
+/* ===== Desk sections ===== */
+.dg-sec{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:18px 0 8px;padding:0 0 6px;border-bottom:2px solid var(--line-strong);font-weight:800;font-size:15px;color:var(--ink)}
+.dg-sec:first-child{margin-top:4px}
+.comm-card{grid-column:1/-1;padding:12px}
+
 
 /* ===== Ask Ayman (hint lifeline) ===== */
 .ay-btn{position:fixed;bottom:14px;inset-inline-start:14px;z-index:2147483200;display:flex;align-items:center;gap:6px;height:44px;padding:0 10px;border-radius:999px;border:2px solid #fff;background:linear-gradient(135deg,#d9534f,#b83227);color:#fff;font-family:inherit;font-weight:800;font-size:13px;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:pointer}
