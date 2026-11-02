@@ -21006,6 +21006,109 @@ setInterval(function(){
 },1500);
 try{ heroRender(); }catch(e){}
 
+/* ===== Floating buttons: Ayman and the documents button can be dragged and snap to an edge; the unreported-mistake badge follows Ayman ===== */
+const FB_M=12, FB_TOP=64, FB_THR=8;
+const FB_IDS={ay:'ayBtn',dk:'docsFab'};
+var FB={drag:null,last:0,sig:''};
+function fbT(en,ar){ return cycleAr()?ar:en; }
+function fbEl(k){ return document.getElementById(FB_IDS[k]); }
+function fbAll(){ var s=actGet('ah-fb',null); return (s&&typeof s==='object'&&!Array.isArray(s))?s:{}; }
+function fbRec(k){ var r=fbAll()[k]; return (r&&(r.s==='l'||r.s==='r')&&typeof r.y==='number'&&isFinite(r.y))?{s:r.s,y:Math.min(1,Math.max(0,r.y))}:null; }
+function fbHas(k){ return !!fbRec(k); }
+function fbSave(k,rec){ var s=fbAll(); if(rec) s[k]=rec; else delete s[k]; actSet('ah-fb',s); }
+function fbVW(){ return document.documentElement.clientWidth||window.innerWidth; }
+function fbRange(el){ var h=el.offsetHeight||44, vh=window.innerHeight; return {min:FB_TOP,max:Math.max(FB_TOP,vh-h-FB_M)}; }
+/* write the logical (inline-start/end) properties FIRST: written after left/right they would cancel them */
+function fbPlace(el,h,v){
+  el.style.insetInlineStart='auto'; el.style.insetInlineEnd='auto';
+  if(h.l!==null){ el.style.left=h.l+'px'; el.style.right='auto'; } else { el.style.right=h.r+'px'; el.style.left='auto'; }
+  el.style.top=v+'px'; el.style.bottom='auto';
+}
+function fbVisible(el){ return !!el&&!el.hidden&&getComputedStyle(el).display!=='none'; }
+/* put a button where its saved record says; a button that was never dragged is left to the page's own CSS */
+function fbApply(k){
+  var el=fbEl(k), rec=fbRec(k); if(!el||!rec) return; var rg=fbRange(el), top=Math.round(rg.min+(rg.max-rg.min)*rec.y);
+  fbPlace(el,rec.s==='l'?{l:FB_M,r:null}:{l:null,r:FB_M},top);
+}
+/* the nearest free vertical slot on the chosen edge, so the three floating things never sit on each other */
+function fbFree(k,top,side,w,h,rg){
+  var left=side==='l'?FB_M:fbVW()-w-FB_M, others=[];
+  ['ay','dk'].forEach(function(o){ if(o===k) return; var e=fbEl(o); if(fbVisible(e)) others.push(e.getBoundingClientRect()); });
+  var hit=function(t){ return others.some(function(o){ return !(left+w+6<=o.left||left>=o.right+6||t+h+6<=o.top||t>=o.bottom+6); }); };
+  if(!hit(top)) return top;
+  for(var s=8;s<=window.innerHeight+fbVW();s+=8){ var up=top-s, dn=top+s; if(up>=rg.min&&!hit(up)) return up; if(dn<=rg.max&&!hit(dn)) return dn; }
+  return top;
+}
+function fbCommit(k,side,top,animate){
+  var el=fbEl(k); if(!el) return; var rg=fbRange(el), w=el.offsetWidth, h=el.offsetHeight, vw=fbVW();
+  top=Math.min(Math.max(top,rg.min),rg.max); top=fbFree(k,top,side,w,h,rg);
+  fbSave(k,{s:side,y:rg.max>rg.min?(top-rg.min)/(rg.max-rg.min):0});
+  if(animate){ el.classList.add('fb-snap'); fbPlace(el,{l:(side==='l'?FB_M:vw-w-FB_M),r:null},top); setTimeout(function(){ el.classList.remove('fb-snap'); fbApply(k); fbBadge(); },230); }
+  else { fbApply(k); fbBadge(); }
+}
+function fbCurrent(k){ var el=fbEl(k), r=el.getBoundingClientRect(), rg=fbRange(el); return {s:(r.left+r.width/2<fbVW()/2)?'l':'r',y:rg.max>rg.min?Math.min(1,Math.max(0,(r.top-rg.min)/(rg.max-rg.min))):0}; }
+function fbBind(k){
+  var el=fbEl(k); if(!el) return false; if(el.__fb) return true; el.__fb=true;
+  el.__fb0={}; ['top','bottom','left','right','insetInlineStart','insetInlineEnd'].forEach(function(p){ el.__fb0[p]=el.style[p]; });
+  el.style.touchAction='none'; el.style.webkitUserSelect='none'; el.style.userSelect='none';
+  el.addEventListener('pointerdown',function(e){ if(e.pointerType==='mouse'&&e.button!==0) return; var r=el.getBoundingClientRect(); FB.drag={k:k,id:e.pointerId,x:e.clientX,y:e.clientY,l:r.left,t:r.top,moved:false}; try{ el.setPointerCapture(e.pointerId); }catch(x){} });
+  el.addEventListener('pointermove',function(e){
+    var d=FB.drag; if(!d||d.k!==k||d.id!==e.pointerId) return; var dx=e.clientX-d.x, dy=e.clientY-d.y;
+    if(!d.moved){ if(Math.hypot(dx,dy)<FB_THR) return; d.moved=true; el.classList.remove('fb-snap'); el.classList.add('fb-dragging'); }
+    var w=el.offsetWidth, h=el.offsetHeight, L=Math.min(Math.max(0,d.l+dx),fbVW()-w), T=Math.min(Math.max(0,d.t+dy),window.innerHeight-h);
+    fbPlace(el,{l:L,r:null},T); e.preventDefault();
+  });
+  var end=function(e){
+    var d=FB.drag; if(!d||d.k!==k||d.id!==e.pointerId) return; FB.drag=null; try{ el.releasePointerCapture(e.pointerId); }catch(x){} el.classList.remove('fb-dragging');
+    if(d.moved){ FB.last=Date.now(); var r=el.getBoundingClientRect(); fbCommit(k,(r.left+r.width/2<fbVW()/2)?'l':'r',r.top,true); }
+  };
+  el.addEventListener('pointerup',end); el.addEventListener('pointercancel',end);
+  el.addEventListener('keydown',function(e){
+    var key=e.key; if(key==='Home'){ fbReset(k); e.preventDefault(); return; }
+    if(key!=='ArrowLeft'&&key!=='ArrowRight'&&key!=='ArrowUp'&&key!=='ArrowDown') return; e.preventDefault();
+    var rec=fbRec(k)||fbCurrent(k), rg=fbRange(el), span=Math.max(1,rg.max-rg.min);
+    if(key==='ArrowLeft') rec.s='l'; else if(key==='ArrowRight') rec.s='r'; else rec.y=Math.min(1,Math.max(0,rec.y+(key==='ArrowDown'?24:-24)/span));
+    fbCommit(k,rec.s,rg.min+span*rec.y,false);
+  });
+  return true;
+}
+/* a click that ends a drag must not also open the button */
+document.addEventListener('click',function(e){ if(FB.last&&Date.now()-FB.last<350){ var t=e.target; if(t&&t.closest&&(t.closest('#ayBtn')||t.closest('#docsFab'))){ e.stopPropagation(); e.preventDefault(); } } },true);
+function fbReset(k){
+  (k?[k]:['ay','dk']).forEach(function(x){ var el=fbEl(x); fbSave(x,null); if(el&&el.__fb0){ for(var p in el.__fb0) el.style[p]=el.__fb0[p]; } });
+  try{ ayAvoid(); }catch(e){} fbBadge();
+}
+/* the unreported-mistake badge sits next to Ayman, on the side that has room, and never on the documents button */
+function fbBadge(){
+  var b=document.getElementById('mmqFab'), a=fbEl('ay'); if(!b||!a||!fbVisible(b)||!fbVisible(a)) return;
+  var ar=a.getBoundingClientRect(), bw=b.offsetWidth, bh=b.offsetHeight, vw=fbVW(), vh=window.innerHeight, gap=8, left=(ar.left+ar.width/2)<vw/2;
+  var dk=fbEl('dk'), dr=fbVisible(dk)?dk.getBoundingClientRect():null, bx=left?Math.max(FB_M,ar.left):Math.max(FB_M,vw-ar.right), cand=[ar.top-gap-bh,ar.bottom+gap], pick=null;
+  for(var i=0;i<cand.length;i++){ var t=cand[i]; if(t<FB_TOP||t+bh>vh-FB_M) continue; var L=left?bx:vw-bx-bw; if(dr&&!(L+bw<=dr.left||L>=dr.right||t+bh<=dr.top||t>=dr.bottom)) continue; pick=t; break; }
+  if(pick===null) pick=Math.min(Math.max(cand[0],FB_TOP),vh-bh-FB_M);
+  fbPlace(b,left?{l:Math.round(bx),r:null}:{l:null,r:Math.round(bx)},Math.round(pick));
+}
+function fbSync(force){
+  if(FB.drag) return; var sig=[window.innerWidth,window.innerHeight,JSON.stringify(fbAll()),!!fbEl('ay'),!!fbEl('dk'),cycleAr()?1:0].join('|');
+  var a=fbEl('ay'), d=fbEl('dk');
+  if(a){ var t=fbT('Ask Ayman · drag to move','اسأل أيمن · اسحب لتحريكه'); if(a.title!==t) a.title=t; }
+  if(d){ var l=fbT('Document forms','نماذج المستندات'); if(d.getAttribute('aria-label')!==l){ d.setAttribute('aria-label',l); d.title=l+fbT(' · drag to move',' · اسحب لتحريكه'); } }
+  if(!force&&sig===FB.sig) return; FB.sig=sig; ['ay','dk'].forEach(function(k){ if(fbBind(k)) fbApply(k); }); fbBadge();
+}
+function fbPanelNote(){
+  var c=document.getElementById('ayCard'); if(!c||c.querySelector('.ay-fbnote')) return;
+  c.insertAdjacentHTML('beforeend','<div class="ay-fbnote"><p>'+fbT('💡 If a floating button blocks something, drag it anywhere (🆘 or 📄). It remembers its place.','💡 لو زرار عايم حاجب حاجة، اسحبه لأي مكان (🆘 أو 📄) وهيفتكر مكانه.')+'</p><button type="button" onclick="fbReset()">↺ '+fbT('Reset button positions','إعادة مكان الأزرار')+'</button></div>');
+}
+(function(){ var o=ayAvoid; ayAvoid=function(){ if(fbHas('ay')) return; return o.apply(this,arguments); }; ayAvoid._r=o._r; })();
+(function(){ var o=ayRender; ayRender=function(){ var r=o.apply(this,arguments); try{ fbPanelNote(); }catch(e){} return r; }; })();
+(function(){ var o=mmqBadge; mmqBadge=function(){ var r=o.apply(this,arguments); try{ fbBadge(); }catch(e){} return r; }; })();
+(function(){ var o=setLanguage; setLanguage=function(){ var r=o.apply(this,arguments); try{ fbSync(true); }catch(e){} return r; }; })();
+window.addEventListener('resize',function(){ fbSync(true); });
+window.addEventListener('orientationchange',function(){ setTimeout(function(){ fbSync(true); },250); });
+document.addEventListener('DOMContentLoaded',function(){ fbSync(true); });
+window.addEventListener('load',function(){ fbSync(true); });
+setInterval(function(){ try{ fbSync(false); }catch(e){} },1000);
+try{ fbSync(true); }catch(e){}
+
 /* ===== Reorganisation: tools open as pages, and desk pages split into tabs ===== */
 function learnChromeTune(id){
   var p=document.getElementById(id); if(!p) return;
@@ -32138,6 +32241,16 @@ body.dark-mode .mmq-fab{background:#3a2c10;color:#ffe2ad}
 body.dark-mode .mmq-fab.hot{background:#3a1c19;color:#ffcfc7}
 body.dark-mode .mmq-day{background:#3a2c10;color:#ffe2ad}
 body.dark-mode .mmq-day.hot{background:#3a1c19;color:#ffcfc7}
+
+/* ===== Floating buttons: drag, snap and the note inside Ayman's panel ===== */
+.ay-btn,#docsFab{touch-action:none;-webkit-user-select:none;user-select:none}
+.fb-dragging{cursor:grabbing!important;transform:scale(1.08)!important;box-shadow:0 10px 26px rgba(0,0,0,.45)!important;transition:none!important}
+.fb-snap{transition:left .22s ease,top .22s ease!important}
+.ay-fbnote{margin:6px 18px 16px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18);font-size:12px;line-height:1.55;color:#b8c7dc}
+.ay-fbnote p{margin:0 0 8px}
+.ay-fbnote button{padding:5px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.ay-fbnote button:hover,.ay-fbnote button:focus-visible{background:rgba(255,255,255,.14);outline:none}
+
 
 
 
