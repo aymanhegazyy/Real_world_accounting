@@ -22127,6 +22127,7 @@ function ffRender(){
    +'<div class="sn-actions ff-act"><button type="button" class="sn-btn alt" onclick="ffCsv()">⬇ CSV ('+ffE(ffT(['opens in Excel','بيفتح في Excel']))+')</button><button type="button" class="sn-btn alt" onclick="ffFile()">⬇ '+ffE(ffT(['Printable file','ملف للطباعة']))+'</button><button type="button" class="sn-btn alt" id="ffReset" onclick="ffReset()">↺ '+ffE(ffT(['Clear the form','امسح النموذج']))+'</button></div><p class="sn-note" id="ffMsg" aria-live="polite"></p>';
   h+='<div class="sn-actions ff-rel"><button type="button" class="sn-btn alt" onclick="sopOpen(\''+f.doc+'\',\'forms\')">📑 '+ffE(ffT(['Open the policy','افتح السياسة']))+' · '+ffE(f.doc)+'</button>'+(f.rel||[]).filter(function(c){ return FF_FORMS[c]; }).map(function(c){ return '<button type="button" class="sn-btn alt" onclick="ffOpen(\''+c+'\')">📝 '+ffE(ffT(FF_FORMS[c].t))+'</button>'; }).join('')+'</div>';
   body.innerHTML=h; ffStamp(); ffRefresh();
+  try{ if(currentPanelId==='learn-form'&&typeof learnChromeTune==='function') learnChromeTune('learn-form'); }catch(e){}   /* the page title follows the form that is open */
 }
 function ffPurpose(code){ var fx=FF_FORMS[code]; if(fx&&fx.p) return fx.p; var m={'POL-FRD-01-F01':['Records the concern and who raised it.','بيسجّل الشكوى واللي بلّغ عنها.'],'POL-FRD-01-F03':['Stops a payment under review.','بيوقّف دفعة تحت المراجعة.'],'POL-CLS-01-F04':['Approval to reopen a locked period.','اعتماد لفتح فترة مقفولة.'],'POL-CLS-01-F03':['Sub-ledger to GL tie-out with open items.','مطابقة الأستاذ المساعد بالأستاذ العام مع البنود المفتوحة.'],'POL-MDM-01-F02':['Records the call-back and the approver.','بيسجّل مكالمة التأكيد والمعتمد.'],'POL-MDM-01-F01':['Requests a creation or change with documents.','بيطلب إنشاء أو تعديل بمستندات.'],'TR-01-F02':['Captures payment details, documents and dual approval.','بيسجّل تفاصيل الدفعة والمستندات والاعتماد الثنائي.'],'GL-01-F01':['Captures journal details, support and approvals.','بيسجّل تفاصيل القيد والمستندات والاعتمادات.'],'DOA-01-F01':['Documents delegate, scope and exact date range during absence.','بيوثّق المفوَّض والنطاق والتواريخ بالظبط أثناء الغياب.'],'DOA-01-F02':['One-off request to exceed a standing limit, with GM/Board sign-off.','طلب لمرة واحدة لتجاوز حد دائم، بموافقة المدير العام / المجلس.'],'POL-PCE-01-F01':['Records a payment with approval and receipt.','بيسجّل دفعة بالاعتماد والإيصال.'],'INV-01-F04':['Documents discrepancies and required approvals.','بيوثّق الفروق والاعتمادات المطلوبة.']}; return m[code]||['',''];
 }
@@ -22291,6 +22292,25 @@ function fdRender(){
 document.addEventListener('DOMContentLoaded',function(){ try{ fdRender(); }catch(e){} });
 window.addEventListener('load',function(){ try{ fdRender(); }catch(e){} });
 try{ fdRender(); }catch(e){}
+
+
+/* ===== Phone: label every cell of the document tables with its column title, so a row can stand alone as a card ===== */
+function mfLabel(){
+  var ar=cycleAr(), tabs=document.querySelectorAll('#learn-sops .sop-doc table.sop-proc-table, #learn-sops .sop-doc table.sop-forms-table');
+  tabs.forEach(function(t){ var hs=Array.prototype.slice.call(t.querySelectorAll('thead th')).map(function(h){ return String(h.getAttribute(ar?'data-ar':'data-en')||h.textContent||'').trim(); });
+    t.querySelectorAll('tbody tr').forEach(function(r){ Array.prototype.forEach.call(r.children,function(td,i){ if(hs[i]) td.setAttribute('data-label',hs[i]); }); }); });
+}
+(function(){ var o=hbBuild; hbBuild=function(){ var r=o.apply(this,arguments); try{ mfLabel(); }catch(e){} return r; }; })();
+(function(){ var o=setLanguage; setLanguage=function(){ var r=o.apply(this,arguments); try{ mfLabel(); }catch(e){} return r; }; })();
+(function(){ var o=ffPartC; ffPartC=function(){ var r=o.apply(this,arguments); try{ mfLabel(); }catch(e){} return r; }; })();
+try{ if(HB.built) mfLabel(); }catch(e){}
+
+
+/* ===== Forms: save the pending draft at once when the student leaves ===== */
+function ffFlush(){ try{ if(FF.timer){ clearTimeout(FF.timer); FF.timer=null; ffSaveNow(); } }catch(e){} }
+document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden') ffFlush(); });
+window.addEventListener('pagehide',ffFlush);
+document.addEventListener('focusout',function(e){ if(e.target&&e.target.closest&&e.target.closest('#ffBody')) ffFlush(); },true);
 
 /* ===== Reorganisation: tools open as pages, and desk pages split into tabs ===== */
 function learnChromeTune(id){
@@ -33532,6 +33552,47 @@ body.dark-mode .fd-go,body.dark-mode .fd-go:hover,body.dark-mode .fd-go:visited,
 /* the floating Ayman button sits over the bottom of the sidebar: leave room under the last entry so that it can be reached by scrolling */
 .sidebar{padding-bottom:84px !important;scroll-padding-bottom:84px}
 @media print{.fd-card,.fd-side,.fd-about{display:none!important}}
+
+/* ===== Phone fixes: nothing may be cut or hidden on a narrow screen ===== */
+@media (max-width:639px){
+ /* the header: the logo starts after the fixed menu button (it was under it), and the controls wrap to a second line instead of running off the screen */
+ header{flex-wrap:wrap !important;row-gap:10px;padding-inline:14px !important;position:relative}
+ header .logo{min-width:0;flex:1 1 100%;padding-inline-start:52px;min-height:44px;display:flex;flex-direction:column;justify-content:center}
+ header > div[style*="display:flex"]{width:100%;justify-content:space-between;gap:10px !important;flex-wrap:nowrap}
+ header .display-toggles{display:flex;gap:6px;flex-wrap:nowrap}
+ /* the form's control block: label and value as pairs, wrapping, never wider than the card */
+ .ff-ctl,.ff-ctl tbody{display:block;width:100%;box-sizing:border-box}
+ .ff-ctl tr{display:grid;grid-template-columns:minmax(92px,38%) minmax(0,1fr)}
+ .ff-ctl th,.ff-ctl td{display:block;white-space:normal;overflow-wrap:anywhere;min-width:0;width:auto}
+ .ff-ctl th{width:auto}
+ /* Part C of the handbook: each row becomes a card, so no column is cut at the edge */
+ .hb-scroll{overflow:visible !important}
+ .hb-forms-table{display:block;min-width:0 !important;width:100%}
+ .hb-forms-table thead{display:none}
+ .hb-forms-table tbody{display:block}
+ .hb-forms-table tr:not(.hb-sub){display:flex;flex-direction:column;gap:5px;padding:12px;margin:0 0 10px;border:1.5px solid var(--line);border-radius:12px;background:var(--card)}
+ .hb-forms-table tr:not(.hb-sub) td{display:block;border:0 !important;padding:0 !important;width:auto !important;min-width:0}
+ .hb-forms-table tr:not(.hb-sub) td:nth-child(1){order:1;font-size:11.5px;font-weight:700;color:var(--muted)}
+ .hb-forms-table tr:not(.hb-sub) td:nth-child(2){order:2;font-size:14px;font-weight:800;line-height:1.35}
+ .hb-forms-table tr:not(.hb-sub) td:nth-child(3){order:3;font-size:12.5px;line-height:1.5;color:var(--muted)}
+ .hb-forms-table tr:not(.hb-sub) td:nth-child(4){order:4;margin-top:4px}
+ .hb-forms-table tr.hb-sub{display:block}
+ .hb-forms-table tr.hb-sub td{display:block;padding:9px 10px;white-space:normal !important;overflow-wrap:anywhere}
+ .hb-forms-table tr.hb-sub small{display:block;white-space:normal !important;margin-top:2px}
+ /* the tables inside every document (steps, appendix of forms): a row is a card; each value is preceded by its column title */
+ #learn-sops .sop-doc table.sop-proc-table,#learn-sops .sop-doc table.sop-forms-table,#learn-sops .sop-doc table.sop-proc-table tbody,#learn-sops .sop-doc table.sop-forms-table tbody{display:block;width:100%;min-width:0;box-sizing:border-box}
+ #learn-sops .sop-doc table.sop-proc-table thead,#learn-sops .sop-doc table.sop-forms-table thead{display:none}
+ #learn-sops .sop-doc table.sop-proc-table tr,#learn-sops .sop-doc table.sop-forms-table tr{display:flex;flex-direction:column;gap:4px;padding:10px 12px;margin:0 0 8px;border:1.5px solid var(--line);border-radius:10px;background:var(--card)}
+ #learn-sops .sop-doc table.sop-proc-table td,#learn-sops .sop-doc table.sop-forms-table td{display:block;border:0 !important;padding:0 !important;width:auto !important;min-width:0;overflow-wrap:anywhere}
+ #learn-sops .sop-doc table.sop-proc-table td[data-label]::before,#learn-sops .sop-doc table.sop-forms-table td[data-label]::before{content:attr(data-label);display:block;font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
+ #learn-sops .sop-doc table.sop-proc-table td:first-child:not(:only-child){font-weight:800}
+ /* the step number sits on one line with its title ("# 1"), not on two */
+ #learn-sops .sop-doc table.sop-proc-table tr td:first-child[data-label="#"]{display:flex;gap:6px;align-items:baseline}
+ #learn-sops .sop-doc table.sop-proc-table tr td:first-child[data-label="#"]::before{margin-bottom:0}
+ /* the alternate-row shading of the table must not paint half of the cards' lines */
+ #learn-sops .sop-doc table.sop-proc-table tr:nth-child(2n) td,#learn-sops .sop-doc table.sop-forms-table tr:nth-child(2n) td{background:transparent !important}
+}
+
 
 
 .hb-subn{color:var(--muted);font-weight:700}
