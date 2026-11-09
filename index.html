@@ -13283,7 +13283,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
   
     <div class="cycle-pipeline" style="margin-top:20px">
       <h4 data-en="✍️ Do it yourself — Record Actual Spend Against Budget" data-ar="✍️ اعملها بنفسك — سجّل الصرف الفعلي مقابل الموازنة">✍️ Do it yourself — Record Actual Spend Against Budget</h4>
-      <p class="stage-note" data-en="Pick a real budget line, record real spend, and the system checks it against the remaining annual budget." data-ar="اختار بند موازنة حقيقي، سجّل صرف حقيقي، والنظام بيفحصه مقابل الموازنة السنوية المتبقية.">Pick a real budget line, record real spend, and the system checks it against the remaining annual budget.</p>
+      <p class="stage-note" data-en="Pick a real budget line and record real spend. Spend above the approved annual budget is not recorded until a budget revision is approved (SOP-BC-01)." data-ar="اختار بند موازنة حقيقي وسجّل صرف حقيقي. الصرف اللي بيعدّي الموازنة السنوية المعتمدة مابيتسجّلش لحد ما يتعتمد تعديل موازنة (SOP-BC-01).">Pick a real budget line and record real spend. Spend above the approved annual budget is not recorded until a budget revision is approved (SOP-BC-01).</p>
 
       <div class="cycle-stage">
         <h4 data-en="Record Actual Spend" data-ar="تسجيل الصرف الفعلي">Record Actual Spend</h4>
@@ -13292,7 +13292,7 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
           <div class="field"><label data-en="Amount Spent (EGP)" data-ar="المبلغ المصروف (جنيه)">Amount Spent (EGP)</label><input type="number" id="bc-s-amount" min="0" step="1"></div>
         </div>
         <div class="workflow-bar"><button class="btn btn-primary" onclick="bcRecordSpend()" data-en="Record Spend" data-ar="تسجيل الصرف">Record Spend</button></div>
-        <div id="bc-s-result" aria-live="polite"></div>
+        <div id="bc-s-result" aria-live="polite"></div> <div id="bc-rev" class="cycle-stage" hidden><h4 data-en="Budget revision needed" data-ar="محتاج تعديل موازنة">Budget revision needed</h4><p class="stage-note" id="bc-rev-note"></p><div class="form-grid"><div class="field"><label for="bc-rev-appr" data-en="Who approves a revision of this size?" data-ar="مين اللي بيعتمد تعديل بالحجم ده؟">Who approves a revision of this size?</label><select id="bc-rev-appr"></select></div></div><div class="workflow-bar"><button class="btn btn-primary" onclick="bcRevSubmit()" data-en="Submit revision for approval" data-ar="قدّم التعديل للاعتماد">Submit revision for approval</button></div><div id="bc-rev-result" aria-live="polite"></div></div>
       </div>
     </div>
   
@@ -13384,19 +13384,19 @@ Payment: Dr Payroll Payable&nbsp;&nbsp;Cr 110000 Bank</div>
     </div>
   
     <div class="cycle-pipeline" style="margin-top:20px">
-      <h4 data-en="✍️ Do it yourself — Record an Audit Finding &amp; Adjustment" data-ar="✍️ اعملها بنفسك — سجّل ملاحظة مراجعة وتسويتها">✍️ Do it yourself — Record an Audit Finding &amp; Adjustment</h4>
-      <p class="stage-note" data-en="Enter a real finding, and the system checks it against materiality before posting the correcting entry." data-ar="ادخل ملاحظة حقيقية، والنظام بيفحصها مقابل الأهمية النسبية قبل ترحيل قيد التصحيح.">Enter a real finding, and the system checks it against materiality before posting the correcting entry.</p>
+      <h4 data-en="✍️ Do it yourself — Record an Audit Finding &amp; Propose the Adjustment" data-ar="✍️ اعملها بنفسك — سجّل ملاحظة مراجعة واقترح التسوية">✍️ Do it yourself — Record an Audit Finding &amp; Propose the Adjustment</h4>
+      <p class="stage-note" data-en="Enter a real finding. The system checks it against materiality and shows who it goes to, and proposes the correcting entry for the process owner. Internal Audit never posts it (SOP-AUD-01)." data-ar="ادخل ملاحظة حقيقية. النظام بيفحصها مقابل الأهمية النسبية وبيقولك بتتصعّد لمين، وبيقترح قيد التصحيح لصاحب العملية. المراجعة الداخلية مابترحّلهوش (SOP-AUD-01).">Enter a real finding. The system checks it against materiality and shows who it goes to, and proposes the correcting entry for the process owner. Internal Audit never posts it (SOP-AUD-01).</p>
 
       <div class="cycle-stage">
-        <h4 data-en="Audit Finding Adjustment" data-ar="تسوية ملاحظة المراجعة">Audit Finding Adjustment</h4>
+        <h4 data-en="Audit Finding" data-ar="ملاحظة المراجعة">Audit Finding</h4>
         <div class="form-grid">
           <div class="field"><label data-en="Account Understated" data-ar="الحساب الناقص">Account Understated</label><input type="text" id="aud-f-understated" placeholder="e.g. Accrued Expenses"></div>
           <div class="field"><label data-en="Account Overstated" data-ar="الحساب الزايد">Account Overstated</label><input type="text" id="aud-f-overstated" placeholder="e.g. Net Income"></div>
           <div class="field"><label data-en="Adjustment Amount (EGP)" data-ar="قيمة التسوية (جنيه)">Adjustment Amount (EGP)</label><input type="number" id="aud-f-amount" min="0" step="1"></div>
           <div class="field"><label data-en="Materiality Threshold (EGP)" data-ar="حد الأهمية النسبية (جنيه)">Materiality Threshold (EGP)</label><input type="number" id="aud-f-threshold" min="0" step="1" value="50000"></div>
         </div>
-        <div class="workflow-bar"><button class="btn btn-primary" onclick="audRecordFinding()" data-en="Record Finding &amp; Post" data-ar="سجّل الملاحظة ورحّل">Record Finding &amp; Post</button></div>
-        <div id="aud-f-result" aria-live="polite"></div>
+        <div class="workflow-bar"><button class="btn btn-primary" onclick="audRecordFinding()" data-en="Record Finding" data-ar="سجّل الملاحظة">Record Finding</button></div>
+        <div id="aud-f-result" aria-live="polite"></div> <div id="aud-f-reg"></div>
       </div>
     </div>
   
@@ -14557,22 +14557,81 @@ function bcPopulateSelect(){
   sel.innerHTML = '<option value="">— Select —</option>' + rows.map(r=>`<option value="${r.code}">${r.code} — ${r.name}</option>`).join('');
   if(rows.some(r=>r.code===cur)) sel.value = cur;
 }
+/* Budget desk: spend that would exceed the approved annual budget is NOT recorded until a budget revision is approved
+   (SOP-BC-01 section 2; approval level read from the matrix row "Budget revision" of POL-DOA-01). */
+window._bcRevs = window._bcRevs || []; window._bcPending = null;
+function bcN(n){ return Number(n).toLocaleString('en-US'); }
+function bcCode(h){ return h.replace(/(SOP-BC-01|POL-DOA-01)/g,'<bdi class="lc-code">$1</bdi>'); }
+function bcEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function bcRevisionRule(){
+  var code = Array.prototype.find.call(document.querySelectorAll('.sop-doc-code'), function(e){ return e.textContent.trim()==='POL-DOA-01'; });
+  var doc = code ? code.closest('.sop-doc') : null, t = doc ? doc.querySelector('table.sop-proc-table') : null; if(!t) return null;
+  var tx = function(c,ar){ return String(c.getAttribute(ar?'data-ar':'data-en')||c.textContent||'').trim(); };
+  var heads = Array.prototype.map.call(t.querySelectorAll('thead th'), function(h){ return [tx(h,false),tx(h,true)]; });
+  var row = Array.prototype.find.call(t.querySelectorAll('tbody tr'), function(r){ return tx(r.children[0],false)==='Budget revision'; });
+  if(!row || row.children.length<4 || heads.length<4) return null;
+  var m = String(tx(row.children[2],false)).match(/(\d[\d,]*)/);
+  return { heads: heads, en: [1,2,3].map(function(i){ return tx(row.children[i],false); }), ar: [1,2,3].map(function(i){ return tx(row.children[i],true); }), fmMax: m ? parseFloat(m[1].replace(/,/g,'')) : NaN };
+}
+function bcLevelLabel(key){ var r = bcRevisionRule(), i = cycleAr()?1:0, k = {dh:1,fm:2,gm:3}[key]; return r ? r.heads[k][i] : key; }
+function bcRevOptions(){
+  var sel = document.getElementById('bc-rev-appr'); if(!sel) return; var cur = sel.value, ar = cycleAr();
+  sel.innerHTML = '<option value="">'+(ar?'— اختار —':'— Select —')+'</option><option value="dh">'+bcLevelLabel('dh')+'</option><option value="fm">'+bcLevelLabel('fm')+'</option><option value="gm">'+bcLevelLabel('gm')+'</option>';
+  sel.value = cur;
+}
+function bcRevHide(){ var p = document.getElementById('bc-rev'); if(p) p.hidden = true; var r = document.getElementById('bc-rev-result'); if(r) r.innerHTML = ''; window._bcPending = null; }
+function bcRevShow(row, excess){
+  var p = document.getElementById('bc-rev'); if(!p) return; var ar = cycleAr(), rule = bcRevisionRule();
+  window._bcPending = {code:row.code, name:row.name, excess:excess};
+  var tiers = '';
+  if(rule){ var i = ar?1:0; tiers = [0,1,2].map(function(k){ var v = (ar?rule.ar:rule.en)[k]; return (v && v!=='—') ? rule.heads[k+1][i]+': '+v : null; }).filter(Boolean).join(' · '); }
+  document.getElementById('bc-rev-note').innerHTML = bcCode(ar
+    ? 'محتاج تعديل موازنة بقيمة <b>'+bcN(excess)+'</b> جنيه لبند '+bcEsc(row.name)+'. المصفوفة (POL-DOA-01، تعديل موازنة): '+tiers
+    : 'A budget revision of <b>EGP '+bcN(excess)+'</b> is needed for '+bcEsc(row.name)+'. The matrix (POL-DOA-01, Budget revision): '+tiers);
+  bcRevOptions(); document.getElementById('bc-rev-result').innerHTML = ''; p.hidden = false;
+}
 function bcRecordSpend(){
   const lineSel = document.getElementById('bc-s-line');
   const amount = Number(document.getElementById('bc-s-amount').value);
   const msg = document.getElementById('bc-s-result'), ar = cycleAr();
-  if(!lineSel.value || !amount){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'اختر بند وادخل مبلغ.':'Select a line and enter an amount.')+'</p>'; return; }
+  if(!lineSel.value || !(amount>0)){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'اختر بند وادخل مبلغ.':'Select a line and enter an amount.')+'</p>'; bcRevHide(); return; }
   const row = bcBudgetRows().find(r=>r.code===lineSel.value);
-  const newActual = row.actual + amount;
-  const rowEl = bcRowEl(row.code);
-  rowEl.children[4].textContent = newActual.toLocaleString();
-  const id = glPost([{account:row.name+' Expense',debit:amount},{account:'Accounts Payable',credit:amount}], (ar?'صرف فعلي — ':'Actual spend — ')+row.name);
-  let warn = '';
-  if(newActual > row.annual){
-    warn = '<p class="cycle-warn">'+(ar?'⚠ تجاوز الموازنة! الإجمالي الفعلي ('+newActual.toLocaleString()+') تخطى الموازنة السنوية ('+row.annual.toLocaleString()+'). محتاج تفسير رسمي.':'⚠ Over budget! Total actual ('+newActual.toLocaleString()+') now exceeds the annual budget ('+row.annual.toLocaleString()+'). Needs a formal explanation.')+'</p>';
+  const newActual = row.actual + amount, excess = newActual - row.annual;
+  if(excess > 0){
+    msg.innerHTML = bcCode('<div class="msg msg-error"><strong>'+(ar?'ماترحّلش — الصرف ده هيعدّي الموازنة المعتمدة.':'Not recorded — this spend would exceed the approved budget.')+'</strong><ul class="sx-ul"><li>'
+      + (ar ? bcEsc(row.name)+': الفعلي هيوصل '+bcN(newActual)+' والموازنة السنوية المعتمدة '+bcN(row.annual)+' — الزيادة '+bcN(excess)+' جنيه.' : bcEsc(row.name)+': actual would reach '+bcN(newActual)+' against an approved annual budget of '+bcN(row.annual)+' — EGP '+bcN(excess)+' over.')
+      + '</li><li>' + (ar ? 'SOP-BC-01 §2: مفيش صرف أو التزام يعدّي الموازنة المعتمدة من غير تعديل موازنة رسمي أو اعتماد خاص. اطلب التعديل الأول.' : 'SOP-BC-01 §2: no expenditure or commitment may exceed the approved budget without a formal budget revision or special approval. Request the revision first.')
+      + '</li></ul></div>');
+    bcRevShow(row, excess); return;
   }
-  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم تسجيل الصرف. ':'Spend recorded. ')+'</strong>'+(ar?'الفعلي الجديد: ':'New YTD actual: ')+newActual.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>' + warn;
+  bcRevHide();
+  const rowEl = bcRowEl(row.code);
+  rowEl.children[4].textContent = bcN(newActual);
+  const id = glPost([{account:row.name+' Expense',debit:amount},{account:'Accounts Payable',credit:amount}], (ar?'صرف فعلي — ':'Actual spend — ')+row.name);
+  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم تسجيل الصرف. ':'Spend recorded. ')+'</strong>'+(ar?'الفعلي الجديد: ':'New YTD actual: ')+bcN(newActual)+' · '+(ar?'المتبقي من الموازنة: ':'Remaining budget: ')+bcN(row.annual-newActual)+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>';
 }
+function bcRevSubmit(){
+  var p = window._bcPending, res = document.getElementById('bc-rev-result'), ar = cycleAr(); if(!p||!res) return;
+  var ap = document.getElementById('bc-rev-appr').value, rule = bcRevisionRule();
+  var exp = (rule && isFinite(rule.fmMax)) ? (p.excess <= rule.fmMax ? 'fm' : 'gm') : null;
+  var err = function(t){ res.innerHTML = bcCode('<p class="msg msg-error">'+t+'</p>'); };
+  if(!ap){ err(ar?'اختار مين بيعتمد التعديل.':'Choose who approves the revision.'); return; }
+  if(ap==='dh'){ err(ar?'رئيس القسم مالوش صلاحية على تعديل الموازنة (POL-DOA-01).':'The Department Head has no authority over budget revisions (POL-DOA-01).'); return; }
+  if(exp && ap!==exp){
+    err(exp==='fm' ? (ar?'التعديل ده ('+bcN(p.excess)+' جنيه) في حدود المدير المالي (لغاية '+bcN(rule.fmMax)+')، والمدير العام / المجلس لما يزيد عن كده (POL-DOA-01).':'A revision of EGP '+bcN(p.excess)+' is within the Finance Manager / CFO limit (up to '+bcN(rule.fmMax)+'); the GM / Board is for above that (POL-DOA-01).')
+                   : (ar?'التعديل ده ('+bcN(p.excess)+' جنيه) فوق '+bcN(rule.fmMax)+'، فبيروح للمدير العام / المجلس (POL-DOA-01).':'A revision of EGP '+bcN(p.excess)+' is above '+bcN(rule.fmMax)+', so it goes to the GM / Board (POL-DOA-01).'));
+    return;
+  }
+  var rowEl = bcRowEl(p.code), cell = rowEl.children[3], newAnnual = (Number(cell.textContent.replace(/[^0-9.]/g,''))||0) + p.excess;
+  cell.textContent = bcN(newAnnual);
+  var id = 'BR-' + String(window._bcRevs.length+1).padStart(4,'0'); window._bcRevs.push({id:id, code:p.code, amount:p.excess, by:ap});
+  res.innerHTML = bcCode('<div class="msg msg-success"><strong>'+(ar?'التعديل '+id+' اتعتمد من '+bcLevelLabel(ap)+' (اعتماد محاكى للتدريب). ':'Revision '+id+' approved by '+bcLevelLabel(ap)+' (simulated for training). ')+'</strong>'+(ar?'الموازنة السنوية لـ'+bcEsc(p.name)+' بقت '+bcN(newAnnual)+'. سجّل الصرف تاني.':'The annual budget of '+bcEsc(p.name)+' is now '+bcN(newAnnual)+'. Record the spend again.')+'</div>');
+  window._bcPending = null;
+}
+(function(){
+  var w = function(){ var o = window.setLanguage; if(typeof o!=='function'||o.__fxb) return; var f = function(){ var r = o.apply(this,arguments); try{ bcRevOptions(); if(window._bcPending){ var row = bcBudgetRows().find(function(x){ return x.code===window._bcPending.code; }); if(row) bcRevShow(row, window._bcPending.excess); } }catch(e){} return r; }; f.__fxb = true; window.setLanguage = f; };
+  w(); document.addEventListener('DOMContentLoaded', w); window.addEventListener('load', w);
+})();
 
 
 function constrProjRows(){
@@ -14658,20 +14717,40 @@ function ratiosRecordReclass(){
   msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم ترحيل إعادة التصنيف. ':'Reclassification posted. ')+'</strong>'+(ar?'مدين ':'Dr ')+to+' '+amount.toLocaleString()+' / '+(ar?'دائن ':'Cr ')+from+' '+amount.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'<br><span style="font-size:12.5px;color:var(--muted)">'+(ar?'ملحوظة: الرصيد تنقل بس، مفيش كاش دخل ولا خرج — بالظبط زي ما شفنا في الألغاز المحاسبية.':'Note: only the balance moved, no cash came in or out — exactly like we saw in the Accounting Mysteries.')+'</span></div>';
 }
 
+/* Internal Audit desk: a finding is RECORDED and REPORTED, never posted by the auditor
+   (SOP-AUD-01: Internal Audit does not design, implement or operate the controls it audits; auditors have no operational responsibility for what they audit). */
+window._audFindings = window._audFindings || [];
+function audN(n){ return Number(n).toLocaleString('en-US'); }
+function audEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function audCode(h){ return h.replace(/(SOP-AUD-01)/g,'<bdi class="lc-code">$1</bdi>'); }
+function audRenderFindings(){
+  var box = document.getElementById('aud-f-reg'); if(!box) return; var L = window._audFindings, ar = cycleAr();
+  if(!L.length){ box.innerHTML = ''; return; }
+  box.innerHTML = '<details class="sx-regd" open><summary>'+(ar?'سجل ملاحظات المراجعة':'Audit findings register')+' ('+L.length+')</summary><ul class="sx-regl">'
+    + L.map(function(f){ return '<li><b>'+f.id+' · '+(f.material?(ar?'مادّية':'Material'):(ar?'عادية':'Routine'))+' · '+audN(f.amount)+'</b><span>'+(ar?'مدين ':'Dr ')+audEsc(f.under)+' / '+(ar?'دائن ':'Cr ')+audEsc(f.over)+'</span><span class="sx-st">'+(ar?'مسودة — تتناقش مع صاحب العملية':'Draft — to discuss with the process owner')+'</span></li>'; }).join('')
+    + '</ul></details>';
+}
 function audRecordFinding(){
   const under = document.getElementById('aud-f-understated').value.trim(), over = document.getElementById('aud-f-overstated').value.trim();
   const amount = Number(document.getElementById('aud-f-amount').value), threshold = Number(document.getElementById('aud-f-threshold').value);
   const msg = document.getElementById('aud-f-result'), ar = cycleAr();
-  if(!under || !over || !amount){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'أكمل كل الحقول.':'Complete all fields.')+'</p>'; return; }
-  const id = glPost([{account:under,debit:amount},{account:over,credit:amount}], (ar?'تسوية ملاحظة مراجعة':'Audit finding adjustment'));
-  let warn = '';
-  if(amount >= threshold){
-    warn = '<p class="cycle-warn">'+(ar?'⚠ القيمة ('+amount.toLocaleString()+') تساوي أو تتخطى حد الأهمية النسبية ('+threshold.toLocaleString()+'). الملاحظة دي material ولازم تتصعّد في تقرير المراجعة.':'⚠ Amount ('+amount.toLocaleString()+') meets or exceeds the materiality threshold ('+threshold.toLocaleString()+'). This finding is material and must be escalated in the audit report.')+'</p>';
-  } else {
-    warn = '<p class="msg msg-success">'+(ar?'✓ تحت حد الأهمية النسبية — تتسجل كملاحظة عادية.':'✓ Below materiality — recorded as a routine note.')+'</p>';
-  }
-  msg.innerHTML = '<div class="msg msg-success"><strong>'+(ar?'تم تسجيل وترحيل التسوية. ':'Adjustment recorded and posted. ')+'</strong>'+(ar?'مدين ':'Dr ')+under+' '+amount.toLocaleString()+' / '+(ar?'دائن ':'Cr ')+over+' '+amount.toLocaleString()+'<br>'+(ar?'قيد اليومية ':'Journal entry ')+id+'</div>' + warn;
+  if(!under || !over || !(amount>0)){ msg.innerHTML = '<p class="msg msg-error">'+(ar?'أكمل كل الحقول.':'Complete all fields.')+'</p>'; return; }
+  const material = amount >= threshold;
+  const id = 'AF-' + String(window._audFindings.length+1).padStart(4,'0');
+  window._audFindings.push({id:id, under:under, over:over, amount:amount, material:material});
+  const cls = material
+    ? (ar ? '⚠ القيمة ('+audN(amount)+') تساوي أو تتخطى حد الأهمية النسبية ('+audN(threshold)+'): ملاحظة material — بلّغ لجنة المراجعة / المدير العام حسب خط التقارير (SOP-AUD-01).' : '⚠ Amount ('+audN(amount)+') meets or exceeds the materiality threshold ('+audN(threshold)+'): material — report it to the Audit Committee / GM along the reporting line (SOP-AUD-01).')
+    : (ar ? '✓ تحت حد الأهمية النسبية — ملاحظة عادية في مسودة التقرير، وبتتناقش مع صاحب العملية الأول.' : '✓ Below materiality — a routine note in the draft report, discussed with the process owner first.');
+  const prop = ar
+    ? 'تسوية مقترحة لقسم المحاسبة يرحّلها بعد الاعتماد: مدين '+audEsc(under)+' '+audN(amount)+' / دائن '+audEsc(over)+' '+audN(amount)+'. المراجعة الداخلية مابترحّلهاش — المراجعين ملهمش مسؤولية تشغيلية عن اللي بيراجعوه (SOP-AUD-01).'
+    : 'Proposed adjustment for Accounting to post after approval: Dr '+audEsc(under)+' '+audN(amount)+' / Cr '+audEsc(over)+' '+audN(amount)+'. Internal Audit does not post it — auditors have no operational responsibility for what they audit (SOP-AUD-01).';
+  msg.innerHTML = audCode('<div class="msg msg-success"><strong>'+(ar?'الملاحظة اتسجّلت ('+id+'). ':'Finding recorded ('+id+'). ')+'</strong>'+(ar?'في سجل ملاحظات المراجعة — ومترحّلتش في الأستاذ العام.':'In the audit findings register — not posted to the ledger.')+'</div><p class="'+(material?'cycle-warn':'msg msg-success')+'">'+cls+'</p><p class="stage-note">'+prop+'</p>');
+  audRenderFindings();
 }
+(function(){
+  var w = function(){ var o = window.setLanguage; if(typeof o!=='function'||o.__fxa) return; var f = function(){ var r = o.apply(this,arguments); try{ audRenderFindings(); }catch(e){} return r; }; f.__fxa = true; window.setLanguage = f; };
+  w(); document.addEventListener('DOMContentLoaded', w); window.addEventListener('load', w);
+})();
 
 
 function glManualPost(){
@@ -22311,6 +22390,229 @@ function ffFlush(){ try{ if(FF.timer){ clearTimeout(FF.timer); FF.timer=null; ff
 document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden') ffFlush(); });
 window.addEventListener('pagehide',ffFlush);
 document.addEventListener('focusout',function(e){ if(e.target&&e.target.closest&&e.target.closest('#ffBody')) ffFlush(); },true);
+
+/* ===== Your limits at this desk: read from the approval matrix itself (POL-DOA-01), with the desk's own forms =====
+   LC_ON=false removes the cards (nothing else changes). */
+const LC_ON=true;
+const LC_ROWS={   /* the matrix rows (their English text, exactly as in the table) that apply to each desk */
+ ar:['New customer credit limit','Bad debt / inventory write-off'],
+ ap:['Purchase requisition / PO','Supplier payment run','Supplier / bank master data change'],
+ recv:['Bad debt / inventory write-off'],
+ inv:['Bad debt / inventory write-off'],
+ treasury:['Bank transfer / cheque','Supplier payment run','Payroll payment release','New bank account opening / closing','Supplier / bank master data change'],
+ hr:['Payroll payment release'],
+ gl:['Manual GL journal entry'],
+ tax:['Tax payment / return filing'],
+ cost:['Standard cost / overhead rate change'],
+ constr:['Contract / change order (project)'],
+ bc:['Budget revision','Capital expenditure (Capex)'],
+ ratios:[], aud:[]
+};
+const LC_FORMS={ ar:'AR-', ap:'AP-', recv:'RECV-', inv:'INV-', treasury:'TR-', hr:'HR-', gl:'GL-', tax:'TAX-', cost:'COST-', constr:'SITE-', bc:'BC-', ratios:'', aud:'POL-FRD-01-F01' };
+function lcAr(){ return cycleAr(); }
+function lcMatrix(){
+  var code=Array.prototype.find.call(document.querySelectorAll('.sop-doc-code'),function(e){ return e.textContent.trim()==='POL-DOA-01'; });
+  var doc=code?code.closest('.sop-doc'):null, t=doc?doc.querySelector('table.sop-proc-table'):null; if(!t) return null;
+  var tx=function(c,ar){ return String(c.getAttribute(ar?'data-ar':'data-en')||c.textContent||'').trim(); };
+  var heads=Array.prototype.map.call(t.querySelectorAll('thead th'),function(h){ return h; });
+  var rows={}; Array.prototype.forEach.call(t.querySelectorAll('tbody tr'),function(r){ var c=r.children; if(c.length<4) return; rows[tx(c[0],false)]={ type:[tx(c[0],false),tx(c[0],true)], tiers:[1,2,3].map(function(i){ return {lab:[tx(heads[i],false),tx(heads[i],true)], val:[tx(c[i],false),tx(c[i],true)]}; }) }; });
+  return rows;
+}
+function lcIcon(){ return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>'; }
+function lcFormsFor(k){
+  var pre=LC_FORMS[k]; if(!pre||typeof FF_FORMS==='undefined') return [];
+  return Object.keys(FF_FORMS).filter(function(c){ return c.indexOf(pre)===0; });
+}
+function lcBuild(k){
+  var home=document.getElementById(k+'-home'); if(!home) return;
+  var sop=home.querySelector('.hb-desk-sop'), anchor=sop?sop.closest('.desk-actions'):null; if(!anchor) return;   /* the card that holds the desk SOP and policy buttons */
+  var ar=lcAr(), M=lcMatrix(); if(!M) return;
+  var want=LC_ROWS[k]||[], forms=lcFormsFor(k), i=ar?1:0;
+  var sig=(ar?'a':'e')+'|'+want.length+'|'+forms.length, el=document.getElementById('lc-'+k);
+  if(el&&el.getAttribute('data-sig')===sig) return;
+  var h='<div class="lc-h"><span class="lc-ic">'+lcIcon()+'</span><div><h3 class="lc-t">'+(ar?'حدودك في المكتب ده':'Your limits at this desk')+'</h3><p class="lc-s">'+(ar?'من مصفوفة الصلاحيات (<bdi class="lc-code">POL-DOA-01</bdi>). فوق حدّك بتطلع للمستوى الأعلى، وعمرها ما بتتعتمد عند المستوى الأقل عشان الوقت ضيق.':'From the Delegation of Authority matrix (<bdi class="lc-code">POL-DOA-01</bdi>). Above a limit it goes up a level — it is never approved at the lower level because a deadline is tight.')+'</p></div></div>';
+  if(want.length){
+    h+='<div class="lc-rows">';
+    want.forEach(function(name){ var r=M[name]; if(!r) return;
+      h+='<div class="lc-row"><div class="lc-type">'+r.type[i]+'</div><ul class="lc-tiers">';
+      r.tiers.forEach(function(t){ var v=t.val[i]; if(!v||v==='—'||v==='-') return; h+='<li><span class="lc-lab">'+t.lab[i]+'</span><span class="lc-val">'+v+'</span></li>'; });
+      h+='</ul></div>'; });
+    h+='</div>';
+  } else h+='<p class="lc-none">'+(ar?'مفيش صف في المصفوفة بينطبق على المكتب ده.':'No row of the matrix applies to this desk.')+'</p>';
+  h+='<div class="lc-btns"><button type="button" class="lc-btn lc-main" onclick="sopOpen(\'POL-DOA-01\')">'+(ar?'افتح المصفوفة كاملة':'Open the full matrix')+'</button>';
+  forms.forEach(function(c){ var f=FF_FORMS[c]; h+='<button type="button" class="lc-btn" onclick="ffOpen(\''+c+'\')"><span class="lc-fi">'+(f.ic||'')+'</span> '+(ar?f.t[1]:f.t[0])+'</button>'; });
+  h+='</div>';
+  if(!el){ el=document.createElement('section'); el.id='lc-'+k; el.className='lc-card'; anchor.parentNode.insertBefore(el,anchor.nextSibling); }
+  el.innerHTML=h; el.setAttribute('data-sig',sig); el.setAttribute('aria-label',ar?'حدودك في المكتب ده':'Your limits at this desk');
+}
+function lcAll(){ if(!LC_ON) return; try{ Object.keys(LC_ROWS).forEach(lcBuild); }catch(e){ if(window.console) console.error('limits card',e); } }
+(function(){
+  if(!LC_ON) return;
+  var w=function(n){ var o=window[n]; if(typeof o!=='function'||o.__lc) return; var f=function(){ var r=o.apply(this,arguments); try{ lcAll(); }catch(e){} return r; }; f.__lc=true; window[n]=f; };
+  var wrap=function(){ w('setLanguage'); w('showPanel'); w('openWorkspaceMenu'); };
+  wrap(); document.addEventListener('DOMContentLoaded',function(){ wrap(); lcAll(); }); window.addEventListener('load',function(){ wrap(); lcAll(); }); lcAll();
+})();
+
+/* ===== A wrong answer in Spot the Error or the Mastery Quiz points to the controls of the desk (desk level, not question level) ===== */
+function lcStrip(k,host){
+  if(!LC_ON||!host||host.querySelector('.lc-strip')) return;
+  var ar=lcAr(), sop=(typeof HB_DESK!=='undefined')?HB_DESK[k]:null;
+  var h='<div class="lc-strip"><div class="lc-strip-t">'+(ar?'راجع ضوابط المكتب ده':'Review the controls of this desk')+'</div><div class="lc-strip-b">';
+  if(sop) h+='<button type="button" class="lc-btn" onclick="sopOpen(\''+sop+'\')">'+sop+'</button>';
+  h+='<button type="button" class="lc-btn" onclick="hbOpenPart(\'A\')">'+(ar?'سياسات الشركة':'Company policies')+'</button>';
+  if((LC_ROWS[k]||[]).length) h+='<button type="button" class="lc-btn" onclick="sopOpen(\'POL-DOA-01\')">'+(ar?'حدودك (المصفوفة)':'Your limits (matrix)')+'</button>';
+  h+='</div></div>';
+  var d=document.createElement('div'); d.innerHTML=h; host.appendChild(d.firstChild);
+}
+function lcAfterSpot(desk){ var r=document.getElementById(desk+'-spot-result'); if(r&&r.querySelector('.msg-error')) lcStrip(desk,r); }
+function lcAfterQuiz(station){ var r=document.getElementById('quiz-result-'+station); if(r&&(r.querySelector('.msg-error')||r.querySelector('[style*="--debit"]'))) lcStrip(station,r); }
+(function(){
+  if(!LC_ON) return;
+  var w=function(n,after){ var o=window[n]; if(typeof o!=='function'||o.__lcs) return; var f=function(){ var r=o.apply(this,arguments); try{ after.apply(null,arguments); }catch(e){} return r; }; f.__lcs=true; window[n]=f; };
+  var wrap=function(){ w('spotAnswerFor',lcAfterSpot); w('quizSubmit',lcAfterQuiz); };
+  wrap(); document.addEventListener('DOMContentLoaded',wrap); window.addEventListener('load',wrap);
+})();
+
+/* ===== Site desk: "Prepare a progress certificate" (decision exercise; same arithmetic as form SITE-01-F03) =====
+   SX_ON=false removes it (nothing else changes). Teaching data below is illustrative, not taken from any real contract. */
+const SX_ON=true;
+const SX_SC={   /* per project of the register: m = engineer's measurement to date (%), p = already certified before (% of contract), r = contract retention (%), s = measurement sheet signed (1/0) */
+ 'PRJ-101':{m:64,p:58,r:10,s:1}, 'PRJ-102':{m:40,p:31,r:5,s:1}, 'PRJ-103':{m:86,p:78,r:10,s:0}, 'PRJ-104':{m:12,p:6,r:5,s:1}, 'PRJ-105':{m:100,p:92,r:10,s:1},
+ 'PRJ-106':{m:52,p:40,r:5,s:1}, 'PRJ-107':{m:25,p:18,r:10,s:0}, 'PRJ-108':{m:75,p:66,r:5,s:1}, 'PRJ-109':{m:33,p:25,r:10,s:1}, 'PRJ-110':{m:6,p:0,r:5,s:1}
+};
+window._sxCerts=window._sxCerts||[];   /* session state, like the ledger it posts to */
+function sxAr(){ return cycleAr(); }
+function sxT(en,ar){ return sxAr()?ar:en; }
+function sxR2(x){ return Math.round(x*100)/100; }
+function sxMoney(n){ return Number(n).toLocaleString('en-US',{maximumFractionDigits:2}); }
+function sxNum(s){ var n=parseFloat(String(s==null?'':s).replace(/,/g,'')); return isFinite(n)?n:NaN; }
+function sxRows(){
+  return Array.prototype.map.call(document.querySelectorAll('#table-constr tbody tr'),function(tr){ var c=tr.children; return {code:c[0].textContent.trim(), name:c[1].textContent.trim(), client:c[2].textContent.trim(), cv:sxNum(c[3].textContent), reg:sxNum(c[4].textContent)}; }).filter(function(r){ return SX_SC[r.code]; });
+}
+function sxExp(row){   /* exactly the formulas of the form */
+  var sc=SX_SC[row.code], cv=row.cv, prev=sxR2(cv*sc.p/100), x=cv*sc.m/100-prev;
+  return {cv:cv, prev:prev, m:sc.m, r:sc.r, s:sc.s, ctd:sxR2(cv*sc.m/100), now:sxR2(x), ret:sxR2(x*sc.r/100), net:sxR2(x-x*sc.r/100)};
+}
+function sxSelected(){ var s=document.getElementById('sx-prj'); var code=s?s.value:''; return sxRows().filter(function(r){ return r.code===code; })[0]||null; }
+function sxFacts(){
+  var row=sxSelected(), box=document.getElementById('sx-facts'); if(!box) return;
+  if(!row){ box.innerHTML=''; return; }
+  var e=sxExp(row), ar=sxAr();
+  var sheet=e.s?('<span class="sx-ok">'+sxT('signed ✓','موقّعة ✓')+'</span>'):('<span class="sx-no">'+sxT('NOT signed yet ✗','لسه مش موقّعة ✗')+'</span>');
+  box.innerHTML='<dl class="sx-dl">'
+   +'<div><dt>'+sxT('Client','العميل')+'</dt><dd>'+row.client+'</dd></div>'
+   +'<div><dt>'+sxT('Contract value','قيمة العقد')+'</dt><dd>EGP '+sxMoney(e.cv)+'</dd></div>'
+   +'<div><dt>'+sxT('Register % complete (management estimate)','% الإنجاز في السجل (تقدير الإدارة)')+'</dt><dd>'+row.reg+'%</dd></div>'
+   +'<div><dt>'+sxT('Engineer’s measurement to date','قياس المهندس لحد دلوقتي')+'</dt><dd>'+e.m+'%</dd></div>'
+   +'<div><dt>'+sxT('Measurement sheet','ورقة القياس')+'</dt><dd>'+sheet+'</dd></div>'
+   +'<div><dt>'+sxT('Certified up to the previous certificate (cumulative)','المعتمد لحد الشهادة السابقة (تراكمي)')+'</dt><dd>EGP '+sxMoney(e.prev)+'</dd></div>'
+   +'<div><dt>'+sxT('Retention in the contract','الاحتجاز في العقد')+'</dt><dd>'+e.r+'%</dd></div></dl>';
+}
+function sxToggle(){
+  var yes=document.getElementById('sx-dec-yes'), f=document.getElementById('sx-fields'); if(f) f.hidden=!(yes&&yes.checked);
+}
+function sxRender(){
+  var sec=document.getElementById('sx-body'); if(!sec) return;
+  var gv=function(i){ return (document.getElementById(i)||{}).value||''; };
+  var keep={prj:gv('sx-prj'), dec:(document.getElementById('sx-dec-no')||{}).checked?'no':((document.getElementById('sx-dec-yes')||{}).checked?'yes':''), pct:gv('sx-pct'), now:gv('sx-now'), ret:gv('sx-ret'), net:gv('sx-net'), appr:gv('sx-appr')};
+  var rows=sxRows(), ar=sxAr();
+  var opts='<option value="">'+sxT('— Select —','— اختار —')+'</option>'+rows.map(function(r){ return '<option value="'+r.code+'">'+r.code+' · '+r.name+'</option>'; }).join('');
+  sec.innerHTML='<h4>'+sxT('✍️ Do it yourself — Prepare a Progress Certificate','✍️ اعملها بنفسك — جهّز شهادة إنجاز')+'</h4>'
+   +'<p class="stage-note">'+sxT('You are the Site Accountant. The engineer has measured the work. Certify what was measured and signed — not what the register says. Amounts are before VAT; the figures here are teaching data.','إنت محاسب الموقع. المهندس قاس الأعمال. اعتمد اللي اتقاس واتوقّع عليه، مش اللي في سجل الإدارة. المبالغ قبل ضريبة القيمة المضافة، والأرقام هنا بيانات تدريب.')+'</p>'
+   +'<div class="cycle-stage"><div class="form-grid"><div class="field"><label for="sx-prj">'+sxT('Project','المشروع')+'</label><select id="sx-prj">'+opts+'</select></div></div>'
+   +'<div id="sx-facts" class="sx-facts"></div>'
+   +'<fieldset class="sx-dec"><legend>'+sxT('What do you do?','هتعمل إيه؟')+'</legend>'
+   +'<label class="sx-rad"><input type="radio" name="sx-dec" id="sx-dec-yes" value="yes"> <span>'+sxT('Prepare the certificate now','جهّز الشهادة دلوقتي')+'</span></label>'
+   +'<label class="sx-rad"><input type="radio" name="sx-dec" id="sx-dec-no" value="no"> <span>'+sxT('Hold — do not certify yet','استنّى — ماتعتمدش لسه')+'</span></label></fieldset>'
+   +'<div id="sx-fields" hidden><div class="form-grid">'
+   +'<div class="field"><label for="sx-pct">'+sxT('Progress to certify to date (%)','نسبة الإنجاز اللي هتعتمدها لحد دلوقتي (%)')+'</label><input type="number" id="sx-pct" min="0" max="100" step="any" inputmode="decimal"></div>'
+   +'<div class="field"><label for="sx-now">'+sxT('This certificate (EGP)','الشهادة الحالية (جنيه)')+'</label><input type="number" id="sx-now" min="0" step="any" inputmode="decimal"></div>'
+   +'<div class="field"><label for="sx-ret">'+sxT('Retention held (EGP)','المحتجز (جنيه)')+'</label><input type="number" id="sx-ret" min="0" step="any" inputmode="decimal"></div>'
+   +'<div class="field"><label for="sx-net">'+sxT('Net payable (EGP)','صافي المستحق (جنيه)')+'</label><input type="number" id="sx-net" min="0" step="any" inputmode="decimal"></div>'
+   +'<div class="field"><label for="sx-appr">'+sxT('Who approves this certificate?','مين اللي بيعتمد الشهادة دي؟')+'</label><select id="sx-appr"><option value="">'+sxT('— Select —','— اختار —')+'</option><option value="me">'+sxT('Me — I prepared it','أنا — أنا اللي جهّزتها')+'</option><option value="pm">'+sxT('The Project Manager','مدير المشروع')+'</option><option value="client">'+sxT('Nobody — send it straight to the client','حد مش لازم — ابعتها للعميل على طول')+'</option></select></div>'
+   +'</div></div>'
+   +'<div class="workflow-bar"><button type="button" class="btn btn-primary" id="sx-go">'+sxT('Check & prepare','افحص وجهّز')+'</button></div>'
+   +'<div id="sx-res" aria-live="polite"></div></div>'
+   +'<div id="sx-reg"></div>';
+  var s=document.getElementById('sx-prj'); if(keep.prj) s.value=keep.prj;
+  if(keep.dec){ document.getElementById('sx-dec-'+keep.dec).checked=true; }
+  document.getElementById('sx-pct').value=keep.pct; document.getElementById('sx-now').value=keep.now; document.getElementById('sx-ret').value=keep.ret; document.getElementById('sx-net').value=keep.net; document.getElementById('sx-appr').value=keep.appr;
+  s.addEventListener('change',function(){ sxFacts(); var r=document.getElementById('sx-res'); if(r) r.innerHTML=''; ['sx-pct','sx-now','sx-ret','sx-net'].forEach(function(i){ document.getElementById(i).value=''; }); document.getElementById('sx-appr').value=''; });
+  document.getElementById('sx-dec-yes').addEventListener('change',sxToggle); document.getElementById('sx-dec-no').addEventListener('change',sxToggle);
+  document.getElementById('sx-go').addEventListener('click',sxCheck);
+  sxFacts(); sxToggle(); sxRegRender();
+}
+function sxRegRender(){
+  var box=document.getElementById('sx-reg'); if(!box) return; var L=window._sxCerts;
+  if(!L.length){ box.innerHTML=''; return; }
+  box.innerHTML='<details class="sx-regd" open><summary>'+sxT('Certificates prepared','الشهادات اللي جهّزتها')+' ('+L.length+')</summary><ul class="sx-regl">'
+   +L.map(function(c){ return '<li><b>'+c.code+' · #'+c.no+' · '+c.je+'</b><span>'+sxT('This certificate','الشهادة')+' '+sxMoney(c.now)+' · '+sxT('Retention','المحتجز')+' '+sxMoney(c.ret)+' · '+sxT('Net payable','الصافي')+' '+sxMoney(c.net)+'</span></li>'; }).join('')+'</ul></details>';
+}
+function sxMsg(kind,title,items,extra){
+  var res=document.getElementById('sx-res'); if(!res) return;
+  var html='<div class="msg msg-'+kind+'"><strong>'+title+'</strong>'+(items&&items.length?'<ul class="sx-ul">'+items.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ul>':'')+(extra||'')+'</div>';
+  res.innerHTML=html.replace(/(SOP-SITE-01|SITE-01-F03)/g,'<bdi class="lc-code">$1</bdi>');   /* a document code never breaks across two lines */
+}
+function sxWorking(e){
+  return '<details class="sx-work"><summary>'+sxT('Show the working','وريني الحساب')+'</summary><ol class="sx-ul">'
+   +'<li>'+sxT('Certified to date','المعتمد لحد دلوقتي')+' = '+sxMoney(e.cv)+' × '+e.m+'% = <b>'+sxMoney(e.ctd)+'</b></li>'
+   +'<li>'+sxT('This certificate','الشهادة الحالية')+' = '+sxMoney(e.ctd)+' − '+sxMoney(e.prev)+' = <b>'+sxMoney(e.now)+'</b></li>'
+   +'<li>'+sxT('Retention','المحتجز')+' = '+sxMoney(e.now)+' × '+e.r+'% = <b>'+sxMoney(e.ret)+'</b></li>'
+   +'<li>'+sxT('Net payable','صافي المستحق')+' = '+sxMoney(e.now)+' − '+sxMoney(e.ret)+' = <b>'+sxMoney(e.net)+'</b></li></ol></details>';
+}
+function sxCheck(){
+  var row=sxSelected(), res=document.getElementById('sx-res'); if(!res) return;
+  if(!row){ sxMsg('error',sxT('Pick a project first.','اختار مشروع الأول.')); return; }
+  var yes=document.getElementById('sx-dec-yes').checked, no=document.getElementById('sx-dec-no').checked;
+  if(!yes&&!no){ sxMsg('error',sxT('Choose what you do: prepare the certificate or hold.','اختار هتعمل إيه: تجهّز الشهادة ولا تستنّى.')); return; }
+  var e=sxExp(row), ar=sxAr();
+  if(no){
+    if(!e.s) sxMsg('success',sxT('Correct — hold it.','صح — استنّى.'),[sxT('The measurement sheet is not signed. No signed measurement, no certificate (SOP-SITE-01). Ask the engineer for the signed sheet.','ورقة القياس مش موقّعة. من غير قياس موقّع مفيش شهادة (SOP-SITE-01). اطلب من المهندس الورقة الموقّعة.')]);
+    else sxMsg('error',sxT('Not quite — the measurement is signed.','مش بالظبط — القياس موقّع.'),[sxT('Holding delays the billing of work that has already been measured and signed ('+e.m+'%). Prepare the certificate.','الاستنّى بيأخّر فوترة أعمال اتقاست واتوقّعت ('+e.m+'%). جهّز الشهادة.')]);
+    return;
+  }
+  var dup=window._sxCerts.filter(function(c){ return c.code===row.code; })[0];
+  if(dup){ sxMsg('pending',sxT('A certificate for this project is already prepared (#'+dup.no+', '+dup.je+').','فيه شهادة لنفس المشروع اتجهّزت قبل كده (#'+dup.no+'، '+dup.je+').'),[sxT('Pick another project.','اختار مشروع تاني.')]); return; }
+  if(!e.s){ sxMsg('error',sxT('You cannot certify this one.','مينفعش تعتمد المشروع ده.'),[sxT('The measurement sheet is not signed. No signed measurement, no certificate (SOP-SITE-01). The right move is to hold.','ورقة القياس مش موقّعة. من غير قياس موقّع مفيش شهادة (SOP-SITE-01). الصح إنك تستنّى.')]); return; }
+  var p=sxNum(document.getElementById('sx-pct').value), now=sxNum(document.getElementById('sx-now').value), ret=sxNum(document.getElementById('sx-ret').value), net=sxNum(document.getElementById('sx-net').value), ap=document.getElementById('sx-appr').value;
+  var errs=[], ok1=function(a,b){ return isFinite(a)&&Math.abs(a-b)<=1; };
+  if(!isFinite(p)) errs.push(sxT('Enter the progress % you certify.','اكتب نسبة الإنجاز اللي هتعتمدها.'));
+  else if(p>e.m) errs.push(sxT('You certify '+p+'%, above the signed measurement ('+e.m+'%). Certify the measured percentage only.','إنت معتمد '+p+'%، وده فوق القياس الموقّع ('+e.m+'%). اعتمد النسبة المقاسة بس.')+(p===row.reg&&row.reg!==e.m?' '+sxT('That is the register’s management estimate, not the measurement.','دي تقدير الإدارة في السجل، مش القياس.'):''));
+  else if(p<e.m) errs.push(sxT('You certify '+p+'%, below the signed measurement ('+e.m+'%) — that under-bills measured work. Certify '+e.m+'%.','إنت معتمد '+p+'%، وده أقل من القياس الموقّع ('+e.m+'%) — كده بتفوتر أقل من اللي اتقاس. اعتمد '+e.m+'%.'));
+  if(!isFinite(now)||!isFinite(ret)||!isFinite(net)) errs.push(sxT('Fill in this certificate, the retention and the net payable.','املا الشهادة الحالية والمحتجز وصافي المستحق.'));
+  else {
+    if(!ok1(now,e.now)) errs.push(ok1(now,e.ctd)?sxT('“This certificate” is the increase over what was already certified (EGP '+sxMoney(e.prev)+'), not the cumulative figure.','“الشهادة الحالية” هي الزيادة عن اللي اتعتمد قبل كده (جنيه '+sxMoney(e.prev)+')، مش الرقم التراكمي.'):sxT('This certificate is not right: contract × certified % − previously certified.','الشهادة الحالية مش مظبوطة: قيمة العقد × النسبة المعتمدة − المعتمد قبل كده.'));
+    if(!ok1(ret,e.ret)) errs.push(ok1(ret,e.ctd*e.r/100)?sxT('Retention applies to this certificate’s value, not to the cumulative figure.','الاحتجاز على قيمة الشهادة الحالية، مش على الرقم التراكمي.'):sxT('Retention is not right: this certificate × the contract’s retention %.','المحتجز مش مظبوط: الشهادة الحالية × نسبة الاحتجاز في العقد.'));
+    if(!ok1(net,e.net)) errs.push(ok1(net,e.now)?sxT('The net payable forgets the retention: this certificate − retention.','صافي المستحق نسي الاحتجاز: الشهادة الحالية − المحتجز.'):sxT('The net payable is not right: this certificate − retention.','صافي المستحق مش مظبوط: الشهادة الحالية − المحتجز.'));
+  }
+  if(ap===''||!ap) errs.push(sxT('Choose who approves the certificate.','اختار مين بيعتمد الشهادة.'));
+  else if(ap==='me') errs.push(sxT('You prepared it, so you cannot be the one who approves it (SOP-SITE-01, segregation of duties).','إنت اللي جهّزتها، فمينفعش تبقى إنت اللي بيعتمدها (SOP-SITE-01، فصل المهام).'));
+  else if(ap==='client') errs.push(sxT('It needs internal approval by the Project Manager first (form SITE-01-F03); the client gets the approved certificate.','لازم الأول اعتماد داخلي من مدير المشروع (نموذج SITE-01-F03)، والعميل بيستلم الشهادة بعد ما تتعتمد.'));
+  if(errs.length){ sxMsg('error',sxT('Not posted — fix these:','ماترحّلتش — صلّح دول:'),errs,sxWorking(e)); return; }
+  var warn='', b=(typeof GL!=='undefined'&&GL.balances['Unbilled Receivable (Construction)'])||null, bal=b?(b.debit-b.credit):0;
+  var lines=[{account:'Accounts Receivable',debit:e.net}]; if(e.ret>0) lines.push({account:'Retention Receivable',debit:e.ret}); lines.push({account:'Unbilled Receivable (Construction)',credit:e.now});
+  var je=glPost(lines,sxT('Progress certificate — ','شهادة إنجاز — ')+row.name);
+  if(bal<e.now) warn='<p class="cycle-warn">'+sxT('The unbilled receivable ('+sxMoney(bal)+') is lower than this billing. Revenue for this progress was not recognised yet — use “Update & Recognize Revenue” in Learning & Reference, or the difference is overbilling.','الذمم غير المفوترة ('+sxMoney(bal)+') أقل من الفوترة دي. إيراد الإنجاز ده لسه ما اتسجّلش — استخدم “حدّث واعترف بالإيراد” في التعلّم والمرجع، وإلا الفرق يبقى فوترة زايدة.')+'</p>';
+  window._sxCerts.push({code:row.code,no:window._sxCerts.filter(function(c){ return c.code===row.code; }).length+1,now:e.now,ret:e.ret,net:e.net,je:je});
+  sxMsg('success',sxT('Certificate prepared and posted.','الشهادة اتجهّزت واترحّلت.'),[sxT('Net payable EGP '+sxMoney(e.net)+'; retention EGP '+sxMoney(e.ret)+' is held and released only when all contractual conditions are met (SOP-SITE-01).','صافي المستحق '+sxMoney(e.net)+' جنيه؛ والمحتجز '+sxMoney(e.ret)+' جنيه بيتصرف بس لما كل الشروط التعاقدية تتحقق (SOP-SITE-01).'),sxT('Journal entry ','قيد اليومية ')+je+': '+sxT('Dr Accounts Receivable, Dr Retention Receivable / Cr Unbilled Receivable (Construction).','مدين ذمم مدينة، ومدين احتجاز مستحق / دائن ذمم غير مفوترة (إنشاءات).')],warn+sxWorking(e));
+  sxRegRender();
+}
+function sxMount(){
+  if(!SX_ON) return;
+  if(document.getElementById('sx-sec')) return;
+  var t=document.getElementById('table-constr'); if(!t) return;
+  var wrap=t.closest('.table-wrap')||t; var sec=document.createElement('div'); sec.id='sx-sec';
+  sec.innerHTML='<div style="position:relative;margin:34px 0 16px"><span style="position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;color:#C9516B;opacity:.28;font-family:\'Fraunces\',serif;z-index:0">5</span><h2 id="sx-h" style="position:relative;font-family:\'Fraunces\',serif;color:#C9516B;border-bottom:3px solid #C9516B;padding:10px 14px 10px 54px;margin:0;background:#fbebee;border-radius:0 10px 10px 0;border-inline-start:5px solid #C9516B;z-index:1"></h2></div><div class="cycle-pipeline" style="margin-top:20px" id="sx-body"></div>';
+  wrap.parentNode.insertBefore(sec,wrap.nextSibling);
+  sxHead(); sxRender();
+}
+function sxHead(){ var h=document.getElementById('sx-h'); if(h) h.textContent=sxT('Progress Certificate','شهادة الإنجاز'); }
+(function(){
+  if(!SX_ON) return;
+  var w=function(n,redraw){ var o=window[n]; if(typeof o!=='function'||o.__sx) return; var f=function(){ var r=o.apply(this,arguments); try{ if(document.getElementById('sx-sec')){ if(redraw){ sxHead(); sxRender(); } } else sxMount(); }catch(e){} return r; }; f.__sx=true; window[n]=f; };
+  var wrap=function(){ w('setLanguage',true); w('showPanel',false); };
+  wrap(); document.addEventListener('DOMContentLoaded',function(){ wrap(); sxMount(); }); window.addEventListener('load',function(){ wrap(); sxMount(); });
+})();
 
 /* ===== Reorganisation: tools open as pages, and desk pages split into tabs ===== */
 function learnChromeTune(id){
@@ -33553,6 +33855,62 @@ body.dark-mode .fd-go,body.dark-mode .fd-go:hover,body.dark-mode .fd-go:visited,
 .sidebar{padding-bottom:84px !important;scroll-padding-bottom:84px}
 @media print{.fd-card,.fd-side,.fd-about{display:none!important}}
 
+
+/* ===== Limits card on every desk page ===== */
+.lc-card{margin:14px 0;padding:16px;border:1.5px solid var(--line-strong);border-radius:16px;background:var(--card);color:var(--ink)}
+.lc-h{display:flex;gap:12px;align-items:flex-start}
+.lc-ic{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(15,118,110,.12);color:var(--brand)}
+.lc-t{margin:0;font-size:16px;line-height:22px;font-weight:700}
+.lc-s{margin:4px 0 0;font-size:12.5px;line-height:19px;color:var(--muted)}
+.lc-rows{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.lc-row{padding:10px 12px;border-radius:12px;background:rgba(128,128,128,.08)}
+.lc-type{font-size:14px;line-height:19px;font-weight:700}
+.lc-tiers{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:3px}
+.lc-tiers li{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:13px;line-height:19px}
+.lc-lab{color:var(--ink);min-width:132px}
+.lc-val{font-weight:600}
+.lc-none{margin:12px 0 0;font-size:13px;line-height:19px;color:var(--muted)}
+.lc-code{white-space:nowrap;unicode-bidi:isolate}
+.lc-strip{margin-top:12px;padding:12px;border-radius:12px;border:1.5px dashed var(--line-strong);background:rgba(128,128,128,.06);color:var(--ink)}
+.lc-strip-t{font-size:13px;line-height:18px;font-weight:700}
+.lc-strip-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.lc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.lc-btn{min-height:44px;padding:8px 14px;border-radius:12px;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);font:inherit;font-size:13px;line-height:18px;font-weight:600;cursor:pointer;text-align:start}
+.lc-btn:hover,.lc-btn:focus-visible{border-color:var(--brand);outline:none}
+.lc-main{background:var(--brand);border-color:var(--brand);color:#fff}
+body.dark-mode .lc-main{color:#0b0f14}
+@media print{.lc-card{display:none !important}}
+
+
+/* ===== Site desk: progress certificate exercise ===== */
+.sx-facts{margin:10px 0}
+.sx-dl{display:grid;grid-template-columns:1fr;gap:6px;margin:0;padding:12px;border-radius:12px;background:rgba(128,128,128,.08)}
+.sx-dl>div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px}
+.sx-dl dt{font-size:12.5px;line-height:18px;color:var(--ink);margin:0}
+.sx-dl dd{font-size:14px;line-height:19px;font-weight:700;margin:0}
+.sx-ok{color:#0b6b3a}
+.sx-no{color:#a12a1d}
+body.dark-mode .sx-ok{color:#6fdca0}
+body.dark-mode .sx-no{color:#ff9f93}
+.sx-dec{border:1.5px solid var(--line-strong);border-radius:12px;margin:12px 0;padding:8px 12px}
+.sx-dec legend{padding:0 6px;font-size:13px;font-weight:700}
+.sx-rad{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;font-size:14px;line-height:19px}
+.sx-rad input{width:20px;height:20px;flex:none}
+.sx-ul{margin:8px 0 0;padding-inline-start:20px}
+.sx-ul li{margin:4px 0;line-height:20px}
+.sx-work{margin-top:10px}
+.sx-work summary,.sx-regd summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.sx-regd{margin-top:16px}
+#sx-fields[hidden]{display:none}
+body:not(.dark-mode) #sx-res .msg-error{color:#8f1d1d}
+
+#bc-rev[hidden]{display:none}
+.sx-regl{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.sx-regl li{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:12px;font-size:13px;line-height:19px;overflow-wrap:anywhere}
+.sx-regl b{font-weight:700}
+.sx-regl .sx-st{color:var(--muted)}
+/* the site error / warning red measures 3.95:1 in light mode: darker text, only inside these two exercises */
+body:not(.dark-mode) #bc-s-result .msg-error,body:not(.dark-mode) #bc-rev-result .msg-error,body:not(.dark-mode) #aud-f-result .cycle-warn{color:#8f1d1d}
 /* ===== Phone fixes: nothing may be cut or hidden on a narrow screen ===== */
 @media (max-width:639px){
  /* the header: the logo starts after the fixed menu button (it was under it), and the controls wrap to a second line instead of running off the screen */
