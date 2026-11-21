@@ -35775,9 +35775,18 @@ window.openDeskDocForms = function(){
   }
 
   /* ---------- 2. Deep links: #desk-ar, #desk-payroll ... ---------- */
-  function fromHash(){
+  /* A refresh goes back to the home page (as before deep links existed); only a link opened fresh, or a hash typed into the address bar, opens a desk. */
+  function isReload(){
+    try { var n = performance.getEntriesByType && performance.getEntriesByType('navigation')[0]; if (n) return n.type === 'reload'; } catch(e){}
+    try { return !!(performance.navigation && performance.navigation.type === 1); } catch(e){ return false; }
+  }
+  function clearDeskHash(){
+    try { if (/^#desk-/i.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); } catch(e){}
+  }
+  function fromHash(first){
     var m = /^#desk-([a-z0-9_-]+)$/i.exec(location.hash);
     if (!m) return;
+    if (first === true && isReload()) { clearDeskHash(); return; }
     var ALIAS = {payroll:'hr', 'payroll-hr':'hr', tr:'treasury', fa:'ratios', analyst:'ratios', site:'constr', budget:'bc', audit:'aud', ledger:'gl', receiving:'recv', inventory:'inv'};
     var k = m[1].toLowerCase(); k = ALIAS[k] || k;
     try {
@@ -35794,6 +35803,13 @@ window.openDeskDocForms = function(){
     };
     w.__wrapped = true;
     window.openWorkspaceMenu = w;
+  }
+  function wrapHome(){   /* back on the home page, the address no longer points at a desk */
+    if (typeof window.goHome !== 'function' || window.goHome.__ahHome) return;
+    var orig = window.goHome;
+    var w = function(){ var r = orig.apply(this, arguments); clearDeskHash(); return r; };
+    w.__ahHome = true;
+    window.goHome = w;
   }
   window.addEventListener('hashchange', fromHash);
 
@@ -35827,7 +35843,7 @@ window.openDeskDocForms = function(){
   /* ---------- 4. PWA (only emitted in the split build) ---------- */
   
 
-  function init(){ wrapOpen(); startObserver(); freshness(); fromHash(); }
+  function init(){ wrapOpen(); wrapHome(); startObserver(); freshness(); fromHash(true); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
