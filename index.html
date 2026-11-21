@@ -22518,6 +22518,191 @@ function lcAfterQuiz(station){ var r=document.getElementById('quiz-result-'+stat
   wrap(); document.addEventListener('DOMContentLoaded',wrap); window.addEventListener('load',wrap);
 })();
 
+
+/* ===== Red team: "Be the fraudster" (payables and treasury desks) =====
+   The learner plays a dishonest employee in a FICTIONAL company. Every move goes through the company's real controls (SOP-AP-01, SOP-TR-01, POL-DOA-01)
+   and every route ends in a control lesson. Points go to predicting the control and to the auditor phase, never to the fraud itself.
+   "Weak company" switches some controls off on purpose to show what each is worth. RT_ON=false removes the whole module. */
+const RT_ON=true;
+const RT_C={"C_VM":{"n":{"en":"Independent check of supplier and bank data","ar":"تحقق مستقل من بيانات المورد والبنك"},"ref":"SOP-AP-01 §4 · POL-DOA-01","w":{"en":"A new supplier or a bank change is confirmed directly with the supplier, by someone other than the requester, before it is used.","ar":"المورد الجديد أو تغيير البنك بيتأكد مباشرة مع المورد، ومن حد غير اللي طلب، قبل ما يتستخدم."}},"C_PO":{"n":{"en":"Approved purchase order first","ar":"أمر شراء معتمد الأول"},"ref":"SOP-AP-01 §1","w":{"en":"No invoice is processed without an approved PO; the few exceptions (rent, utilities) are documented.","ar":"مفيش فاتورة بتتعالج من غير أمر شراء معتمد؛ والاستثناءات القليلة (إيجار، مرافق) موثقة."}},"C_SELF":{"n":{"en":"No self-approval","ar":"ممنوع تعتمد لنفسك"},"ref":"POL-DOA-01 §2","w":{"en":"Nobody approves what they started, prepared or benefit from, whatever their limit.","ar":"محدش بيعتمد حاجة بدأها أو جهّزها أو بيستفيد منها، مهما كان حده."}},"C_SPLIT":{"n":{"en":"No splitting to stay under a limit","ar":"ممنوع التقسيم عشان تفضل تحت الحد"},"ref":"POL-DOA-01 §4–5","w":{"en":"Splitting one transaction is a violation; Internal Audit tests the matrix every cycle and reports breaches to the Audit Committee.","ar":"تقسيم عملية واحدة مخالفة؛ والمراجعة الداخلية بتختبر المصفوفة كل دورة وبتبلّغ لجنة المراجعة."}},"C_SOD_RCV":{"n":{"en":"Only the warehouse records receipts","ar":"المخزن بس هو اللي بيسجّل الاستلام"},"ref":"SOP-AP-01 (chapter 2, step 3)","w":{"en":"Receiving is kept apart from invoice processing and payment; AP cannot record a goods receipt.","ar":"الاستلام منفصل عن معالجة الفواتير والدفع؛ الموردين مايقدروش يسجّلوا إذن استلام."}},"C_3WM":{"n":{"en":"Three-way match","ar":"المطابقة الثلاثية"},"ref":"SOP-AP-01 §2","w":{"en":"PO, goods receipt and invoice must agree on quantity, price and tax before the invoice is posted.","ar":"أمر الشراء وإذن الاستلام والفاتورة لازم يتطابقوا في الكمية والسعر والضريبة قبل الترحيل."}},"C_COUNT":{"n":{"en":"Physical stock count","ar":"الجرد الفعلي"},"ref":"@inv","w":{"en":"Goods recorded as received but never delivered are missing at the count.","ar":"البضاعة المسجّلة كمستلمة وماوصلتش بتطلع ناقصة في الجرد."}},"C_IA":{"n":{"en":"Supplier data review and Internal Audit","ar":"مراجعة بيانات الموردين والمراجعة الداخلية"},"ref":"SOP-AP-01 · POL-DOA-01 §2, §5","w":{"en":"Supplier data is controlled every period and audited; a supplier owned by an employee's relative is a conflict of interest that employee may not process or approve.","ar":"بيانات الموردين بتتراقب كل فترة وبتتراجع؛ والمورد المملوك لقريب موظف تضارب مصالح، والموظف ده مايقدرش يعالجه أو يعتمده."}},"C_PAYSOD":{"n":{"en":"Payment preparer is not the approver","ar":"اللي بيجهّز الدفعة مش هو اللي بيعتمدها"},"ref":"SOP-AP-01 §3 · POL-DOA-01","w":{"en":"Payment runs need dual review per the matrix: up to 300,000 by the Finance Manager or CFO (dual).","ar":"دفعات السداد محتاجة مراجعة مزدوجة حسب المصفوفة: لحد 300,000 المدير المالي (مزدوج)."}},"C_RUNREV":{"n":{"en":"Payment-run review","ar":"مراجعة دفعة السداد"},"ref":"SOP-AP-01 (step 8)","w":{"en":"Every run is checked for accuracy, duplicates and authorization before Treasury releases it.","ar":"كل دفعة بتتراجع للدقة والتكرار والاعتماد قبل ما الخزينة تفرج عنها."}},"C_TRX":{"n":{"en":"Treasury pays approved runs only","ar":"الخزينة بتدفع الدفعات المعتمدة بس"},"ref":"SOP-AP-01 (step 9) · SOP-TR-01 §2","w":{"en":"Treasury releases only approved runs, under dual control; a phone request is not a payment instruction.","ar":"الخزينة بتفرج بس عن الدفعات المعتمدة وتحت رقابة مزدوجة؛ طلب بالتليفون مش أمر دفع."}},"C_DUP":{"n":{"en":"Duplicate-invoice check","ar":"فحص الفواتير المكررة"},"ref":"SOP-AP-01 §2","w":{"en":"System controls and a manual review stop the same invoice being processed twice.","ar":"ضوابط السيستم ومراجعة يدوية بيمنعوا نفس الفاتورة تتعالج مرتين."}},"C_AGED":{"n":{"en":"Aged payables and AP reconciliation","ar":"أعمار الموردين وتسوية الموردين"},"ref":"SOP-AP-01 §5","w":{"en":"Aged payables are prepared monthly and AP is reconciled to the GL; a real supplier that is still unpaid chases its money.","ar":"أعمار الموردين بتتعمل شهريًا وحساب الموردين بيتسوّى مع الأستاذ العام؛ والمورد الحقيقي اللي لسه ماخدش فلوسه بيطالب."}},"C_DELEG":{"n":{"en":"Delegation only in writing","ar":"التفويض مكتوب بس"},"ref":"POL-DOA-01 §3","w":{"en":"A temporary delegate needs written notice to Finance and Internal Audit with scope and dates — never verbal or assumed.","ar":"التفويض المؤقت محتاج إخطار مكتوب للمالية والمراجعة الداخلية بالنطاق والتواريخ، عمره ما يبقى شفهي أو مفترض."}},"C_CRED":{"n":{"en":"Personal banking credentials","ar":"بيانات دخول بنكية شخصية"},"ref":"SOP-TR-01 §1","w":{"en":"Online banking is for named users with their own credentials; shared logins are prohibited.","ar":"البنك الإلكتروني لمستخدمين بأسمائهم وببيانات دخول خاصة بيهم؛ ومشاركة الدخول ممنوعة."}},"C_SIGN":{"n":{"en":"Authorized signatories with full documents","ar":"مفوّضين بالتوقيع ومستندات كاملة"},"ref":"SOP-TR-01 §1–2 · POL-DOA-01","w":{"en":"Only signatories in the bank mandate approve, within the matrix, and only with complete supporting documents.","ar":"المفوّضين في تفويض البنك بس هم اللي بيعتمدوا، في حدود المصفوفة، وبمستندات كاملة بس."}},"C_TRSOD":{"n":{"en":"Preparer is not the approver; recorder is not the only reconciler","ar":"اللي بيجهّز مش بيعتمد، واللي بيسجّل مش بيسوّي لوحده"},"ref":"SOP-TR-01 §3","w":{"en":"The person who prepares a payment never approves or releases it, and whoever records bank transactions is never the only one reconciling them.","ar":"اللي بيجهّز الدفعة عمره ما بيعتمدها أو يفرج عنها، واللي بيسجّل حركات البنك عمره ما بيسوّيها لوحده."}},"C_REC":{"n":{"en":"Independent bank reconciliation","ar":"تسوية بنك مستقلة"},"ref":"SOP-TR-01 §4","w":{"en":"Every account is reconciled at least monthly and reviewed by an independent person; items older than 30 days go to the CFO.","ar":"كل حساب بيتسوّى شهريًا على الأقل وبيراجعه شخص مستقل؛ والبنود الأقدم من 30 يوم بتروح للمدير المالي."}},"C_CASHPOS":{"n":{"en":"Daily cash position","ar":"مركز النقدية اليومي"},"ref":"SOP-TR-01 §5","w":{"en":"A daily cash position goes to management, so large or unusual outflows are seen quickly.","ar":"مركز النقدية اليومي بيروح للإدارة، فالمدفوعات الكبيرة أو غير العادية بتبان بسرعة."}},"C_MATRIX":{"n":{"en":"Approval matrix levels","ar":"مستويات مصفوفة الاعتماد"},"ref":"POL-DOA-01","w":{"en":"Bank transfers: up to 300,000 by the Finance Manager or CFO; above 300,000 by the GM or Board with dual signatories.","ar":"التحويلات البنكية: لحد 300,000 المدير المالي؛ فوق 300,000 المدير العام أو المجلس بتوقيع مزدوج."}}};
+const RT_S={"ap1":{"desk":"ap","kind":"pay","amt":120000,"pay":3,"title":{"en":"Phantom supplier","ar":"مورد وهمي"},"goal":{"en":"Get EGP 120,000 paid to a supplier that does not exist.","ar":"تطلّع 120,000 جنيه لمورد مش موجود."},"steps":[{"d":1,"s":{"en":"First, the fake supplier has to exist in the system.","ar":"الأول، المورد الوهمي لازم يبقى موجود على السيستم."},"pool":["C_VM","C_IA","C_DUP","C_3WM"],"t":[{"t":{"en":"Create the supplier record yourself.","ar":"تفتح كارت المورد بنفسك."},"k":"C_VM","n":{"r":"block","c":"C_VM","d":1},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Ask Purchasing to create it, with a fake commercial-register copy.","ar":"تطلب من المشتريات تفتحه، بصورة سجل تجاري مزوّرة."},"k":"C_VM","n":{"r":"block","c":"C_VM","d":2},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Register a real company owned by your cousin as the supplier.","ar":"تسجّل شركة حقيقية بتاعة ابن عمك كمورد."},"k":"C_IA","n":{"r":"later","c":"C_IA","d":60},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":3,"s":{"en":"No invoice is paid without a purchase order. You need one for EGP 120,000.","ar":"مفيش فاتورة بتتدفع من غير أمر شراء. محتاج أمر بـ120,000 جنيه."},"pool":["C_SELF","C_SPLIT","C_PO","C_REC"],"t":[{"t":{"en":"Raise the PO yourself and approve it.","ar":"تعمل أمر الشراء وتعتمده بنفسك."},"k":"C_SELF","n":{"r":"block","c":"C_SELF","d":3},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Split it into three POs of 40,000, each within a department head's limit.","ar":"تقسّمه على تلات أوامر 40,000، كل واحد في حدود رئيس القسم."},"k":"C_SPLIT","n":{"r":"later","c":"C_SPLIT","d":30},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Skip the PO and submit the invoice as an exception, like rent.","ar":"تتخطى أمر الشراء وتقدّم الفاتورة كاستثناء زي الإيجار."},"k":"C_PO","n":{"r":"block","c":"C_PO","d":3},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":5,"s":{"en":"Three-way match needs a goods receipt — for goods that never came.","ar":"المطابقة الثلاثية محتاجة إذن استلام، لبضاعة عمرها ما جت."},"pool":["C_SOD_RCV","C_3WM","C_COUNT","C_SIGN"],"t":[{"t":{"en":"Record a goods receipt yourself.","ar":"تسجّل إذن الاستلام بنفسك."},"k":"C_SOD_RCV","n":{"r":"block","c":"C_SOD_RCV","d":5},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Post the invoice with a manual override of the match.","ar":"ترحّل الفاتورة بتجاوز يدوي للمطابقة."},"k":"C_3WM","n":{"r":"block","c":"C_3WM","d":5},"w":{"r":"later","c":"C_AGED","d":31},"x":null},{"t":{"en":"Ask a friend in the warehouse to sign a receipt.","ar":"تطلب من صاحبك في المخزن يمضي إذن استلام."},"k":"C_COUNT","n":{"r":"later","c":"C_COUNT","d":30},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":7,"s":{"en":"The invoice is approved and open. Now it has to be paid.","ar":"الفاتورة اتعتمدت ومفتوحة. دلوقتي لازم تتدفع."},"pool":["C_PAYSOD","C_RUNREV","C_TRX","C_VM"],"t":[{"t":{"en":"Prepare the payment proposal and approve it yourself.","ar":"تجهّز مقترح الدفعة وتعتمده بنفسك."},"k":"C_PAYSOD","n":{"r":"block","c":"C_PAYSOD","d":7},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Let it go out in the weekly run with 60 genuine payments.","ar":"تسيبها تطلع في دفعة الأسبوع وسط 60 دفعة حقيقية."},"k":"C_RUNREV","n":{"r":"go","c":null,"d":null},"w":{"r":"go","c":null,"d":null},"x":{"en":"On paper the invoice looks valid, so the run review passes it. That is why the earlier controls matter.","ar":"على الورق الفاتورة شكلها سليم، فمراجعة الدفعة بتعدّيها. عشان كده الضوابط اللي قبلها مهمة."}},{"t":{"en":"Phone Treasury and ask for an urgent payment outside the run.","ar":"تكلّم الخزينة وتطلب دفعة مستعجلة برّه الدفعة."},"k":"C_TRX","n":{"r":"block","c":"C_TRX","d":7},"w":{"r":"go","c":null,"d":null},"x":null}]}],"defend":{"opts":["C_VM","C_3WM","C_CASHPOS","C_DUP"],"ok":["C_VM","C_3WM"]}},"ap2":{"desk":"ap","kind":"pay","amt":85000,"pay":1,"title":{"en":"Redirect a supplier payment","ar":"تحويل دفعة مورد"},"goal":{"en":"Redirect the next EGP 85,000 payment of a real supplier, Al-Nour Packaging, to an account you control.","ar":"تحوّل دفعة 85,000 جنيه الجاية لمورد حقيقي، النور للتغليف، لحساب تحت إيدك."},"steps":[{"d":1,"s":{"en":"The supplier's bank account in the system has to change.","ar":"حساب بنك المورد على السيستم لازم يتغيّر."},"pool":["C_VM","C_DUP","C_3WM","C_REC"],"t":[{"t":{"en":"Email AP a letter on the supplier's letterhead from a look-alike address.","ar":"تبعت للموردين خطاب على ورق المورد من إيميل شبه إيميله."},"k":"C_VM","n":{"r":"block","c":"C_VM","d":2},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"As the AP clerk, change the bank details yourself.","ar":"بصفتك موظف الموردين، تغيّر بيانات البنك بنفسك."},"k":"C_VM","n":{"r":"block","c":"C_VM","d":1},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Phone AP pretending to be the supplier's accountant.","ar":"تكلّم الموردين على إنك محاسب المورد."},"k":"C_VM","n":{"r":"block","c":"C_VM","d":1},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":4,"s":{"en":"The account is changed. The supplier's invoice is due on day 4.","ar":"الحساب اتغيّر. فاتورة المورد مستحقة يوم 4."},"pool":["C_AGED","C_RUNREV","C_SELF","C_CASHPOS"],"t":[{"t":{"en":"Let the normal weekly run pay it.","ar":"تسيب دفعة الأسبوع العادية تدفعها."},"k":"C_AGED","n":{"r":"later","c":"C_AGED","d":14},"w":{"r":"later","c":"C_AGED","d":14},"x":null},{"t":{"en":"Mark the invoice urgent so it is paid today.","ar":"تعلّم الفاتورة مستعجلة عشان تتدفع النهاردة."},"k":"C_AGED","n":{"r":"later","c":"C_AGED","d":14},"w":{"r":"later","c":"C_AGED","d":14},"x":null},{"t":{"en":"Pay it, then change the bank details back to cover your tracks.","ar":"تدفعها وبعدين ترجّع بيانات البنك زي ما كانت عشان تخفي أثرك."},"k":"C_AGED","n":{"r":"later","c":"C_AGED","d":14},"w":{"r":"later","c":"C_AGED","d":14},"x":null}]}],"defend":{"opts":["C_VM","C_AGED","C_DUP","C_COUNT"],"ok":["C_VM","C_AGED"]}},"ap3":{"desk":"ap","kind":"pay","amt":64000,"pay":1,"title":{"en":"Pay one invoice twice","ar":"فاتورة تتدفع مرتين"},"goal":{"en":"Get Delta Supplies' invoice INV-4471 (EGP 64,000), already paid, paid a second time.","ar":"تخلّي فاتورة دلتا للتوريدات INV-4471 (64,000 جنيه)، اللي اتدفعت، تتدفع مرة تانية."},"steps":[{"d":2,"s":{"en":"Invoice INV-4471 was paid yesterday. You submit it again.","ar":"الفاتورة INV-4471 اتدفعت امبارح. بتقدّمها تاني."},"pool":["C_DUP","C_3WM","C_SELF","C_REC"],"t":[{"t":{"en":"Enter the same number, INV-4471.","ar":"تدخلها بنفس الرقم INV-4471."},"k":"C_DUP","n":{"r":"block","c":"C_DUP","d":2},"w":{"r":"block","c":"C_DUP","d":2},"x":null},{"t":{"en":"Enter it as INV-4471-A, same amount.","ar":"تدخلها INV-4471-A بنفس المبلغ."},"k":"C_DUP","n":{"r":"go","c":null,"d":null},"w":{"r":"go","c":null,"d":null},"x":{"en":"The manual check missed it on a busy day. One control can fail — the next one is waiting.","ar":"المراجعة اليدوية فوّتتها في يوم زحمة. رقابة واحدة ممكن تفوت، والتانية مستنية."}},{"t":{"en":"Use a photocopy with a new date and number.","ar":"تستخدم صورة منها بتاريخ ورقم جداد."},"k":"C_3WM","n":{"r":"block","c":"C_3WM","d":2},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":5,"s":{"en":"The duplicate is approved and waiting for the payment run.","ar":"الفاتورة المكررة اتعتمدت ومستنية دفعة السداد."},"pool":["C_RUNREV","C_DELEG","C_VM","C_CRED"],"t":[{"t":{"en":"Leave it in the normal run.","ar":"تسيبها في الدفعة العادية."},"k":"C_RUNREV","n":{"r":"block","c":"C_RUNREV","d":5},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Hold it until the run reviewer is on leave.","ar":"تأجّلها لحد ما مراجع الدفعة ياخد إجازة."},"k":"C_DELEG","n":{"r":"block","c":"C_DELEG","d":9},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Switch the duplicate to a dormant supplier whose bank account you control.","ar":"تحوّل الفاتورة المكررة لمورد قديم مش نشط حسابه البنكي تحت إيدك."},"k":"C_VM","n":{"r":"block","c":"C_VM","d":5},"w":{"r":"go","c":null,"d":null},"x":null}]}],"defend":{"opts":["C_DUP","C_RUNREV","C_COUNT","C_CASHPOS"],"ok":["C_DUP","C_RUNREV"]}},"tr1":{"desk":"treasury","kind":"pay","amt":180000,"pay":1,"title":{"en":"Approve your own transfer","ar":"تعتمد تحويلك بنفسك"},"goal":{"en":"Send EGP 180,000 to an outside account. You prepare transfers; the Finance Manager approves them — and he is on leave.","ar":"تبعت 180,000 جنيه لحساب برّه. إنت بتجهّز التحويلات والمدير المالي بيعتمدها، وهو في إجازة."},"steps":[{"d":1,"s":{"en":"Someone other than you must approve the transfer.","ar":"لازم حد غيرك يعتمد التحويل."},"pool":["C_CRED","C_DELEG","C_SIGN","C_REC"],"t":[{"t":{"en":"Log in with his username and token, which he left in the drawer.","ar":"تدخل بيوزر وتوكن بتوعه اللي سابهم في الدرج."},"k":"C_CRED","n":{"r":"go","c":null,"d":null},"w":{"r":"go","c":null,"d":null},"x":{"en":"No system can tell who typed the password. The rule exists, but it relies on people; the next controls must catch it.","ar":"مفيش سيستم يعرف مين كتب الباسورد. القاعدة موجودة بس معتمدة على الناس، والضوابط اللي بعدها لازم تمسكها."}},{"t":{"en":"Ask IT for temporary approval rights.","ar":"تطلب من الـIT صلاحية اعتماد مؤقتة."},"k":"C_DELEG","n":{"r":"block","c":"C_DELEG","d":1},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Email the bank that you are his delegate.","ar":"تبعت للبنك إيميل إنك المفوّض بداله."},"k":"C_DELEG","n":{"r":"block","c":"C_DELEG","d":1},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":2,"s":{"en":"The transfer is prepared. It needs approval.","ar":"التحويل جاهز. محتاج اعتماد."},"pool":["C_REC","C_SIGN","C_CRED","C_CASHPOS"],"t":[{"t":{"en":"Approve it yourself from his login.","ar":"تعتمده بنفسك من دخوله هو."},"k":"C_REC","n":{"r":"later","c":"C_REC","d":8},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Send it to the CFO with an invoice from a supplier that is not in the system.","ar":"تبعته للمدير المالي بفاتورة من مورد مش موجود على السيستم."},"k":"C_SIGN","n":{"r":"block","c":"C_SIGN","d":2},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Ask a junior colleague to click approve just this once.","ar":"تطلب من زميل جديد يدوس اعتماد المرة دي بس."},"k":"C_SIGN","n":{"r":"block","c":"C_SIGN","d":2},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":3,"s":{"en":"The money has left. Now the books must not show it.","ar":"الفلوس طلعت. دلوقتي الدفاتر لازم ماتبيّنش."},"pool":["C_REC","C_TRSOD","C_DUP","C_3WM"],"t":[{"t":{"en":"Record it in the cash book as a supplier advance.","ar":"تسجّلها في دفتر النقدية كدفعة مقدمة لمورد."},"k":"C_REC","n":{"r":"later","c":"C_REC","d":31},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Do not record it; leave it as a reconciling item.","ar":"ماتسجّلهاش وتسيبها بند في التسوية."},"k":"C_REC","n":{"r":"later","c":"C_REC","d":31},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Reconcile the account yourself and sign as the reviewer too.","ar":"تسوّي الحساب بنفسك وتمضي كمراجع كمان."},"k":"C_TRSOD","n":{"r":"later","c":"C_TRSOD","d":30},"w":{"r":"go","c":null,"d":null},"x":null}]}],"defend":{"opts":["C_CRED","C_REC","C_DUP","C_3WM"],"ok":["C_CRED","C_REC"]}},"tr2":{"desk":"treasury","kind":"pay","amt":450000,"pay":1,"title":{"en":"Split to stay under the limit","ar":"تقسيم عشان تفضل تحت الحد"},"goal":{"en":"Pay EGP 450,000 to a supplier who promised you a kickback, without it reaching the GM. The Finance Manager can approve up to 300,000.","ar":"تدفع 450,000 جنيه لمورد وعدك بعمولة، من غير ما توصل للمدير العام. المدير المالي يقدر يعتمد لحد 300,000."},"steps":[{"d":1,"s":{"en":"450,000 is above the Finance Manager's limit. Above 300,000 it goes to the GM or Board with dual signatories.","ar":"450,000 فوق حد المدير المالي. فوق 300,000 بتروح للمدير العام أو المجلس بتوقيع مزدوج."},"pool":["C_SPLIT","C_CASHPOS","C_MATRIX","C_VM"],"t":[{"t":{"en":"Raise two transfers of 225,000 on the same day.","ar":"تعمل تحويلين 225,000 في نفس اليوم."},"k":"C_SPLIT","n":{"r":"block","c":"C_SPLIT","d":1},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Spread them over two days with different references.","ar":"توزّعهم على يومين بمراجع مختلفة."},"k":"C_CASHPOS","n":{"r":"later","c":"C_CASHPOS","d":2},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Send the full 450,000 to the GM or Board for dual signature.","ar":"تبعت الـ450,000 كاملة للمدير العام أو المجلس للتوقيع المزدوج."},"k":"C_MATRIX","n":{"r":"right","c":null,"d":null},"w":{"r":"right","c":null,"d":null},"x":{"en":"That is the correct route: the payment goes to the right level with dual signatures. No fraud here.","ar":"ده الطريق الصح: الدفعة بتروح للمستوى المناسب بتوقيع مزدوج. مفيش احتيال هنا."}}]},{"d":3,"s":{"en":"Both halves are ready for approval.","ar":"النصين جاهزين للاعتماد."},"pool":["C_SPLIT","C_SELF","C_3WM","C_REC"],"t":[{"t":{"en":"Get the Finance Manager to approve each half — each is within his limit.","ar":"تخلّي المدير المالي يعتمد كل نص لوحده، كل واحد في حدوده."},"k":"C_SPLIT","n":{"r":"later","c":"C_SPLIT","d":30},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Approve one half yourself and ask him for the other.","ar":"تعتمد نص بنفسك وتطلب منه التاني."},"k":"C_SELF","n":{"r":"block","c":"C_SELF","d":3},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Record the second half as a separate service with a new invoice.","ar":"تسجّل النص التاني كخدمة منفصلة بفاتورة جديدة."},"k":"C_3WM","n":{"r":"block","c":"C_3WM","d":3},"w":{"r":"go","c":null,"d":null},"x":null}]}],"defend":{"opts":["C_SPLIT","C_CASHPOS","C_DUP","C_COUNT"],"ok":["C_SPLIT","C_CASHPOS"]}},"tr3":{"desk":"treasury","kind":"hide","amt":22000,"pay":null,"title":{"en":"Hide a cash difference","ar":"تخبّي فرق في البنك"},"goal":{"en":"EGP 22,000 is missing from the bank account you reconcile. Make the reconciliation balance without anyone asking.","ar":"22,000 جنيه ناقصين من حساب البنك اللي بتسوّيه. خلّي التسوية تتقفل من غير ما حد يسأل."},"steps":[{"d":30,"s":{"en":"Month-end. The book balance is EGP 22,000 higher than the bank.","ar":"آخر الشهر. رصيد الدفاتر أعلى من البنك بـ22,000 جنيه."},"pool":["C_REC","C_TRSOD","C_CASHPOS","C_DUP"],"t":[{"t":{"en":"Post a journal 'bank charges 22,000' to balance it.","ar":"ترحّل قيد مصاريف بنكية 22,000 عشان تتقفل."},"k":"C_REC","n":{"r":"block","c":"C_REC","d":31},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Leave it as an unidentified item.","ar":"تسيبه بند غير معروف."},"k":"C_REC","n":{"r":"later","c":"C_REC","d":60},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Reconcile it yourself and sign as the reviewer too.","ar":"تسوّيه بنفسك وتمضي كمراجع كمان."},"k":"C_TRSOD","n":{"r":"block","c":"C_TRSOD","d":30},"w":{"r":"go","c":null,"d":null},"x":null}]},{"d":31,"s":{"en":"Next month the item is still there.","ar":"الشهر اللي بعده البند لسه موجود."},"pool":["C_REC","C_TRSOD","C_DELEG","C_VM"],"t":[{"t":{"en":"Roll it forward every month.","ar":"ترحّله لقدّام كل شهر."},"k":"C_REC","n":{"r":"later","c":"C_REC","d":60},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Move it into the reconciliation of a dormant account.","ar":"تنقله لتسوية حساب مش نشط."},"k":"C_REC","n":{"r":"later","c":"C_REC","d":60},"w":{"r":"go","c":null,"d":null},"x":null},{"t":{"en":"Edit the bank statement PDF so the balances agree.","ar":"تعدّل ملف كشف البنك عشان الأرصدة تتطابق."},"k":"C_REC","n":{"r":"later","c":"C_REC","d":31},"w":{"r":"go","c":null,"d":null},"x":null}]}],"defend":{"opts":["C_REC","C_TRSOD","C_DUP","C_3WM"],"ok":["C_REC","C_TRSOD"]}}};
+const RT_U={"title":{"en":"Be the fraudster","ar":"كن أنت المحتال"},"sub":{"en":"Play the dishonest employee in a fictional company and see which control stops you, when and why. Then switch sides and be the auditor.","ar":"العب دور الموظف اللي بيحاول يعدّي عملية مخالفة في شركة افتراضية، وشوف أنهي رقابة بتمسكك، وإمتى، وليه. وبعدين اقلب الدور وبقى المراجع."},"strong":{"en":"Strong company","ar":"شركة قوية"},"weak":{"en":"Weak company","ar":"شركة ضعيفة"},"strongN":{"en":"All the company's controls are on.","ar":"كل ضوابط الشركة شغالة."},"weakN":{"en":"Some controls are switched off on purpose (independent checks, separation of duties, reviews), to show what each one is worth.","ar":"بعض الضوابط متعطّلة بقصد (التحقق المستقل، وفصل المهام، والمراجعات)، عشان يبان قيمة كل واحدة."},"modeL":{"en":"Company type","ar":"نوع الشركة"},"best":{"en":"Best score","ar":"أفضل نتيجة"},"start":{"en":"Start","ar":"ابدأ"},"rules":{"en":"In every step you choose a move, then predict which control will catch it. Points go to correct predictions and to your answers as the auditor — never to the fraud itself.","ar":"في كل خطوة بتختار حركة، وبعدين تتوقّع أنهي رقابة هتمسكها. النقط على التوقّع الصح وعلى إجاباتك كمراجع، مش على الاحتيال نفسه."},"disc":{"en":"Training only: a fictional company; the schemes come from the fraud lists in this site.","ar":"للتدريب بس: شركة افتراضية، والأساليب من قوايم الاحتيال في الموقع."},"goal":{"en":"Your goal","ar":"هدفك"},"step":{"en":"Step","ar":"خطوة"},"of":{"en":"of","ar":"من"},"day":{"en":"Day","ar":"يوم"},"move":{"en":"Your move","ar":"حركتك"},"chosen":{"en":"You chose","ar":"اخترت"},"pq":{"en":"Which control do you expect to catch this move?","ar":"أنهي رقابة متوقّع تمسك الحركة دي؟"},"pqW":{"en":"Which control would catch this move in a strong company?","ar":"أنهي رقابة كانت هتمسك الحركة دي في شركة قوية؟"},"pOk":{"en":"Right prediction: +10","ar":"توقّع صح: +10"},"pNo":{"en":"Not this one. The control here is:","ar":"مش دي. الرقابة هنا:"},"oBlock":{"en":"Stopped","ar":"اتوقفت"},"oGo":{"en":"Nothing stopped you at this step","ar":"مفيش حاجة وقفتك في الخطوة دي"},"oLater":{"en":"It went through — for now","ar":"عدّت، لحد دلوقتي"},"oRight":{"en":"The right route","ar":"الطريق الصح"},"inStrong":{"en":"In a strong company:","ar":"في شركة قوية:"},"sBlock":{"en":"it would have been stopped by","ar":"كانت هتتوقف عند"},"sLater":{"en":"it would have surfaced later through","ar":"كانت هتتكشف بعدين عن طريق"},"sGo":{"en":"it would pass this step too","ar":"كانت هتعدّي الخطوة دي برضه"},"next":{"en":"Next","ar":"اللي بعده"},"result":{"en":"See what happened","ar":"شوف اللي حصل"},"read":{"en":"Read","ar":"اقرا"},"what":{"en":"What happened","ar":"اللي حصل"},"vPayBlock":{"en":"Stopped on day {d} by: {c}. Money out: EGP 0.","ar":"اتوقفت يوم {d} عند: {c}. الفلوس اللي طلعت: 0 جنيه."},"vPayEarly":{"en":"Caught on day {d}, before the money left, by: {c}. Money out: EGP 0.","ar":"اتمسكت يوم {d}، قبل ما الفلوس تطلع، عن طريق: {c}. الفلوس اللي طلعت: 0 جنيه."},"vPayLater":{"en":"EGP {a} went out on day {p}. The scheme surfaced on day {d} through: {c}. Found late — the money may not come back.","ar":"طلع {a} جنيه يوم {p}. الأسلوب اتكشف يوم {d} عن طريق: {c}. اتكشف متأخر، والفلوس ممكن ماترجعش."},"vPayLost":{"en":"Nobody noticed. EGP {a} is gone.","ar":"محدش لاحظ. راح {a} جنيه."},"vRight":{"en":"No fraud: you used the right route.","ar":"مفيش احتيال: استخدمت الطريق الصح."},"vHideBlock":{"en":"Caught on day {d} by: {c}.","ar":"اتمسكت يوم {d} عن طريق: {c}."},"vHideLater":{"en":"Hidden for a while — found on day {d} through: {c}.","ar":"اتخبّت فترة، واتكشفت يوم {d} عن طريق: {c}."},"vHideLost":{"en":"Nobody noticed. The EGP {a} gap stays hidden — and can grow.","ar":"محدش لاحظ. فرق الـ{a} جنيه فضل مستخبّي، وممكن يكبر."},"lostWhy":{"en":"In a strong company these would have caught it:","ar":"في شركة قوية دول كانوا هيمسكوها:"},"audT":{"en":"Now you are the auditor","ar":"دلوقتي إنت المراجع"},"audQ":{"en":"Choose the two controls that protect best against this scheme.","ar":"اختار أهم رقابتين بيحموا من الأسلوب ده."},"check":{"en":"Check","ar":"تحقق"},"pick2":{"en":"Choose two","ar":"اختار اتنين"},"aOk":{"en":"Correct","ar":"صح"},"aNo":{"en":"Not the best choice","ar":"مش أحسن اختيار"},"score":{"en":"Score","ar":"النتيجة"},"again":{"en":"Play again","ar":"العب تاني"},"toWeak":{"en":"Try it in the weak company","ar":"جرّبها في الشركة الضعيفة"},"toStrong":{"en":"Try it in the strong company","ar":"جرّبها في الشركة القوية"},"close":{"en":"Close","ar":"اقفل"},"egp":{"en":"EGP","ar":"جنيه"}};
+const RT_DESKS={ap:['ap1','ap2','ap3'],treasury:['tr1','tr2','tr3']};
+var RT={st:null,key:'ayman_redteam_v1'};
+function rtAr(){ return (typeof cycleAr==='function')?!!cycleAr():false; }
+function rtT(o){ return o?(rtAr()?o.ar:o.en):''; }
+function rtU(k){ return rtT(RT_U[k]); }
+function rtLoad(){ try{ var p=JSON.parse(localStorage.getItem(RT.key)||'{}'); return (p&&typeof p==='object')?p:{}; }catch(e){ return {}; } }
+function rtSave(p){ try{ localStorage.setItem(RT.key,JSON.stringify(p)); }catch(e){} }
+function rtNum(n){ return Number(n).toLocaleString('en-US'); }
+function rtMax(s){ return s.steps.length*10+20; }
+function rtRefText(c){ return String(RT_C[c].ref||'').replace('@inv',(typeof HB_DESK!=='undefined'&&HB_DESK.inv)||'SOP-INV-01'); }
+function rtCodes(c){ var m=rtRefText(c).match(/(SOP|POL)-[A-Z]+-\d+/g)||[]; return m.filter(function(x,i){ return m.indexOf(x)===i; }); }
+function rtFill(s,o){ return String(s).replace(/\{(\w)\}/g,function(_,k){ return (k in o)?o[k]:''; }); }
+function rtCtlCard(c,cls){
+  var C=RT_C[c]; if(!C) return '';
+  var h='<div class="rt-ctl'+(cls?' '+cls:'')+'"><div class="rt-ctl-n">'+rtT(C.n)+'</div><div class="rt-ctl-w">'+rtT(C.w)+'</div><div class="rt-ctl-r"><bdi class="rt-code">'+rtRefText(c)+'</bdi>';
+  rtCodes(c).forEach(function(code){ h+=' <button type="button" class="rt-lnk" onclick="rtReadSop(\''+code+'\')">'+rtU('read')+' '+code+'</button>'; });
+  return h+'</div></div>';
+}
+function rtReadSop(code){ rtClose(); try{ if(typeof sopOpen==='function') sopOpen(code); }catch(e){} }
+/* ---- the card on the desk page ---- */
+function rtBuild(k){
+  var ids=RT_DESKS[k]; if(!ids) return;
+  var home=document.getElementById(k+'-home'); if(!home) return;
+  var after=home.querySelector('.desk-card.mm-card'), inPractice=!!after;   /* a practice card, right after "My mistake" */
+  if(!after) after=document.getElementById('lc-'+k);
+  if(!after){ var sop=home.querySelector('.hb-desk-sop'); after=sop?sop.closest('.desk-actions'):null; }
+  if(!after||!after.parentNode) return;
+  var ar=rtAr(), P=rtLoad(), mode=(P.mode==='weak')?'weak':'strong';
+  var sig=(ar?'a':'e')+'|'+mode+'|'+ids.map(function(i){ var r=P[i]||{}; return (r.strong==null?'-':r.strong)+'/'+(r.weak==null?'-':r.weak); }).join(',');
+  var el=document.getElementById('rt-'+k); if(el&&el.getAttribute('data-sig')===sig) return;
+  var h='<div class="rt-h"><span class="rt-ic" aria-hidden="true">🕵️</span><div><h3 class="rt-t">'+rtU('title')+'</h3><p class="rt-s">'+rtU('sub')+'</p></div></div>';
+  h+='<div class="rt-mode" role="group" aria-label="'+rtU('modeL')+'">';
+  ['strong','weak'].forEach(function(m){ h+='<button type="button" class="rt-mb'+(mode===m?' on':'')+'" aria-pressed="'+(mode===m?'true':'false')+'" onclick="rtMode(\''+m+'\')">'+rtU(m)+'</button>'; });
+  h+='</div><p class="rt-mnote">'+rtU(mode==='weak'?'weakN':'strongN')+'</p><ul class="rt-list">';
+  ids.forEach(function(id){ var s=RT_S[id], r=P[id]||{}, b=r[mode];
+    h+='<li><button type="button" class="rt-sc" onclick="rtOpen(\''+id+'\')"><span class="rt-sct">'+rtT(s.title)+'</span><span class="rt-scg">'+rtT(s.goal)+'</span><span class="rt-scb">'+(b==null?rtU('start'):rtU('best')+': <bdi>'+b+' / '+rtMax(s)+'</bdi>')+'</span></button></li>'; });
+  h+='</ul><p class="rt-disc">'+rtU('disc')+'</p>';
+  if(!el){ el=document.createElement('section'); el.id='rt-'+k; el.className=inPractice?'desk-card rt-card':'rt-card'; if(inPractice) el.setAttribute('data-dtab','practice'); after.parentNode.insertBefore(el,after.nextSibling); }
+  el.innerHTML=h; el.setAttribute('data-sig',sig); el.setAttribute('aria-label',rtU('title'));
+}
+function rtAll(){ if(!RT_ON) return; try{ Object.keys(RT_DESKS).forEach(rtBuild); if(RT.st) rtRender(); }catch(e){ if(window.console) console.error('red team',e); } }
+function rtMode(m){ var P=rtLoad(); P.mode=(m==='weak')?'weak':'strong'; rtSave(P); rtAll(); }
+/* ---- the game window ---- */
+function rtModal(){
+  var m=document.getElementById('rtModal'); if(m) return m;
+  m=document.createElement('div'); m.id='rtModal'; m.className='rt-ov'; m.hidden=true;
+  m.innerHTML='<div class="rt-dlg" role="dialog" aria-modal="true" aria-labelledby="rtTitle"><div class="rt-top"><h2 id="rtTitle" class="rt-dt" tabindex="-1"></h2><button type="button" class="rt-x" onclick="rtClose()">✕</button></div><div id="rtBody" class="rt-body"></div></div>';
+  m.addEventListener('keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); rtClose(); } });
+  m.addEventListener('click',function(e){ if(e.target===m) rtClose(); });
+  document.body.appendChild(m); return m;
+}
+function rtOpen(id,mode){
+  if(!RT_S[id]) return; var P=rtLoad();
+  RT.st={id:id,mode:mode||((P.mode==='weak')?'weak':'strong'),step:0,phase:'intro',tac:-1,pred:null,picks:[],later:[],score:0,end:null,def:[],defDone:false,back:document.activeElement};
+  var m=rtModal(); m.hidden=false; document.documentElement.classList.add('rt-lock'); rtRender(true);
+}
+function rtClose(){
+  var m=document.getElementById('rtModal'); if(m) m.hidden=true; document.documentElement.classList.remove('rt-lock');
+  var b=RT.st&&RT.st.back; RT.st=null; rtAll(); try{ if(b&&b.focus&&document.body.contains(b)) b.focus(); }catch(e){}
+}
+function rtOutcome(t){ return (RT.st.mode==='weak'&&t.w)?t.w:t.n; }
+function rtHead(){
+  var S=RT.st, s=RT_S[S.id];
+  return '<div class="rt-meta"><span class="rt-chip">'+rtU(S.mode)+'</span><span class="rt-chip">'+rtU('score')+': <bdi>'+S.score+'</bdi></span></div>';
+}
+function rtRender(focus){
+  var S=RT.st; if(!S) return; var s=RT_S[S.id], ar=rtAr(), b=document.getElementById('rtBody'), tt=document.getElementById('rtTitle'); if(!b) return;
+  var m=document.getElementById('rtModal'); if(m){ m.setAttribute('dir',ar?'rtl':'ltr'); m.setAttribute('lang',ar?'ar':'en'); }
+  var x=m&&m.querySelector('.rt-x'); if(x) x.setAttribute('aria-label',rtU('close'));
+  tt.textContent='🕵️ '+rtT(s.title);
+  var h=rtHead();
+  if(S.phase==='intro'){
+    h+='<div class="rt-goal"><div class="rt-lab">'+rtU('goal')+'</div><p>'+rtT(s.goal)+'</p></div>';
+    h+='<p class="rt-p">'+rtU('rules')+'</p><p class="rt-note">'+rtU(S.mode==='weak'?'weakN':'strongN')+'</p><p class="rt-disc">'+rtU('disc')+'</p>';
+    h+='<div class="rt-acts"><button type="button" class="rt-btn rt-main" onclick="rtGo(\'step\')">'+rtU('start')+'</button></div>';
+  } else if(S.phase==='step'||S.phase==='predict'||S.phase==='outcome'){
+    var st=s.steps[S.step];
+    h+='<div class="rt-stephd"><span>'+rtU('step')+' <bdi>'+(S.step+1)+'</bdi> '+rtU('of')+' <bdi>'+s.steps.length+'</bdi></span><span>'+rtU('day')+' <bdi>'+st.d+'</bdi></span></div><p class="rt-sit">'+rtT(st.s)+'</p>';
+    if(S.phase==='step'){
+      h+='<div class="rt-lab">'+rtU('move')+'</div><div class="rt-opts">';
+      st.t.forEach(function(t,i){ h+='<button type="button" class="rt-opt" onclick="rtPick('+i+')">'+rtT(t.t)+'</button>'; });
+      h+='</div>';
+    } else {
+      var t=st.t[S.tac];
+      h+='<div class="rt-chosen"><span class="rt-lab">'+rtU('chosen')+'</span> '+rtT(t.t)+'</div>';
+      if(S.phase==='predict'){
+        h+='<div class="rt-lab">'+rtU(S.mode==='weak'?'pqW':'pq')+'</div><div class="rt-opts">';
+        st.pool.forEach(function(c){ h+='<button type="button" class="rt-opt" onclick="rtPredict(\''+c+'\')">'+rtT(RT_C[c].n)+'</button>'; });
+        h+='</div>';
+      } else {
+        h+=(S.pred===t.k)?'<p class="rt-ok">✔ '+rtU('pOk')+'</p>':'<p class="rt-no">'+rtU('pNo')+'</p>';
+        h+=rtCtlCard(t.k);
+        var o=rtOutcome(t), lab={block:'oBlock',go:'oGo',later:'oLater',right:'oRight'}[o.r];
+        h+='<div class="rt-out rt-out-'+o.r+'"><div class="rt-out-t">'+({block:'🛑 ',go:'➡️ ',later:'⏳ ',right:'✔ '}[o.r])+rtU(lab)+(o.r==='block'?' — '+rtU('day')+' <bdi>'+o.d+'</bdi>':'')+'</div>';
+        if(t.x) h+='<p class="rt-p">'+rtT(t.x)+'</p>';
+        if(S.mode==='weak'&&t.w&&(t.w.r!==t.n.r)){ var n=t.n; h+='<p class="rt-note"><b>'+rtU('inStrong')+'</b> '+(n.r==='block'?rtU('sBlock')+' '+rtT(RT_C[n.c].n):(n.r==='later'?rtU('sLater')+' '+rtT(RT_C[n.c].n):rtU('sGo')))+'</p>'; }
+        h+='</div>';
+        var last=(S.end!==null)||(S.step>=s.steps.length-1);
+        h+='<div class="rt-acts"><button type="button" class="rt-btn rt-main" onclick="rtGo(\''+(last?'summary':'next')+'\')">'+rtU(last?'result':'next')+'</button></div>';
+      }
+    }
+  } else if(S.phase==='summary'){
+    h+='<h3 class="rt-h3">'+rtU('what')+'</h3><ol class="rt-tl">';
+    S.picks.forEach(function(p){ var st=s.steps[p.step], t=st.t[p.tac], o=rtOutcome(t); h+='<li><span class="rt-tld">'+rtU('day')+' <bdi>'+st.d+'</bdi></span> '+rtT(t.t)+' <span class="rt-tag rt-tag-'+o.r+'">'+rtU({block:'oBlock',go:'oGo',later:'oLater',right:'oRight'}[o.r])+'</span></li>'; });
+    h+='</ol>'+rtVerdict();
+    h+='<div class="rt-acts"><button type="button" class="rt-btn rt-main" onclick="rtGo(\'defend\')">'+rtU('audT')+' →</button></div>';
+  } else if(S.phase==='defend'){
+    h+='<h3 class="rt-h3">'+rtU('audT')+'</h3><p class="rt-p">'+rtU('audQ')+'</p><div class="rt-opts" role="group" aria-label="'+rtU('pick2')+'">';
+    s.defend.opts.forEach(function(c){ var on=S.def.indexOf(c)>=0, cls='rt-opt rt-chk'+(on?' on':'');
+      if(S.defDone) cls+=(s.defend.ok.indexOf(c)>=0?' good':(on?' bad':''));
+      h+='<button type="button" class="'+cls+'" aria-pressed="'+(on?'true':'false')+'"'+(S.defDone?' disabled':'')+' onclick="rtDef(\''+c+'\')">'+(on?'☑ ':'☐ ')+rtT(RT_C[c].n)+'</button>'; });
+    h+='</div>';
+    if(!S.defDone){ h+='<div class="rt-acts"><button type="button" class="rt-btn rt-main"'+(S.def.length===2?'':' disabled')+' onclick="rtDefCheck()">'+rtU(S.def.length===2?'check':'pick2')+'</button></div>'; }
+    else {
+      s.defend.ok.forEach(function(c){ h+=rtCtlCard(c,'rt-good'); });
+      h+='<div class="rt-final">'+rtU('score')+': <bdi>'+S.score+' / '+rtMax(s)+'</bdi></div>';
+      h+='<div class="rt-acts"><button type="button" class="rt-btn rt-main" onclick="rtOpen(\''+S.id+'\',\''+S.mode+'\')">'+rtU('again')+'</button>';
+      h+='<button type="button" class="rt-btn" onclick="rtOpen(\''+S.id+'\',\''+(S.mode==='weak'?'strong':'weak')+'\')">'+rtU(S.mode==='weak'?'toStrong':'toWeak')+'</button>';
+      h+='<button type="button" class="rt-btn" onclick="rtClose()">'+rtU('close')+'</button></div>';
+    }
+  }
+  b.innerHTML=h; b.scrollTop=0;
+  if(focus!==false){ try{ tt.focus({preventScroll:true}); }catch(e){ try{ tt.focus(); }catch(e2){} } }
+}
+function rtVerdict(){
+  var S=RT.st, s=RT_S[S.id], E=S.end, a=rtNum(s.amt), txt, cls;
+  var first=null; S.later.forEach(function(l){ if(!first||l.d<first.d) first=l; });
+  if(E&&E.type==='right'){ txt=rtU('vRight'); cls='right'; }
+  else if(E&&E.type==='block'){ txt=rtFill(rtU(s.kind==='hide'?'vHideBlock':'vPayBlock'),{d:E.d,c:rtT(RT_C[E.c].n)}); cls='block'; }
+  else if(first){
+    var payDay=(s.pay!=null)?s.steps[s.pay].d:null;
+    if(s.kind==='pay'&&payDay!=null&&first.d<payDay){ txt=rtFill(rtU('vPayEarly'),{d:first.d,c:rtT(RT_C[first.c].n)}); cls='block'; }
+    else if(s.kind==='pay'){ txt=rtFill(rtU('vPayLater'),{a:a,p:payDay,d:first.d,c:rtT(RT_C[first.c].n)}); cls='later'; }
+    else { txt=rtFill(rtU('vHideLater'),{d:first.d,c:rtT(RT_C[first.c].n)}); cls='later'; }
+  } else {
+    txt=rtFill(rtU(s.kind==='hide'?'vHideLost':'vPayLost'),{a:a}); cls='lost';
+    txt+='</p><p class="rt-p">'+rtU('lostWhy')+'</p>'+s.defend.ok.map(function(c){ return rtCtlCard(c); }).join('')+'<p>';
+  }
+  return '<div class="rt-verdict rt-v-'+cls+'"><p>'+txt+'</p></div>';
+}
+function rtGo(ph){
+  var S=RT.st; if(!S) return; var s=RT_S[S.id];
+  if(ph==='step'){ S.phase='step'; S.step=0; }
+  else if(ph==='next'){ S.step++; S.tac=-1; S.pred=null; S.phase='step'; }
+  else if(ph==='summary'){ S.phase='summary'; }
+  else if(ph==='defend'){ S.phase='defend'; }
+  rtRender();
+}
+function rtPick(i){
+  var S=RT.st; if(!S||S.phase!=='step') return; var s=RT_S[S.id], st=s.steps[S.step], t=st.t[i]; if(!t) return;
+  S.tac=i; S.picks.push({step:S.step,tac:i}); S.phase='predict'; rtRender();
+}
+function rtPredict(c){
+  var S=RT.st; if(!S||S.phase!=='predict') return; var s=RT_S[S.id], st=s.steps[S.step], t=st.t[S.tac];
+  S.pred=c; if(c===t.k) S.score+=10;
+  var o=rtOutcome(t);
+  if(o.r==='block') S.end={type:'block',c:o.c,d:o.d};
+  else if(o.r==='right') S.end={type:'right'};
+  else if(o.r==='later') S.later.push({c:o.c,d:o.d});
+  S.phase='outcome'; rtRender();
+}
+function rtDef(c){ var S=RT.st; if(!S||S.defDone) return; var i=S.def.indexOf(c); if(i>=0) S.def.splice(i,1); else if(S.def.length<2) S.def.push(c); rtRender(false); }
+function rtDefCheck(){
+  var S=RT.st; if(!S||S.defDone||S.def.length!==2) return; var s=RT_S[S.id];
+  S.def.forEach(function(c){ if(s.defend.ok.indexOf(c)>=0) S.score+=10; }); S.defDone=true;
+  var P=rtLoad(), r=P[S.id]||{}; if(r[S.mode]==null||S.score>r[S.mode]) r[S.mode]=S.score; P[S.id]=r; rtSave(P);
+  rtRender();
+}
+(function(){
+  if(!RT_ON) return;
+  var w=function(n){ var o=window[n]; if(typeof o!=='function'||o.__rt) return; var f=function(){ var r=o.apply(this,arguments); try{ rtAll(); }catch(e){} return r; }; f.__rt=true; window[n]=f; };
+  var busy=function(){ var o=window.pfBusy; if(typeof o!=='function'||o.__rt) return; var f=function(){ if(RT.st) return true; return o.apply(this,arguments); }; f.__rt=true; window.pfBusy=f; };   /* the pressure feed waits while the exercise is open */
+  var wrap=function(){ w('setLanguage'); w('showPanel'); w('openWorkspaceMenu'); busy(); };
+  wrap(); document.addEventListener('DOMContentLoaded',function(){ wrap(); rtAll(); }); window.addEventListener('load',function(){ wrap(); rtAll(); }); rtAll();
+})();
+
 /* ===== Site desk: "Prepare a progress certificate" (decision exercise; same arithmetic as form SITE-01-F03) =====
    SX_ON=false removes it (nothing else changes). Teaching data below is illustrative, not taken from any real contract. */
 const SX_ON=true;
@@ -34189,6 +34374,84 @@ body.dark-mode .fd-go,body.dark-mode .fd-go:hover,body.dark-mode .fd-go:visited,
 .lc-main{background:var(--brand);border-color:var(--brand);color:#fff}
 body.dark-mode .lc-main{color:#0b0f14}
 @media print{.lc-card{display:none !important}}
+
+/* ===== Be the fraudster (red team) ===== */
+.rt-card{margin:14px 0;padding:16px;border:1.5px solid var(--line-strong);border-radius:16px;background:var(--card);color:var(--ink)}
+.rt-h{display:flex;gap:12px;align-items:flex-start}
+.rt-ic{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(15,118,110,.12);font-size:22px}
+.rt-t{margin:0;font-size:16px;line-height:22px;font-weight:700}
+.rt-s{margin:4px 0 0;font-size:13px;line-height:19px;color:var(--muted)}
+.rt-mode{display:flex;gap:8px;margin-top:14px}
+.rt-mb{flex:1;min-height:44px;padding:8px 10px;border-radius:12px;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.rt-mb.on{background:var(--brand);border-color:var(--brand);color:#fff}
+body.dark-mode .rt-mb.on{color:#0b0f14}
+.rt-mnote{margin:8px 0 0;font-size:12.5px;line-height:18px;color:var(--muted)}
+.rt-list{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.rt-sc{width:100%;display:flex;flex-direction:column;gap:3px;padding:12px;border-radius:12px;border:1.5px solid var(--line-strong);background:rgba(128,128,128,.06);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.rt-sc:hover,.rt-sc:focus-visible,.rt-mb:focus-visible{border-color:var(--brand);outline:none}
+.rt-sct{font-size:14px;line-height:19px;font-weight:700}
+.rt-scg{font-size:13px;line-height:18px;color:var(--muted)}
+.rt-scb{font-size:12.5px;line-height:17px;font-weight:600;color:var(--brand)}
+.rt-disc{margin:10px 0 0;font-size:12px;line-height:17px;color:var(--muted)}
+html.rt-lock,html.rt-lock body{overflow:hidden}
+.rt-ov{position:fixed;inset:0;z-index:2147483300;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}
+.rt-ov[hidden]{display:none}
+.rt-dlg{width:100%;max-width:640px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border-radius:18px 18px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (min-width:700px){.rt-ov{align-items:center}.rt-dlg{border-radius:18px;max-height:88vh}}
+.rt-top{display:flex;align-items:center;gap:8px;padding:12px 12px 8px 16px;border-bottom:1px solid var(--line-strong)}
+.rt-dt{flex:1;margin:0;font-size:16px;line-height:22px;font-weight:700;outline:none}
+.rt-x{flex:none;width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);font-size:16px;cursor:pointer}
+.rt-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px 18px}
+.rt-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.rt-chip{font-size:12px;line-height:16px;padding:4px 10px;border-radius:999px;background:rgba(128,128,128,.12);color:var(--ink);font-weight:600}
+.rt-goal{padding:12px;border-radius:12px;background:rgba(15,118,110,.08);border:1.5px solid var(--line-strong)}
+.rt-goal p{margin:4px 0 0;font-size:14px;line-height:20px;font-weight:600}
+.rt-lab{font-size:12px;line-height:16px;font-weight:700;color:var(--muted);text-transform:none;margin:12px 0 6px}
+.rt-goal .rt-lab{margin:0}
+.rt-p{margin:10px 0 0;font-size:13.5px;line-height:20px}
+.rt-note{margin:10px 0 0;font-size:13px;line-height:19px;color:var(--ink);padding:10px 12px;border-radius:12px;background:rgba(128,128,128,.08)}
+.rt-stephd{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;line-height:17px;font-weight:700;color:var(--muted)}
+.rt-sit{margin:6px 0 0;font-size:15px;line-height:22px;font-weight:600}
+.rt-opts{display:flex;flex-direction:column;gap:8px}
+.rt-opt{min-height:44px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);font:inherit;font-size:14px;line-height:20px;text-align:start;cursor:pointer}
+.rt-opt:hover,.rt-opt:focus-visible,.rt-btn:focus-visible,.rt-x:focus-visible,.rt-lnk:focus-visible{border-color:var(--brand);outline:2px solid var(--brand);outline-offset:1px}
+.rt-chk.on{border-color:var(--brand);background:rgba(15,118,110,.10)}
+.rt-chk.good{border-color:var(--brand);background:rgba(15,118,110,.14)}
+.rt-chk.bad{border-style:dashed}
+.rt-opt[disabled]{cursor:default;opacity:1}
+.rt-chosen{margin-top:10px;font-size:13.5px;line-height:20px;padding:10px 12px;border-radius:12px;background:rgba(128,128,128,.08)}
+.rt-chosen .rt-lab{display:inline;margin:0}
+.rt-ok,.rt-no{margin:12px 0 6px;font-size:14px;line-height:20px;font-weight:700}
+.rt-ok{color:var(--brand)}
+.rt-ctl{margin-top:8px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line-strong);border-inline-start:4px solid var(--brand)}
+.rt-ctl-n{font-size:14px;line-height:19px;font-weight:700}
+.rt-ctl-w{margin-top:3px;font-size:13px;line-height:19px}
+.rt-ctl-r{margin-top:6px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12px;line-height:17px;color:var(--muted)}
+.rt-code{white-space:nowrap;unicode-bidi:isolate}
+.rt-lnk{min-height:32px;padding:4px 10px;border-radius:10px;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.rt-out{margin-top:12px;padding:12px;border-radius:12px;background:rgba(128,128,128,.08);border-inline-start:4px solid var(--line-strong)}
+.rt-out-block{border-inline-start-color:var(--brand)}
+.rt-out-later{border-inline-start-color:#b7791f}
+.rt-out-go{border-inline-start-color:#b91c1c}
+.rt-out-right{border-inline-start-color:var(--brand)}
+.rt-out-t{font-size:15px;line-height:21px;font-weight:700}
+.rt-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.rt-btn{min-height:44px;padding:10px 16px;border-radius:12px;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.rt-main{background:var(--brand);border-color:var(--brand);color:#fff}
+body.dark-mode .rt-main{color:#0b0f14}
+.rt-btn[disabled]{opacity:.55;cursor:not-allowed}
+.rt-h3{margin:4px 0 8px;font-size:15px;line-height:21px;font-weight:700}
+.rt-tl{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:8px;font-size:13.5px;line-height:20px}
+.rt-tld{font-weight:700;color:var(--muted);margin-inline-end:4px}
+.rt-tag{display:inline-block;font-size:12px;line-height:16px;padding:2px 8px;border-radius:999px;background:rgba(128,128,128,.14);font-weight:600}
+.rt-verdict{margin-top:12px;padding:12px;border-radius:12px;border:1.5px solid var(--line-strong);border-inline-start:4px solid var(--brand);font-size:14px;line-height:21px;font-weight:600}
+.rt-verdict p{margin:0}
+.rt-verdict p+p,.rt-verdict .rt-ctl{margin-top:8px}
+.rt-v-later{border-inline-start-color:#b7791f}
+.rt-v-lost{border-inline-start-color:#b91c1c}
+.rt-final{margin-top:12px;font-size:16px;line-height:22px;font-weight:700}
+@media print{.rt-card,.rt-ov{display:none !important}}
+
 
 
 /* ===== Site desk: progress certificate exercise ===== */
