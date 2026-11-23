@@ -5124,10 +5124,10 @@ input[type="text"]:focus, input[type="number"]:focus{
         <span data-en="Quick Tools" data-ar="أدوات سريعة">Quick Tools</span>
       </div>
       <details class="qt-acc" data-key="daily" open>
-        <summary class="qt-sum"><span class="qt-acc-title" data-en="🏢 Daily work" data-ar="🏢 شغل يومي">🏢 Daily work</span><span class="qt-count">9</span><span class="qt-chev" aria-hidden="true"></span></summary>
+        <summary class="qt-sum"><span class="qt-acc-title" data-en="🏢 Daily work" data-ar="🏢 شغل يومي">🏢 Daily work</span><span class="qt-count">10</span><span class="qt-chev" aria-hidden="true"></span></summary>
         <div class="mock-tools-grid">
           <button type="button" class="mock-tool qt-c3" onclick="hbOpenPart('all')" style="position:relative"><span class="qt-icon-wrap"><span>📑</span></span><strong data-en="Company Handbook" data-ar="دليل الشركة">Company Handbook</strong><small>سياسات وإجراءات ونماذج</small><span class="qt-badge qt-badge-innov" data-en="💡 Innovative" data-ar="💡 مبتكر">💡 Innovative</span></button> <button type="button" id="closeroomToolCard" class="mock-tool qt-c2" onclick="crOpen()" style="position:relative"><span class="qt-icon-wrap"><span>🏁</span></span><strong data-en="Close Room" data-ar="غرفة الإقفال">Close Room</strong><small>إقفال الشركة كلها على لوحة</small><span class="qt-badge qt-badge-innov" data-en="💡 Innovative" data-ar="💡 مبتكر">💡 Innovative</span></button>
-          <button type="button" id="approvalsToolCard" class="mock-tool qt-c1" onclick="apprOpen()" style="position:relative"><span class="qt-icon-wrap"><span>📥</span></span><strong data-en="Approvals Queue" data-ar="صندوق الاعتمادات">Approvals Queue</strong><small>اعتمد · استفسر · صعّد</small></button>
+          <button type="button" id="erpToolCard" class="mock-tool qt-c4" onclick="erpOpen('tasks')" style="position:relative"><span class="qt-icon-wrap"><span>🖥️</span></span><strong data-en="ERP: Bills &amp; Payments" data-ar="النظام: فواتير ومدفوعات">ERP: Bills &amp; Payments</strong><small>شاشات شبه Odoo</small><span class="qt-badge qt-badge-new" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button> <button type="button" id="approvalsToolCard" class="mock-tool qt-c1" onclick="apprOpen()" style="position:relative"><span class="qt-icon-wrap"><span>📥</span></span><strong data-en="Approvals Queue" data-ar="صندوق الاعتمادات">Approvals Queue</strong><small>اعتمد · استفسر · صعّد</small></button>
           <button type="button" id="liveToolCard" class="mock-tool qt-c4" onclick="liveOpen(liveLand())" style="position:relative"><span class="qt-icon-wrap"><span>📞</span></span><strong data-en="Calls & Team Group" data-ar="مكالمات وجروب الفريق">Calls &amp; Team Group</strong><small>تليفون ورغي وطلبات مدفونة</small><span class="qt-badge qt-badge-new" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
           <button type="button" id="meetingToolCard" class="mock-tool qt-c3" onclick="mtOpenHub()" style="position:relative"><span class="qt-icon-wrap"><span>🏛️</span></span><strong data-en="Meeting Rooms" data-ar="غرف الاجتماعات">Meeting Rooms</strong><small data-en="One meeting per desk" data-ar="اجتماع لكل مكتب">One meeting per desk</small></button>
           <button type="button" id="mydayToolCard" class="mock-tool qt-c2" onclick="mdOpen('today')" style="position:relative"><span class="qt-icon-wrap"><span>📝</span></span><strong data-en="My Day & Scorecard" data-ar="يومي والتقييم">My Day &amp; Scorecard</strong><small>تقرير ومستوى</small><span class="qt-badge qt-badge-new" data-en="✨ NEW" data-ar="✨ جديد">✨ NEW</span></button>
@@ -23625,6 +23625,343 @@ var RT2_ON=true;
   var go=function(){ try{ rtAll(); }catch(e){} }; go(); document.addEventListener('DOMContentLoaded',go); window.addEventListener('load',go);
 })();
 
+
+/* ===== Approval gate before posting (POL-DOA-01) =====
+   Seven posting exercises ask "who approves?" before anything is posted. The preparer may never approve; a lower level cannot; the exact
+   level posts with 2 points; a higher level posts with 1 point and a note. Only clicks by the learner are gated. GT_ON=false removes it. */
+var GT_ON=true;
+var GT_T={"je":{"row":{"en":"Manual GL journal entry: up to 20,000 Department Head · 20,001–200,000 Finance Manager / CFO · above 200,000 GM / Board","ar":"قيد يومية يدوي: لحد 20,000 رئيس القسم · من 20,001 لـ200,000 المدير المالي · فوق 200,000 المدير العام / المجلس"},"cuts":[20000,200000]},"bank":{"row":{"en":"Bank transfer / cheque: up to 300,000 Finance Manager / CFO · above 300,000 GM / Board with dual signatories","ar":"تحويل بنكي / شيك: لحد 300,000 المدير المالي · فوق 300,000 المدير العام / المجلس بتوقيع مزدوج"},"cuts":[0,300000]},"payrun":{"row":{"en":"Supplier payment run: up to 300,000 Finance Manager / CFO (dual) · above 300,000 GM / Board","ar":"دفعة سداد الموردين: لحد 300,000 المدير المالي (مزدوج) · فوق 300,000 المدير العام / المجلس"},"cuts":[0,300000]},"payroll":{"row":{"en":"Payroll payment release: Finance Manager / CFO, any amount (dual, Treasury independent)","ar":"صرف الرواتب: المدير المالي، أي مبلغ (مزدوج، والخزينة مستقلة)"},"cuts":[0,1000000000000000]},"writeoff":{"row":{"en":"Bad debt / inventory write-off: up to 50,000 CFO · above 50,000 GM / Board","ar":"شطب ديون أو مخزون: لحد 50,000 المدير المالي · فوق 50,000 المدير العام / المجلس"},"cuts":[0,50000]},"capex":{"row":{"en":"Capital expenditure: up to 200,000 Finance Manager / CFO · above 200,000 GM / Board","ar":"مصروف رأسمالي: لحد 200,000 المدير المالي · فوق 200,000 المدير العام / المجلس"},"cuts":[0,200000]},"tax":{"row":{"en":"Tax payment / return filing: Finance Manager / CFO, any amount (dual with Treasury)","ar":"سداد الضرائب / تقديم الإقرار: المدير المالي، أي مبلغ (مزدوج مع الخزينة)"},"cuts":[0,1000000000000000]}};
+var GT_U={"title":{"en":"Before posting: who approves?","ar":"قبل الترحيل: مين يعتمد؟"},"amount":{"en":"Amount","ar":"المبلغ"},"prep":{"en":"Prepared by","ar":"جهّزه"},"you":{"en":"you","ar":"إنت"},"self":{"en":"Me — I prepared it","ar":"أنا، أنا اللي جهّزته"},"dept":{"en":"Department Head","ar":"رئيس القسم"},"fm":{"en":"Finance Manager / CFO","ar":"المدير المالي"},"gm":{"en":"GM / Board","ar":"المدير العام / المجلس"},"selfNo":{"en":"You prepared it, so you cannot approve it — whatever your personal limit (POL-DOA-01 §2). Nothing was posted.","ar":"إنت اللي جهّزته، فماينفعش تعتمده، مهما كان حدّك الشخصي (POL-DOA-01 §2). ماترحّلش حاجة."},"lowNo":{"en":"EGP {a} is above this level's authority. Nothing was posted — choose again.","ar":"{a} جنيه فوق صلاحية المستوى ده. ماترحّلش حاجة، اختار تاني."},"row":{"en":"The matrix:","ar":"المصفوفة:"},"read":{"en":"Read POL-DOA-01","ar":"اقرا POL-DOA-01"},"cancel":{"en":"Cancel — don't post","ar":"إلغاء، ماترحّلش"},"okNote":{"en":"🔐 Approved by {w} — POL-DOA-01","ar":"🔐 اعتمده: {w} — POL-DOA-01"},"highNote":{"en":"🔐 Approved by {w}. Valid — a higher authority may approve — but the matrix sends this to {r}; routine items should not take senior time.","ar":"🔐 اعتمده: {w}. صحيح لأن المستوى الأعلى يقدر يعتمد، بس المصفوفة بتبعتها لـ{r}؛ الحاجات العادية ماتاخدش وقت الإدارة العليا."}};
+var GT_RANK={self:0,dept:1,fm:2,gm:3};
+var GT={pass:false,cur:null};
+function gtU(k){ var o=GT_U[k]; return o?(cycleAr()?o.ar:o.en):''; }
+function gtV(id){ var e=document.getElementById(id); return e?String(e.value==null?'':e.value).trim():''; }
+function gtN(n){ return Number(n).toLocaleString('en-US'); }
+function gtRight(type,a){ var c=GT_T[type].cuts; return a<=c[0]?'dept':(a<=c[1]?'fm':'gm'); }
+var GT_FN={
+  glManualPost:{type:'je',desk:'gl',msg:'gl-m-result',lb:{"en": "Manual journal entry", "ar": "قيد يومية يدوي"},get:function(){ var dr=gtV('gl-m-dr'),cr=gtV('gl-m-cr'),a=Number(gtV('gl-m-amount')); return (dr&&cr&&a>0&&dr.toLowerCase()!==cr.toLowerCase())?a:null; }},
+  glReverseEntry:{type:'je',desk:'gl',msg:'gl-rev-result',lb:{"en": "Reversal of a journal entry", "ar": "عكس قيد يومية"},get:function(){ var id=gtV('gl-rev-entry'),e=(typeof GL!=='undefined')&&GL.entries.find(function(x){ return x.id===id; }); if(!e) return null; var a=0; e.lines.forEach(function(l){ a+=(l.debit||0); }); return a>0?a:null; }},
+  ratiosRecordReclass:{type:'je',desk:'ratios',msg:'ratios-r-result',lb:{"en": "Reclassification entry", "ar": "قيد إعادة تبويب"},get:function(){ var f=gtV('ratios-r-from'),t=gtV('ratios-r-to'),a=Number(gtV('ratios-r-amount')); return (f&&t&&a>0)?a:null; }},
+  treasuryBankTransfer:{type:'bank',desk:'treasury',msg:'trs-tr-result',lb:{"en": "Bank transfer", "ar": "تحويل بنكي"},get:function(){ var f=gtV('trs-tr-from'),t=gtV('trs-tr-to'),a=Number(gtV('trs-tr-amount'))||0; if(!f||!t||!a||f===t) return null; try{ treasuryInitAccounts(); var acc=treasury.accounts[f]; if(!acc||acc.balance<a) return null; }catch(e){ return null; } return a; }},
+  treasuryBankWithdrawal:{type:'bank',desk:'treasury',msg:'trs-wd-result',lb:{"en": "Bank withdrawal", "ar": "سحب من البنك"},get:function(){ var b=gtV('trs-wd-bank'),a=Number(gtV('trs-wd-amount'))||0; if(!b||!a) return null; try{ treasuryInitAccounts(); var acc=treasury.accounts[b]; if(!acc||acc.balance<a) return null; }catch(e){ return null; } return a; }},
+  pcycleCreatePayment:{type:'payrun',desk:'ap',msg:'pcyc-pay-result',lb:{"en": "Supplier payment", "ar": "سداد مورد"},get:function(){ var id=gtV('pcyc-pay-inv'),d=Number(gtV('pcyc-pay-discount'))||0,a=Number(gtV('pcyc-pay-amount'))||0; var inv=(typeof pcycle!=='undefined')&&pcycle.invoices.find(function(i){ return i.id===id; }); if(!inv||!a||a+d>inv.balance+0.01) return null; return a; }},
+  payrollCalculateAndPost:{type:'payroll',desk:'hr',msg:'payroll-post-result',lb:{"en": "Payroll posting", "ar": "ترحيل الرواتب"},get:function(){ var g=0; document.querySelectorAll('#payroll-run-body tr').forEach(function(tr){ var c=tr.querySelector('.payroll-gross'); g+=c?(Number(c.textContent.replace(/,/g,''))||0):0; }); return g>0?g:null; }},
+  payrollPayNet:{type:'payroll',desk:'hr',msg:'payroll-pay-result',lb:{"en": "Payroll payment", "ar": "صرف الرواتب"},get:function(){ var b=(typeof GL!=='undefined'&&GL.balances['Payroll Payable'])?(GL.balances['Payroll Payable'].credit-GL.balances['Payroll Payable'].debit):0; if(b<=0.01) return null; if(gtV('payroll-pay-method')==='Bank'&&!gtV('payroll-pay-bank')) return null; return b; }},
+  invCreateCount:{type:'writeoff',desk:'inv',msg:'inv-cnt-result',lb:{"en": "Stock count adjustment", "ar": "تسوية جرد"},get:function(){ var code=gtV('inv-cnt-item'),q=gtV('inv-cnt-qty'); if(!code||q==='') return null; var it=cycleItemRows().find(function(i){ return i.code===code; }); if(!it) return null; var v=Number(q)-invGetQty(it.code); return v?Math.abs(v)*it.cost:null; }},
+  faRegisterAsset:{type:'capex',desk:'gl',msg:'fa-reg-result',lb:{"en": "New fixed asset (capex)", "ar": "أصل ثابت جديد (رأسمالي)"},get:function(){ var n=gtV('fa-name'),c=Number(gtV('fa-cost'))||0,s=Number(gtV('fa-salvage'))||0; if(!n||!c||s>=c) return null; if(gtV('fa-dep-method')==='UnitsOfProduction'&&!(Number(gtV('fa-total-units'))||0)) return null; return c; }},
+  taxCalcVATReturn:{type:'tax',desk:'tax',msg:'tax-v-result',lb:{"en": "VAT return", "ar": "إقرار ضريبة القيمة المضافة"},get:function(){ var o=Number(gtV('tax-v-output'))||0,i=Number(gtV('tax-v-input'))||0; if(!o&&!i) return null; var n=Math.abs(o-i); return n>0?n:null; }}
+};
+function gtModal(){
+  var m=document.getElementById('gtModal'); if(m) return m;
+  m=document.createElement('div'); m.id='gtModal'; m.className='rt-ov'; m.hidden=true;
+  m.innerHTML='<div class="rt-dlg gt-dlg" role="dialog" aria-modal="true" aria-labelledby="gtTitle"><div class="rt-top"><h2 id="gtTitle" class="rt-dt" tabindex="-1"></h2><button type="button" class="rt-x" onclick="gtCancel()">✕</button></div><div id="gtBody" class="rt-body"></div></div>';
+  m.addEventListener('keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); gtCancel(); } });
+  document.body.appendChild(m); return m;
+}
+function gtOpen(name,amt,go){ var m=gtModal(); GT.cur={name:name,cfg:GT_FN[name],amt:amt,go:go,tries:0,fb:null,back:document.activeElement}; m.hidden=false; document.documentElement.classList.add('rt-lock'); gtRender(true); }
+function gtClose(){ var m=document.getElementById('gtModal'); if(m) m.hidden=true; document.documentElement.classList.remove('rt-lock'); var b=GT.cur&&GT.cur.back; GT.cur=null; try{ if(b&&b.focus&&document.body.contains(b)) b.focus(); }catch(e){} }
+function gtCancel(){ var C=GT.cur; if(C&&C.tries>0){ try{ actLog('gate',C.cfg.desk,0,2,C.cfg.type,{e:'Approval gate: '+C.cfg.lb.en,a:'بوابة الاعتماد: '+C.cfg.lb.ar}); }catch(e){} } gtClose(); }
+function gtRender(focus){
+  var m=document.getElementById('gtModal'), C=GT.cur; if(!m||m.hidden||!C) return;
+  var ar=cycleAr(), b=document.getElementById('gtBody'), tt=document.getElementById('gtTitle'), cfg=C.cfg;
+  m.setAttribute('dir',ar?'rtl':'ltr'); m.setAttribute('lang',ar?'ar':'en'); tt.textContent='🔐 '+gtU('title'); var x=m.querySelector('.rt-x'); if(x) x.setAttribute('aria-label',gtU('cancel'));
+  var h='<div class="rt-goal"><div class="rt-lab">'+(ar?cfg.lb.ar:cfg.lb.en)+'</div><p class="gt-amt">'+gtU('amount')+': <b><bdi>'+gtN(C.amt)+'</bdi></b> '+(ar?'جنيه':'EGP')+'</p><p class="rt-p">'+gtU('prep')+': <b>'+gtU('you')+'</b></p></div>';
+  h+='<div class="rt-opts">'+['self','dept','fm','gm'].map(function(k){ return '<button type="button" class="rt-opt gt-opt" data-k="'+k+'" onclick="gtPick(\''+k+'\')">'+gtU(k)+'</button>'; }).join('')+'</div>';
+  if(C.fb) h+='<div class="rt-out rt-out-later gt-fb" role="alert"><p class="rt-p">'+C.fb+'</p><p class="rt-p gt-row"><b>'+gtU('row')+'</b> '+(ar?GT_T[cfg.type].row.ar:GT_T[cfg.type].row.en)+'</p><button type="button" class="rt-lnk" onclick="gtCancel();try{sopOpen(\'POL-DOA-01\')}catch(e){}">'+gtU('read')+'</button></div>';
+  h+='<div class="rt-acts"><button type="button" class="rt-btn" onclick="gtCancel()">'+gtU('cancel')+'</button></div>';
+  b.innerHTML=h; if(focus!==false){ try{ tt.focus({preventScroll:true}); }catch(e){ try{ tt.focus(); }catch(e2){} } }
+}
+function gtPick(k){
+  var C=GT.cur; if(!C) return; var cfg=C.cfg, right=gtRight(cfg.type,C.amt);
+  if(k==='self'||GT_RANK[k]<GT_RANK[right]){ C.tries++; C.fb=(k==='self')?gtU('selfNo'):gtU('lowNo').replace('{a}',gtN(C.amt)); gtRender(false); var fbEl=document.querySelector('#gtBody .gt-fb'); if(fbEl&&fbEl.scrollIntoView) fbEl.scrollIntoView({block:'nearest'}); return; }
+  var exact=(k===right), p=C.tries?0:(exact?2:1), go=C.go, note=exact?gtU('okNote').replace('{w}',gtU(k)):gtU('highNote').replace('{w}',gtU(k)).replace('{r}',gtU(right));
+  try{ actLog('gate',cfg.desk,p,2,cfg.type,{e:'Approval gate: '+cfg.lb.en,a:'بوابة الاعتماد: '+cfg.lb.ar}); }catch(e){}
+  gtClose(); go();
+  var el=document.getElementById(cfg.msg); if(el&&el.innerHTML&&!/msg-error/.test(el.innerHTML)) el.insertAdjacentHTML('beforeend','<p class="gt-note">'+note+'</p>');
+  try{ plRenderStrip(); }catch(e){}
+}
+function gtWrap(name){
+  var o=window[name], cfg=GT_FN[name]; if(typeof o!=='function'||o.__gt||!cfg) return;
+  var f=function(){
+    var ev=window.event, user=!!(ev&&/^(click|keydown|keyup|pointerup|touchend)$/.test(ev.type));
+    if(!GT_ON||GT.pass||!user) return o.apply(this,arguments);
+    var amt=null; try{ amt=cfg.get(); }catch(e){ amt=null; }
+    if(!(amt>0)) return o.apply(this,arguments);   /* incomplete input: the exercise shows its own message */
+    var self=this, args=arguments;
+    gtOpen(name,amt,function(){ GT.pass=true; try{ o.apply(self,args); }finally{ GT.pass=false; } });
+  };
+  f.__gt=true; window[name]=f;
+}
+(function(){
+  if(!GT_ON) return;
+  try{ PW.gate={ctl:2,cmp:1}; ACT_TOOLS.gate=['🔐','Approval gate','بوابة الاعتماد']; }catch(e){}
+  var busy=function(){ var o=window.pfBusy; if(typeof o!=='function'||o.__gt) return; var f=function(){ var m=document.getElementById('gtModal'); if(m&&!m.hidden) return true; return o.apply(this,arguments); }; f.__gt=true; window.pfBusy=f; };
+  var lang=function(){ var o=window.setLanguage; if(typeof o!=='function'||o.__gt) return; var f=function(){ var r=o.apply(this,arguments); try{ gtRender(false); }catch(e){} return r; }; f.__gt=true; window.setLanguage=f; };
+  var wrap=function(){ Object.keys(GT_FN).forEach(gtWrap); busy(); lang(); }; wrap(); document.addEventListener('DOMContentLoaded',wrap); window.addEventListener('load',wrap);
+})();
+
+
+/* ===== Calculators: Budget Controller and Internal Auditor =====
+   Same card format as the other desks' calculators, placed in the desk's Practice & Training panel after "Reply to your manager".
+   Percentages for materiality are entered by the learner (an assumption, not a rule). C2_ON=false removes them. */
+var C2_ON=true;
+var C2_DATA={bc:[
+  {category:'var', cat_en:'Budget variance', cat_ar:'انحراف الموازنة', name_en:'Budget Variance (Amount)', name_ar:'انحراف الموازنة (مبلغ)', formula_en:'Actual − Budget', formula_ar:'الفعلي − الموازنة', explain_en:'For a cost line: positive means you spent more than planned (unfavorable). For a revenue line read the sign the other way.', explain_ar:'لبند تكلفة: الموجب معناه صرفت أكتر من المخطط (غير موات). لبند إيراد اقرا الإشارة بالعكس.', inputs:[{key:'act',en:'Actual',ar:'الفعلي'},{key:'bud',en:'Budget',ar:'الموازنة'}], compute:v=>v.act-v.bud, format:'var'},
+  {category:'var', cat_en:'Budget variance', cat_ar:'انحراف الموازنة', name_en:'Budget Variance %', name_ar:'نسبة انحراف الموازنة', formula_en:'(Actual − Budget) ÷ Budget', formula_ar:'(الفعلي − الموازنة) ÷ الموازنة', explain_en:'The same variance as a share of the budget, so lines of different sizes can be compared.', explain_ar:'نفس الانحراف كنسبة من الموازنة، عشان تقارن بنود بأحجام مختلفة.', inputs:[{key:'act',en:'Actual',ar:'الفعلي'},{key:'bud',en:'Budget',ar:'الموازنة'}], compute:v=>v.bud?(v.act-v.bud)/v.bud:null, format:'pct'},
+  {category:'var', cat_en:'Budget variance', cat_ar:'انحراف الموازنة', name_en:'Flexed Budget', name_ar:'الموازنة المرنة', formula_en:'Fixed Costs + (Variable Cost per Unit × Actual Units)', formula_ar:'التكاليف الثابتة + (التكلفة المتغيرة للوحدة × الوحدات الفعلية)', explain_en:'What the budget would have been at the activity you actually achieved — the fair base for judging cost control.', explain_ar:'الموازنة كانت هتبقى كام عند النشاط اللي حققته فعلًا، وده الأساس العادل للحكم على التحكم في التكلفة.', inputs:[{key:'fix',en:'Fixed Costs',ar:'التكاليف الثابتة'},{key:'vc',en:'Variable Cost per Unit',ar:'التكلفة المتغيرة للوحدة'},{key:'units',en:'Actual Units',ar:'الوحدات الفعلية'}], compute:v=>v.fix+v.vc*v.units, format:'num'},
+  {category:'var', cat_en:'Budget variance', cat_ar:'انحراف الموازنة', name_en:'Flexed Budget Variance', name_ar:'انحراف الموازنة المرنة', formula_en:'Actual Cost − Flexed Budget', formula_ar:'التكلفة الفعلية − الموازنة المرنة', explain_en:'The cost variance after removing the effect of volume. Positive = overspend at the actual level of activity.', explain_ar:'انحراف التكلفة بعد استبعاد أثر الحجم. الموجب = صرف زيادة عند مستوى النشاط الفعلي.', inputs:[{key:'act',en:'Actual Cost',ar:'التكلفة الفعلية'},{key:'fix',en:'Fixed Costs',ar:'التكاليف الثابتة'},{key:'vc',en:'Variable Cost per Unit',ar:'التكلفة المتغيرة للوحدة'},{key:'units',en:'Actual Units',ar:'الوحدات الفعلية'}], compute:v=>v.act-(v.fix+v.vc*v.units), format:'var'},
+  {category:'ytd', cat_en:'Year to date, remaining & forecast', cat_ar:'من أول السنة، والمتبقي، والتوقع', name_en:'Year-to-Date Budget (Even Spread)', name_ar:'موازنة من أول السنة (توزيع متساوي)', formula_en:'Annual Budget × Months Elapsed ÷ 12', formula_ar:'الموازنة السنوية × الشهور المنقضية ÷ 12', explain_en:'Assumes the budget is spread evenly. For seasonal lines use the phased monthly budget instead.', explain_ar:'بيفترض إن الموازنة متوزعة بالتساوي. للبنود الموسمية استخدم الموازنة الشهرية المرحّلة.', inputs:[{key:'ann',en:'Annual Budget',ar:'الموازنة السنوية'},{key:'m',en:'Months Elapsed',ar:'الشهور المنقضية'}], compute:v=>v.ann*v.m/12, format:'num'},
+  {category:'ytd', cat_en:'Year to date, remaining & forecast', cat_ar:'من أول السنة، والمتبقي، والتوقع', name_en:'Remaining in the Budget Line', name_ar:'المتبقي في بند الموازنة', formula_en:'Annual Budget − Actual to Date − Committed (open POs)', formula_ar:'الموازنة السنوية − الفعلي حتى تاريخه − المرتبط بيه (أوامر شراء مفتوحة)', explain_en:'What can still be spent. Commitments count before the invoice arrives; a negative result means a budget revision is needed before more spend.', explain_ar:'اللي لسه ممكن يتصرف. الارتباطات بتتحسب قبل ما الفاتورة توصل؛ والنتيجة السالبة معناها محتاج تعديل موازنة قبل أي صرف تاني.', inputs:[{key:'ann',en:'Annual Budget',ar:'الموازنة السنوية'},{key:'act',en:'Actual to Date',ar:'الفعلي حتى تاريخه'},{key:'com',en:'Committed (open POs)',ar:'المرتبط بيه (أوامر مفتوحة)'}], compute:v=>v.ann-v.act-v.com, format:'num'},
+  {category:'ytd', cat_en:'Year to date, remaining & forecast', cat_ar:'من أول السنة، والمتبقي، والتوقع', name_en:'Full-Year Forecast (Run Rate)', name_ar:'توقع السنة كاملة (معدل التشغيل)', formula_en:'Actual to Date ÷ Months Elapsed × 12', formula_ar:'الفعلي حتى تاريخه ÷ الشهور المنقضية × 12', explain_en:'A quick forecast that assumes the rest of the year runs at the same pace — adjust it for known one-off or seasonal items.', explain_ar:'توقع سريع بيفترض إن باقي السنة ماشي بنفس المعدل، وعدّله للبنود الاستثنائية أو الموسمية المعروفة.', inputs:[{key:'act',en:'Actual to Date',ar:'الفعلي حتى تاريخه'},{key:'m',en:'Months Elapsed',ar:'الشهور المنقضية'}], compute:v=>v.m?v.act/v.m*12:null, format:'num'},
+  {category:'ytd', cat_en:'Year to date, remaining & forecast', cat_ar:'من أول السنة، والمتبقي، والتوقع', name_en:'Forecast vs Annual Budget', name_ar:'التوقع مقارنة بالموازنة السنوية', formula_en:'(Actual to Date ÷ Months Elapsed × 12) − Annual Budget', formula_ar:'(الفعلي حتى تاريخه ÷ الشهور المنقضية × 12) − الموازنة السنوية', explain_en:'Positive = the line is heading for an overspend by year-end if nothing changes.', explain_ar:'الموجب = البند رايح لتجاوز في آخر السنة لو مفيش حاجة اتغيّرت.', inputs:[{key:'act',en:'Actual to Date',ar:'الفعلي حتى تاريخه'},{key:'m',en:'Months Elapsed',ar:'الشهور المنقضية'},{key:'ann',en:'Annual Budget',ar:'الموازنة السنوية'}], compute:v=>v.m?v.act/v.m*12-v.ann:null, format:'var'}
+],aud:[
+  {category:'samp', cat_en:'Sampling & projection', cat_ar:'العينات والإسقاط', name_en:'Sample Size (Attribute, Simplified)', name_ar:'حجم العينة (صفات، مبسّط)', formula_en:'Reliability Factor ÷ Tolerable Deviation Rate', formula_ar:'معامل الثقة ÷ نسبة الانحراف المقبولة', explain_en:'A simplified planning formula that assumes no deviations are expected (e.g. factor 3.0 for 95% confidence). It is an assumption — use your firm\'s sampling tables when deviations are expected.', explain_ar:'صيغة تخطيط مبسّطة بتفترض إن مفيش انحرافات متوقعة (مثلًا معامل 3.0 لثقة 95%). دي افتراض، واستخدم جداول العينات المعتمدة عندكم لو فيه انحرافات متوقعة.', inputs:[{key:'rf',en:'Reliability Factor (e.g. 3.0)',ar:'معامل الثقة (مثلًا 3.0)'},{key:'tdr',en:'Tolerable Deviation Rate %',ar:'نسبة الانحراف المقبولة %'}], compute:v=>v.tdr?Math.ceil(v.rf/(v.tdr/100)):null, format:'int'},
+  {category:'samp', cat_en:'Sampling & projection', cat_ar:'العينات والإسقاط', name_en:'Exception (Deviation) Rate', name_ar:'نسبة الاستثناءات (الانحرافات)', formula_en:'Exceptions Found ÷ Sample Size', formula_ar:'الاستثناءات المكتشفة ÷ حجم العينة', explain_en:'Compare it with the tolerable rate you planned; above it, the control cannot be relied on.', explain_ar:'قارنها بالنسبة المقبولة اللي خططت ليها؛ لو أعلى منها، ماينفعش تعتمد على الرقابة.', inputs:[{key:'ex',en:'Exceptions Found',ar:'الاستثناءات المكتشفة'},{key:'n',en:'Sample Size',ar:'حجم العينة'}], compute:v=>v.n?v.ex/v.n:null, format:'pct'},
+  {category:'samp', cat_en:'Sampling & projection', cat_ar:'العينات والإسقاط', name_en:'Projected Misstatement (Ratio Method)', name_ar:'الخطأ المُسقَط (طريقة النسبة)', formula_en:'Misstatement in Sample ÷ Sample Value × Population Value', formula_ar:'الخطأ في العينة ÷ قيمة العينة × قيمة المجتمع', explain_en:'Projects the errors found in the sample onto the whole population, so you judge the total, not just what you happened to test.', explain_ar:'بيُسقط الأخطاء اللي لقيتها في العينة على المجتمع كله، عشان تحكم على الإجمالي مش بس على اللي اختبرته.', inputs:[{key:'mis',en:'Misstatement in Sample',ar:'الخطأ في العينة'},{key:'sv',en:'Sample Value',ar:'قيمة العينة'},{key:'pv',en:'Population Value',ar:'قيمة المجتمع'}], compute:v=>v.sv?v.mis/v.sv*v.pv:null, format:'num'},
+  {category:'samp', cat_en:'Sampling & projection', cat_ar:'العينات والإسقاط', name_en:'Projected vs Tolerable Misstatement', name_ar:'الخطأ المُسقَط مقارنة بالمقبول', formula_en:'Projected Misstatement ÷ Tolerable Misstatement', formula_ar:'الخطأ المُسقَط ÷ الخطأ المقبول', explain_en:'Above 100% the population is misstated beyond what you can accept; near it, extend testing.', explain_ar:'فوق 100% المجتمع فيه خطأ أكبر من المقبول؛ وقريب منها، وسّع الاختبار.', inputs:[{key:'pm',en:'Projected Misstatement',ar:'الخطأ المُسقَط'},{key:'tm',en:'Tolerable Misstatement',ar:'الخطأ المقبول'}], compute:v=>v.tm?v.pm/v.tm:null, format:'pct'},
+  {category:'mat', cat_en:'Materiality (your judgment)', cat_ar:'الأهمية النسبية (حكمك المهني)', name_en:'Overall Materiality', name_ar:'الأهمية النسبية الإجمالية', formula_en:'Benchmark Amount × Percentage you choose', formula_ar:'مبلغ الأساس × النسبة اللي بتختارها', explain_en:'Benchmark examples: profit before tax, revenue or total assets. The percentage is your professional judgment — it depends on the benchmark, the risk and the users of the statements; it is an assumption you enter, not a fixed rule.', explain_ar:'أمثلة للأساس: الربح قبل الضريبة، أو الإيرادات، أو إجمالي الأصول. النسبة حكم مهني منك، بتعتمد على الأساس والمخاطر ومستخدمي القوائم؛ هي افتراض بتكتبه إنت، مش قاعدة ثابتة.', inputs:[{key:'base',en:'Benchmark Amount',ar:'مبلغ الأساس'},{key:'p',en:'Percentage you choose %',ar:'النسبة اللي بتختارها %'}], compute:v=>v.base*v.p/100, format:'num'},
+  {category:'mat', cat_en:'Materiality (your judgment)', cat_ar:'الأهمية النسبية (حكمك المهني)', name_en:'Performance Materiality', name_ar:'أهمية الأداء', formula_en:'Overall Materiality × Percentage you choose', formula_ar:'الأهمية النسبية الإجمالية × النسبة اللي بتختارها', explain_en:'Set below overall materiality so that small undetected errors do not add up to a material one. The percentage is your professional judgment — it depends on the benchmark, the risk and the users of the statements; it is an assumption you enter, not a fixed rule.', explain_ar:'بتتحدد أقل من الأهمية الإجمالية عشان الأخطاء الصغيرة اللي ماتكشفتش ماتتجمّعش لخطأ جوهري. النسبة حكم مهني منك، بتعتمد على الأساس والمخاطر ومستخدمي القوائم؛ هي افتراض بتكتبه إنت، مش قاعدة ثابتة.', inputs:[{key:'om',en:'Overall Materiality',ar:'الأهمية النسبية الإجمالية'},{key:'p',en:'Percentage you choose %',ar:'النسبة اللي بتختارها %'}], compute:v=>v.om*v.p/100, format:'num'},
+  {category:'mat', cat_en:'Materiality (your judgment)', cat_ar:'الأهمية النسبية (حكمك المهني)', name_en:'Clearly Trivial Threshold', name_ar:'حد الأخطاء التافهة', formula_en:'Overall Materiality × Percentage you choose', formula_ar:'الأهمية النسبية الإجمالية × النسبة اللي بتختارها', explain_en:'Errors below this are not accumulated. The percentage is your professional judgment — it depends on the benchmark, the risk and the users of the statements; it is an assumption you enter, not a fixed rule.', explain_ar:'الأخطاء الأقل من الحد ده مابتتجمّعش. النسبة حكم مهني منك، بتعتمد على الأساس والمخاطر ومستخدمي القوائم؛ هي افتراض بتكتبه إنت، مش قاعدة ثابتة.', inputs:[{key:'om',en:'Overall Materiality',ar:'الأهمية النسبية الإجمالية'},{key:'p',en:'Percentage you choose %',ar:'النسبة اللي بتختارها %'}], compute:v=>v.om*v.p/100, format:'num'},
+  {category:'fu', cat_en:'Findings follow-up', cat_ar:'متابعة الملاحظات', name_en:'Findings Closed on Time', name_ar:'الملاحظات اللي اتقفلت في ميعادها', formula_en:'Closed by the Due Date ÷ Findings Due', formula_ar:'اللي اتقفل قبل الميعاد ÷ الملاحظات المستحقة', explain_en:'How seriously management treats audit findings — a key indicator for the audit committee.', explain_ar:'الإدارة بتتعامل مع ملاحظات المراجعة بجدية قد إيه، ومؤشر مهم للجنة المراجعة.', inputs:[{key:'cl',en:'Closed by the Due Date',ar:'اللي اتقفل قبل الميعاد'},{key:'due',en:'Findings Due',ar:'الملاحظات المستحقة'}], compute:v=>v.due?v.cl/v.due:null, format:'pct'},
+  {category:'fu', cat_en:'Findings follow-up', cat_ar:'متابعة الملاحظات', name_en:'Average Age of Open Findings (days)', name_ar:'متوسط عمر الملاحظات المفتوحة (أيام)', formula_en:'Total Days Open ÷ Number of Open Findings', formula_ar:'إجمالي أيام الفتح ÷ عدد الملاحظات المفتوحة', explain_en:'Old open findings mean risks that stay unmanaged; report the oldest ones by name.', explain_ar:'الملاحظات القديمة المفتوحة معناها مخاطر لسه من غير علاج؛ اعرض أقدمها بالاسم.', inputs:[{key:'days',en:'Total Days Open',ar:'إجمالي أيام الفتح'},{key:'open',en:'Number of Open Findings',ar:'عدد الملاحظات المفتوحة'}], compute:v=>v.open?v.days/v.open:null, format:'days'}
+]};
+var C2_REG={};
+function c2Render(desk){
+  var panel=document.getElementById(desk+'-training-flow'); if(!panel) return; var list=document.getElementById(desk+'-calc-list');
+  if(!list){ list=document.createElement('div'); list.id=desk+'-calc-list'; var chat=document.getElementById('chat-sim-wrap-'+desk), anchor=chat&&chat.closest('.chat-reveal');
+    if(anchor&&anchor.parentNode===panel) anchor.insertAdjacentElement('afterend',list); else { var reg=document.getElementById(desk+'train-register'); if(reg&&reg.parentNode) reg.parentNode.insertBefore(list,reg); else panel.appendChild(list); } }
+  var ar=cycleAr(), F=C2_DATA[desk], cats=[], keep={};
+  list.querySelectorAll('input').forEach(function(i){ keep[i.id]=i.value; });
+  F.forEach(function(r){ if(cats.indexOf(r.category)<0) cats.push(r.category); });
+  list.innerHTML=cats.map(function(cat){ var items=F.filter(function(r){ return r.category===cat; });
+    var cards=items.map(function(r,i){ var uid=desk+'-'+cat+'-'+i; C2_REG[uid]=r;
+      var ins=r.inputs.map(function(inp){ return '<label>'+(ar?inp.ar:inp.en)+'<input type="number" inputmode="decimal" id="c2i-'+uid+'-'+inp.key+'" oninput="c2Calc(\''+uid+'\')" placeholder="0"></label>'; }).join('');
+      return '<div class="ratio-card"><strong>'+(ar?r.name_ar:r.name_en)+'</strong><div class="ratio-formula">'+(ar?r.formula_ar:r.formula_en)+'</div><p class="ratio-explain">'+(ar?r.explain_ar:r.explain_en)+'</p><div class="ratio-calc">'+ins+'</div><div class="ratio-result" id="c2r-'+uid+'">—</div></div>'; }).join('');
+    return '<div class="ratio-category" data-cat="'+cat+'"><span class="ratio-cat-title">'+(ar?items[0].cat_ar:items[0].cat_en)+'</span><div class="ratio-cards">'+cards+'</div></div>'; }).join('');
+  Object.keys(keep).forEach(function(id){ var e=document.getElementById(id); if(e) e.value=keep[id]; });
+  Object.keys(C2_REG).forEach(function(uid){ if(uid.indexOf(desk+'-')===0) c2Calc(uid); });
+}
+function c2Calc(uid){
+  var r=C2_REG[uid]; if(!r) return; var v={}, any=false;
+  r.inputs.forEach(function(inp){ var e=document.getElementById('c2i-'+uid+'-'+inp.key); var s=e?e.value:''; if(s!=='') any=true; v[inp.key]=parseFloat(s)||0; });
+  var el=document.getElementById('c2r-'+uid); if(!el) return; if(!any){ el.textContent='—'; return; }
+  var x=r.compute(v); if(x===null||x===undefined||!isFinite(x)){ el.textContent='—'; return; }
+  var ar=cycleAr(), f=function(n){ return Number(n).toLocaleString('en-US',{maximumFractionDigits:2}); };
+  if(r.format==='pct') el.textContent=(x*100).toFixed(1)+'%';
+  else if(r.format==='int') el.textContent=f(x)+(ar?' بند':' items');
+  else if(r.format==='days') el.textContent=f(x)+(ar?' يوم':' days');
+  else if(r.format==='var') el.textContent=f(x)+(x>0?(ar?' (غير موات)':' (Unfavorable)'):(x<0?(ar?' (موات)':' (Favorable)'):''));
+  else el.textContent=f(x);
+}
+(function(){
+  if(!C2_ON) return;
+  var go=function(){ try{ c2Render('bc'); c2Render('aud'); }catch(e){} };
+  var lang=function(){ var o=window.setLanguage; if(typeof o!=='function'||o.__c2) return; var f=function(){ var r=o.apply(this,arguments); go(); return r; }; f.__c2=true; window.setLanguage=f; };
+  go(); lang(); document.addEventListener('DOMContentLoaded',function(){ go(); lang(); }); window.addEventListener('load',function(){ go(); lang(); });
+})();
+
+
+/* ===== ERP: vendor bills and payments (practice copy of the company system) =====
+   Odoo-like screens: list, bill form with status bar, actions by status, three-way match, journal items, chatter, lock date, credit notes
+   and a payment run. Six tasks score 2 (no mistakes) or 1. A sandbox: entries stay here. ERP_ON=false removes it. */
+var ERP_ON=true, ERP_KEY='ah-erp-v1', ERP_TODAY='2026-11-23', ERP_LOCK='2026-10-31';
+var ERP_SUP={"delta":{"n":"Delta Supplies","bank":"ok","iban":"EG38 0019 0005 0000 0000 2631 4401 7"},"nile":{"n":"Nile Office Supplies","bank":"pending","iban":"EG38 0003 0201 0000 0000 7712 9030 1"},"print":{"n":"PrintLine","bank":"ok","iban":"EG38 0010 0115 0000 0000 4418 2207 9"},"tech":{"n":"TechGate Egypt","bank":"ok","iban":"EG38 0002 0412 0000 0000 3390 1185 2"},"cairo":{"n":"Cairo Office Hub","bank":"ok","iban":"EG38 0002 0412 0000 0000 7731 5400 1"}}, ERP_PO={"PO-7741":{"sup":"delta","l":[[{"en":"Office chair, ergonomic","ar":"كرسي مكتب طبي"},10,1200]]},"PO-7756":{"sup":"nile","l":[[{"en":"A4 paper, box of 5 reams","ar":"ورق A4، كرتونة 5 رزم"},50,180]]},"PO-7780":{"sup":"print","l":[[{"en":"Toner cartridge","ar":"خرطوشة حبر"},20,650]]},"PO-7769":{"sup":"tech","l":[[{"en":"Laptop docking station","ar":"قاعدة توصيل لابتوب"},4,3500]]},"PO-7791":{"sup":"cairo","l":[[{"en":"Meeting table","ar":"ترابيزة اجتماعات"},6,2000]]},"PO-7702":{"sup":"nile","l":[[{"en":"A4 paper, box of 5 reams","ar":"ورق A4، كرتونة 5 رزم"},40,190]]}}, ERP_GRN={"GRN-3302":{"po":"PO-7741","q":[10]},"GRN-3315":{"po":"PO-7756","q":[45]},"GRN-3330":{"po":"PO-7780","q":[20]},"GRN-3321":{"po":"PO-7769","q":[4]},"GRN-3341":{"po":"PO-7791","q":[6]},"GRN-3290":{"po":"PO-7702","q":[40]}}, ERP_SEED=[{"id":"b1","no":"BILL/2026/0101","sup":"delta","ref":"INV-55190","date":"2026-11-10","due":"2026-12-10","po":"PO-7741","grn":"GRN-3302","l":[[{"en":"Office chair, ergonomic","ar":"كرسي مكتب طبي"},10,1200]],"vat":0.14,"state":"draft","prep":"you","task":"t1","paid":false,"chat":[]},{"id":"b2","no":"BILL/2026/0102","sup":"nile","ref":"INV-8834","date":"2026-11-12","due":"2026-12-12","po":"PO-7756","grn":"GRN-3315","l":[[{"en":"A4 paper, box of 5 reams","ar":"ورق A4، كرتونة 5 رزم"},50,180]],"vat":0.14,"state":"draft","prep":"you","task":"t2","paid":false,"chat":[]},{"id":"b3","no":"BILL/2026/0103","sup":"print","ref":"PL-4471","date":"2026-11-13","due":"2026-12-13","po":"PO-7780","grn":"GRN-3330","l":[[{"en":"Toner cartridge","ar":"خرطوشة حبر"},20,650]],"vat":0.14,"state":"draft","prep":"you","task":"t3","paid":false,"chat":[]},{"id":"b4","no":"BILL/2026/0104","sup":"tech","ref":"TG-20914","date":"2026-11-12","due":"2026-12-12","po":"PO-7769","grn":"GRN-3321","l":[[{"en":"Laptop docking station","ar":"قاعدة توصيل لابتوب"},4,3500]],"vat":0.14,"state":"confirmed","prep":"mona","task":"t4","paid":false,"chat":[]},{"id":"b5","no":"BILL/2026/0095","sup":"print","ref":"PL-4471","date":"2026-11-03","due":"2026-11-18","po":"PO-7780","grn":"GRN-3330","l":[[{"en":"Toner cartridge","ar":"خرطوشة حبر"},20,650]],"vat":0.14,"state":"posted","prep":"mona","task":null,"paid":false,"chat":[]},{"id":"b6","no":"BILL/2026/0088","sup":"cairo","ref":"COH-1188","date":"2026-10-14","due":"2026-11-13","po":"PO-7791","grn":"GRN-3341","l":[[{"en":"Meeting table","ar":"ترابيزة اجتماعات"},6,2000]],"vat":0.18,"state":"posted","prep":"mona","task":"t5","paid":false,"chat":[]},{"id":"b7","no":"BILL/2026/0090","sup":"nile","ref":"NS-3290","date":"2026-10-28","due":"2026-11-20","po":"PO-7702","grn":"GRN-3290","l":[[{"en":"A4 paper, box of 5 reams","ar":"ورق A4، كرتونة 5 رزم"},40,190]],"vat":0.14,"state":"posted","prep":"mona","task":null,"paid":false,"chat":[]}], ERP_TASKS=[{"id":"t1","doc":"b1","t":{"en":"Process Delta Supplies' bill from draft to posted.","ar":"مشّي فاتورة دلتا للتوريدات من مسودة لحد الترحيل."}},{"id":"t2","doc":"b2","t":{"en":"Deal with Nile Office Supplies' new bill.","ar":"اتصرف في فاتورة النيل للأدوات المكتبية الجديدة."}},{"id":"t3","doc":"b3","t":{"en":"Deal with PrintLine's new bill.","ar":"اتصرف في فاتورة برنت لاين الجديدة."}},{"id":"t4","doc":"b4","t":{"en":"Mona prepared TechGate's bill. Take it to posted the right way.","ar":"منى جهّزت فاتورة تك جيت. وصّلها للترحيل بالطريقة الصح."}},{"id":"t5","doc":"b6","t":{"en":"Cairo Office Hub's October bill was posted with 18% VAT. Correct it properly.","ar":"فاتورة كايرو أوفيس هب بتاعة أكتوبر اترحّلت بضريبة 18%. صحّحها بالطريقة الصح."}},{"id":"t6","doc":"pay","t":{"en":"Run today's supplier payment.","ar":"اعمل دفعة سداد الموردين النهاردة."}}], ERP_U={"app":{"en":"Accounting · Vendors","ar":"المحاسبة · الموردين"},"today":{"en":"Today in the system","ar":"النهاردة في السيستم"},"lock":{"en":"Lock date","ar":"تاريخ القفل"},"bills":{"en":"Bills","ar":"الفواتير"},"pays":{"en":"Payments","ar":"المدفوعات"},"tasks":{"en":"Today's tasks","ar":"مهام النهاردة"},"back":{"en":"← Bills","ar":"→ الفواتير"},"backP":{"en":"← Payments","ar":"→ المدفوعات"},"draft":{"en":"Draft","ar":"مسودة"},"confirmed":{"en":"Confirmed","ar":"مؤكدة"},"approved":{"en":"Approved","ar":"معتمدة"},"posted":{"en":"Posted","ar":"مرحّلة"},"hold":{"en":"On hold","ar":"معلّقة"},"cancel":{"en":"Cancelled","ar":"ملغاة"},"reversed":{"en":"Reversed","ar":"معكوسة"},"paid":{"en":"Paid","ar":"مدفوعة"},"sup":{"en":"Supplier","ar":"المورد"},"ref":{"en":"Bill reference","ar":"رقم فاتورة المورد"},"date":{"en":"Bill date","ar":"تاريخ الفاتورة"},"due":{"en":"Due date","ar":"تاريخ الاستحقاق"},"prep":{"en":"Prepared by","ar":"جهّزها"},"you":{"en":"You","ar":"إنت"},"mona":{"en":"Mona Adel","ar":"منى عادل"},"system":{"en":"System","ar":"السيستم"},"match":{"en":"Three-way match","ar":"المطابقة الثلاثية"},"qtyOk":{"en":"quantity","ar":"الكمية"},"priceOk":{"en":"price","ar":"السعر"},"billed":{"en":"billed","ar":"مفوتر"},"received":{"en":"received","ar":"مستلم"},"lines":{"en":"Lines","ar":"السطور"},"je":{"en":"Journal items","ar":"القيود"},"jePrev":{"en":"Preview — nothing is posted yet","ar":"معاينة — لسه مفيش ترحيل"},"item":{"en":"Item","ar":"الصنف"},"qty":{"en":"Qty","ar":"الكمية"},"price":{"en":"Price","ar":"السعر"},"amt":{"en":"Amount","ar":"المبلغ"},"untaxed":{"en":"Untaxed","ar":"قبل الضريبة"},"vat":{"en":"VAT","ar":"الضريبة"},"total":{"en":"Total","ar":"الإجمالي"},"acct":{"en":"Account","ar":"الحساب"},"dr":{"en":"Debit","ar":"مدين"},"cr":{"en":"Credit","ar":"دائن"},"chat":{"en":"Log","ar":"السجل"},"aConfirm":{"en":"Confirm","ar":"تأكيد"},"aHold":{"en":"Put on hold","ar":"تعليق"},"aCancel":{"en":"Cancel bill","ar":"إلغاء الفاتورة"},"aRelease":{"en":"Release to draft","ar":"رجوع لمسودة"},"aApproveMe":{"en":"Approve (myself)","ar":"اعتماد (بنفسي)"},"aSendFM":{"en":"Send to Finance Manager","ar":"إرسال للمدير المالي"},"aPost":{"en":"Post","ar":"ترحيل"},"aCredit":{"en":"Add credit note","ar":"إشعار دائن"},"aReset":{"en":"Reset to draft","ar":"إرجاع لمسودة"},"payrun":{"en":"New payment run","ar":"دفعة سداد جديدة"},"candidates":{"en":"Posted bills not yet paid","ar":"فواتير مرحّلة لسه ماتدفعتش"},"bank":{"en":"Bank details","ar":"بيانات البنك"},"bankOk":{"en":"verified","ar":"متحقق منها"},"bankPend":{"en":"change pending verification","ar":"تغيير لسه ماتحققش"},"notDue":{"en":"not due yet","ar":"لسه مااستحقتش"},"isDue":{"en":"due","ar":"مستحقة"},"createPay":{"en":"Create payment","ar":"إنشاء الدفعة"},"who":{"en":"Who approves this payment?","ar":"مين يعتمد الدفعة دي؟"},"self":{"en":"Me","ar":"أنا"},"dept":{"en":"Department Head","ar":"رئيس القسم"},"fm":{"en":"Finance Manager / CFO (dual)","ar":"المدير المالي (مزدوج)"},"gm":{"en":"GM / Board","ar":"المدير العام / المجلس"},"send":{"en":"Send to bank","ar":"إرسال للبنك"},"noPays":{"en":"No payments yet.","ar":"لسه مفيش مدفوعات."},"selected":{"en":"Selected","ar":"المختار"},"done":{"en":"Done","ar":"خلصت"},"open":{"en":"Open","ar":"افتح"},"score":{"en":"Score","ar":"النتيجة"},"reset":{"en":"Start again","ar":"ابدأ من الأول"},"close":{"en":"Close","ar":"اقفل"},"intro":{"en":"A practice copy of the company system. Statuses, approvals, posting and payments work as in a real ERP; nothing here changes the trial balance in the desks.","ar":"نسخة تدريب من سيستم الشركة. الحالات والاعتمادات والترحيل والمدفوعات شغالة زي ERP حقيقي؛ ومفيش حاجة هنا بتغيّر ميزان المراجعة في المكاتب."},"readDoa":{"en":"Read POL-DOA-01","ar":"اقرا POL-DOA-01"},"readAp":{"en":"Read SOP-AP-01","ar":"اقرا SOP-AP-01"},"tile":{"en":"ERP: Bills & Payments","ar":"النظام: فواتير ومدفوعات"}}, ERP_FB={"t2Confirm":{"en":"Blocked by the three-way match: 50 billed, 45 received. Don't confirm — put it on hold and ask the supplier for a credit note for 5 boxes.","ar":"اتمنعت بالمطابقة الثلاثية: مفوتر 50 ومستلم 45. ماتأكدهاش، علّقها واطلب من المورد إشعار دائن بـ5 كراتين."},"t2Cancel":{"en":"It is a real bill for goods partly received — cancelling loses it. Put it on hold until the credit note arrives.","ar":"دي فاتورة حقيقية لبضاعة اتستلم جزء منها، والإلغاء بيضيّعها. علّقها لحد ما الإشعار الدائن يوصل."},"t2Ok":{"en":"Right. On hold: billed 50, received 45. It waits for the supplier's credit note before anything is posted.","ar":"صح. اتعلّقت: مفوتر 50 ومستلم 45. هتستنى الإشعار الدائن من المورد قبل أي ترحيل."},"t3Confirm":{"en":"Duplicate: the same supplier reference PL-4471 was already posted in BILL/2026/0095. Confirming it would pay the supplier twice.","ar":"مكررة: نفس رقم فاتورة المورد PL-4471 اترحّل قبل كده في BILL/2026/0095. تأكيدها هيدفع للمورد مرتين."},"t3Hold":{"en":"It is not waiting for anything — it is a duplicate of BILL/2026/0095. Cancel it.","ar":"هي مش مستنية حاجة؛ دي نسخة مكررة من BILL/2026/0095. ألغيها."},"t3Ok":{"en":"Right. Cancelled as a duplicate of BILL/2026/0095 — the supplier is paid once.","ar":"صح. اتلغت كمكررة من BILL/2026/0095، والمورد هيقبض مرة واحدة."},"selfOwn":{"en":"You prepared this bill, so you cannot approve it — whatever your limit. Send it to the Finance Manager.","ar":"إنت اللي جهّزت الفاتورة دي، فماينفعش تعتمدها مهما كان حدّك. ابعتها للمدير المالي."},"overLimit":{"en":"EGP {a} is above your personal limit ({l}). Send it to the Finance Manager.","ar":"{a} جنيه فوق حدّك الشخصي ({l}). ابعتها للمدير المالي."},"inLimit":{"en":"EGP {a} is within your personal limit ({l}) and Mona prepared it, so you can approve it yourself — no need to take the Finance Manager's time.","ar":"{a} جنيه في حدود حدّك الشخصي ({l})، ومنى اللي جهّزتها، فتقدر تعتمدها بنفسك من غير ما تاخد وقت المدير المالي."},"fmApproved":{"en":"Dr. Amr Sabry approved the bill.","ar":"د. عمرو صبري اعتمد الفاتورة."},"t5Reset":{"en":"Blocked: the bill is dated in October and the period is locked (31/10). A posted bill is corrected with a credit note, not edited.","ar":"اتمنع: الفاتورة بتاريخ أكتوبر والفترة مقفولة (31/10). الفاتورة المرحّلة بتتصحّح بإشعار دائن، مش بتتعدّل."},"t5Ok":{"en":"Right. The credit note reverses the bill in November, and a corrected draft with 14% VAT is ready to process.","ar":"صح. الإشعار الدائن عكس الفاتورة في نوفمبر، وفيه مسودة مصحّحة بضريبة 14% جاهزة تتمشّى."},"payNotDue":{"en":"{n} is not due yet ({d}). Pay on the due date, not early.","ar":"{n} لسه مااستحقتش ({d}). بندفع في ميعاد الاستحقاق، مش بدري."},"payBank":{"en":"{s} has a bank-detail change that is not verified. Leave its bills out until the change is confirmed with the supplier on the number on file.","ar":"{s} عنده تغيير في بيانات البنك ماتحققش. سيب فواتيره برّه لحد ما التغيير يتأكد مع المورد على الرقم المسجّل."},"payMissing":{"en":"{n} is due and its supplier is verified — it should be in today's run.","ar":"{n} مستحقة والمورد متحقق منه؛ لازم تكون في دفعة النهاردة."},"payReversed":{"en":"{n} has been reversed by a credit note — there is nothing to pay on it.","ar":"{n} اتعكست بإشعار دائن، ومفيش حاجة تتدفع عليها."},"payNone":{"en":"Select at least one bill.","ar":"اختار فاتورة واحدة على الأقل."},"paySelf":{"en":"You prepared the payment, so you cannot approve it.","ar":"إنت اللي جهّزت الدفعة، فماينفعش تعتمدها."},"payLow":{"en":"A supplier payment run of EGP {a} needs the Finance Manager / CFO with a second signature (up to 300,000).","ar":"دفعة سداد موردين بـ{a} جنيه محتاجة المدير المالي وتوقيع تاني (لحد 300,000)."},"payHigh":{"en":"Valid, but up to 300,000 the matrix sends supplier payment runs to the Finance Manager / CFO.","ar":"صحيح، بس لحد 300,000 المصفوفة بتبعت دفعات الموردين للمدير المالي."},"payOk":{"en":"Right. Approved by the Finance Manager with a second signatory. Now send it to the bank.","ar":"صح. اعتمدها المدير المالي بتوقيع تاني. ابعتها للبنك دلوقتي."},"paySent":{"en":"Sent to the bank. The bills are paid and the bank entry is posted.","ar":"اتبعتت للبنك. الفواتير اتدفعت وقيد البنك اترحّل."},"wrongGeneric":{"en":"That action does not fit this bill now.","ar":"الإجراء ده مش مناسب للفاتورة دي دلوقتي."}};
+var ERP={view:'list',id:null,tab:'lines',fb:null,fbOk:false,ask:null,sel:null,payId:null};
+function erpU(k){ var o=ERP_U[k]; return o?(cycleAr()?o.ar:o.en):k; }
+function erpT(o){ return o?(cycleAr()?o.ar:o.en):''; }
+function erpFB(k,r){ var s=erpT(ERP_FB[k]); if(r) Object.keys(r).forEach(function(x){ s=s.split('{'+x+'}').join(r[x]); }); return s; }
+function erpN(n){ return Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2}); }
+function erpD(s){ if(!s) return ''; var p=s.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
+function erpEsc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function erpNew(){ var s={v:1,seq:{bill:105,rbill:1,pay:1},bills:JSON.parse(JSON.stringify(ERP_SEED)),pays:[],tasks:{}};
+  s.bills.forEach(function(b){ b.chat=[{w:b.prep==='you'?'system':b.prep,e:'Bill '+b.no+' created from '+b.po,a:'الفاتورة '+b.no+' اتعملت من '+b.po}];
+    if(b.state==='confirmed') b.chat.push({w:'mona',e:'Confirmed',a:'اتأكدت'}); if(b.state==='posted') b.chat.push({w:'mona',e:'Posted',a:'اترحّلت'}); });
+  ERP_TASKS.forEach(function(t){ s.tasks[t.id]={done:false,p:null,m:0}; }); return s; }
+function erpLoad(){ var s=actGet(ERP_KEY,null); if(!s||s.v!==1) { s=erpNew(); actSet(ERP_KEY,s); } return s; }
+function erpSave(s){ actSet(ERP_KEY,s); }
+function erpBill(s,id){ for(var i=0;i<s.bills.length;i++) if(s.bills[i].id===id) return s.bills[i]; return null; }
+function erpTot(b){ var u=0; b.l.forEach(function(x){ u+=x[1]*x[2]; }); var v=Math.round(u*b.vat*100)/100; return {u:u,v:v,t:u+v}; }
+function erpMatch(b){ var po=ERP_PO[b.po], g=ERP_GRN[b.grn]; if(!po||!g) return {ok:false,q:false,p:false};
+  var q=b.l.every(function(x,i){ return x[1]===g.q[i]; }), p=b.l.every(function(x,i){ return po.l[i]&&x[2]===po.l[i][2]; }); return {ok:q&&p,q:q,p:p,bq:b.l[0][1],rq:g.q[0]}; }
+function erpLog(b,e,a,w){ b.chat.push({w:w||'you',e:e,a:a}); }
+function erpLimit(){ return (typeof apprLimit==='function')?apprLimit():10000; }
+function erpLimTxt(){ var L=erpLimit(); return L?(typeof apprFmt==='function'?apprFmt(L,cycleAr()):erpN(L)):(cycleAr()?'لسه مفيش':'none yet'); }
+function erpMistake(s,tid,msg){ if(tid&&s.tasks[tid]&&!s.tasks[tid].done) s.tasks[tid].m++; ERP.fb=msg; ERP.fbOk=false; erpSave(s); erpRender(false); }
+function erpDone(s,tid,msg){ var T=s.tasks[tid]; if(!T||T.done){ ERP.fb=msg; ERP.fbOk=true; erpSave(s); erpRender(false); return; } T.done=true; T.p=T.m?1:2;
+  var t=ERP_TASKS.filter(function(x){ return x.id===tid; })[0];
+  try{ actLog('erp','ap',T.p,2,tid,{e:'ERP: '+t.t.en,a:'النظام: '+t.t.ar}); }catch(e){} try{ plRenderStrip(); }catch(e){}
+  ERP.fb=msg; ERP.fbOk=true; erpSave(s); erpRender(false); }
+/* ---- bill actions ---- */
+function erpAct(a){
+  var s=erpLoad(), b=erpBill(s,ERP.id); if(!b) return; var tid=b.task; ERP.ask=null;
+  if(a==='confirm'){
+    if(b.id==='b2') return erpMistake(s,tid,erpFB('t2Confirm'));
+    if(b.id==='b3') return erpMistake(s,tid,erpFB('t3Confirm'));
+    if(!erpMatch(b).ok) return erpMistake(s,tid,erpFB('wrongGeneric'));
+    b.state='confirmed'; erpLog(b,'Confirmed','اتأكدت'); ERP.fb=null; erpSave(s); return erpRender(false); }
+  if(a==='hold'){
+    if(b.id==='b2'){ b.state='hold'; erpLog(b,'On hold: billed 50, received 45 — credit note requested','اتعلّقت: مفوتر 50 ومستلم 45 — اتطلب إشعار دائن'); return erpDone(s,tid,erpFB('t2Ok')); }
+    if(b.id==='b3') return erpMistake(s,tid,erpFB('t3Hold'));
+    return erpMistake(s,tid,erpFB('wrongGeneric')); }
+  if(a==='cancel'){
+    if(b.id==='b3'){ b.state='cancel'; erpLog(b,'Cancelled: duplicate of BILL/2026/0095','اتلغت: مكررة من BILL/2026/0095'); return erpDone(s,tid,erpFB('t3Ok')); }
+    if(b.id==='b2') return erpMistake(s,tid,erpFB('t2Cancel'));
+    return erpMistake(s,tid,erpFB('wrongGeneric')); }
+  if(a==='release'){ b.state='draft'; erpLog(b,'Released to draft','رجعت مسودة'); ERP.fb=null; erpSave(s); return erpRender(false); }
+  if(a==='approveMe'||a==='sendFM'){
+    var amt=erpTot(b).t, lim=erpLimit(), own=(b.prep==='you'), rightMe=(!own&&amt<=lim);
+    if(a==='approveMe'){
+      if(own) return erpMistake(s,tid,erpFB('selfOwn'));
+      if(!rightMe) return erpMistake(s,tid,erpFB('overLimit',{a:erpN(amt),l:erpLimTxt()}));
+      b.state='approved'; erpLog(b,'Approved (within the approver\'s limit)','اتعتمدت (في حدود صلاحية المعتمد)'); ERP.fb=null; erpSave(s); return erpRender(false); }
+    if(rightMe) return erpMistake(s,tid,erpFB('inLimit',{a:erpN(amt),l:erpLimTxt()}));
+    b.state='approved'; erpLog(b,'Approval requested from the Finance Manager','اتطلب الاعتماد من المدير المالي'); erpLog(b,'Approved','اعتمدها','amr');
+    ERP.fb=erpFB('fmApproved'); ERP.fbOk=true; erpSave(s); return erpRender(false); }
+  if(a==='post'){ b.state='posted'; erpLog(b,'Posted','اترحّلت');
+    if(tid==='t1'||tid==='t4') return erpDone(s,tid,cycleAr()?'صح. الفاتورة اترحّلت والقيد ظاهر في تبويب القيود.':'Right. The bill is posted — see the journal items.');
+    ERP.fb=null; erpSave(s); return erpRender(false); }
+  if(a==='reset'){ if(b.date<=ERP_LOCK) return erpMistake(s,tid,erpFB('t5Reset')); b.state='draft'; erpLog(b,'Reset to draft','رجعت مسودة'); ERP.fb=null; erpSave(s); return erpRender(false); }
+  if(a==='credit'){
+    b.state='reversed'; var r={id:'r'+s.seq.rbill,no:'RBILL/2026/'+String(s.seq.rbill).padStart(4,'0'),sup:b.sup,ref:'CN '+b.ref,date:ERP_TODAY,due:ERP_TODAY,po:b.po,grn:b.grn,l:b.l,vat:b.vat,state:'posted',prep:'you',task:null,paid:false,credit:b.id,chat:[]};
+    s.seq.rbill++; erpLog(r,'Credit note reversing '+b.no,'إشعار دائن عاكس لـ'+b.no); s.bills.push(r);
+    var c={id:'c'+s.seq.bill,no:'BILL/2026/0'+String(s.seq.bill),sup:b.sup,ref:b.ref+'-R',date:ERP_TODAY,due:'2026-12-23',po:b.po,grn:b.grn,l:b.l,vat:0.14,state:'draft',prep:'you',task:null,paid:false,chat:[]};
+    s.seq.bill++; erpLog(c,'Corrected bill (VAT 14%) replacing '+b.no,'فاتورة مصحّحة (ضريبة 14%) بدل '+b.no); s.bills.push(c);
+    erpLog(b,'Reversed by '+r.no,'اتعكست بـ'+r.no);
+    if(tid==='t5') return erpDone(s,tid,erpFB('t5Ok'));
+    ERP.fb=null; erpSave(s); return erpRender(false); }
+}
+/* ---- payment run ---- */
+function erpCands(s){ return s.bills.filter(function(b){ return b.state==='posted'&&!b.paid&&!b.credit; }); }
+function erpPayStart(){ ERP.view='payrun'; ERP.sel={}; ERP.fb=null; ERP.ask=null; erpRender(true); }
+function erpToggle(id){ ERP.sel[id]=!ERP.sel[id]; ERP.fb=null; erpRender(false); }
+function erpPayCreate(){
+  var s=erpLoad(), C=erpCands(s), ids=Object.keys(ERP.sel).filter(function(k){ return ERP.sel[k]; });
+  if(!ids.length){ ERP.fb=erpFB('payNone'); ERP.fbOk=false; return erpRender(false); }
+  for(var i=0;i<ids.length;i++){ var b=erpBill(s,ids[i]);
+    if(b.due>ERP_TODAY) return erpMistake(s,'t6',erpFB('payNotDue',{n:b.no,d:erpD(b.due)}));
+    if(ERP_SUP[b.sup].bank!=='ok') return erpMistake(s,'t6',erpFB('payBank',{s:ERP_SUP[b.sup].n})); }
+  var miss=C.filter(function(b){ return b.due<=ERP_TODAY&&ERP_SUP[b.sup].bank==='ok'&&!ERP.sel[b.id]; });
+  if(miss.length) return erpMistake(s,'t6',erpFB('payMissing',{n:miss[0].no}));
+  var amt=0; ids.forEach(function(id){ amt+=erpTot(erpBill(s,id)).t; });
+  var p={id:'p'+s.seq.pay,no:'PAY/2026/'+String(s.seq.pay).padStart(4,'0'),bills:ids,amt:amt,state:'draft',chat:[{w:'you',e:'Payment run created',a:'دفعة السداد اتعملت'}]};
+  s.seq.pay++; s.pays.push(p); ERP.payId=p.id; ERP.view='pay1'; ERP.fb=null; ERP.ask='payApprove'; erpSave(s); erpRender(true);
+}
+function erpPayApprove(k){
+  var s=erpLoad(), p=s.pays.filter(function(x){ return x.id===ERP.payId; })[0]; if(!p) return; var right=p.amt<=300000?'fm':'gm', R={self:0,dept:1,fm:2,gm:3};
+  if(k==='self') return erpMistake(s,'t6',erpFB('paySelf'));
+  if(R[k]<R[right]) return erpMistake(s,'t6',erpFB('payLow',{a:erpN(p.amt)}));
+  if(k!==right) s.tasks.t6.m++;
+  p.state='approved'; p.chat.push({w:'amr',e:'Approved with a second signatory',a:'اتعتمدت بتوقيع تاني'}); ERP.ask=null;
+  ERP.fb=(k===right)?erpFB('payOk'):erpFB('payHigh'); ERP.fbOk=true; erpSave(s); erpRender(false);
+}
+function erpPaySend(){
+  var s=erpLoad(), p=s.pays.filter(function(x){ return x.id===ERP.payId; })[0]; if(!p||p.state!=='approved') return;
+  p.state='sent'; p.chat.push({w:'you',e:'Sent to the bank',a:'اتبعتت للبنك'}); p.bills.forEach(function(id){ var b=erpBill(s,id); b.paid=true; erpLog(b,'Paid by '+p.no,'اتدفعت بـ'+p.no); });
+  erpDone(s,'t6',erpFB('paySent'));
+}
+/* ---- rendering ---- */
+function erpModal(){
+  var m=document.getElementById('erpModal'); if(m) return m;
+  m=document.createElement('div'); m.id='erpModal'; m.className='rt-ov'; m.hidden=true;
+  m.innerHTML='<div class="rt-dlg erp-dlg" role="dialog" aria-modal="true" aria-labelledby="erpTitle"><div class="rt-top"><h2 id="erpTitle" class="rt-dt" tabindex="-1"></h2><button type="button" class="rt-x" onclick="erpClose()">✕</button></div><div id="erpBody" class="rt-body"></div></div>';
+  m.addEventListener('keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); erpClose(); } });
+  document.body.appendChild(m); return m;
+}
+function erpOpen(view,id){ if(!ERP_ON) return; var m=erpModal(); if(m.hidden) ERP.back=document.activeElement; m.hidden=false; document.documentElement.classList.add('rt-lock'); erpLoad(); ERP.fb=null; ERP.ask=null; ERP.view=view||'list'; ERP.id=id||null; erpRender(true); }
+function erpClose(){ var m=document.getElementById('erpModal'); if(m) m.hidden=true; document.documentElement.classList.remove('rt-lock'); try{ if(ERP.back&&ERP.back.focus&&document.body.contains(ERP.back)) ERP.back.focus(); }catch(e){} try{ erpCard(); }catch(e){} }
+function erpGo(view,id){ ERP.view=view; ERP.id=id||null; ERP.fb=null; ERP.ask=null; ERP.tab='lines'; erpRender(true); }
+function erpReset(){ actSet(ERP_KEY,erpNew()); ERP.view='tasks'; ERP.fb=null; erpRender(true); }
+function erpBadge(st,paid){ var k=paid?'paid':st; return '<span class="erp-badge erp-'+k+'">'+erpU(k)+'</span>'; }
+function erpWho(w){ return w==='amr'?(cycleAr()?'د. عمرو صبري':'Dr. Amr Sabry'):erpU(w); }
+function erpRender(focus){
+  var m=document.getElementById('erpModal'); if(!m||m.hidden) return; var s=erpLoad(), ar=cycleAr(), b0=document.getElementById('erpBody'), tt=document.getElementById('erpTitle'), h='';
+  m.setAttribute('dir',ar?'rtl':'ltr'); m.setAttribute('lang',ar?'ar':'en'); tt.textContent='🖥️ '+erpU('app'); var x=m.querySelector('.rt-x'); if(x) x.setAttribute('aria-label',erpU('close'));
+  var left=ERP_TASKS.filter(function(t){ return !s.tasks[t.id].done; }).length;
+  h+='<p class="erp-sys">'+erpU('today')+': <bdi>'+erpD(ERP_TODAY)+'</bdi> · '+erpU('lock')+': <bdi>'+erpD(ERP_LOCK)+'</bdi></p>';
+  h+='<div class="erp-tabs" role="tablist">'+[['list','bills'],['pays','pays'],['tasks','tasks']].map(function(t){ var on=(ERP.view===t[0])||(t[0]==='list'&&ERP.view==='bill')||(t[0]==='pays'&&(ERP.view==='payrun'||ERP.view==='pay1'));
+    return '<button type="button" role="tab" aria-selected="'+on+'" class="erp-tab'+(on?' on':'')+'" onclick="erpGo(\''+t[0]+'\')">'+erpU(t[1])+(t[0]==='tasks'&&left?' <span class="erp-cnt">'+left+'</span>':'')+'</button>'; }).join('')+'</div>';
+  if(ERP.view==='list') h+=erpList(s); else if(ERP.view==='bill') h+=erpForm(s); else if(ERP.view==='pays') h+=erpPays(s); else if(ERP.view==='payrun') h+=erpRun(s); else if(ERP.view==='pay1') h+=erpPay1(s); else h+=erpTasks(s);
+  b0.innerHTML=h; if(focus!==false){ b0.scrollTop=0; try{ tt.focus({preventScroll:true}); }catch(e){ try{ tt.focus(); }catch(e2){} } }
+  var fb=b0.querySelector('.erp-fb'); if(fb&&focus===false&&fb.scrollIntoView) fb.scrollIntoView({block:'nearest'});
+}
+function erpFbHtml(refs){ if(!ERP.fb) return ''; return '<div class="rt-out erp-fb rt-out-'+(ERP.fbOk?'block':'later')+'" role="alert"><p class="rt-p">'+erpEsc(ERP.fb)+'</p>'+(ERP.fbOk?'':'<div class="erp-refs">'+(refs||[]).map(function(c){ return '<button type="button" class="rt-lnk" onclick="erpClose();try{sopOpen(\''+c+'\')}catch(e){}">'+(cycleAr()?'اقرا ':'Read ')+c+'</button>'; }).join('')+'</div>')+'</div>'; }
+function erpList(s){
+  var h='<p class="rt-p erp-intro">'+erpU('intro')+'</p><ul class="erp-list">';
+  s.bills.slice().sort(function(a,b){ return a.date<b.date?1:-1; }).forEach(function(b){ var T=erpTot(b), task=b.task&&!s.tasks[b.task].done;
+    h+='<li><button type="button" class="erp-row" onclick="erpGo(\'bill\',\''+b.id+'\')"><span class="erp-r1"><b><bdi>'+b.no+'</bdi></b>'+erpBadge(b.state,b.paid)+'</span><span class="erp-r2">'+erpEsc(ERP_SUP[b.sup].n)+' · <bdi>'+b.ref+'</bdi></span><span class="erp-r3"><bdi>'+erpN(T.t)+'</bdi> '+(cycleAr()?'جنيه':'EGP')+' · '+erpU('due')+' <bdi>'+erpD(b.due)+'</bdi>'+(task?' <span class="erp-task">🎯</span>':'')+'</span></button></li>'; });
+  return h+'</ul>';
+}
+function erpForm(s){
+  var b=erpBill(s,ERP.id); if(!b) return ''; var ar=cycleAr(), T=erpTot(b), M=erpMatch(b), steps=['draft','confirmed','approved','posted'], idx=steps.indexOf(b.state);
+  var h='<button type="button" class="rt-lnk erp-back" onclick="erpGo(\'list\')">'+erpU('back')+'</button><div class="erp-head"><h3 class="erp-no"><bdi>'+b.no+'</bdi></h3>'+erpBadge(b.state,b.paid)+'</div>';
+  h+='<ol class="erp-steps">'+steps.map(function(st,i){ return '<li class="'+(i<idx?'past':(i===idx?'cur':''))+'">'+erpU(st)+'</li>'; }).join('')+'</ol>';
+  var acts=[]; if(b.state==='draft') acts=['confirm','hold','cancel']; else if(b.state==='confirmed') acts=['approveMe','sendFM']; else if(b.state==='approved') acts=['post']; else if(b.state==='posted'&&!b.credit) acts=b.paid?[]:['credit','reset']; else if(b.state==='hold') acts=['release'];
+  var lab={confirm:'aConfirm',hold:'aHold',cancel:'aCancel',release:'aRelease',approveMe:'aApproveMe',sendFM:'aSendFM',post:'aPost',credit:'aCredit',reset:'aReset'};
+  if(acts.length) h+='<div class="erp-acts">'+acts.map(function(a,i){ return '<button type="button" class="rt-btn'+(i===0?' rt-main':'')+' erp-act" data-a="'+a+'" onclick="erpAct(\''+a+'\')">'+erpU(lab[a])+'</button>'; }).join('')+'</div>';
+  h+=erpFbHtml(b.task==='t5'?['SOP-AP-01','SOP-GL-01']:(b.task==='t4'||b.task==='t1'?['POL-DOA-01','SOP-AP-01']:['SOP-AP-01']));
+  h+='<div class="erp-fields">'+[['sup',erpEsc(ERP_SUP[b.sup].n)],['ref','<bdi>'+b.ref+'</bdi>'],['date','<bdi>'+erpD(b.date)+'</bdi>'],['due','<bdi>'+erpD(b.due)+'</bdi>'],['prep',erpWho(b.prep)]].map(function(f){ return '<div class="erp-f"><span>'+erpU(f[0])+'</span><b>'+f[1]+'</b></div>'; }).join('')+'</div>';
+  if(!b.credit) h+='<div class="erp-smart"><span class="erp-chip">📄 <bdi>'+b.po+'</bdi></span><span class="erp-chip">📦 <bdi>'+b.grn+'</bdi></span><span class="erp-m '+(M.ok?'ok':'no')+'">'+erpU('match')+': '+(M.q?'✔ ':'✘ ')+erpU('qtyOk')+(M.q?'':' ('+erpU('billed')+' <bdi>'+M.bq+'</bdi>, '+erpU('received')+' <bdi>'+M.rq+'</bdi>)')+' · '+(M.p?'✔ ':'✘ ')+erpU('priceOk')+'</span></div>';
+  h+='<div class="erp-subtabs"><button type="button" class="erp-st'+(ERP.tab==='lines'?' on':'')+'" onclick="ERP.tab=\'lines\';erpRender(false)">'+erpU('lines')+'</button><button type="button" class="erp-st'+(ERP.tab==='je'?' on':'')+'" onclick="ERP.tab=\'je\';erpRender(false)">'+erpU('je')+'</button></div>';
+  if(ERP.tab==='lines'){
+    h+='<div class="erp-tw"><table class="erp-t"><thead><tr><th>'+erpU('item')+'</th><th>'+erpU('qty')+'</th><th>'+erpU('price')+'</th><th>'+erpU('amt')+'</th></tr></thead><tbody>'+b.l.map(function(x){ return '<tr><td>'+erpEsc(erpT(x[0]))+'</td><td class="n">'+erpN(x[1])+'</td><td class="n">'+erpN(x[2])+'</td><td class="n">'+erpN(x[1]*x[2])+'</td></tr>'; }).join('')+'</tbody></table></div>';
+    h+='<div class="erp-tot"><div><span>'+erpU('untaxed')+'</span><b><bdi>'+erpN(T.u)+'</bdi></b></div><div><span>'+erpU('vat')+' <bdi>'+Math.round(b.vat*100)+'%</bdi></span><b><bdi>'+erpN(T.v)+'</bdi></b></div><div class="g"><span>'+erpU('total')+'</span><b><bdi>'+erpN(T.t)+'</bdi></b></div></div>';
+  } else {
+    var sign=b.credit?-1:1, rows=[[ar?'المشتريات / المخزون':'Purchases / Inventory',T.u,0],[ar?'ضريبة مدخلات':'Input VAT',T.v,0],[(ar?'الموردين — ':'Accounts Payable — ')+ERP_SUP[b.sup].n,0,T.t]];
+    if(sign<0) rows=rows.map(function(r){ return [r[0],r[2],r[1]]; });
+    var posted=(b.state==='posted'||b.state==='reversed');
+    h+=(posted?'':'<p class="erp-prev">'+erpU('jePrev')+'</p>')+'<div class="erp-tw"><table class="erp-t"><thead><tr><th>'+erpU('acct')+'</th><th>'+erpU('dr')+'</th><th>'+erpU('cr')+'</th></tr></thead><tbody>'+rows.map(function(r){ return '<tr><td>'+erpEsc(r[0])+'</td><td class="n">'+(r[1]?erpN(r[1]):'')+'</td><td class="n">'+(r[2]?erpN(r[2]):'')+'</td></tr>'; }).join('')+'</tbody></table></div>';
+  }
+  h+='<div class="erp-chat"><div class="rt-lab">'+erpU('chat')+'</div><ul>'+b.chat.slice().reverse().map(function(c){ return '<li><b>'+erpWho(c.w)+'</b> · '+erpEsc(ar?c.a:c.e)+'</li>'; }).join('')+'</ul></div>';
+  return h;
+}
+function erpPays(s){
+  var h='<div class="erp-acts"><button type="button" class="rt-btn rt-main" onclick="erpPayStart()">'+erpU('payrun')+'</button></div>';
+  if(!s.pays.length) return h+'<p class="rt-p">'+erpU('noPays')+'</p>';
+  h+='<ul class="erp-list">'+s.pays.slice().reverse().map(function(p){ var st=p.state==='sent'?'paid':(p.state==='approved'?'approved':'draft');
+    return '<li><button type="button" class="erp-row" onclick="ERP.payId=\''+p.id+'\';ERP.view=\'pay1\';ERP.fb=null;ERP.ask=(\''+p.state+'\'===\'draft\')?\'payApprove\':null;erpRender(true)"><span class="erp-r1"><b><bdi>'+p.no+'</bdi></b>'+erpBadge(st,false)+'</span><span class="erp-r3"><bdi>'+erpN(p.amt)+'</bdi> '+(cycleAr()?'جنيه':'EGP')+' · '+p.bills.length+'</span></button></li>'; }).join('')+'</ul>';
+  return h;
+}
+function erpRun(s){
+  var C=erpCands(s), h='<button type="button" class="rt-lnk erp-back" onclick="erpGo(\'pays\')">'+erpU('backP')+'</button><div class="rt-lab">'+erpU('candidates')+'</div>';
+  h+='<ul class="erp-cands">'+C.map(function(b){ var due=b.due<=ERP_TODAY, ok=ERP_SUP[b.sup].bank==='ok', on=!!ERP.sel[b.id];
+    return '<li><label class="erp-cand"><input type="checkbox" '+(on?'checked':'')+' onchange="erpToggle(\''+b.id+'\')"><span><b><bdi>'+b.no+'</bdi></b> · '+erpEsc(ERP_SUP[b.sup].n)+'<br><bdi>'+erpN(erpTot(b).t)+'</bdi> · '+erpU('due')+' <bdi>'+erpD(b.due)+'</bdi> ('+erpU(due?'isDue':'notDue')+') · '+erpU('bank')+': <span class="'+(ok?'erp-okt':'erp-bad')+'">'+erpU(ok?'bankOk':'bankPend')+'</span></span></label></li>'; }).join('')+'</ul>';
+  var tot=0; Object.keys(ERP.sel).forEach(function(k){ if(ERP.sel[k]){ var b=erpBill(s,k); if(b) tot+=erpTot(b).t; } });
+  h+='<p class="rt-p">'+erpU('selected')+': <b><bdi>'+erpN(tot)+'</bdi></b></p>'+erpFbHtml(['SOP-AP-01'])+'<div class="erp-acts"><button type="button" class="rt-btn rt-main" onclick="erpPayCreate()">'+erpU('createPay')+'</button></div>';
+  return h;
+}
+function erpPay1(s){
+  var p=s.pays.filter(function(x){ return x.id===ERP.payId; })[0]; if(!p) return ''; var ar=cycleAr();
+  var h='<button type="button" class="rt-lnk erp-back" onclick="erpGo(\'pays\')">'+erpU('backP')+'</button><div class="erp-head"><h3 class="erp-no"><bdi>'+p.no+'</bdi></h3>'+erpBadge(p.state==='sent'?'paid':(p.state==='approved'?'approved':'draft'),false)+'</div>';
+  h+='<div class="erp-fields"><div class="erp-f"><span>'+erpU('total')+'</span><b><bdi>'+erpN(p.amt)+'</bdi></b></div><div class="erp-f"><span>'+erpU('bills')+'</span><b><bdi>'+p.bills.map(function(id){ return erpBill(s,id).no; }).join(', ')+'</bdi></b></div></div>';
+  if(ERP.ask==='payApprove'&&p.state==='draft') h+='<div class="rt-lab">'+erpU('who')+'</div><div class="rt-opts">'+['self','dept','fm','gm'].map(function(k){ return '<button type="button" class="rt-opt erp-who" data-k="'+k+'" onclick="erpPayApprove(\''+k+'\')">'+erpU(k)+'</button>'; }).join('')+'</div>';
+  h+=erpFbHtml(['POL-DOA-01','SOP-AP-01']);
+  if(p.state==='approved') h+='<div class="erp-acts"><button type="button" class="rt-btn rt-main" onclick="erpPaySend()">'+erpU('send')+'</button></div>';
+  if(p.state==='sent') h+='<div class="erp-tw"><table class="erp-t"><thead><tr><th>'+erpU('acct')+'</th><th>'+erpU('dr')+'</th><th>'+erpU('cr')+'</th></tr></thead><tbody><tr><td>'+(ar?'الموردين':'Accounts Payable')+'</td><td class="n">'+erpN(p.amt)+'</td><td></td></tr><tr><td>'+(ar?'البنك':'Bank')+'</td><td></td><td class="n">'+erpN(p.amt)+'</td></tr></tbody></table></div>';
+  h+='<div class="erp-chat"><div class="rt-lab">'+erpU('chat')+'</div><ul>'+p.chat.slice().reverse().map(function(c){ return '<li><b>'+erpWho(c.w)+'</b> · '+erpEsc(ar?c.a:c.e)+'</li>'; }).join('')+'</ul></div>';
+  return h;
+}
+function erpTasks(s){
+  var n=0, pts=0; var h='<ul class="erp-list">'+ERP_TASKS.map(function(t,i){ var T=s.tasks[t.id]; if(T.done){ n++; pts+=T.p; }
+    var go=t.doc==='pay'?'erpGo(\'pays\')':'erpGo(\'bill\',\''+t.doc+'\')';
+    return '<li><button type="button" class="erp-row" onclick="'+go+'"><span class="erp-r1"><b>'+(i+1)+'. '+erpT(t.t)+'</b></span><span class="erp-r3">'+(T.done?'✔ '+erpU('done')+' · <bdi>'+T.p+' / 2</bdi>':erpU('open')+(cycleAr()?' ←':' →'))+'</span></button></li>'; }).join('')+'</ul>';
+  return '<p class="rt-p">'+erpU('score')+': <b><bdi>'+pts+' / 12</bdi></b> · <bdi>'+n+' / 6</bdi></p>'+h+'<div class="erp-acts"><button type="button" class="rt-btn" onclick="erpReset()">'+erpU('reset')+'</button></div>';
+}
+/* ---- entry points: home tile and the payables desk card ---- */
+function erpCard(){
+  var home=document.getElementById('ap-home'); if(!home) return; var el=document.getElementById('erp-ap'), s=erpLoad(), left=ERP_TASKS.filter(function(t){ return !s.tasks[t.id].done; }).length, ar=cycleAr();
+  var html='<div class="rt-h"><span class="rt-ic" aria-hidden="true">🖥️</span><div><h3 class="rt-t">'+erpU('tile')+'</h3><p class="rt-s">'+erpU('intro')+'</p></div></div><div class="rt-acts"><button type="button" class="rt-btn rt-main" onclick="erpOpen(\'tasks\')">'+erpU('tasks')+(left?' ('+left+')':' ✔')+'</button><button type="button" class="rt-btn" onclick="erpOpen(\'list\')">'+erpU('bills')+'</button></div>';
+  if(!el){ var rt=document.getElementById('rt-ap'), mm=home.querySelector('.desk-card.mm-card'), at=rt||mm; if(!at||!at.parentNode) return;
+    el=document.createElement('section'); el.id='erp-ap'; el.className='desk-card rt-card erp-card'; el.setAttribute('data-dtab','practice'); at.parentNode.insertBefore(el,at); }
+  el.setAttribute('aria-label',erpU('tile')); el.innerHTML=html;
+}
+(function(){
+  if(!ERP_ON){ var t=document.getElementById('erpToolCard'); if(t) t.hidden=true; return; }
+  try{ PW.erp={ctl:2,cmp:1}; ACT_TOOLS.erp=['🖥️','ERP','النظام']; }catch(e){}
+  var busy=function(){ var o=window.pfBusy; if(typeof o!=='function'||o.__erp) return; var f=function(){ var m=document.getElementById('erpModal'); if(m&&!m.hidden) return true; return o.apply(this,arguments); }; f.__erp=true; window.pfBusy=f; };
+  var lang=function(){ var o=window.setLanguage; if(typeof o!=='function'||o.__erp) return; var f=function(){ var r=o.apply(this,arguments); try{ erpRender(false); erpCard(); }catch(e){} return r; }; f.__erp=true; window.setLanguage=f; };
+  var wrap=function(){ busy(); lang(); try{ erpCard(); }catch(e){} }; wrap(); document.addEventListener('DOMContentLoaded',wrap); window.addEventListener('load',wrap);
+})();
+
 /* ===== Site desk: "Prepare a progress certificate" (decision exercise; same arithmetic as form SITE-01-F03) =====
    SX_ON=false removes it (nothing else changes). Teaching data below is illustrative, not taken from any real contract. */
 const SX_ON=true;
@@ -35423,6 +35760,73 @@ body.dark-mode .rt-main{color:#0b0f14}
 .fu-from small{display:block;font-size:12.5px;line-height:17px;color:var(--ink)}
 .fu-msg{margin-top:12px}
 .fu-inline .rt-list{margin-top:6px}
+
+/* ===== ERP screens ===== */
+.erp-dlg{max-width:860px}
+.erp-sys{margin:0 0 8px;font-size:12.5px;line-height:18px;color:var(--ink);opacity:1}
+.erp-tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line-strong);margin-bottom:12px}
+.erp-tab{min-height:40px;padding:6px 12px;border:0;border-bottom:3px solid transparent;background:none;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.erp-tab.on{border-bottom-color:var(--brand)}
+.erp-cnt{display:inline-block;min-width:20px;padding:0 6px;border-radius:999px;background:#b45309;color:#fff;font-size:12px;line-height:18px}
+.erp-intro{margin-top:0}
+.erp-list,.erp-cands{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.erp-row{width:100%;text-align:start;display:flex;flex-direction:column;gap:3px;padding:10px 12px;border:1.5px solid var(--line-strong);border-radius:12px;background:var(--card);color:var(--ink);cursor:pointer;font-size:13.5px;line-height:19px}
+.erp-r1{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.erp-badge{display:inline-block;padding:1px 9px;border-radius:999px;font-size:12px;line-height:18px;font-weight:800;color:#fff}
+.erp-draft{background:#4b5563}.erp-confirmed{background:#1d4ed8}.erp-approved{background:#0f766e}.erp-posted{background:#166534}.erp-hold{background:#92400e}.erp-cancel{background:#991b1b}.erp-reversed{background:#6b21a8}.erp-paid{background:#5b21b6}
+.erp-back{margin-bottom:6px}
+.erp-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.erp-no{margin:0;font-size:17px;line-height:24px}
+.erp-steps{list-style:none;display:flex;flex-wrap:wrap;gap:4px;margin:10px 0;padding:0}
+.erp-steps li{padding:4px 10px;border-radius:999px;border:1.5px solid var(--line-strong);font-size:12.5px;line-height:17px;font-weight:700;color:var(--ink)}
+.erp-steps li.past{opacity:1;background:rgba(15,118,110,.10)}
+.erp-steps li.cur{background:var(--brand);border-color:var(--brand);color:#fff}
+body.dark-mode .erp-steps li.cur,body.dark-mode .erp-dlg .erp-steps li.cur{color:#0b0f14 !important}
+.erp-acts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.erp-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px 14px;margin:10px 0}
+.erp-f{display:flex;flex-direction:column;font-size:13px;line-height:18px}
+.erp-f span{color:var(--ink);opacity:.85}
+.erp-smart{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 10px}
+.erp-chip{padding:3px 10px;border-radius:8px;border:1.5px solid var(--line-strong);font-size:12.5px;line-height:18px;font-weight:700}
+.erp-m{font-size:12.5px;line-height:18px;font-weight:700}
+.erp-m.ok{color:#166534}.erp-m.no{color:#991b1b}
+body.dark-mode .erp-m.ok{color:#86efac} body.dark-mode .erp-m.no{color:#fca5a5}
+.erp-subtabs{display:flex;gap:6px;margin:8px 0}
+.erp-st{min-height:36px;padding:4px 12px;border-radius:8px;border:1.5px solid var(--line-strong);background:none;color:var(--ink);font-weight:700;cursor:pointer}
+.erp-st.on{background:rgba(15,118,110,.14);border-color:var(--brand)}
+.erp-tw{overflow-x:auto}
+.erp-t{width:100%;border-collapse:collapse;font-size:13px;line-height:18px}
+.erp-t th{text-align:start;border-bottom:1px solid var(--line-strong);padding:5px 4px}
+.erp-t td{border-bottom:1px solid var(--line);padding:5px 4px;vertical-align:top}
+.erp-t .n{text-align:end;white-space:nowrap}
+.erp-tot{display:flex;flex-direction:column;gap:2px;margin:8px 0;font-size:13.5px;line-height:19px}
+.erp-tot div{display:flex;justify-content:space-between;gap:10px}
+.erp-tot .g{font-size:15px;border-top:1px solid var(--line-strong);padding-top:4px}
+.erp-prev{margin:4px 0;font-size:12.5px;line-height:18px;font-weight:700;color:#92400e}
+body.dark-mode .erp-prev{color:#fcd34d}
+.erp-chat{margin-top:12px;border-top:1px solid var(--line-strong);padding-top:8px}
+.erp-chat ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:13px;line-height:18px}
+.erp-cand{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1.5px solid var(--line-strong);border-radius:12px;font-size:13px;line-height:19px;cursor:pointer}
+.erp-cand input{width:20px;height:20px;margin-top:2px;flex:none}
+.erp-okt{color:#166534;font-weight:700}.erp-bad{color:#991b1b;font-weight:700}
+body.dark-mode .erp-okt{color:#86efac} body.dark-mode .erp-bad{color:#fca5a5}
+.erp-refs{display:flex;flex-wrap:wrap;gap:6px}
+.erp-task{font-size:14px}
+
+
+/* ===== Calculator category titles: readable in both themes (all desks) =====
+   Dark mode turns the default title background into a light teal, so its text goes dark; the gold title is one shade darker. */
+body.dark-mode .ratio-category:not([data-cat="profitability"]):not([data-cat="activity"]):not([data-cat="leverage"]):not([data-cat="market"]) .ratio-cat-title{color:#0b0f14 !important}
+.ratio-category[data-cat="profitability"] .ratio-cat-title{background:#8a6508}
+
+
+/* ===== Approval gate ===== */
+.gt-dlg{max-width:520px}
+.gt-dlg .rt-opts{margin-top:12px}
+.gt-amt{margin:4px 0 0;font-size:15px;line-height:22px}
+.gt-row{font-size:13px;line-height:19px}
+.gt-note{margin:8px 0 0;padding:6px 10px;border-radius:8px;background:rgba(15,118,110,.10);font-size:13px;line-height:19px;font-weight:600;color:var(--ink)}
+
 
 /* ===== Small fixes ===== */
 html.ah-sb-open #ayBtn{visibility:hidden !important;pointer-events:none !important}
